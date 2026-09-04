@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "assets": [
+    {
+      "id": "classic-guardian",
+      "file": "classic-guardian.png",
+      "sha256": "c15f477731974f5aa4af731dcb020bbbce36a390f8b66341c03d8da0ec700237",
+      "source": "generated for QR Card Studio",
+      "sourceRecord": "source/classic-guardian.md",
+      "variant": "vizorcat-standard",
+      "usage": "original campaign pose with approved Classic Knight equipment design"
+    },
+    {
+      "id": "samurai",
+      "file": "samurai.png",
+      "sha256": "1e6bada864d0be0d13034df48ba7fe0618350a131a65348b2c550e224390d18d",
+      "source": "generated for QR Card Studio",
+      "sourceRecord": "source/samurai.md",
+      "variant": "one-eyed-boss",
+      "usage": "original campaign pose with hanbo, one sheathed katana, and secular gunbai; only Japanese-inspired campaign theme"
+    },
+    {
+      "id": "orbital-rescue-ranger",
+      "file": "orbital-rescue-ranger.png",
+      "sha256": "29ce194a4dc573536b74a88ac3d55a7f9fe06855cac5820d7aeca1f8dc2c5507",
+      "source": "generated for QR Card Studio",
+      "sourceRecord": "source/orbital-rescue-ranger.md",
+      "variant": "moonpoint-watcher",
+      "usage": "original secular orbital-rescue campaign character cutout"
+    },
+    {
+      "id": "astral-wayfinder",
+      "file": "astral-wayfinder-v2.png",
+      "sha256": "6242514b0211fc7cd94a3741605b2b918a94d00ea6cae73bf48489a5ce558574",
+      "source": "generated for QR Card Studio",
+      "sourceRecord": "source/astral-wayfinder-v2.md",
+      "variant": "lithe-scout",
+      "usage": "friendly celestial navigator campaign pose with one raised brass astrolabe"
+    },
+    {
+      "id": "commons-guide",
+      "file": "commons-guide.png",
+      "sha256": "fbd1a0bc037eacded8d26a3b18476803279f123f1b12f3b047b2a8e00c86fbdb",
+      "source": "generated and locally extracted for QR Card Studio",
+      "sourceRecord": "source/commons-guide-v2.md",
+      "variant": "warm-tabby",
+      "usage": "friendly campaign guide with a raised articulated Vizor and crossbody satchel"
+    },
+    {
+      "id": "crimson-grove-ranger",
+      "file": "crimson-grove-ranger.png",
+      "sha256": "30c6c342f0a59f4a1d1d4540fbedf547a9c4230d056c3f00e9c28dec57b75d83",
+      "source": "generated and locally extracted for QR Card Studio",
+      "sourceRecord": "source/crimson-grove-ranger.md",
+      "variant": "fluffy-warden",
+      "usage": "lively storybook princess-ranger presenting one blank invitation with a stowed bow and capped quiver"
+    },
+    {
+      "id": "siberian-snow-surveyor",
+      "file": "siberian-snow-surveyor-v2.png",
+      "sha256": "3ecc4f38f60e5b6542175b879e073570fb850f1b8f8b84e93a72864cc80b291c",
+      "source": "precisely reworked and locally extracted for QR Card Studio",
+      "sourceRecord": "source/siberian-snow-surveyor-v2.md",
+      "variant": "siberian-snowfield-explorer",
+      "usage": "snowfield surveyor lifting one articulated visor while leading the route with one lantern"
+    },
+    {
+      "id": "stonehold-warden",
+      "file": "stonehold-warden.png",
+      "sha256": "39712cf0d211489c45c15ecc3bb4826757876899c2719e50b7de8163dc041dd9",
+      "source": "iteratively edited and locally extracted for QR Card Studio",
+      "sourceRecord": "source/stonehold-warden.md",
+      "variant": "manx-inspired-celtic-warden",
+      "usage": "three-quarter Manx-inspired Celtic warden with a fitted open-face helmet, braided beard, and one grounded hammer"
+    },
+    {
+      "id": "hearthlight-host",
+      "file": "hearthlight-host.png",
+      "sha256": "5cc4014ce6f93a67a48ef169f57982c00b9a51e45044db6894b0baf375cb15a0",
+      "source": "generated, precisely reworked, and locally extracted for QR Card Studio",
+      "sourceRecord": "source/hearthlight-host.md",
+      "variant": "burmese-inspired-standard-geometry",
+      "usage": "secular winter-gathering host presenting one gift in a tailored open-face hood and coat"
+    },
+    {
+      "id": "nightglass-rider",
+      "file": "nightglass-rider.png",
+      "sha256": "bca2f34764ca126866ae609da448fdd622884ac649c7bf3c190c619d5ebcb66c",
+      "source": "generated, iteratively refined, and locally extracted for QR Card Studio",
+      "sourceRecord": "source/nightglass-rider.md",
+      "variant": "vizorcat-inspired-cybernetic-rider",
+      "usage": "compact feline masked rider with an empty nightglass face, one crimson holographic sight, and retained shadow wisps"
+    }
+  ]
+}

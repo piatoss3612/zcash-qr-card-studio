@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "assets": [
+    {
+      "id": "vizor",
+      "file": "../vizor-logo-dark.svg",
+      "sha256": "aec04eaefc4331c1a2de4c21a50ba59882aa64f9f4b63ebe0783aea5e8d27184",
+      "source": "QR Card Studio Vizor brand asset",
+      "usage": "movable Vizor brand sticker"
+    },
+    {
+      "id": "vizorcat-head",
+      "file": "vizorcat-classic-head.png",
+      "sha256": "40fcb92ccf090b3e8756c0ec8172cddd9a4d569d1bea4759a4e38337e09023ef",
+      "source": "derived from ../characters/classic-guardian.png",
+      "sourceRecord": "source/vizorcat-classic-head.md",
+      "usage": "movable Vizorcat mascot mark; also the app favicon (../vizorcat-icon.png)"
+    },
+    {
+      "id": "near-intents",
+      "file": "near-intents.svg",
+      "sha256": "bfe710a6972221f94ad82e01725da3f30ede02e9d53a6c187f66955f7fe4242f",
+      "source": "vizor-wallet-website/assets/svg/near-logo.svg",
+      "sourceRecord": "source/partner-logos.md",
+      "usage": "movable payment integration logo sticker"
+    },
+    {
+      "id": "keystone",
+      "file": "keystone.svg",
+      "sha256": "4c04b5f07b51d768338c4e64f9a26bd738ea8f8e8365ec07d2340697dc0d276f",
+      "source": "vizor-wallet-website/assets/svg/keystone.svg",
+      "sourceRecord": "source/partner-logos.md",
+      "usage": "movable supported hardware brand sticker"
+    },
+    {
+      "id": "ledger",
+      "file": "ledger.svg",
+      "sha256": "4e20b2904fc18f7eada33b3f8fa285e5996f6b881b7db8c51350c2b72c886926",
+      "source": "vizor-wallet/assets/icons/ledger_brand.svg",
+      "sourceRecord": "source/partner-logos.md",
+      "usage": "movable supported hardware brand sticker"
+    },
+    {
+      "id": "zcash",
+      "file": "zcash.svg",
+      "sha256": "9d2d7d03a2225ba401b626aa76555d9c4a713b6cfbc274d7d4de0d41909fa755",
+      "source": "vizor-wallet/assets/icons/zcash_currency.svg",
+      "sourceRecord": "source/partner-logos.md",
+      "usage": "movable Zcash network logo sticker"
+    },
+    {
+      "id": "zcash-coin",
+      "file": "zcash-coin.png",
+      "sha256": "fd2149c790f7db0924fb8af43d3f6a0df782253cc6acf027f66b9240857f1a0d",
+      "source": "vizor-wallet/assets/icons/network_zec.png",
+      "sourceRecord": "source/partner-logos.md",
+      "usage": "movable Zcash yellow coin logo sticker"
+    },
+    {
+      "id": "zechub",
+      "file": "zechub.png",
+      "sha256": "5606d86d86ffac51ef0e679d10eb10124f33b191632880f63be794b51377ab41",
+      "source": "https://zechub.wiki/zechubLogo.png",
+      "sourceRecord": "source/partner-logos.md",
+      "license": "CC-BY-SA-4.0",
+      "licenseUrl": "https://github.com/ZecHub/zechub/blob/main/LICENSE",
+      "usage": "movable ZecHub community logo sticker"
+    },
+    {
+      "id": "cypherpunk",
+      "file": "cypherpunk.svg",
+      "sha256": "309a3fbe8b3276a81071a6b688096f12af1d9069ca42e01c821bef7b7bb71450",
+      "source": "https://www.cypherpunk.com/icon.svg?icon.2i947yu28iyj0.svg",
+      "sourceRecord": "source/partner-logos.md",
+      "usage": "movable Cypherpunk Technologies square symbol sticker"
+    },
+    {
+      "id": "tachyon",
+      "file": "tachyon.png",
+      "sha256": "9b11e2109c51cee90ddda4e4eb8cc5645e06174b91afcd406de913567dd9fd23",
+      "source": "https://tachyon.z.cash/assets/tachyon/v1/logo-1000x1000.png",
+      "sourceRecord": "source/partner-logos.md",
+      "usage": "movable Project Tachyon logo sticker"
+    },
+    {
+      "id": "keplr",
+      "file": "keplr.svg",
+      "sha256": "69dc69afccd77b48907ebc07e97d45c302f9dc712098be16c32104e58e7478f3",
+      "source": "keplr-wallet/docs/static/img/keplr-logo.svg",
+      "sourceRecord": "source/partner-logos.md",
+      "usage": "movable Keplr brand sticker"
+    },
+    {
+      "id": "valar-group",
+      "file": "valar-group.png",
+      "sha256": "168dfa287bb4a4d6202d718ac4e26769676c79014c9bf55580767669c1f76e25",
+      "source": "https://valargroup.dev/apple-touch-icon.png",
+      "sourceRecord": "source/partner-logos.md",
+      "usage": "movable Valar Group brand sticker"
+    },
+    {
+      "id": "zakura",
+      "file": "zakura.svg",
+      "sha256": "b00b30cab805979181258491f6b5adc17b789f0c7f02318cc4f3c243bcb20e74",
+      "source": "https://zakura.com/zakura-flower-v1.svg",
+      "sourceRecord": "source/partner-logos.md",
+      "usage": "movable Zakura project logo sticker"
+    },
+    {
+      "id": "cipherscan",
+      "file": "cipherscan.png",
+      "sha256": "dc039bc8c4a91165517070b80eeb809ffcbae0d1753b1ae53a6343c870ab331d",
+      "source": "https://github.com/Kenbak/cipherscan/blob/main/public/icon-512.png",
+      "sourceRecord": "source/partner-logos.md",
+      "licenseRecord": "source/cipherscan-license.txt",
+      "usage": "movable CipherScan app logo sticker"
+    }
+  ]
+}

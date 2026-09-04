@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "backgrounds": [
+    {
+      "id": "wave",
+      "label": "Indigo Wave",
+      "file": "samurai-wave-v1.png",
+      "source": "source/samurai-wave-v1.md",
+      "sha256": "1bb2994d4c13fa58b1999934e7ec6d391a95678c64903a6fefcbdf29d4cdeebc"
+    },
+    {
+      "id": "blossom",
+      "label": "Blossom Drift",
+      "file": "blossom-drift-v1.png",
+      "source": "source/blossom-drift-v1.md",
+      "sha256": "01142372ca3b676a8b98fe850aede22b6461b57057cba80e691589ac68ef2826"
+    },
+    {
+      "id": "forest",
+      "label": "Whispering Grove",
+      "file": "whispering-grove-v1.png",
+      "source": "source/whispering-grove-v1.md",
+      "sha256": "2b8a6f51b6f5f9a96f5b1b773ec499a1a730c1484b7d8fadaa08db69f2a3e8e6"
+    },
+    {
+      "id": "dragon",
+      "label": "Dragon Flight",
+      "file": "dragon-flight-v1.png",
+      "source": "source/dragon-flight-v1.md",
+      "sha256": "7866f4f46b155d4e89d68777fc43128a848e0cfd7472bdfc23b25a7c05a21b08"
+    },
+    {
+      "id": "frost",
+      "label": "Frost Archive",
+      "file": "frost-archive-v2.png",
+      "source": "source/frost-archive-v2.md",
+      "sha256": "5d81644fbced809b96146cdf633b81a96d0be477daf51f8feca7129e8c58ceee"
+    },
+    {
+      "id": "hearth",
+      "label": "Hearthlight Exchange",
+      "file": "hearthlight-exchange-v2.png",
+      "source": "source/hearthlight-exchange-v2.md",
+      "sha256": "cf62c82790691de996622bcae8a97148f3f08d1d16b54113f8d52f08a8aa1ed5"
+    },
+    {
+      "id": "rampart",
+      "label": "Brass Rampart",
+      "file": "brass-rampart-v3.png",
+      "source": "source/brass-rampart-v3.md",
+      "sha256": "45655c4e4025cd289b5c8f3b84600c3a07396c1c59606b80862bf5626ccef70c"
+    },
+    {
+      "id": "lunar",
+      "label": "Lunar Orbit",
+      "file": "lunar-orbit-v2.png",
+      "source": "source/lunar-orbit-v2.md",
+      "sha256": "2e88a536b10aecc99c18c60574723800985296521e21f4d57ef775101c4a485f"
+    },
+    {
+      "id": "astral",
+      "label": "Astral Chart",
+      "file": "astral-chart-v2.png",
+      "source": "source/astral-chart-v2.md",
+      "sha256": "c7de3ed4ad074dbb30b8eb28a3917a4a33ade237d35a41d0f796a8e399520168"
+    },
+    {
+      "id": "crimson",
+      "label": "Crimson Core",
+      "file": "crimson-core-v3.png",
+      "source": "source/crimson-core-v3.md",
+      "sha256": "27f666e28ea6b119c2a310b4080d00e777b06924b87d5e470ebcd3752758be24"
+    },
+    {
+      "id": "dark",
+      "label": "Dark Core",
+      "file": "dark-core-v3.png",
+      "source": "source/dark-core-v3.md",
+      "sha256": "7927639a964ec2f910064ade114fa92f2a4d14a04bc3388199ae3fe72b0ea1c3"
+    },
+    {
+      "id": "commons",
+      "label": "Modernist Commons",
+      "file": "modernist-commons-v1.png",
+      "source": "source/modernist-commons-v1.md",
+      "sha256": "6377d1d9d70e94a021a53d227759af98e7ee0789b7eef579952f37ae711b51d9"
+    }
+  ]
+}
