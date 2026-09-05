@@ -78,3 +78,11 @@ test("light module colours warn on contrast", () => {
   scene.qrDesign.color = "#1d2c3a";
   assert.equal(byId(preflight(scene, { qr: okQr, qrCode: code }), "qr-contrast"), undefined);
 });
+
+test("an emblem on a dense code warns", () => {
+  const scene = createScene({ mode: "giftcard" });
+  scene.qrDesign.emblem = "vizor-mark";
+  const dense = { getModuleCount: () => 81 };
+  assert.equal(byId(preflight(scene, { qr: okQr, qrCode: dense }), "qr-emblem-dense").level, "warn");
+  assert.equal(byId(preflight(scene, { qr: okQr, qrCode: code }), "qr-emblem-dense"), undefined);
+});

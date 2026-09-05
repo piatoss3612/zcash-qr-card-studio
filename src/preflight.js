@@ -9,6 +9,8 @@ import { OUTPUT, QUIET_MODULES } from "./catalog.js";
  * a long ZIP-321 payload with a memo can push a 36 mm code below this.
  */
 export const QR_MIN_MODULE_MM = 0.45;
+/** Module count (per side) from which a centre emblem starts to hurt scanning. */
+export const QR_DENSE_MODULES = 69;
 
 const MM_PER_PX = 25.4 / OUTPUT.dpi;
 
@@ -187,7 +189,20 @@ export function preflight(scene, { qr = { value: null, error: null, warnings: []
     checks.push({ id: "safe-area", level: "pass", title: "Text and logos inside the safe area", detail: "Nothing will be trimmed." });
   }
 
-  // 6. Module colour contrast against the panel (scanners want dark on light)
+  // 6. Emblem on a dense code: the emblem eats into the error-correction budget
+  //    that a long payload already needs, so phones start to miss it.
+  const emblem = scene.qrDesign?.emblem;
+  if (emblem && emblem !== "none" && qrCode && qrCode.getModuleCount() >= QR_DENSE_MODULES) {
+    checks.push({
+      id: "qr-emblem-dense",
+      level: "warn",
+      title: "Emblem on a dense code",
+      detail: `${qrCode.getModuleCount()} modules per side. Long links scan better without a centre emblem.`,
+      layerId: qrLayer?.id,
+    });
+  }
+
+  // 7. Module colour contrast against the panel (scanners want dark on light)
   const moduleColor = scene.qrDesign?.color;
   if (moduleColor) {
     const ratio = contrastRatio(moduleColor, "#ffffff");
