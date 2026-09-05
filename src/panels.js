@@ -323,6 +323,11 @@ export function createPanels(app) {
       addLayer(scene(), made);
       return true;
     });
+    // Jump straight into the text so the drawer → properties hop is one step.
+    requestAnimationFrame(() => {
+      el.textContent.focus();
+      el.textContent.select();
+    });
   }
 
   // ------------------------------------------------------------ content
@@ -1058,6 +1063,15 @@ export function createPanels(app) {
   for (const action of el.contextMenuActions) {
     action.addEventListener("click", () => runLayerAction(action.dataset.layerAction));
   }
+
+  el.status.addEventListener("click", () => {
+    if (el.status.dataset.state !== "error") return;
+    const field = el.modeFieldsets
+      .find((fieldset) => !fieldset.hidden)
+      ?.querySelector("input, textarea");
+    field?.focus();
+    field?.select?.();
+  });
 
   el.fileButton.addEventListener("click", () => {
     const open = el.fileMenu.hidden;

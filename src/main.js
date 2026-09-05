@@ -32,6 +32,7 @@ let stickyUntil = 0;
 function writeStatus(text, state) {
   statusOutput.textContent = text;
   statusOutput.dataset.state = state;
+  statusOutput.title = state === "error" ? "Click to jump to the QR content" : "";
 }
 
 /** Show a message that survives the next few renders. */
