@@ -1951,6 +1951,39 @@ textarea::placeholder {
   background: #fbfbfa;
 }
 
+.layer-list li[draggable="true"] {
+  cursor: grab;
+}
+
+.layer-list li.is-dragging {
+  opacity: 0.45;
+}
+
+.layer-list li.drop-above,
+.layer-list li.drop-below {
+  position: relative;
+}
+
+.layer-list li.drop-above::before,
+.layer-list li.drop-below::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--brand);
+  pointer-events: none;
+}
+
+.layer-list li.drop-above::before {
+  top: -4px;
+}
+
+.layer-list li.drop-below::after {
+  bottom: -4px;
+}
+
 .layer-list li.is-selected {
   border-color: rgba(185, 10, 74, 0.32);
   background: var(--brand-soft);

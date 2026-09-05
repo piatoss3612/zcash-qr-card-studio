@@ -20,6 +20,7 @@ import {
   restore,
   selectLayer,
   selectedLayer,
+  setLayerOrder,
   setIncludeInstall,
   setLayerProps,
   setMode,
@@ -335,4 +336,20 @@ test("History honours its limit", () => {
   for (let step = 0; step < 10; step += 1) history.push({ step });
   assert.equal(history.size, 3);
   assert.deepEqual(history.undo({ step: 10 }), { step: 9 });
+});
+
+test("setLayerOrder replaces the draw order and pins the background", () => {
+  const scene = createScene({ mode: "link" });
+  const a = addLayer(scene, makeTextLayer("heading", scene));
+  const b = addLayer(scene, makeTextLayer("body", scene));
+  const before = [...scene.order];
+  assert.equal(setLayerOrder(scene, [a.id]), false, "wrong size is rejected");
+  assert.equal(setLayerOrder(scene, [...before].map((id) => (id === a.id ? "nope" : id))), false, "unknown id is rejected");
+  assert.equal(setLayerOrder(scene, before), false, "identical order reports no change");
+  const swapped = before.map((id) => (id === a.id ? b.id : id === b.id ? a.id : id));
+  assert.equal(setLayerOrder(scene, swapped), true);
+  assert.deepEqual(scene.order, swapped);
+  const bgLast = [...swapped.filter((id) => id !== "background"), "background"];
+  assert.equal(setLayerOrder(scene, bgLast), false, "background is pinned, so this is the same order");
+  assert.equal(scene.order[0], "background");
 });

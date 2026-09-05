@@ -25,6 +25,7 @@ import {
   selectLayer,
   selectedLayer,
   setIncludeInstall,
+  setLayerOrder,
   setLayerProps,
   setMode,
   snapshot,
@@ -457,6 +458,60 @@ export function createPanels(app) {
     return `${Math.round(layer.width)} × ${Math.round(layer.height ?? 0)}`;
   }
 
+  // Drag a layer row to reorder. Background never moves; locked layers stay put.
+  let dragLayerId = null;
+
+  function clearDropMarks() {
+    for (const row of el.layerList.querySelectorAll(".drop-above, .drop-below")) {
+      row.classList.remove("drop-above", "drop-below");
+    }
+  }
+
+  function attachRowDrag(row, layer) {
+    const draggable = layer.kind !== "background" && !layer.locked;
+    row.draggable = draggable;
+    if (draggable) {
+      row.addEventListener("dragstart", (event) => {
+        dragLayerId = layer.id;
+        row.classList.add("is-dragging");
+        event.dataTransfer.effectAllowed = "move";
+        event.dataTransfer.setData("text/plain", layer.id);
+      });
+      row.addEventListener("dragend", () => {
+        dragLayerId = null;
+        row.classList.remove("is-dragging");
+        clearDropMarks();
+      });
+    }
+    row.addEventListener("dragover", (event) => {
+      if (!dragLayerId || dragLayerId === layer.id || layer.kind === "background") return;
+      event.preventDefault();
+      event.dataTransfer.dropEffect = "move";
+      const bounds = row.getBoundingClientRect();
+      const above = event.clientY < bounds.top + bounds.height / 2;
+      clearDropMarks();
+      row.classList.add(above ? "drop-above" : "drop-below");
+    });
+    row.addEventListener("dragleave", () => row.classList.remove("drop-above", "drop-below"));
+    row.addEventListener("drop", (event) => {
+      if (!dragLayerId || dragLayerId === layer.id || layer.kind === "background") return;
+      event.preventDefault();
+      const bounds = row.getBoundingClientRect();
+      const above = event.clientY < bounds.top + bounds.height / 2;
+      // Visual list is top-first; scene order is bottom-first.
+      const visual = [...scene().order].reverse().filter((id) => id !== dragLayerId);
+      const at = visual.indexOf(layer.id);
+      visual.splice(above ? at : at + 1, 0, dragLayerId);
+      const moved = dragLayerId;
+      clearDropMarks();
+      edit(() => {
+        const changed = setLayerOrder(scene(), visual.reverse());
+        if (changed) selectLayer(scene(), moved);
+        return changed;
+      });
+    });
+  }
+
   function syncLayerList() {
     const current = scene();
     el.layerList.replaceChildren(
@@ -465,6 +520,7 @@ export function createPanels(app) {
         const row = document.createElement("li");
         row.dataset.layerId = layer.id;
         if (layer.id === current.selectedLayerId) row.className = "is-selected";
+        attachRowDrag(row, layer);
 
         const button = document.createElement("button");
         button.className = "layer-select";

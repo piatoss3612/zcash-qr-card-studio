@@ -508,6 +508,24 @@ export function reorderLayer(scene, id, direction) {
   return scene;
 }
 
+/**
+ * Replace the draw order with `ids` (bottom first). Rejects sets that do not
+ * match the scene's layers exactly; the background is always forced to the bottom.
+ * @param {object} scene
+ * @param {string[]} ids
+ * @returns {boolean} whether the order changed
+ */
+export function setLayerOrder(scene, ids) {
+  if (!Array.isArray(ids) || ids.length !== scene.order.length) return false;
+  const known = new Set(scene.order);
+  if (ids.some((id) => !known.has(id)) || new Set(ids).size !== ids.length) return false;
+  const next = ids.filter((id) => id !== "background");
+  if (known.has("background")) next.unshift("background");
+  if (next.every((id, index) => id === scene.order[index])) return false;
+  scene.order = next;
+  return true;
+}
+
 /** Shallow-merge props into a layer, then constrain it. @returns {object|null} the layer. */
 export function setLayerProps(scene, id, props) {
   const layer = scene.layers[id];
