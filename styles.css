@@ -2282,6 +2282,23 @@ button.preflight__row:focus-visible {
   box-shadow: none;
 }
 
+.ghost-button--menu {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding-right: 8px;
+}
+
+.ghost-button--menu svg {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .file-wrap {
   position: relative;
   flex: none;
@@ -2481,6 +2498,27 @@ button.preflight__row:focus-visible {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.batch-preview {
+  margin: -4px 0 0;
+  padding: 8px 10px;
+  color: var(--text-secondary);
+  font-size: 10.5px;
+  line-height: 1.5;
+  border-radius: var(--radius-control);
+  background: var(--control);
+}
+
+.batch-preview:empty {
+  display: none;
+}
+
+.batch-preview code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10px;
+  color: var(--ink);
+  overflow-wrap: anywhere;
 }
 
 .batch-count {

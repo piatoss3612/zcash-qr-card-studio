@@ -32,15 +32,14 @@
         <div class="file-wrap">
           <button
             id="file-button"
-            class="icon-button icon-button--sm"
+            class="ghost-button ghost-button--menu"
             type="button"
-            aria-label="File menu"
             aria-haspopup="menu"
             aria-expanded="false"
             aria-controls="file-menu"
-            title="File"
           >
-            <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="5" cy="10" r="1.35" /><circle cx="10" cy="10" r="1.35" /><circle cx="15" cy="10" r="1.35" /></svg>
+            <span>File</span>
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6 8 4 4 4-4" /></svg>
           </button>
           <div id="file-menu" class="popover-menu popover-menu--left" role="menu" aria-label="File" hidden>
             <button type="button" role="menuitem" data-file-action="new">
@@ -991,6 +990,7 @@
           <span class="field-label">Values</span>
           <textarea id="batch-input" rows="8" spellcheck="false" placeholder="https://example.com/one&#10;https://example.com/two"></textarea>
         </label>
+        <p id="batch-preview" class="batch-preview" aria-live="polite"></p>
         <div class="dialog__status">
           <span id="batch-count" class="batch-count">0 cards</span>
           <progress id="batch-progress" class="batch-progress" max="100" value="0" hidden></progress>

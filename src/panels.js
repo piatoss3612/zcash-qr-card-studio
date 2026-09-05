@@ -178,6 +178,7 @@ export function createPanels(app) {
     batchInput: document.getElementById("batch-input"),
     batchHint: document.getElementById("batch-hint"),
     batchCount: document.getElementById("batch-count"),
+    batchPreview: document.getElementById("batch-preview"),
     batchErrors: document.getElementById("batch-errors"),
     batchProgress: document.getElementById("batch-progress"),
     batchRun: document.getElementById("batch-run-button"),
@@ -859,7 +860,21 @@ export function createPanels(app) {
       }),
     );
     el.batchRun.disabled = items.length === 0;
+    el.batchPreview.replaceChildren(...batchPreviewNodes(items));
     return items;
+  }
+
+  /** "Saved as x-batch.zip with card-001.png … card-00N.png · first card encodes …" */
+  function batchPreviewNodes(items) {
+    if (items.length === 0) return [];
+    const zip = document.createElement("code");
+    zip.textContent = `${documentSlug()}-batch.zip`;
+    const last = String(items.length).padStart(3, "0");
+    const range = items.length === 1 ? "card-001.png" : `card-001.png … card-${last}.png`;
+    const first = document.createElement("code");
+    const value = items[0].value;
+    first.textContent = scene().mode === "giftcard" ? maskGiftLink(value) : value.length > 72 ? `${value.slice(0, 72)}…` : value;
+    return ["Saved as ", zip, ` containing ${range}. First card encodes `, first, "."];
   }
 
   function openBatchDialog() {
