@@ -89,7 +89,8 @@ export const QR_EMBLEM_FRACTION = 0.28;
 /** @returns {string} the emblem a fresh card of this type starts with. */
 export function defaultQrEmblem(mode) {
   if (mode === "payment") return "zcash";
-  if (mode === "giftcard") return "vizor-mark";
+  // Gift links are long, so the code is dense; an emblem on top hurts scanning.
+  if (mode === "giftcard") return "none";
   return "vizorcat";
 }
 

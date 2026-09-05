@@ -416,7 +416,7 @@ test("QR design defaults follow the card type and can be edited", () => {
   assert.deepEqual(scene.qrDesign, { shape: "square", color: null, emblem: "zcash" });
   assert.equal(qrLevelFor(scene), "H");
   setMode(scene, "giftcard");
-  assert.equal(scene.qrDesign.emblem, "vizor-mark", "default emblem follows the card type");
+  assert.equal(scene.qrDesign.emblem, "none", "gift cards are dense, so no emblem by default");
   setMode(scene, "link");
   assert.equal(scene.qrDesign.emblem, "vizorcat");
   assert.equal(setQrDesign(scene, { emblem: "none", shape: "dots", color: "#1d2c3a" }), true);
