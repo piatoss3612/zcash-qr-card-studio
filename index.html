@@ -11,7 +11,7 @@
     <link rel="icon" href="./assets/vizorcat-icon.png" type="image/png" />
     <link rel="stylesheet" href="./styles.css?v=20260905" />
   </head>
-  <body data-mode="link" data-qr-state="pending">
+  <body data-mode="payment" data-qr-state="pending">
     <!-- ══════════════════════════ TOP BAR ══════════════════════════ -->
     <header class="app-bar">
       <div class="app-bar__left">
@@ -64,20 +64,6 @@
       </div>
 
       <div class="app-bar__center">
-        <div id="mode-switch" class="segmented segmented--mode" role="radiogroup" aria-label="Card type">
-          <label class="segmented__item" title="A ZIP-321 zcash: URI that opens in any Zcash wallet.">
-            <input type="radio" name="mode" value="payment" />
-            <span><b class="seg-long">Payment request</b><b class="seg-short">Pay</b></span>
-          </label>
-          <label class="segmented__item" title="Any web link.">
-            <input type="radio" name="mode" value="link" checked />
-            <span><b class="seg-long">Link</b><b class="seg-short">Link</b></span>
-          </label>
-          <label class="segmented__item" title="A Vizor payment link. The Get Vizor card is always included.">
-            <input type="radio" name="mode" value="giftcard" />
-            <span><b class="seg-long">Vizor gift card</b><b class="seg-short">Gift</b></span>
-          </label>
-        </div>
       </div>
 
       <div class="app-bar__right">
@@ -546,7 +532,30 @@
             </span>
           </header>
 
-          <fieldset class="mode-fields" data-mode-fields="payment" hidden>
+          <div class="mode-picker" role="radiogroup" aria-label="Card type" id="mode-switch">
+            <label class="mode-tile" data-mode-tile="payment">
+              <input type="radio" name="mode" value="payment" checked />
+              <span class="mode-tile__icon" aria-hidden="true"><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7" /><path d="M7.25 7.25h5.5l-5.5 5.5h5.5" /><path d="M10 5.25v2M10 12.75v2" /></svg></span>
+              <span class="mode-tile__label">Payment</span>
+            </label>
+            <label class="mode-tile" data-mode-tile="giftcard">
+              <input type="radio" name="mode" value="giftcard" />
+              <span class="mode-tile__icon" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M3.5 8.5h13v8h-13z" /><path d="M10 8.5v8" /><path d="M3 5.5h14v3H3z" /><path d="M10 5.5c-1.2-2.4-4.4-2.6-4.4-.6 0 .6.6.6 4.4.6Zm0 0c1.2-2.4 4.4-2.6 4.4-.6 0 .6-.6.6-4.4.6Z" /></svg></span>
+              <span class="mode-tile__label">Gift card</span>
+            </label>
+            <label class="mode-tile" data-mode-tile="link">
+              <input type="radio" name="mode" value="link" />
+              <span class="mode-tile__icon" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M8.5 11.5 11.5 8.5" /><path d="M7 13a3 3 0 0 1 0-4.25L8.75 7A3 3 0 0 1 13 11.25" /><path d="M13 7a3 3 0 0 1 0 4.25L11.25 13A3 3 0 0 1 7 8.75" /></svg></span>
+              <span class="mode-tile__label">Link</span>
+            </label>
+          </div>
+          <p class="mode-picker__hint">
+            <span data-hero-mode="payment">A ZIP-321 request any Zcash wallet can pay.</span>
+            <span data-hero-mode="giftcard">A Vizor gift link. Whoever scans it can claim the funds.</span>
+            <span data-hero-mode="link">Any web link, with an optional Get Vizor card.</span>
+          </p>
+
+          <fieldset class="mode-fields" data-mode-fields="payment">
             <legend class="sr-only">Payment request details</legend>
             <label class="field" for="field-address">
               <span class="field-label">Zcash address</span>
@@ -583,7 +592,7 @@
             </label>
           </fieldset>
 
-          <fieldset class="mode-fields" data-mode-fields="link">
+          <fieldset class="mode-fields" data-mode-fields="link" hidden>
             <legend class="sr-only">Link details</legend>
             <label class="field" for="field-url">
               <span class="field-label">Link to open</span>

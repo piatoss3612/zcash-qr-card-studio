@@ -35,13 +35,13 @@ Then open `http://127.0.0.1:4173`.
 
 ## Card types
 
-The card type (top bar) decides what the main QR encodes and whether the Get Vizor install card is part of the composition.
+The card type (chosen at the top of the QR content panel; payment requests are the default) decides what the main QR encodes and whether the Get Vizor install card is part of the composition.
 
 | Card type | QR payload | Get Vizor card |
 |---|---|---|
 | Payment request | A ZIP-321 `zcash:` URI built from an address plus optional amount, memo, label and message. Opens in any Zcash wallet. | Never included |
-| Link | Any `http`/`https` link. | Optional, on by default |
 | Vizor gift card | A Vizor payment link. | Always included |
+| Link | Any `http`/`https` link. | Optional, on by default |
 
 Payment requests validate the address by prefix, charset and length (`t1`/`t3`, `zs1`, `u1`, `tex1`, plus testnet prefixes with a warning). Memos are base64url-encoded and limited to 512 bytes, and are rejected for transparent addresses. Amounts allow at most 8 decimal places.
 

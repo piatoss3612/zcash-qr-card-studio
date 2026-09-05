@@ -22,7 +22,7 @@ const canvas = document.getElementById("card-canvas");
 const context = canvas.getContext("2d", { alpha: false });
 const statusOutput = document.getElementById("render-status");
 
-const scene = createScene({ mode: "link" });
+const scene = createScene({ mode: "payment" });
 scene.content.url = document.getElementById("field-url").value;
 const history = new History();
 

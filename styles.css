@@ -1518,14 +1518,101 @@ body[data-qr-state="ready"] .prop-section--hero {
   line-height: 1.25;
 }
 
-.hero-title [data-hero-mode] {
+[data-hero-mode] {
   display: none;
 }
 
-body[data-mode="payment"] .hero-title [data-hero-mode="payment"],
-body[data-mode="link"] .hero-title [data-hero-mode="link"],
-body[data-mode="giftcard"] .hero-title [data-hero-mode="giftcard"] {
+body[data-mode="payment"] [data-hero-mode="payment"],
+body[data-mode="link"] [data-hero-mode="link"],
+body[data-mode="giftcard"] [data-hero-mode="giftcard"] {
   display: inline;
+}
+
+/* Card type tiles: the first decision, so they sit at the top of the hero block. */
+.mode-picker {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.mode-tile {
+  position: relative;
+  min-width: 0;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 9px 4px 8px;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: var(--panel);
+  cursor: pointer;
+  transition: border-color 140ms var(--ease), background-color 140ms var(--ease), box-shadow 140ms var(--ease);
+}
+
+.mode-tile input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mode-tile__icon {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  color: var(--text-secondary);
+  border-radius: 50%;
+  background: var(--control);
+}
+
+.mode-tile__icon svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.mode-tile__label {
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.mode-tile:hover {
+  border-color: var(--brand-ring);
+}
+
+.mode-tile:has(input:checked) {
+  border-color: var(--brand);
+  background: var(--panel);
+  box-shadow: 0 0 0 2px var(--brand-ring);
+}
+
+.mode-tile:has(input:checked) .mode-tile__icon {
+  color: #fff;
+  background: var(--brand);
+}
+
+.mode-tile:has(input:checked) .mode-tile__label {
+  color: var(--ink);
+}
+
+.mode-tile:has(input:focus-visible) {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+.mode-picker__hint {
+  margin: -4px 0 0;
+  color: var(--text-secondary);
+  font-size: 11px;
+  line-height: 1.45;
 }
 
 .hero-status {
