@@ -171,10 +171,6 @@
           <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 5V3.5h12V5" /><path d="M10 3.75v12.5" /><path d="M7.25 16.25h5.5" /></svg>
           <span>Text</span>
         </button>
-        <button class="tool-tab" type="button" data-panel="layout" aria-pressed="false" aria-controls="tool-drawer">
-          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 3.5h13v13h-13z" /><path d="M8.75 3.5v13" /><path d="M8.75 10h7.75" /></svg>
-          <span>Layout</span>
-        </button>
       </nav>
 
       <!-- ─────────── Tool drawer ─────────── -->
@@ -187,7 +183,32 @@
               <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5.5 5.5 9 9" /><path d="m14.5 5.5-9 9" /></svg>
             </button>
           </header>
-          <p class="drawer-note">Applying a template replaces the background and every layer. Your QR content is kept.</p>
+          <div class="drawer-group">
+            <span class="eyebrow">Arrangement</span>
+            <div id="layout-choices" class="choice-row choice-row--three" role="radiogroup" aria-label="Arrangement">
+              <label class="asset-choice asset-choice--mini">
+                <input type="radio" name="layout" value="center" checked />
+                <span class="layout-thumb" aria-hidden="true"><canvas width="84" height="117"></canvas></span>
+                <span class="asset-name">Centered</span>
+              </label>
+              <label class="asset-choice asset-choice--mini">
+                <input type="radio" name="layout" value="qr-left" />
+                <span class="layout-thumb" aria-hidden="true"><canvas width="84" height="117"></canvas></span>
+                <span class="asset-name">QR left</span>
+              </label>
+              <label class="asset-choice asset-choice--mini">
+                <input type="radio" name="layout" value="qr-right" />
+                <span class="layout-thumb" aria-hidden="true"><canvas width="84" height="117"></canvas></span>
+                <span class="asset-name">QR right</span>
+              </label>
+            </div>
+            <p class="field-help">Moves the QR, the main Vizorcat and the Get Vizor card. Other layers stay put.</p>
+          </div>
+
+          <div class="drawer-group">
+            <span class="eyebrow">Templates</span>
+            <p class="drawer-note">Applying a template replaces the background and every layer. Your QR content is kept.</p>
+          </div>
           <div id="template-grid" class="template-grid">
             <button class="template-card" type="button" data-template-id="link-launch" aria-pressed="true">
               <span class="template-card__thumb"><canvas width="180" height="250"></canvas></span>
@@ -342,46 +363,6 @@
               <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5.5 5.5 9 9" /><path d="m14.5 5.5-9 9" /></svg>
             </button>
           </header>
-          <div id="logo-color-picker" class="swatch-block">
-            <span class="eyebrow">Colour for the next logo</span>
-            <div class="swatch-row" role="radiogroup" aria-label="Logo colour">
-              <label class="swatch" title="Original">
-                <input type="radio" name="logo-add-color" value="original" checked />
-                <span class="swatch__dot swatch__dot--original" aria-hidden="true"></span>
-                <span class="sr-only">Original</span>
-              </label>
-              <label class="swatch" title="Ink">
-                <input type="radio" name="logo-add-color" value="ink" />
-                <span class="swatch__dot" style="--swatch:#141818" aria-hidden="true"></span>
-                <span class="sr-only">Ink</span>
-              </label>
-              <label class="swatch" title="White">
-                <input type="radio" name="logo-add-color" value="white" />
-                <span class="swatch__dot" style="--swatch:#ffffff" aria-hidden="true"></span>
-                <span class="sr-only">White</span>
-              </label>
-              <label class="swatch" title="Crimson">
-                <input type="radio" name="logo-add-color" value="crimson" />
-                <span class="swatch__dot" style="--swatch:#b90a4a" aria-hidden="true"></span>
-                <span class="sr-only">Crimson</span>
-              </label>
-              <label class="swatch" title="Zcash Gold">
-                <input type="radio" name="logo-add-color" value="gold" />
-                <span class="swatch__dot" style="--swatch:#f4b728" aria-hidden="true"></span>
-                <span class="sr-only">Zcash Gold</span>
-              </label>
-              <label class="swatch swatch--custom" title="Custom colour">
-                <input type="radio" name="logo-add-color" value="custom" />
-                <span class="swatch__dot swatch__dot--custom" aria-hidden="true"></span>
-                <span class="sr-only">Custom</span>
-              </label>
-              <label class="color-input">
-                <span class="sr-only">Custom logo colour value</span>
-                <input id="logo-add-color-custom" type="color" value="#b90a4a" />
-              </label>
-            </div>
-            <p id="logo-add-color-note" class="field-help" hidden>This mark keeps its original colours.</p>
-          </div>
           <div class="asset-grid asset-grid--logos">
             <button class="asset-card" type="button" data-logo-id="vizor" aria-pressed="true">
               <span class="asset-thumb asset-thumb--mark asset-thumb--wordmark"><img src="./assets/vizor-logo-dark.svg" alt="" /></span>
@@ -468,56 +449,6 @@
         </section>
 
         <!-- Layout -->
-        <section class="tool-panel" data-panel="layout" aria-label="Layout" hidden>
-          <header class="drawer-head">
-            <h2>Layout</h2>
-            <button class="icon-button icon-button--sm drawer-close" type="button" aria-label="Close panel" data-drawer-close>
-              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5.5 5.5 9 9" /><path d="m14.5 5.5-9 9" /></svg>
-            </button>
-          </header>
-
-          <div class="drawer-group">
-            <span class="eyebrow">Arrangement</span>
-            <div class="choice-row choice-row--three" role="radiogroup" aria-label="Arrangement">
-              <label class="asset-choice asset-choice--mini">
-                <input type="radio" name="layout" value="center" checked />
-                <span class="layout-preview layout-preview--center" aria-hidden="true"><i></i><b></b></span>
-                <span class="asset-name">Centered</span>
-              </label>
-              <label class="asset-choice asset-choice--mini">
-                <input type="radio" name="layout" value="qr-left" />
-                <span class="layout-preview layout-preview--left" aria-hidden="true"><i></i><b></b></span>
-                <span class="asset-name">QR left</span>
-              </label>
-              <label class="asset-choice asset-choice--mini">
-                <input type="radio" name="layout" value="qr-right" />
-                <span class="layout-preview layout-preview--right" aria-hidden="true"><i></i><b></b></span>
-                <span class="asset-name">QR right</span>
-              </label>
-            </div>
-          </div>
-
-          <div class="drawer-group">
-            <span class="eyebrow">QR style</span>
-            <div class="choice-row choice-row--three" role="radiogroup" aria-label="QR style">
-              <label class="asset-choice asset-choice--mini">
-                <input type="radio" name="qr-style" value="clean" checked />
-                <span class="qr-style-preview qr-style-preview--clean" aria-hidden="true"><i></i></span>
-                <span class="asset-name">Clean</span>
-              </label>
-              <label class="asset-choice asset-choice--mini">
-                <input type="radio" name="qr-style" value="ink" />
-                <span class="qr-style-preview qr-style-preview--ink" aria-hidden="true"><i></i></span>
-                <span class="asset-name">Ink</span>
-              </label>
-              <label class="asset-choice asset-choice--mini">
-                <input type="radio" name="qr-style" value="soft" />
-                <span class="qr-style-preview qr-style-preview--soft" aria-hidden="true"><i></i></span>
-                <span class="asset-name">Soft</span>
-              </label>
-            </div>
-          </div>
-        </section>
       </div>
 
       <!-- ─────────── Workspace ─────────── -->
@@ -830,7 +761,27 @@
           </div>
 
           <div class="selection-block" data-selection-kind="qr" hidden>
-            <p class="empty-note">The payment QR is always on the card. Resize it, but keep it inside the safe area.</p>
+            <div class="swatch-block">
+              <span class="eyebrow">QR style</span>
+              <div class="choice-row choice-row--three" role="radiogroup" aria-label="QR style">
+              <label class="asset-choice asset-choice--mini">
+                <input type="radio" name="qr-style" value="clean" checked />
+                <span class="qr-style-preview qr-style-preview--clean" aria-hidden="true"><i></i></span>
+                <span class="asset-name">Clean</span>
+              </label>
+              <label class="asset-choice asset-choice--mini">
+                <input type="radio" name="qr-style" value="ink" />
+                <span class="qr-style-preview qr-style-preview--ink" aria-hidden="true"><i></i></span>
+                <span class="asset-name">Ink</span>
+              </label>
+              <label class="asset-choice asset-choice--mini">
+                <input type="radio" name="qr-style" value="soft" />
+                <span class="qr-style-preview qr-style-preview--soft" aria-hidden="true"><i></i></span>
+                <span class="asset-name">Soft</span>
+              </label>
+            </div>
+            </div>
+            <p class="empty-note">The QR is always on the card. Resize it, but keep it inside the safe area.</p>
           </div>
 
           <div class="selection-block" data-selection-kind="install" hidden>

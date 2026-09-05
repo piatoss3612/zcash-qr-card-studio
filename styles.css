@@ -793,6 +793,20 @@ body[data-drawer="closed"] #tool-drawer {
   background: #f7f3ec;
 }
 
+.layout-thumb {
+  display: block;
+  aspect-ratio: 1311 / 1819;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #f7f3ec;
+}
+
+.layout-thumb canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .layout-preview i,
 .layout-preview b {
   position: absolute;

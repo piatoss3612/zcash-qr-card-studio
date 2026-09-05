@@ -27,6 +27,7 @@ import {
   setIncludeInstall,
   setLayerProps,
   setMode,
+  snapshot,
 } from "./scene.js";
 import { maskGiftLink, parseBatchLines } from "./qr-content.js";
 import { preflight, summarize } from "./preflight.js";
@@ -120,8 +121,7 @@ export function createPanels(app) {
     logoCards: [...document.querySelectorAll("[data-logo-id]")],
     addCharacter: document.getElementById("add-character-button"),
     addLogo: document.getElementById("add-logo-button"),
-    logoAddColorInputs: [...document.querySelectorAll('input[name="logo-add-color"]')],
-    logoAddColorCustom: document.getElementById("logo-add-color-custom"),
+    layoutChoices: document.getElementById("layout-choices"),
     addHeading: document.getElementById("add-heading-button"),
     addBody: document.getElementById("add-body-button"),
     layoutInputs: [...document.querySelectorAll('input[name="layout"]')],
@@ -263,12 +263,35 @@ export function createPanels(app) {
     );
   }
 
-  // ------------------------------------------------------------- assets
-
-  function currentAddColor() {
-    const id = el.logoAddColorInputs.find((input) => input.checked)?.value ?? "original";
-    return paletteValue(LOGO_PALETTE, id, el.logoAddColorCustom);
+  /** Redraw the three arrangement thumbnails from the current composition. */
+  function syncLayoutPreviews() {
+    if (!app.assetsLoaded) return;
+    for (const label of el.layoutChoices.querySelectorAll("label")) {
+      const value = label.querySelector("input")?.value;
+      const holder = label.querySelector(".layout-thumb");
+      if (!value || !holder) continue;
+      const preview = snapshot(scene());
+      applyLayout(preview, value);
+      holder.replaceChildren(
+        renderThumbnail(preview, {
+          assets: app.assets,
+          qrCode: app.qrCode ?? sampleQrCode(),
+          installCode: app.installCode,
+          width: 84,
+        }),
+      );
+    }
   }
+
+  let layoutPreviewTimer = 0;
+  /** Debounced preview refresh, only while the Templates panel is on screen. */
+  function scheduleLayoutPreviews() {
+    if (!drawerOpen || activePanel !== "templates") return;
+    clearTimeout(layoutPreviewTimer);
+    layoutPreviewTimer = setTimeout(syncLayoutPreviews, 250);
+  }
+
+  // ------------------------------------------------------------- assets
 
   function applyCharacterCard(assetId) {
     pick.character = assetId;
@@ -309,7 +332,7 @@ export function createPanels(app) {
           ...(changed ? { width: asset.width, height: asset.height } : {}),
         });
       } else {
-        const made = makeLogoLayer(assetId, { color: currentAddColor() }, scene());
+        const made = makeLogoLayer(assetId, {}, scene());
         if (!made) return false;
         addLayer(scene(), made);
       }
@@ -835,7 +858,10 @@ export function createPanels(app) {
       }
       setActivePanel(tab.dataset.panel);
       setDrawer(true);
-      if (tab.dataset.panel === "templates") syncTemplates();
+      if (tab.dataset.panel === "templates") {
+        syncTemplates();
+        syncLayoutPreviews();
+      }
     });
   }
   for (const button of el.drawerCloseButtons) {
@@ -867,7 +893,7 @@ export function createPanels(app) {
   });
   el.addLogo.addEventListener("click", () => {
     edit(() => {
-      const made = makeLogoLayer(pick.logo, { color: currentAddColor() }, scene());
+      const made = makeLogoLayer(pick.logo, {}, scene());
       if (!made) return false;
       addLayer(scene(), made);
       return true;
@@ -1160,6 +1186,7 @@ export function createPanels(app) {
       input.checked = input.value === current.layers.background.assetId;
     }
     for (const input of el.layoutInputs) input.checked = input.value === current.layoutId;
+    scheduleLayoutPreviews();
     for (const input of el.qrStyleInputs) input.checked = input.value === current.qrStyle;
     for (const card of el.templateGrid.querySelectorAll(".template-card")) {
       card.setAttribute("aria-pressed", String(card.dataset.templateId === current.templateId));
@@ -1174,10 +1201,6 @@ export function createPanels(app) {
     for (const card of el.logoCards) {
       card.setAttribute("aria-pressed", String(card.dataset.logoId === logoId));
     }
-    const addRecolorable = Boolean(LOGOS[pick.logo]?.recolorable);
-    for (const input of el.logoAddColorInputs) input.disabled = !addRecolorable;
-    el.logoAddColorCustom.disabled = !addRecolorable;
-    document.getElementById("logo-add-color-note")?.toggleAttribute("hidden", addRecolorable);
 
     for (const [id, key] of CONTENT_FIELDS) {
       const field = document.getElementById(id);
