@@ -675,6 +675,53 @@ body[data-drawer="closed"] #tool-drawer {
   gap: 8px;
 }
 
+.drawer-fold {
+  display: grid;
+  gap: 10px;
+}
+
+.drawer-fold__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 28px;
+  padding: 0 4px;
+  list-style: none;
+  cursor: pointer;
+  border-radius: var(--radius-control);
+}
+
+.drawer-fold__summary::-webkit-details-marker {
+  display: none;
+}
+
+.drawer-fold__summary:hover {
+  background: var(--control);
+}
+
+.drawer-fold__chevron {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: var(--text-muted);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 140ms var(--ease);
+}
+
+.drawer-fold[open] .drawer-fold__chevron {
+  transform: rotate(180deg);
+}
+
+.drawer-note--caution {
+  margin-bottom: 6px;
+  padding: 8px 10px;
+  color: var(--warning);
+  border-radius: var(--radius-control);
+  background: #fbf3df;
+}
+
 /* ---------------------------------------------------------- asset grids */
 
 .asset-grid {
@@ -1627,8 +1674,8 @@ body[data-mode="giftcard"] [data-hero-mode="giftcard"] {
 
 .emblem-row {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 6px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 5px;
 }
 
 .emblem-choice {

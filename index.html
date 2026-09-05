@@ -357,7 +357,9 @@
               <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5.5 5.5 9 9" /><path d="m14.5 5.5-9 9" /></svg>
             </button>
           </header>
-          <div class="asset-grid asset-grid--logos">
+          <div class="drawer-group">
+            <span class="eyebrow">Vizor &amp; Zcash</span>
+            <div class="asset-grid asset-grid--logos">
             <button class="asset-card" type="button" data-logo-id="vizor" aria-pressed="true">
               <span class="asset-thumb asset-thumb--mark asset-thumb--wordmark"><img src="./assets/vizor-logo-dark.svg" alt="" /></span>
               <span class="asset-name">Vizor</span>
@@ -369,6 +371,10 @@
             <button class="asset-card" type="button" data-logo-id="vizorcat-head" aria-pressed="false">
               <span class="asset-thumb asset-thumb--mark asset-thumb--pixel"><img src="./assets/logos/vizorcat-classic-head.png" alt="" /></span>
               <span class="asset-name">Vizorcat Classic</span>
+            </button>
+            <button class="asset-card" type="button" data-logo-id="vizorcat-samurai-head" aria-pressed="false">
+              <span class="asset-thumb asset-thumb--mark asset-thumb--pixel"><img src="./assets/logos/vizorcat-samurai-head.png" alt="" /></span>
+              <span class="asset-name">Vizorcat Samurai</span>
             </button>
             <button class="asset-card" type="button" data-logo-id="zcash-coin" aria-pressed="false">
               <span class="asset-thumb asset-thumb--mark"><img src="./assets/logos/zcash-coin.png" alt="" loading="lazy" /></span>
@@ -382,6 +388,23 @@
               <span class="asset-thumb asset-thumb--mark"><img src="./assets/logos/zechub.png" alt="" loading="lazy" /></span>
               <span class="asset-name">ZecHub</span>
             </button>
+            <button class="asset-card" type="button" data-logo-id="keplr" aria-pressed="false">
+              <span class="asset-thumb asset-thumb--mark"><img src="./assets/logos/keplr.svg" alt="" /></span>
+              <span class="asset-name">Keplr</span>
+            </button>
+            <button class="asset-card" type="button" data-logo-id="cipherscan" aria-pressed="false">
+              <span class="asset-thumb asset-thumb--mark" style="background:#11110f"><img src="./assets/logos/cipherscan.png" alt="" loading="lazy" /></span>
+              <span class="asset-name">CipherScan</span>
+            </button>
+            </div>
+          </div>
+          <details class="drawer-fold">
+            <summary class="drawer-fold__summary">
+              <span class="eyebrow">Partner logos</span>
+              <svg class="drawer-fold__chevron" viewBox="0 0 20 20" aria-hidden="true"><path d="m6 8 4 4 4-4" /></svg>
+            </summary>
+            <p class="drawer-note drawer-note--caution">Third-party marks. Check with the brand owner before printing them on a card, and keep their original colours unless their guidelines allow a single-colour version.</p>
+            <div class="asset-grid asset-grid--logos">
             <button class="asset-card" type="button" data-logo-id="cypherpunk" aria-pressed="false">
               <span class="asset-thumb asset-thumb--mark"><img src="./assets/logos/cypherpunk.svg" alt="" /></span>
               <span class="asset-name">Cypherpunk</span>
@@ -402,14 +425,6 @@
               <span class="asset-thumb asset-thumb--mark"><img src="./assets/logos/ledger.svg" alt="" /></span>
               <span class="asset-name">Ledger</span>
             </button>
-            <button class="asset-card" type="button" data-logo-id="keplr" aria-pressed="false">
-              <span class="asset-thumb asset-thumb--mark"><img src="./assets/logos/keplr.svg" alt="" /></span>
-              <span class="asset-name">Keplr</span>
-            </button>
-            <button class="asset-card" type="button" data-logo-id="cipherscan" aria-pressed="false">
-              <span class="asset-thumb asset-thumb--mark" style="background:#11110f"><img src="./assets/logos/cipherscan.png" alt="" loading="lazy" /></span>
-              <span class="asset-name">CipherScan</span>
-            </button>
             <button class="asset-card" type="button" data-logo-id="valar" aria-pressed="false">
               <span class="asset-thumb asset-thumb--mark" style="background:#11110f"><img src="./assets/logos/valar-group.png" alt="" loading="lazy" /></span>
               <span class="asset-name">Valar Group</span>
@@ -418,7 +433,8 @@
               <span class="asset-thumb asset-thumb--mark"><img src="./assets/logos/zakura.svg" alt="" /></span>
               <span class="asset-name">Zakura</span>
             </button>
-          </div>
+            </div>
+          </details>
           <button id="add-logo-button" class="button button--secondary button--block" type="button">
             <svg class="button__icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 4.5v11" /><path d="M4.5 10h11" /></svg>
             <span>Add as new layer</span>
@@ -876,6 +892,11 @@
                   <input type="radio" name="qr-emblem" value="vizorcat" />
                   <span class="emblem-choice__box emblem-choice__box--pixel" aria-hidden="true"><img src="./assets/logos/vizorcat-classic-head.png" alt="" /></span>
                   <span class="emblem-choice__label">Vizorcat</span>
+                </label>
+                <label class="emblem-choice" title="Samurai">
+                  <input type="radio" name="qr-emblem" value="samurai" />
+                  <span class="emblem-choice__box emblem-choice__box--pixel" aria-hidden="true"><img src="./assets/logos/vizorcat-samurai-head.png" alt="" /></span>
+                  <span class="emblem-choice__label">Samurai</span>
                 </label>
                 <label class="emblem-choice" title="Vizor mark">
                   <input type="radio" name="qr-emblem" value="vizor-mark" />

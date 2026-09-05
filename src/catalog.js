@@ -50,6 +50,7 @@ export const LOGOS = Object.freeze({
   vizor: { id: "vizor", label: "Vizor", image: "./assets/vizor-logo-dark.svg", width: 317, height: 92, recolorable: true, wordmark: true },
   "vizor-mark": { id: "vizor-mark", label: "Vizor Mark", image: "./assets/vizor-icon.svg", width: 110, height: 132, recolorable: true, defaultColor: "#141818" },
   "vizorcat-head": { id: "vizorcat-head", label: "Vizorcat Classic", image: "./assets/logos/vizorcat-classic-head.png", width: 150, height: 150, recolorable: false, pixelArt: true },
+  "vizorcat-samurai-head": { id: "vizorcat-samurai-head", label: "Vizorcat Samurai", image: "./assets/logos/vizorcat-samurai-head.png", width: 150, height: 150, recolorable: false, pixelArt: true },
   "zcash-coin": { id: "zcash-coin", label: "Zcash Coin", image: "./assets/logos/zcash-coin.png", width: 130, height: 130, recolorable: false },
   zcash: { id: "zcash", label: "Zcash Mark", image: "./assets/logos/zcash.svg", width: 130, height: 130, recolorable: true },
   zechub: { id: "zechub", label: "ZecHub", image: "./assets/logos/zechub.png", width: 150, height: 150, recolorable: false },
@@ -81,6 +82,7 @@ export const QR_SHAPES = Object.freeze({
 export const QR_EMBLEMS = Object.freeze({
   none: { id: "none", label: "None", logoId: null },
   vizorcat: { id: "vizorcat", label: "Vizorcat", logoId: "vizorcat-head" },
+  samurai: { id: "samurai", label: "Samurai", logoId: "vizorcat-samurai-head" },
   zcash: { id: "zcash", label: "Zcash", logoId: "zcash" },
   "vizor-mark": { id: "vizor-mark", label: "Vizor mark", logoId: "vizor-mark", tint: "#141818" },
 });
