@@ -129,18 +129,27 @@
               <ul id="preflight-list" class="preflight__list"></ul>
             </div>
             <div class="popover-menu__separator" role="separator"></div>
-            <button type="button" role="menuitem" data-export-action="png">
+            <button type="button" role="menuitem" data-export-action="png" class="popover-menu__item--rich">
               <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3.5v9" /><path d="M6.25 9.25 10 13l3.75-3.75" /><path d="M4 15.5h12" /></svg>
-              <span>Download PNG</span>
+              <span class="popover-menu__text">
+                <span>Download PNG</span>
+                <small>300 ppi with 3 mm bleed on every side. Send this to a print shop.</small>
+              </span>
             </button>
-            <button type="button" role="menuitem" data-export-action="print">
+            <button type="button" role="menuitem" data-export-action="print" class="popover-menu__item--rich">
               <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 8V3.5h8V8" /><path d="M6 14H4V8h12v6h-2" /><path d="M6 11.5h8v5H6z" /></svg>
-              <span>Print / PDF</span>
+              <span class="popover-menu__text">
+                <span>Print / PDF</span>
+                <small>Trimmed A6 card. In the print dialog pick A6 paper, 100% scale, no margins. On A4, print at actual size and cut along the edge.</small>
+              </span>
             </button>
             <div class="popover-menu__separator" role="separator"></div>
-            <button type="button" role="menuitem" data-export-action="batch">
+            <button type="button" role="menuitem" data-export-action="batch" class="popover-menu__item--rich">
               <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 6.5h8v9h-8z" /><path d="M6.5 4h8v9" /></svg>
-              <span>Batch export…</span>
+              <span class="popover-menu__text">
+                <span>Batch export…</span>
+                <small>One PNG per line of values, packed as a ZIP.</small>
+              </span>
             </button>
           </div>
         </div>

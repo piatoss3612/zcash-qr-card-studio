@@ -2270,6 +2270,33 @@ button.preflight__row:focus-visible {
   letter-spacing: 0.04em;
 }
 
+.popover-menu .popover-menu__item--rich {
+  min-height: 0;
+  padding: 7px 9px;
+  align-items: flex-start;
+}
+
+.popover-menu .popover-menu__item--rich svg {
+  margin-top: 1px;
+}
+
+.popover-menu__text {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.popover-menu__text small {
+  color: var(--text-secondary);
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.popover-menu button:disabled .popover-menu__text small {
+  color: var(--text-muted);
+}
+
 .popover-menu__note {
   margin: 4px 0 2px;
   padding: 0 9px;
