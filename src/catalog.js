@@ -48,6 +48,7 @@ export const CHARACTERS = Object.freeze({
 // Multi-colour marks are always drawn as-is.
 export const LOGOS = Object.freeze({
   vizor: { id: "vizor", label: "Vizor", image: "./assets/vizor-logo-dark.svg", width: 317, height: 92, recolorable: true, wordmark: true },
+  "vizor-mark": { id: "vizor-mark", label: "Vizor Mark", image: "./assets/vizor-icon.svg", width: 110, height: 132, recolorable: true, defaultColor: "#141818" },
   "vizorcat-head": { id: "vizorcat-head", label: "Vizorcat Classic", image: "./assets/logos/vizorcat-classic-head.png", width: 150, height: 150, recolorable: false, pixelArt: true },
   "zcash-coin": { id: "zcash-coin", label: "Zcash Coin", image: "./assets/logos/zcash-coin.png", width: 130, height: 130, recolorable: false },
   zcash: { id: "zcash", label: "Zcash Mark", image: "./assets/logos/zcash.svg", width: 130, height: 130, recolorable: true },
@@ -96,10 +97,22 @@ export const TEXT_PALETTE = Object.freeze([
   { id: "indigo", label: "Indigo", value: COLORS.indigo },
 ]);
 
+// `captionSize`: heading size that reads at the same optical weight across faces.
+// `uppercase`: the face is designed to be set in capitals (pixel display type).
 export const FONTS = Object.freeze({
-  Geist: { id: "Geist", label: "Geist", stack: '"Geist", Arial, sans-serif', weights: [500, 700] },
-  Zarathustra: { id: "Zarathustra", label: "Zarathustra", stack: '"Zarathustra", Georgia, serif', weights: [400] },
+  Zarathustra: { id: "Zarathustra", label: "Zarathustra (serif)", stack: '"Zarathustra", Georgia, serif', weights: [400], captionSize: 56 },
+  Geist: { id: "Geist", label: "Geist (sans)", stack: '"Geist", Arial, sans-serif', weights: [500, 700], captionSize: 52 },
+  SpaceGrotesk: { id: "SpaceGrotesk", label: "Space Grotesk (geometric)", stack: '"Space Grotesk", "Geist", Arial, sans-serif', weights: [500, 700], captionSize: 52 },
+  Silkscreen: { id: "Silkscreen", label: "Silkscreen (pixel)", stack: '"Silkscreen", "Courier New", monospace', weights: [400, 700], captionSize: 34, uppercase: true },
+  GeistMono: { id: "GeistMono", label: "Geist Mono", stack: '"Geist Mono", ui-monospace, Menlo, monospace', weights: [500, 700], captionSize: 44 },
 });
+
+/** @returns {number} the closest weight a font actually ships. */
+export function fontWeightFor(fontId, wanted) {
+  const weights = FONTS[fontId]?.weights ?? [500];
+  if (weights.includes(wanted)) return wanted;
+  return weights.reduce((best, weight) => (Math.abs(weight - wanted) < Math.abs(best - wanted) ? weight : best), weights[0]);
+}
 
 export const TEXT_PRESETS = Object.freeze({
   heading: { label: "Heading", text: "Your headline", fontFamily: "Zarathustra", fontSize: 64, fontWeight: 400, color: COLORS.ink, align: "left", lineHeight: 1.15, width: 560 },
@@ -194,27 +207,28 @@ export const CAPTIONS = Object.freeze({
 
 /** Text layer roles a layout can position: `caption` (CTA) and `summary` (bound amount · label). */
 export const TEXT_ROLES = Object.freeze({
-  caption: { fontFamily: "Zarathustra", fontSize: 56, lineHeight: 1.15, color: COLORS.ink },
-  summary: { fontFamily: "Geist", fontSize: 38, fontWeight: 700, lineHeight: 1.3, color: COLORS.secondary },
+  caption: { fontFamily: "Zarathustra", fontWeight: 700, lineHeight: 1.15, color: COLORS.ink },
+  summary: { fontFamily: "GeistMono", fontSize: 30, fontWeight: 700, lineHeight: 1.3, color: COLORS.secondary },
 });
 
 // Themes: every background paired with the Vizorcat it was drawn for (see
 // assets/backgrounds/source/*.md). Order = template order; the first is the default.
 // Templates are generated from this table for each card type and never include text layers.
+// `headingFont` sets the caption face so the type matches the world of each background.
 export const THEMES = Object.freeze([
-  { background: "rampart", character: "classic", qrStyle: "ink", layoutId: "qr-right" },
-  { background: "paper", character: "classic", qrStyle: "ink" },
-  { background: "wave", character: "samurai", qrStyle: "clean" },
-  { background: "blossom", character: "samurai", qrStyle: "soft" },
-  { background: "dragon", character: "stonehold", qrStyle: "clean" },
-  { background: "forest", character: "grove", qrStyle: "soft" },
-  { background: "frost", character: "snow", qrStyle: "soft" },
-  { background: "hearth", character: "hearthlight", qrStyle: "clean", layoutId: "qr-right" },
-  { background: "lunar", character: "orbital", qrStyle: "clean" },
-  { background: "astral", character: "astral", qrStyle: "soft" },
-  { background: "commons", character: "commons", qrStyle: "ink", layoutId: "qr-right" },
-  { background: "crimson", character: "samurai", qrStyle: "clean" },
-  { background: "dark", character: "samurai", qrStyle: "ink" },
+  { background: "rampart", character: "classic", qrStyle: "ink", layoutId: "qr-right", headingFont: "Zarathustra" },
+  { background: "paper", character: "classic", qrStyle: "ink", headingFont: "Zarathustra" },
+  { background: "wave", character: "samurai", qrStyle: "clean", headingFont: "Silkscreen" },
+  { background: "blossom", character: "samurai", qrStyle: "soft", headingFont: "Zarathustra" },
+  { background: "dragon", character: "stonehold", qrStyle: "clean", headingFont: "Silkscreen" },
+  { background: "forest", character: "grove", qrStyle: "soft", headingFont: "Zarathustra" },
+  { background: "frost", character: "snow", qrStyle: "soft", headingFont: "SpaceGrotesk" },
+  { background: "hearth", character: "hearthlight", qrStyle: "clean", layoutId: "qr-right", headingFont: "Zarathustra" },
+  { background: "lunar", character: "orbital", qrStyle: "clean", headingFont: "SpaceGrotesk" },
+  { background: "astral", character: "astral", qrStyle: "soft", headingFont: "SpaceGrotesk" },
+  { background: "commons", character: "commons", qrStyle: "ink", layoutId: "qr-right", headingFont: "SpaceGrotesk" },
+  { background: "crimson", character: "samurai", qrStyle: "clean", headingFont: "Silkscreen" },
+  { background: "dark", character: "samurai", qrStyle: "ink", headingFont: "Silkscreen" },
 ]);
 
 // Character box for a layout, honouring the asset's defaultScale (same maths as makeCharacterLayer).
@@ -244,21 +258,24 @@ function themeLogoLayer(mode, layout) {
   return { kind: "logo", assetId: "vizor", x, y, width, height, color: null };
 }
 
-function themeCaptionLayer(mode, layout) {
+function themeCaptionLayer(mode, layout, theme) {
   const role = TEXT_ROLES.caption;
+  const font = FONTS[theme.headingFont] ?? FONTS[role.fontFamily];
   return {
     kind: "text",
     role: "caption",
     text: CAPTIONS[mode],
-    fontFamily: role.fontFamily,
-    fontSize: role.fontSize,
+    fontFamily: font.id,
+    fontSize: font.captionSize,
+    fontWeight: fontWeightFor(font.id, role.fontWeight),
+    uppercase: Boolean(font.uppercase),
     lineHeight: role.lineHeight,
     color: role.color,
     align: layout.caption.align,
     x: layout.caption.x,
     y: layout.caption.y,
     width: layout.caption.width,
-    height: Math.round(role.fontSize * role.lineHeight),
+    height: Math.round(font.captionSize * role.lineHeight),
   };
 }
 
@@ -278,7 +295,7 @@ function buildTemplates() {
         layers: [
           themeLogoLayer(mode, layout),
           themeCharacterLayer(theme.character, layout),
-          themeCaptionLayer(mode, layout),
+          themeCaptionLayer(mode, layout, theme),
         ],
       };
     }

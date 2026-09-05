@@ -9,6 +9,8 @@ import {
   LOGO_PALETTE,
   MODES,
   TEXT_PALETTE,
+  FONTS,
+  fontWeightFor,
   templatesForMode,
 } from "./catalog.js";
 import {
@@ -158,6 +160,7 @@ export function createPanels(app) {
     textFont: document.getElementById("text-font"),
     textSize: document.getElementById("text-size"),
     textWeight: document.getElementById("text-weight"),
+    textUppercase: document.getElementById("text-uppercase"),
     textAlignInputs: [...document.querySelectorAll('input[name="text-align"]')],
     textColorInputs: [...document.querySelectorAll('input[name="text-color"]')],
     textColorCustom: document.getElementById("text-color-custom"),
@@ -334,7 +337,7 @@ export function createPanels(app) {
         setLayerProps(scene(), layer.id, {
           assetId,
           label: asset.label,
-          color: asset.recolorable ? layer.color : null,
+          color: asset.recolorable ? (layer.color ?? asset.defaultColor ?? null) : null,
           ...(changed ? { width: asset.width, height: asset.height } : {}),
         });
       } else {
@@ -439,10 +442,13 @@ export function createPanels(app) {
       el.textBoundNote.hidden = !bound;
       el.textFont.value = layer.fontFamily;
       setValue(el.textSize, layer.fontSize);
-      // Zarathustra only ships at 400, which the select does not offer; show its
-      // closest option while the control is disabled.
-      el.textWeight.value = String(layer.fontWeight === 400 ? 500 : layer.fontWeight);
-      el.textWeight.disabled = layer.fontFamily === "Zarathustra";
+      // Only offer the weights this face ships; a single-weight face disables the control.
+      const weights = FONTS[layer.fontFamily]?.weights ?? [500];
+      for (const option of el.textWeight.options) option.hidden = !weights.includes(Number(option.value));
+      el.textWeight.value = String(fontWeightFor(layer.fontFamily, layer.fontWeight));
+      el.textWeight.disabled = weights.length < 2 || locked;
+      el.textUppercase.checked = Boolean(layer.uppercase);
+      el.textUppercase.disabled = locked;
       for (const input of el.textAlignInputs) input.checked = input.value === layer.align;
       const colorId = paletteId(TEXT_PALETTE, layer.color);
       for (const input of el.textColorInputs) input.checked = input.value === colorId;
@@ -1145,10 +1151,14 @@ export function createPanels(app) {
   };
   el.textFont.addEventListener("change", () => {
     const family = el.textFont.value;
+    const layer = selectedLayer(scene());
     commitTextProps({
       fontFamily: family,
-      fontWeight: family === "Zarathustra" ? 400 : Number(el.textWeight.value) || 500,
+      fontWeight: fontWeightFor(family, layer?.fontWeight ?? 500),
     });
+  });
+  el.textUppercase.addEventListener("change", () => {
+    commitTextProps({ uppercase: el.textUppercase.checked });
   });
   el.textSize.addEventListener("change", () => {
     const size = Number(el.textSize.value);

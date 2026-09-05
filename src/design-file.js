@@ -1,7 +1,7 @@
 // Design files: save a scene to JSON and load it back with validation.
 // Pure: no DOM. Gift links are secrets and are never written to a file.
 
-import { BACKGROUNDS, CHARACTERS, LAYOUTS, LOGOS, MODES, QR_STYLES, TEMPLATES } from "./catalog.js";
+import { BACKGROUNDS, CHARACTERS, FONTS, LAYOUTS, LOGOS, MODES, QR_STYLES, TEMPLATES, fontWeightFor } from "./catalog.js";
 import { constrainLayer, createScene, snapshot } from "./scene.js";
 
 export const DESIGN_FILE_APP = "zcash-qr-card-studio";
@@ -74,9 +74,10 @@ function cleanLayer(raw) {
     layer.color = typeof raw.color === "string" ? raw.color : null;
   } else if (raw.kind === "text") {
     layer.text = typeof raw.text === "string" ? raw.text : "";
-    layer.fontFamily = typeof raw.fontFamily === "string" ? raw.fontFamily : "Geist";
+    layer.fontFamily = FONTS[raw.fontFamily] ? raw.fontFamily : "Geist";
     layer.fontSize = isFiniteNumber(raw.fontSize) ? raw.fontSize : 34;
-    layer.fontWeight = isFiniteNumber(raw.fontWeight) ? raw.fontWeight : 500;
+    layer.fontWeight = fontWeightFor(layer.fontFamily, isFiniteNumber(raw.fontWeight) ? raw.fontWeight : 500);
+    layer.uppercase = Boolean(raw.uppercase);
     layer.color = typeof raw.color === "string" ? raw.color : "#141818";
     layer.align = ["left", "center", "right"].includes(raw.align) ? raw.align : "left";
     layer.lineHeight = isFiniteNumber(raw.lineHeight) ? raw.lineHeight : 1.2;

@@ -14,6 +14,7 @@ import {
   TEXT_PRESETS,
   TEXT_ROLES,
   CAPTIONS,
+  fontWeightFor,
 } from "./catalog.js";
 
 const VISIBLE_EDGE = 72;
@@ -122,7 +123,8 @@ function templateLayer(def) {
       text: def.text,
       fontFamily: def.fontFamily ?? "Geist",
       fontSize: def.fontSize ?? 30,
-      fontWeight: def.fontFamily === "Zarathustra" ? 400 : (def.fontWeight ?? 500),
+      fontWeight: fontWeightFor(def.fontFamily ?? "Geist", def.fontWeight ?? 500),
+      uppercase: Boolean(def.uppercase),
       color: def.color ?? "#141818",
       align: def.align ?? "left",
       lineHeight,
@@ -398,7 +400,17 @@ export function applyLayout(scene, layoutId) {
       Object.assign(layer, { x: slot.x, y: slot.y, width: slot.width, align: slot.align, rotation: 0 });
     }
   }
+  placeSummaryUnderCaption(scene);
   return scene;
+}
+
+/** Keep the bound summary line just below the caption, whatever the caption's wrapped height. */
+function placeSummaryUnderCaption(scene) {
+  const caption = roleLayer(scene, "caption");
+  const summary = roleLayer(scene, "summary");
+  if (!caption || !summary) return;
+  const gap = Math.round(summary.fontSize * 0.5);
+  summary.y = Math.round(caption.y + (caption.height ?? 0) + gap);
 }
 
 /** @returns {object|null} the text layer carrying a layout role. */
@@ -458,6 +470,7 @@ export function setPaymentSummary(scene, show) {
     fontFamily: role.fontFamily,
     fontSize: role.fontSize,
     fontWeight: role.fontWeight,
+    uppercase: false,
     color: role.color,
     align: layout.summary.align,
     lineHeight: role.lineHeight,
@@ -470,6 +483,7 @@ export function setPaymentSummary(scene, show) {
     deletable: true,
   });
   scene.selectedLayerId = layer.id;
+  placeSummaryUnderCaption(scene);
   return true;
 }
 
@@ -533,7 +547,8 @@ export function makeLogoLayer(assetId, { color = null } = {}, scene) {
     height: asset.height,
     rotation: 0,
     flipX: false,
-    color: asset.recolorable ? color : null,
+    // Light-on-dark source marks carry a defaultColor so they read on cream cards.
+    color: asset.recolorable ? (color ?? asset.defaultColor ?? null) : null,
     locked: false,
     deletable: true,
   };
@@ -550,7 +565,8 @@ export function makeTextLayer(preset, scene) {
     text: definition.text,
     fontFamily: definition.fontFamily,
     fontSize: definition.fontSize,
-    fontWeight: definition.fontFamily === "Zarathustra" ? 400 : definition.fontWeight,
+    fontWeight: fontWeightFor(definition.fontFamily, definition.fontWeight),
+    uppercase: false,
     color: definition.color,
     align: definition.align,
     lineHeight: definition.lineHeight,

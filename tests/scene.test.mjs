@@ -374,7 +374,8 @@ test("applyLayout moves the logo band, caption and summary with the QR", () => {
   assert.equal(caption.x, layout.caption.x);
   assert.equal(caption.align, layout.caption.align);
   const summary = roleLayer(scene, "summary");
-  assert.equal(summary.y, layout.summary.y);
+  assert.equal(summary.x, layout.summary.x);
+  assert.ok(summary.y >= caption.y + caption.height, "summary sits under the caption's real height");
 });
 
 test("payment summary is bound to amount and label", () => {

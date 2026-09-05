@@ -376,6 +376,10 @@
               <span class="asset-thumb asset-thumb--mark asset-thumb--wordmark"><img src="./assets/vizor-logo-dark.svg" alt="" /></span>
               <span class="asset-name">Vizor</span>
             </button>
+            <button class="asset-card" type="button" data-logo-id="vizor-mark" aria-pressed="false">
+              <span class="asset-thumb asset-thumb--mark"><img src="./assets/vizor-icon.svg" alt="" style="filter: brightness(0.12)" /></span>
+              <span class="asset-name">Vizor Mark</span>
+            </button>
             <button class="asset-card" type="button" data-logo-id="vizorcat-head" aria-pressed="false">
               <span class="asset-thumb asset-thumb--mark asset-thumb--pixel"><img src="./assets/logos/vizorcat-classic-head.png" alt="" /></span>
               <span class="asset-name">Vizorcat Classic</span>
@@ -698,8 +702,11 @@
               <label class="field" for="text-font">
                 <span class="field-label">Font</span>
                 <select id="text-font">
-                  <option value="Geist">Geist</option>
-                  <option value="Zarathustra" selected>Zarathustra</option>
+                  <option value="Zarathustra" selected>Zarathustra (serif)</option>
+                  <option value="Geist">Geist (sans)</option>
+                  <option value="SpaceGrotesk">Space Grotesk (geometric)</option>
+                  <option value="Silkscreen">Silkscreen (pixel)</option>
+                  <option value="GeistMono">Geist Mono</option>
                 </select>
               </label>
               <label class="field" for="text-size">
@@ -707,13 +714,21 @@
                 <input id="text-size" type="number" inputmode="numeric" min="12" max="240" step="1" value="56" />
               </label>
             </div>
-            <label class="field" for="text-weight">
-              <span class="field-label">Weight</span>
-              <select id="text-weight">
-                <option value="500">Medium</option>
-                <option value="700">Bold</option>
-              </select>
-            </label>
+            <div class="field-row">
+              <label class="field" for="text-weight">
+                <span class="field-label">Weight</span>
+                <select id="text-weight">
+                  <option value="400">Regular</option>
+                  <option value="500">Medium</option>
+                  <option value="700">Bold</option>
+                </select>
+              </label>
+              <label class="check-row check-row--compact" for="text-uppercase">
+                <input id="text-uppercase" type="checkbox" />
+                <span class="check-row__box" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="m5 10.5 3.5 3.5L15 7" /></svg></span>
+                <span class="check-row__text"><strong>Uppercase</strong></span>
+              </label>
+            </div>
             <div class="field">
               <span class="field-label">Alignment</span>
               <div class="segmented segmented--sm" role="radiogroup" aria-label="Text alignment">

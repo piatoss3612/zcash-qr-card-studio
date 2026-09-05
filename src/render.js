@@ -12,6 +12,7 @@ import {
   QR_STYLES,
   INSTALL_LAYER,
   FONTS,
+  fontWeightFor,
 } from "./catalog.js";
 import { createZip } from "./zip.js";
 
@@ -55,11 +56,11 @@ function loadImage(source) {
  * @returns {Promise<{ backgrounds: Record<string, HTMLImageElement|null>, characters: Record<string, HTMLImageElement|null>, logos: Record<string, HTMLImageElement|null> }>}
  */
 export async function loadAssets(onProgress) {
-  await Promise.all([
-    document.fonts.load('500 16px "Geist"'),
-    document.fonts.load('700 16px "Geist"'),
-    document.fonts.load('400 30px "Zarathustra"'),
-  ]);
+  await Promise.all(
+    Object.values(FONTS).flatMap((font) =>
+      font.weights.map((weight) => document.fonts.load(`${weight} 16px ${font.stack}`)),
+    ),
+  );
 
   const assets = { backgrounds: {}, characters: {}, logos: {} };
   const jobs = [
@@ -454,8 +455,14 @@ function drawVisualLayer(ctx, layer, assets) {
  */
 export function textFont(layer) {
   const font = FONTS[layer.fontFamily] ?? FONTS.Geist;
-  const weight = font.id === "Zarathustra" ? 400 : (layer.fontWeight ?? 500);
+  const weight = fontWeightFor(font.id, layer.fontWeight ?? 500);
   return `${weight} ${layer.fontSize}px ${font.stack}`;
+}
+
+/** @returns {string} the text as drawn (uppercase transform applied). */
+export function displayText(layer) {
+  const text = String(layer.text ?? "");
+  return layer.uppercase ? text.toUpperCase() : text;
 }
 
 /**
@@ -517,7 +524,7 @@ function getMeasureContext() {
 export function measureTextLayer(layer) {
   const ctx = getMeasureContext();
   ctx.font = textFont(layer);
-  const lines = wrapText(ctx, layer.text, layer.width);
+  const lines = wrapText(ctx, displayText(layer), layer.width);
   const height = Math.max(lines.length, 1) * layer.fontSize * (layer.lineHeight ?? 1.2);
   return { lines, height };
 }
