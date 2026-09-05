@@ -382,6 +382,12 @@ export function createEditor(app) {
     const editing = isTextEditingTarget(event.target);
     const key = event.key.toLowerCase();
 
+    if (event.key === "?" && !modifier && !editing) {
+      event.preventDefault();
+      app.openHelp?.();
+      return;
+    }
+
     if (modifier && !event.altKey) {
       if (key === "z" && !editing) {
         event.preventDefault();

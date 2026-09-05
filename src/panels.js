@@ -171,6 +171,8 @@ export function createPanels(app) {
     printCanvas: document.getElementById("print-canvas"),
     cardCanvas: document.getElementById("card-canvas"),
 
+    helpButton: document.getElementById("help-button"),
+    helpDialog: document.getElementById("help-dialog"),
     batchDialog: document.getElementById("batch-dialog"),
     batchInput: document.getElementById("batch-input"),
     batchHint: document.getElementById("batch-hint"),
@@ -1113,6 +1115,12 @@ export function createPanels(app) {
   el.batchInput.addEventListener("input", syncBatch);
   el.batchRun.addEventListener("click", runBatch);
   el.batchCancel.addEventListener("click", () => el.batchDialog.close());
+  function openHelp() {
+    closeMenus();
+    if (!el.helpDialog.open) el.helpDialog.showModal();
+  }
+  el.helpButton.addEventListener("click", openHelp);
+  app.openHelp = openHelp;
 
   el.undo.addEventListener("click", () => app.undo());
   el.redo.addEventListener("click", () => app.redo());

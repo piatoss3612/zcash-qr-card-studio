@@ -104,6 +104,10 @@
 
         <output id="render-status" class="render-status" data-state="ready" aria-live="polite" title="">Ready</output>
 
+        <button id="help-button" class="icon-button icon-button--sm" type="button" aria-label="Keyboard shortcuts and tips" title="Shortcuts (?)">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7" /><path d="M7.75 8a2.25 2.25 0 1 1 3.2 2.05c-.6.3-.95.75-.95 1.45v.25" /><path d="M10 14.25h.01" /></svg>
+        </button>
+
         <div class="export-wrap">
           <button
             id="export-button"
@@ -959,6 +963,59 @@
         Delete
       </button>
     </div>
+
+    <dialog id="help-dialog" class="dialog dialog--help" aria-labelledby="help-dialog-title">
+      <form method="dialog" class="dialog__form">
+        <header class="dialog__head dialog__head--row">
+          <div>
+            <h2 id="help-dialog-title">Shortcuts &amp; tips</h2>
+            <p class="dialog__hint">Press <kbd>?</kbd> any time to open this sheet.</p>
+          </div>
+          <button class="icon-button icon-button--sm" type="submit" aria-label="Close">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5.5 5.5 9 9" /><path d="m14.5 5.5-9 9" /></svg>
+          </button>
+        </header>
+        <div class="help-columns">
+          <section class="help-group">
+            <h3>Canvas</h3>
+            <dl>
+              <div><dt>Drag</dt><dd>Move a layer. Guides snap to the centre, safe area and other layers.</dd></div>
+              <div><dt><kbd>Alt</kbd> + drag</dt><dd>Move without snapping</dd></div>
+              <div><dt><kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd></dt><dd>Nudge 1 px, <kbd>Shift</kbd> for 10 px</dd></div>
+              <div><dt>Double-click text</dt><dd>Edit its content</dd></div>
+              <div><dt>Right-click</dt><dd>Layer menu: order, lock, flip, delete</dd></div>
+              <div><dt><kbd>Esc</kbd></dt><dd>Deselect</dd></div>
+            </dl>
+          </section>
+          <section class="help-group">
+            <h3>Layers</h3>
+            <dl>
+              <div><dt><kbd>⌘</kbd><kbd>D</kbd></dt><dd>Duplicate</dd></div>
+              <div><dt><kbd>Delete</kbd></dt><dd>Remove the selected layer</dd></div>
+              <div><dt><kbd>⌘</kbd><kbd>Z</kbd></dt><dd>Undo</dd></div>
+              <div><dt><kbd>⌘</kbd><kbd>⇧</kbd><kbd>Z</kbd></dt><dd>Redo</dd></div>
+            </dl>
+          </section>
+          <section class="help-group">
+            <h3>View</h3>
+            <dl>
+              <div><dt><kbd>⌘</kbd> + wheel</dt><dd>Zoom around the pointer</dd></div>
+              <div><dt><kbd>⌘</kbd><kbd>0</kbd></dt><dd>Fit the card</dd></div>
+              <div><dt><kbd>⌘</kbd><kbd>=</kbd> / <kbd>⌘</kbd><kbd>−</kbd></dt><dd>Zoom in / out</dd></div>
+            </dl>
+          </section>
+          <section class="help-group">
+            <h3>File</h3>
+            <dl>
+              <div><dt><kbd>⌘</kbd><kbd>S</kbd></dt><dd>Save the design as .json</dd></div>
+              <div><dt><kbd>⌘</kbd><kbd>O</kbd></dt><dd>Open a design file</dd></div>
+              <div><dt>Export</dt><dd>Runs a print preflight first: QR size, overlaps, safe area</dd></div>
+            </dl>
+          </section>
+        </div>
+        <p class="help-foot">On Windows and Linux use <kbd>Ctrl</kbd> for <kbd>⌘</kbd>. Nothing leaves this browser: no storage, no network.</p>
+      </form>
+    </dialog>
 
     <dialog id="batch-dialog" class="dialog" aria-labelledby="batch-dialog-title">
       <form method="dialog" class="dialog__form">
