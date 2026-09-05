@@ -9,9 +9,9 @@
     />
     <title>Zcash QR Card Studio</title>
     <link rel="icon" href="./assets/vizorcat-icon.png" type="image/png" />
-    <link rel="stylesheet" href="./styles.css?v=20260903" />
+    <link rel="stylesheet" href="./styles.css?v=20260905" />
   </head>
-  <body data-mode="link">
+  <body data-mode="link" data-qr-state="pending">
     <!-- ══════════════════════════ TOP BAR ══════════════════════════ -->
     <header class="app-bar">
       <div class="app-bar__left">
@@ -106,11 +106,11 @@
     <div class="workbench">
       <!-- ─────────── Tool rail ─────────── -->
       <nav class="tool-rail" aria-label="Design tools">
-        <button class="tool-tab" type="button" data-panel="templates" aria-pressed="false" aria-controls="tool-drawer">
+        <button class="tool-tab" type="button" data-panel="templates" aria-pressed="true" aria-controls="tool-drawer">
           <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 3.5h5.25v5.25H3.5z" /><path d="M11.25 3.5h5.25v5.25h-5.25z" /><path d="M3.5 11.25h5.25v5.25H3.5z" /><path d="M11.25 11.25h5.25v5.25h-5.25z" /></svg>
           <span>Templates</span>
         </button>
-        <button class="tool-tab" type="button" data-panel="backgrounds" aria-pressed="true" aria-controls="tool-drawer">
+        <button class="tool-tab" type="button" data-panel="backgrounds" aria-pressed="false" aria-controls="tool-drawer">
           <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5h14v11H3z" /><path d="m3 13 4-4 3.5 3.5L13 10l4 3.5" /><path d="M7.25 7.75h.01" /></svg>
           <span>Backgrounds</span>
         </button>
@@ -135,7 +135,7 @@
       <!-- ─────────── Tool drawer ─────────── -->
       <div id="tool-drawer" class="tool-drawer">
         <!-- Templates -->
-        <section class="tool-panel" data-panel="templates" aria-label="Templates" hidden>
+        <section class="tool-panel" data-panel="templates" aria-label="Templates">
           <header class="drawer-head">
             <h2>Templates</h2>
             <button id="drawer-close-button" class="icon-button icon-button--sm drawer-close" type="button" aria-label="Close panel">
@@ -156,7 +156,7 @@
         </section>
 
         <!-- Backgrounds -->
-        <section class="tool-panel" data-panel="backgrounds" aria-label="Backgrounds">
+        <section class="tool-panel" data-panel="backgrounds" aria-label="Backgrounds" hidden>
           <header class="drawer-head">
             <h2>Backgrounds</h2>
             <button class="icon-button icon-button--sm drawer-close" type="button" aria-label="Close panel" data-drawer-close>
@@ -542,9 +542,15 @@
       <!-- ─────────── Properties ─────────── -->
       <aside class="properties" aria-label="Properties">
         <!-- Content -->
-        <section id="content-panel" class="prop-section">
-          <header class="prop-head">
+        <section id="content-panel" class="prop-section prop-section--hero">
+          <header class="prop-head prop-head--hero">
             <span class="eyebrow">QR content</span>
+            <strong class="hero-title">What the QR opens</strong>
+            <span class="hero-status" aria-hidden="true">
+              <svg class="hero-status__check" viewBox="0 0 20 20"><path d="m5 10.5 3.5 3.5L15 7" /></svg>
+              <span class="hero-status__pending">Start here</span>
+              <span class="hero-status__ready">QR ready</span>
+            </span>
           </header>
 
           <fieldset class="mode-fields" data-mode-fields="payment" hidden>

@@ -1361,6 +1361,101 @@ body[data-drawer="closed"] #tool-drawer {
   border-bottom: 0;
 }
 
+/* Hero: the QR content block is the first thing a new user must fill. */
+.prop-section--hero {
+  position: relative;
+  padding: 16px 14px 14px;
+  background: var(--brand-soft);
+  box-shadow: inset 3px 0 0 var(--brand);
+  transition: background 220ms var(--ease), box-shadow 220ms var(--ease);
+}
+
+body[data-qr-state="ready"] .prop-section--hero {
+  background: var(--panel);
+  box-shadow: inset 3px 0 0 transparent;
+}
+
+.prop-head--hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "eyebrow status" "title title";
+  align-items: center;
+  row-gap: 4px;
+}
+
+.prop-head--hero .eyebrow {
+  grid-area: eyebrow;
+  white-space: nowrap;
+}
+
+.hero-title {
+  grid-area: title;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.hero-status {
+  grid-area: status;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 22px;
+  padding: 0 8px;
+  white-space: nowrap;
+  color: var(--brand);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--brand-ring);
+  border-radius: 999px;
+  background: var(--panel);
+}
+
+.hero-status__check {
+  width: 12px;
+  height: 12px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  display: none;
+}
+
+.hero-status__ready {
+  display: none;
+}
+
+body[data-qr-state="ready"] .hero-status {
+  color: #1f7a3f;
+  border-color: rgba(31, 122, 63, 0.35);
+  background: #eaf6ee;
+}
+
+body[data-qr-state="ready"] .hero-status__pending {
+  display: none;
+}
+
+body[data-qr-state="ready"] .hero-status__ready,
+body[data-qr-state="ready"] .hero-status__check {
+  display: inline;
+}
+
+.prop-section--hero input[type="text"],
+.prop-section--hero input[type="url"],
+.prop-section--hero textarea {
+  font-size: 13px;
+}
+
+.prop-section--hero .mode-fields > .field:first-of-type input {
+  min-height: 38px;
+  border-color: var(--line-strong);
+}
+
 .prop-head {
   display: flex;
   align-items: baseline;

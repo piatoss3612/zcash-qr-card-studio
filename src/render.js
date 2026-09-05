@@ -269,26 +269,34 @@ function drawQrPlaceholder(ctx, geometry, style) {
 
   drawQrPanel(ctx, geometry, style);
 
+  // Ghost of a sample QR so the composition reads as finished while the
+  // content is still empty. Exports stay gated on a real code (canExport).
   ctx.save();
   roundedRect(ctx, x, y, size, size, radius);
   ctx.clip();
-  ctx.strokeStyle = "rgba(139, 144, 144, 0.28)";
-  ctx.lineWidth = 2;
-  const step = 26;
-  for (let offset = -size; offset <= size * 2; offset += step) {
-    ctx.beginPath();
-    ctx.moveTo(x + offset, y);
-    ctx.lineTo(x + offset - size, y + size);
-    ctx.stroke();
-  }
+  ctx.globalAlpha = 0.14;
+  drawQr(ctx, sampleQrCode(), { ...geometry, radius }, { ...style, panel: "transparent", shadow: false, stroke: null });
   ctx.restore();
 
   ctx.save();
-  ctx.fillStyle = "#8b9090";
-  ctx.font = `500 26px ${FONTS.Geist.stack}`;
+  ctx.font = `600 ${Math.round(size * 0.034)}px ${FONTS.Geist.stack}`;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  ctx.fillText(PLACEHOLDER_CAPTION, x + size / 2, y + size / 2);
+  const padX = Math.round(size * 0.03);
+  const pillH = Math.round(size * 0.075);
+  const textW = ctx.measureText(PLACEHOLDER_CAPTION).width;
+  const pillW = Math.min(size - padX * 2, textW + padX * 2);
+  const cx = x + size / 2;
+  const cy = y + size / 2;
+  ctx.shadowColor = "rgba(20, 24, 24, 0.14)";
+  ctx.shadowBlur = 12;
+  ctx.shadowOffsetY = 3;
+  ctx.fillStyle = "rgba(255, 255, 255, 0.96)";
+  roundedRect(ctx, cx - pillW / 2, cy - pillH / 2, pillW, pillH, pillH / 2);
+  ctx.fill();
+  ctx.shadowColor = "transparent";
+  ctx.fillStyle = "#5d6262";
+  ctx.fillText(PLACEHOLDER_CAPTION, cx, cy, pillW - padX * 2);
   ctx.restore();
 }
 

@@ -174,7 +174,7 @@ export function createPanels(app) {
   el.contextMenuActions = [...el.contextMenu.querySelectorAll("[data-layer-action]")];
 
   const pick = { character: "samurai", logo: "vizor" };
-  let activePanel = "backgrounds";
+  let activePanel = "templates";
   let drawerOpen = true;
   let contextMenuLayerId = null;
   /** @type {object|null} */
@@ -1039,6 +1039,8 @@ export function createPanels(app) {
     el.contentWarning.textContent = app.qr.warnings.join(" ");
     const preview = app.qr.value ?? "";
     el.valuePreview.textContent = current.mode === "giftcard" ? maskGiftLink(preview) : preview;
+
+    el.body.dataset.qrState = app.qrCode ? "ready" : "pending";
 
     syncSelection();
     syncLayerList();
