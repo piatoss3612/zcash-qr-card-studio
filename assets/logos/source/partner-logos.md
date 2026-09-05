@@ -18,3 +18,26 @@ Most logo copies came from local Vizor and Keplr repositories. Valar Group, Zaku
 The QR Card Studio copies preserve the original geometry. Fixed near-white fills in the Keystone and Ledger copies were changed to `#141818`. The Zcash Mark copy also changes its near-white app fill to `#141818`. The Zcash Coin and CipherScan copies are unchanged raster assets. The ZecHub and Project Tachyon copies are resolution-reduced only. The Cypherpunk live copy is byte-identical to the official square SVG and keeps its own black field, neon-green border, and glow; it therefore does not use the editor's white rendering mode. The NEAR Intents copy keeps its path geometry but replaces the website-only responsive sizing, preserves the native aspect ratio, and sets its existing fill variable to `#141818`. These adjustments keep the monochrome marks visible and undistorted on print-card backgrounds. Source repository assets were not modified.
 
 Brand names and logos remain the property of their respective owners. Inclusion in the editor library indicates a Vizor relationship, integration, supported device, network, or adjacent ecosystem project, not a general endorsement of every generated card.
+
+## Usage-terms check (2026-09-05)
+
+Checked the public brand pages and policies of every third-party mark in the editor. This is a documentation-level review, not legal advice.
+
+| Mark | Basis found | Standing | Notes |
+|---|---|---|---|
+| Zcash Mark, Zcash Coin | Zcash Foundation trademark policy (`https://zfnd.org/zcash-trademark-policy/`) | Allowed | Logos may be used "to indicate that you accept payment in the Zcash cryptocurrency" or that a product "supports Zcash"; merchandise is allowed. Your own branding must stay more prominent. Colour changes are not addressed. |
+| ZecHub | Repository license CC BY-SA 4.0 | Allowed with attribution | Attribution is carried in `THIRD_PARTY_NOTICES.md`. Downscaled only. |
+| CipherScan | Repository license MIT | Allowed | License text preserved in `cipherscan-license.txt`. |
+| Keplr | Own company asset | Allowed | — |
+| Ledger | `brand.ledger.com` and the press kit (`https://www.ledger.com/press`) | Conditional | Public assets are addressed to "a Ledger partner, affiliate"; permission and colour rules live in the press-kit PDF and were not verified. The editor copy changes the near-white fill to ink. |
+| Keystone | Public media kit (Google Drive linked from `blog.keyst.one`) | Conditional | No usage terms published. The editor copy changes the near-white fill to ink. |
+| NEAR Intents | `near.org/brand` and `pages.near.org/about/*` redirect to docs as of this check | Unverified | Only basis is Vizor's payment-route relationship. The editor copy changes the fill variable to ink. |
+| Cypherpunk | Site footer: "CYPHERPUNK, CYPHERPUNK MINING, and CYPHERPUNK TECHNOLOGIES are all trademarks of Cypherpunk Technologies Inc." | Unverified | No usage guidelines published. Copy is byte-identical to the official icon. |
+| Project Tachyon | `tachyon.z.cash`: "actively developed by community members" | Unverified (low risk) | No trademark holder or license stated. |
+| Valar Group | `valargroup.dev` | Unverified | No legal, brand or press information on the site. |
+| Zakura | `zakura.com` | Unverified | No legal, brand or press information on the site. |
+
+Consequences applied in the editor:
+
+- The Logos drawer separates "Vizor & Zcash" marks from a folded "Partner logos" section that carries a caution note (check with the brand owner before printing; keep original colours).
+- For a public deployment that is not run by Vizor, the partner section should be reviewed mark by mark; marks whose fill was changed to ink (Ledger, Keystone, NEAR Intents) should be restored to their original colours or removed until confirmed.
