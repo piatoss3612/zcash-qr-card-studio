@@ -146,56 +146,81 @@ export const INSTALL_LAYER = Object.freeze({
   copy: Object.freeze({ x: 316, y: 1650 }),
 });
 
+// Vertical grid (card 1819px, safe area 94..1725): logo band → QR → caption →
+// summary → character + Get Vizor footer. `logo` boxes are for the wordmark; the
+// square `mark` box is used by payment cards (Zcash mark).
 export const LAYOUTS = Object.freeze({
   center: {
     id: "center",
     label: "Centered",
-    qr: Object.freeze({ x: 286, y: 250, size: 740 }),
-    character: Object.freeze({ x: 690, y: 1005, width: 500, height: 650 }),
-    install: INSTALL_LAYER.block,
-    logo: Object.freeze({ x: 497, y: 105 }),
+    qr: Object.freeze({ x: 286, y: 290, size: 740 }),
+    logo: Object.freeze({ x: 446, y: 104, width: 420, height: 122 }),
+    mark: Object.freeze({ x: 571, y: 86, size: 170 }),
+    caption: Object.freeze({ x: 286, y: 1064, width: 740, align: "center" }),
+    summary: Object.freeze({ x: 286, y: 1150, width: 460, align: "left" }),
+    character: Object.freeze({ x: 760, y: 1140, width: 457, height: 585 }),
+    install: Object.freeze({ x: 286, y: 1550, width: 460, height: 175, radius: 18 }),
   },
   "qr-left": {
     id: "qr-left",
     label: "QR left",
-    qr: Object.freeze({ x: 120, y: 320, size: 650 }),
-    character: Object.freeze({ x: 805, y: 500, width: 390, height: 700 }),
-    install: INSTALL_LAYER.block,
-    logo: Object.freeze({ x: 120, y: 120 }),
+    qr: Object.freeze({ x: 120, y: 290, size: 650 }),
+    logo: Object.freeze({ x: 120, y: 104, width: 420, height: 122 }),
+    mark: Object.freeze({ x: 120, y: 86, size: 170 }),
+    caption: Object.freeze({ x: 120, y: 975, width: 650, align: "left" }),
+    summary: Object.freeze({ x: 120, y: 1065, width: 650, align: "left" }),
+    character: Object.freeze({ x: 770, y: 1085, width: 447, height: 640 }),
+    install: Object.freeze({ x: 120, y: 1535, width: 500, height: 190, radius: 18 }),
   },
   "qr-right": {
     id: "qr-right",
     label: "QR right",
-    qr: Object.freeze({ x: 541, y: 320, size: 650 }),
-    character: Object.freeze({ x: 100, y: 500, width: 400, height: 700 }),
-    install: INSTALL_LAYER.block,
-    logo: Object.freeze({ x: 541, y: 120 }),
+    qr: Object.freeze({ x: 541, y: 290, size: 650 }),
+    logo: Object.freeze({ x: 541, y: 104, width: 420, height: 122 }),
+    mark: Object.freeze({ x: 541, y: 86, size: 170 }),
+    caption: Object.freeze({ x: 541, y: 975, width: 650, align: "left" }),
+    summary: Object.freeze({ x: 541, y: 1065, width: 650, align: "left" }),
+    character: Object.freeze({ x: 94, y: 1085, width: 427, height: 640 }),
+    install: Object.freeze({ x: 541, y: 1535, width: 500, height: 190, radius: 18 }),
   },
+});
+
+/** Default call-to-action under the QR, per card type. */
+export const CAPTIONS = Object.freeze({
+  payment: "Scan to pay with Zcash",
+  link: "Scan to open",
+  giftcard: "Scan to claim your gift",
+});
+
+/** Text layer roles a layout can position: `caption` (CTA) and `summary` (bound amount · label). */
+export const TEXT_ROLES = Object.freeze({
+  caption: { fontFamily: "Zarathustra", fontSize: 56, lineHeight: 1.15, color: COLORS.ink },
+  summary: { fontFamily: "Geist", fontSize: 38, fontWeight: 700, lineHeight: 1.3, color: COLORS.secondary },
 });
 
 // Themes: every background paired with the Vizorcat it was drawn for (see
 // assets/backgrounds/source/*.md). Order = template order; the first is the default.
 // Templates are generated from this table for each card type and never include text layers.
 export const THEMES = Object.freeze([
-  { background: "rampart", character: "classic", qrStyle: "ink" },
+  { background: "rampart", character: "classic", qrStyle: "ink", layoutId: "qr-right" },
   { background: "paper", character: "classic", qrStyle: "ink" },
   { background: "wave", character: "samurai", qrStyle: "clean" },
   { background: "blossom", character: "samurai", qrStyle: "soft" },
   { background: "dragon", character: "stonehold", qrStyle: "clean" },
   { background: "forest", character: "grove", qrStyle: "soft" },
   { background: "frost", character: "snow", qrStyle: "soft" },
-  { background: "hearth", character: "hearthlight", qrStyle: "clean" },
+  { background: "hearth", character: "hearthlight", qrStyle: "clean", layoutId: "qr-right" },
   { background: "lunar", character: "orbital", qrStyle: "clean" },
   { background: "astral", character: "astral", qrStyle: "soft" },
-  { background: "commons", character: "commons", qrStyle: "ink" },
+  { background: "commons", character: "commons", qrStyle: "ink", layoutId: "qr-right" },
   { background: "crimson", character: "samurai", qrStyle: "clean" },
   { background: "dark", character: "samurai", qrStyle: "ink" },
 ]);
 
-// Character box for the Centered layout, honouring the asset's defaultScale (same maths as makeCharacterLayer).
-function themeCharacterLayer(characterId) {
+// Character box for a layout, honouring the asset's defaultScale (same maths as makeCharacterLayer).
+function themeCharacterLayer(characterId, layout) {
   const asset = CHARACTERS[characterId];
-  const box = LAYOUTS.center.character;
+  const box = layout.character;
   const scale = asset?.defaultScale ?? 1;
   const width = Math.round(box.width * scale);
   const height = Math.round(box.height * scale);
@@ -210,10 +235,31 @@ function themeCharacterLayer(characterId) {
 }
 
 // Payment cards are wallet-agnostic, so they carry the Zcash mark; Vizor cards carry the Vizor wordmark.
-function themeLogoLayer(mode) {
-  return mode === "payment"
-    ? { kind: "logo", assetId: "zcash", x: 590, y: 96, width: 130, height: 130, color: null }
-    : { kind: "logo", assetId: "vizor", x: LAYOUTS.center.logo.x, y: LAYOUTS.center.logo.y, color: null };
+function themeLogoLayer(mode, layout) {
+  if (mode === "payment") {
+    const { x, y, size } = layout.mark;
+    return { kind: "logo", assetId: "zcash", x, y, width: size, height: size, color: null };
+  }
+  const { x, y, width, height } = layout.logo;
+  return { kind: "logo", assetId: "vizor", x, y, width, height, color: null };
+}
+
+function themeCaptionLayer(mode, layout) {
+  const role = TEXT_ROLES.caption;
+  return {
+    kind: "text",
+    role: "caption",
+    text: CAPTIONS[mode],
+    fontFamily: role.fontFamily,
+    fontSize: role.fontSize,
+    lineHeight: role.lineHeight,
+    color: role.color,
+    align: layout.caption.align,
+    x: layout.caption.x,
+    y: layout.caption.y,
+    width: layout.caption.width,
+    height: Math.round(role.fontSize * role.lineHeight),
+  };
 }
 
 function buildTemplates() {
@@ -221,14 +267,19 @@ function buildTemplates() {
   for (const mode of Object.keys(MODES)) {
     for (const theme of THEMES) {
       const id = `${mode}-${theme.background}`;
+      const layout = LAYOUTS[theme.layoutId] ?? LAYOUTS.center;
       templates[id] = {
         id,
         mode,
         label: BACKGROUNDS[theme.background].label,
         background: theme.background,
-        layoutId: "center",
+        layoutId: layout.id,
         qrStyle: theme.qrStyle,
-        layers: [themeLogoLayer(mode), themeCharacterLayer(theme.character)],
+        layers: [
+          themeLogoLayer(mode, layout),
+          themeCharacterLayer(theme.character, layout),
+          themeCaptionLayer(mode, layout),
+        ],
       };
     }
   }

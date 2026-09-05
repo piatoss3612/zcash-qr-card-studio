@@ -80,6 +80,8 @@ function cleanLayer(raw) {
     layer.color = typeof raw.color === "string" ? raw.color : "#141818";
     layer.align = ["left", "center", "right"].includes(raw.align) ? raw.align : "left";
     layer.lineHeight = isFiniteNumber(raw.lineHeight) ? raw.lineHeight : 1.2;
+    layer.role = ["caption", "summary"].includes(raw.role) ? raw.role : null;
+    layer.bound = raw.bound === "payment-summary" ? raw.bound : null;
   } else if (raw.kind === "qr" || raw.kind === "install") {
     layer.deletable = false;
   }

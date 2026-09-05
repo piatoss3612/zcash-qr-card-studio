@@ -1,7 +1,7 @@
 // Bootstrap: scene + history, the render scheduler, and the editor/panel wiring.
 
 import { INSTALL_URL } from "./catalog.js";
-import { History, createScene, restore, snapshot } from "./scene.js";
+import { History, createScene, restore, snapshot, syncBoundText } from "./scene.js";
 import { buildQrValue } from "./qr-content.js";
 import { assetsReady, loadAssets, makeQr, renderScene } from "./render.js";
 import { createEditor } from "./editor.js";
@@ -95,6 +95,7 @@ function autoStatus() {
 /** Draw the card, then re-sync overlay, panels and status. */
 function draw() {
   frame = 0;
+  syncBoundText(scene);
   app.qr = buildQrValue(scene);
   let code = null;
   if (app.qr.value) {

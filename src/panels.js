@@ -22,12 +22,14 @@ import {
   makeTextLayer,
   removeLayer,
   reorderLayer,
+  roleLayer,
   selectLayer,
   selectedLayer,
   setIncludeInstall,
   setLayerOrder,
   setLayerProps,
   setMode,
+  setPaymentSummary,
   snapshot,
 } from "./scene.js";
 import { maskGiftLink, parseBatchLines } from "./qr-content.js";
@@ -130,6 +132,8 @@ export function createPanels(app) {
 
     modeFieldsets: [...document.querySelectorAll("[data-mode-fields]")],
     includeInstall: document.getElementById("include-install"),
+    showSummary: document.getElementById("show-summary"),
+    textBoundNote: document.getElementById("text-bound-note"),
     memoCount: document.getElementById("memo-count"),
     contentError: document.getElementById("content-error"),
     contentWarning: document.getElementById("content-warning"),
@@ -430,6 +434,9 @@ export function createPanels(app) {
       if (document.activeElement !== el.textContent && el.textContent.value !== layer.text) {
         el.textContent.value = layer.text;
       }
+      const bound = Boolean(layer.bound);
+      el.textContent.disabled = bound || locked;
+      el.textBoundNote.hidden = !bound;
       el.textFont.value = layer.fontFamily;
       setValue(el.textSize, layer.fontSize);
       // Zarathustra only ships at 400, which the select does not offer; show its
@@ -1008,6 +1015,9 @@ export function createPanels(app) {
   el.includeInstall.addEventListener("change", () => {
     edit(() => setIncludeInstall(scene(), el.includeInstall.checked));
   });
+  el.showSummary.addEventListener("change", () => {
+    edit(() => setPaymentSummary(scene(), el.showSummary.checked));
+  });
 
   for (const input of [
     el.transformX,
@@ -1280,6 +1290,7 @@ export function createPanels(app) {
       if (field.value !== value) field.value = value;
     }
     el.includeInstall.checked = current.includeInstall;
+    el.showSummary.checked = Boolean(roleLayer(current, "summary"));
     updateMemoCount();
 
     el.contentError.textContent = app.qr.error ?? "";

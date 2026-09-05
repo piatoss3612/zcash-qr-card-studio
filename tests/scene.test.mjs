@@ -18,15 +18,18 @@ import {
   removeLayer,
   reorderLayer,
   restore,
+  roleLayer,
   selectLayer,
   selectedLayer,
   setLayerOrder,
   setIncludeInstall,
   setLayerProps,
   setMode,
+  setPaymentSummary,
   snapshot,
+  syncBoundText,
 } from "../src/scene.js";
-import { INSTALL_LAYER, LAYOUTS, LOGOS, OUTPUT, TEMPLATES } from "../src/catalog.js";
+import { CAPTIONS, INSTALL_LAYER, LAYOUTS, OUTPUT, TEMPLATES } from "../src/catalog.js";
 
 test("createScene builds background, qr and template layers", () => {
   const scene = createScene({ mode: "link" });
@@ -39,7 +42,8 @@ test("createScene builds background, qr and template layers", () => {
   assert.equal(scene.layers.background.locked, true);
   assert.equal(scene.layers.background.deletable, false);
   assert.equal(scene.layers.background.width, OUTPUT.width);
-  assert.equal(scene.layers.qr.width, LAYOUTS.center.qr.size);
+  assert.equal(scene.layoutId, TEMPLATES["link-rampart"].layoutId);
+  assert.equal(scene.layers.qr.width, LAYOUTS[scene.layoutId].qr.size);
   assert.deepEqual(scene.content, {
     url: "", giftLink: "", address: "", amount: "", memo: "", label: "", message: "",
   });
@@ -49,16 +53,20 @@ test("createScene builds background, qr and template layers", () => {
   assert.equal(added.length, template.layers.length);
   assert.equal(added[0], "logo-1");
   assert.equal(added[1], "character-2");
-  assert.equal(scene.nextLayerId, 3);
-  assert.equal(movableLayers(scene).some((layer) => layer.kind === "text"), false, "templates carry no text");
+  assert.equal(added[2], "text-3");
+  assert.equal(scene.nextLayerId, 4);
+  const caption = scene.layers["text-3"];
+  assert.equal(caption.role, "caption");
+  assert.equal(caption.text, CAPTIONS.link);
+  assert.equal(caption.x, LAYOUTS[scene.layoutId].caption.x);
 });
 
 test("template logo layers take size from the catalog and pair the themed character", () => {
   const scene = createScene({ templateId: "giftcard-forest" });
   assert.equal(scene.mode, "giftcard");
   const logo = scene.layers["logo-1"];
-  assert.equal(logo.width, LOGOS.vizor.width);
-  assert.equal(logo.height, LOGOS.vizor.height);
+  assert.equal(logo.width, LAYOUTS.center.logo.width);
+  assert.equal(logo.height, LAYOUTS.center.logo.height);
   assert.equal(logo.color, null);
   assert.equal(scene.layers["character-2"].assetId, "grove");
   assert.equal(TEMPLATES["payment-forest"].layers[0].assetId, "zcash", "payment cards carry the Zcash mark");
@@ -146,8 +154,8 @@ test("factories cascade and addLayer assigns ids", () => {
   const scene = createScene({ mode: "link" });
   const first = addLayer(scene, makeCharacterLayer("samurai", scene));
   const second = addLayer(scene, makeCharacterLayer("samurai", scene));
-  assert.equal(first.id, "character-3");
-  assert.equal(second.id, "character-4");
+  assert.equal(first.id, "character-4");
+  assert.equal(second.id, "character-5");
   assert.notEqual(first.x, second.x, "cascade offset applied");
   assert.equal(scene.selectedLayerId, second.id);
   assert.equal(scene.order.at(-1), second.id);
@@ -297,7 +305,7 @@ test("snapshot and restore round-trip without sharing references", () => {
   removeLayer(scene, movableLayers(scene).find((layer) => layer.kind === "logo").id);
 
   restore(scene, snap);
-  assert.equal(scene.layers.qr.x, LAYOUTS.center.qr.x);
+  assert.equal(scene.layers.qr.x, LAYOUTS[scene.layoutId].qr.x);
   assert.equal(scene.content.url, "");
   assert.equal(movableLayers(scene).filter((layer) => layer.kind === "logo").length, 1);
 
@@ -352,4 +360,50 @@ test("setLayerOrder replaces the draw order and pins the background", () => {
   const bgLast = [...swapped.filter((id) => id !== "background"), "background"];
   assert.equal(setLayerOrder(scene, bgLast), false, "background is pinned, so this is the same order");
   assert.equal(scene.order[0], "background");
+});
+
+test("applyLayout moves the logo band, caption and summary with the QR", () => {
+  const scene = createScene({ mode: "payment", templateId: "payment-wave" });
+  assert.equal(scene.layoutId, "center");
+  setPaymentSummary(scene, true);
+  applyLayout(scene, "qr-left");
+  const layout = LAYOUTS["qr-left"];
+  assert.equal(scene.layers["logo-1"].x, layout.mark.x, "Zcash mark uses the square slot");
+  assert.equal(scene.layers["logo-1"].width, layout.mark.size);
+  const caption = roleLayer(scene, "caption");
+  assert.equal(caption.x, layout.caption.x);
+  assert.equal(caption.align, layout.caption.align);
+  const summary = roleLayer(scene, "summary");
+  assert.equal(summary.y, layout.summary.y);
+});
+
+test("payment summary is bound to amount and label", () => {
+  const scene = createScene({ mode: "payment" });
+  assert.equal(setPaymentSummary(scene, true), true);
+  assert.equal(setPaymentSummary(scene, true), false, "idempotent");
+  const summary = roleLayer(scene, "summary");
+  assert.equal(summary.bound, "payment-summary");
+  assert.equal(summary.text, "");
+  scene.content.amount = "0.05";
+  scene.content.label = "Coffee stand";
+  assert.equal(syncBoundText(scene), true);
+  assert.equal(summary.text, "0.05 ZEC · Coffee stand");
+  assert.equal(syncBoundText(scene), false, "no change reports false");
+  scene.content.amount = "";
+  syncBoundText(scene);
+  assert.equal(summary.text, "Coffee stand");
+  assert.equal(setPaymentSummary(scene, false), true);
+  assert.equal(roleLayer(scene, "summary"), null);
+  assert.equal(scene.selectedLayerId, "qr");
+});
+
+test("setMode swaps an untouched caption and drops the payment summary", () => {
+  const scene = createScene({ mode: "payment" });
+  setPaymentSummary(scene, true);
+  setMode(scene, "link");
+  assert.equal(roleLayer(scene, "caption").text, CAPTIONS.link);
+  assert.equal(roleLayer(scene, "summary"), null);
+  roleLayer(scene, "caption").text = "Custom words";
+  setMode(scene, "giftcard");
+  assert.equal(roleLayer(scene, "caption").text, "Custom words", "edited captions are kept");
 });

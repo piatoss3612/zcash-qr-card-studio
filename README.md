@@ -49,7 +49,8 @@ A Vizor gift link starts with `https://link.vizor.cash/` and carries a secret in
 
 ## Editing
 
-- **Templates** — three per card type. Applying one replaces the background and every layer but keeps the QR content you have already typed.
+- **Templates** — one per background theme and card type. Each ships a logo, the themed Vizorcat and a call-to-action heading under the QR ("Scan to pay with Zcash" / "Scan to open" / "Scan to claim your gift"). Applying one replaces the background and every layer but keeps the QR content you have already typed. Themes whose background art sits bottom-right (Brass Rampart, Hearthlight Exchange, Modernist Commons) default to the QR-right arrangement.
+- **Amount and label line** — payment cards can show a "0.05 ZEC · Coffee stand" line under the heading that follows the form fields. It is a normal text layer for position, size and colour, but its text is bound to the fields.
 - **Backgrounds, Vizorcat, logos** — clicking a Vizorcat or logo card replaces the selected layer of that kind, or adds a new layer when nothing of that kind is selected. `Add as new layer` always adds.
 - **Logo colour** — every logo layer carries its own colour, so the same mark can appear several times in different colours. Single-colour marks offer Original / Ink / White / Crimson / Zcash Gold / custom; multi-colour artwork is always drawn as-is.
 - **Text boxes** — heading (Zarathustra) and body (Geist) presets with editable text, font, size, weight, alignment and colour. Corner-resizing a text box scales its font size and width together. Double-click a text layer on the canvas to jump to its text field.

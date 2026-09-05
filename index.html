@@ -569,6 +569,14 @@
               <span class="field-label">Message</span>
               <input id="field-message" type="text" autocomplete="off" placeholder="Thanks!" />
             </label>
+            <label class="check-row" for="show-summary">
+              <input id="show-summary" type="checkbox" />
+              <span class="check-row__box" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="m5 10.5 3.5 3.5L15 7" /></svg></span>
+              <span class="check-row__text">
+                <strong>Show amount and label on the card</strong>
+                <small>A text line under the QR that follows the fields above.</small>
+              </span>
+            </label>
           </fieldset>
 
           <fieldset class="mode-fields" data-mode-fields="link">
@@ -685,6 +693,7 @@
               <span class="field-label">Text</span>
               <textarea id="text-content" rows="3">Scan to open</textarea>
             </label>
+            <p id="text-bound-note" class="field-help" hidden>This line follows the amount and label fields. Untick “Show amount and label” to remove it.</p>
             <div class="field-row field-row--3-2">
               <label class="field" for="text-font">
                 <span class="field-label">Font</span>

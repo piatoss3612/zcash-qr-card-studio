@@ -12,6 +12,8 @@ import {
   QR_STYLES,
   TEMPLATES,
   TEXT_PRESETS,
+  TEXT_ROLES,
+  CAPTIONS,
 } from "./catalog.js";
 
 const VISIBLE_EDGE = 72;
@@ -129,6 +131,8 @@ function templateLayer(def) {
       width: def.width,
       height: def.height ?? initialTextHeight({ fontSize: def.fontSize ?? 30, lineHeight }, 2),
       rotation: def.rotation ?? 0,
+      role: def.role ?? null,
+      bound: def.bound ?? null,
       locked: false,
       deletable: true,
     };
@@ -321,8 +325,18 @@ function ensureInstallLayer(scene) {
 /** Switch card type. Adds/removes the install layer; never replaces the artwork. */
 export function setMode(scene, mode) {
   if (!MODES[mode]) return scene;
+  const previous = scene.mode;
   scene.mode = mode;
   if (scene.layers.qr) scene.layers.qr.label = qrLabel(mode);
+
+  // An untouched default caption follows the card type; edited text is kept.
+  const caption = roleLayer(scene, "caption");
+  if (caption && caption.text === CAPTIONS[previous] && CAPTIONS[mode]) {
+    caption.text = CAPTIONS[mode];
+    caption.label = textLabel(caption.text);
+  }
+  // The bound amount · label line only makes sense on payment cards.
+  if (mode !== "payment") setPaymentSummary(scene, false);
   return ensureInstallLayer(scene);
 }
 
@@ -364,7 +378,99 @@ export function applyLayout(scene, layoutId) {
       rotation: 0,
     });
   }
+
+  // The primary logo follows the logo band; the Zcash mark uses the square slot.
+  const primaryLogoId = scene.layers["logo-1"]
+    ? "logo-1"
+    : scene.order.find((id) => scene.layers[id]?.kind === "logo");
+  const logo = primaryLogoId ? scene.layers[primaryLogoId] : null;
+  if (logo) {
+    const slot = LOGOS[logo.assetId]?.wordmark ? layout.logo : layout.mark;
+    const ratio = logo.height / Math.max(1, logo.width);
+    const width = slot.width ?? slot.size;
+    Object.assign(logo, { x: slot.x, y: slot.y, width, height: Math.round(width * ratio), rotation: 0 });
+  }
+
+  for (const role of ["caption", "summary"]) {
+    const slot = layout[role];
+    const layer = roleLayer(scene, role);
+    if (layer && slot) {
+      Object.assign(layer, { x: slot.x, y: slot.y, width: slot.width, align: slot.align, rotation: 0 });
+    }
+  }
   return scene;
+}
+
+/** @returns {object|null} the text layer carrying a layout role. */
+export function roleLayer(scene, role) {
+  const id = scene.order.find((layerId) => scene.layers[layerId]?.role === role);
+  return id ? scene.layers[id] : null;
+}
+
+/** @returns {string} the summary line for a payment card: "0.05 ZEC · Coffee stand". */
+export function paymentSummaryText(content) {
+  const amount = String(content.amount ?? "").trim();
+  const label = String(content.label ?? "").trim();
+  return [amount ? `${amount} ZEC` : "", label].filter(Boolean).join(" · ");
+}
+
+/**
+ * Refresh text layers bound to the QR content. Call before rendering.
+ * @returns {boolean} whether any text changed
+ */
+export function syncBoundText(scene) {
+  let changed = false;
+  for (const id of scene.order) {
+    const layer = scene.layers[id];
+    if (layer?.kind !== "text" || layer.bound !== "payment-summary") continue;
+    const text = paymentSummaryText(scene.content);
+    if (layer.text !== text) {
+      layer.text = text;
+      layer.label = "Amount · label";
+      changed = true;
+    }
+  }
+  return changed;
+}
+
+/**
+ * Show or hide the bound "amount · label" line on payment cards.
+ * @returns {boolean} whether the scene changed
+ */
+export function setPaymentSummary(scene, show) {
+  const existing = roleLayer(scene, "summary");
+  if (!show) {
+    if (!existing) return false;
+    scene.order = scene.order.filter((id) => id !== existing.id);
+    delete scene.layers[existing.id];
+    if (scene.selectedLayerId === existing.id) scene.selectedLayerId = "qr";
+    return true;
+  }
+  if (existing) return false;
+  const layout = layoutOf(scene);
+  const role = TEXT_ROLES.summary;
+  const layer = addLayer(scene, {
+    kind: "text",
+    role: "summary",
+    bound: "payment-summary",
+    label: "Amount · label",
+    text: paymentSummaryText(scene.content),
+    fontFamily: role.fontFamily,
+    fontSize: role.fontSize,
+    fontWeight: role.fontWeight,
+    color: role.color,
+    align: layout.summary.align,
+    lineHeight: role.lineHeight,
+    x: layout.summary.x,
+    y: layout.summary.y,
+    width: layout.summary.width,
+    height: Math.round(role.fontSize * role.lineHeight),
+    rotation: 0,
+    locked: false,
+    deletable: true,
+  });
+  scene.selectedLayerId = layer.id;
+  return true;
 }
 
 /** Replace background, layout, QR style, mode and every movable layer. Keeps `scene.content`. */
