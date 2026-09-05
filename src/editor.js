@@ -390,6 +390,18 @@ export function createEditor(app) {
         else app.undo();
         return;
       }
+      if (key === "s" && !event.shiftKey) {
+        event.preventDefault();
+        app.closeMenus?.();
+        app.saveDesign?.();
+        return;
+      }
+      if (key === "o" && !event.shiftKey) {
+        event.preventDefault();
+        app.closeMenus?.();
+        app.openDesign?.();
+        return;
+      }
       if (key === "y" && !event.shiftKey && !editing) {
         event.preventDefault();
         app.closeMenus?.();

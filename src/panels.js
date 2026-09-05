@@ -30,6 +30,7 @@ import {
 } from "./scene.js";
 import { maskGiftLink, parseBatchLines } from "./qr-content.js";
 import { preflight, summarize } from "./preflight.js";
+import { designToJson, parseDesign } from "./design-file.js";
 import {
   drawPrintCanvas,
   exportBatch,
@@ -159,6 +160,9 @@ export function createPanels(app) {
     layerList: document.getElementById("layer-list"),
     contextMenu: document.getElementById("layer-context-menu"),
 
+    fileButton: document.getElementById("file-button"),
+    fileMenu: document.getElementById("file-menu"),
+    fileInput: document.getElementById("file-input"),
     exportButton: document.getElementById("export-button"),
     exportMenu: document.getElementById("export-menu"),
     preflightSummary: document.getElementById("preflight-summary"),
@@ -659,11 +663,63 @@ export function createPanels(app) {
     );
   }
 
+  function setFileMenu(open) {
+    el.fileMenu.hidden = !open;
+    el.fileButton.setAttribute("aria-expanded", String(open));
+  }
+
   function closeMenus() {
     const menuClosed = closeLayerContextMenu();
     const exportOpen = !el.exportMenu.hidden;
     if (exportOpen) setExportMenu(false);
-    return menuClosed || exportOpen;
+    const fileOpen = !el.fileMenu.hidden;
+    if (fileOpen) setFileMenu(false);
+    return menuClosed || exportOpen || fileOpen;
+  }
+
+  // ---------------------------------------------------------- design files
+
+  function saveDesign() {
+    const json = designToJson(scene(), { name: el.documentName.value.trim() || "Untitled card" });
+    saveBlob(new Blob([json], { type: "application/json" }), `${documentSlug()}.json`);
+    app.setStatus("Design saved", "ready");
+  }
+
+  function openDesignPicker() {
+    el.fileInput.value = "";
+    el.fileInput.click();
+  }
+
+  /** Replace the current scene with a parsed design as one undo step. */
+  function loadDesignText(text) {
+    let parsed;
+    try {
+      parsed = parseDesign(text);
+    } catch (error) {
+      app.setStatus(error.message, "error");
+      return;
+    }
+    edit(() => {
+      Object.assign(scene(), parsed.scene);
+      return true;
+    });
+    el.documentName.value = parsed.name;
+    syncTemplates();
+    const note = parsed.dropped ? ` · ${parsed.dropped} layer${parsed.dropped === 1 ? "" : "s"} skipped` : "";
+    app.setStatus(`Opened ${parsed.name}${note}`, parsed.dropped ? "error" : "ready");
+  }
+
+  function newCard() {
+    if (app.history.size > 0 && !window.confirm("Start a new card? Unsaved changes will be lost.")) return;
+    edit(() => {
+      const fresh = createScene({ mode: scene().mode });
+      Object.assign(scene(), fresh);
+      return true;
+    });
+    app.compositionDirty = false;
+    el.documentName.value = "Untitled card";
+    syncTemplates();
+    app.setStatus("New card", "ready");
   }
 
   /** @returns {string} the document name reduced to a safe file-name stem. */
@@ -1003,7 +1059,33 @@ export function createPanels(app) {
     action.addEventListener("click", () => runLayerAction(action.dataset.layerAction));
   }
 
-  el.exportButton.addEventListener("click", () => setExportMenu(el.exportMenu.hidden));
+  el.fileButton.addEventListener("click", () => {
+    const open = el.fileMenu.hidden;
+    closeMenus();
+    setFileMenu(open);
+  });
+  for (const item of el.fileMenu.querySelectorAll("[data-file-action]")) {
+    item.addEventListener("click", () => {
+      setFileMenu(false);
+      const action = item.dataset.fileAction;
+      if (action === "save") saveDesign();
+      if (action === "open") openDesignPicker();
+      if (action === "new") newCard();
+    });
+  }
+  el.fileInput.addEventListener("change", () => {
+    const file = el.fileInput.files?.[0];
+    if (!file) return;
+    file.text().then(loadDesignText, (error) => app.setStatus(`Could not read the file: ${error.message}`, "error"));
+  });
+  app.saveDesign = saveDesign;
+  app.openDesign = openDesignPicker;
+
+  el.exportButton.addEventListener("click", () => {
+    const open = el.exportMenu.hidden;
+    closeMenus();
+    setExportMenu(open);
+  });
   for (const item of el.exportMenu.querySelectorAll("[data-export-action]")) {
     item.addEventListener("click", () => {
       setExportMenu(false);
@@ -1027,6 +1109,9 @@ export function createPanels(app) {
     }
     if (!el.exportMenu.hidden && !event.target.closest?.(".export-wrap")) {
       setExportMenu(false);
+    }
+    if (!el.fileMenu.hidden && !event.target.closest?.(".file-wrap")) {
+      setFileMenu(false);
     }
   });
   window.addEventListener("resize", () => closeLayerContextMenu());

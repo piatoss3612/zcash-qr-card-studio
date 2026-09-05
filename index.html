@@ -29,6 +29,39 @@
             autocomplete="off"
           />
         </div>
+        <div class="file-wrap">
+          <button
+            id="file-button"
+            class="icon-button icon-button--sm"
+            type="button"
+            aria-label="File menu"
+            aria-haspopup="menu"
+            aria-expanded="false"
+            aria-controls="file-menu"
+            title="File"
+          >
+            <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="5" cy="10" r="1.35" /><circle cx="10" cy="10" r="1.35" /><circle cx="15" cy="10" r="1.35" /></svg>
+          </button>
+          <div id="file-menu" class="popover-menu popover-menu--left" role="menu" aria-label="File" hidden>
+            <button type="button" role="menuitem" data-file-action="new">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5.5 3.5h6l3 3v10h-9z" /><path d="M11.5 3.5v3h3" /></svg>
+              <span>New card</span>
+            </button>
+            <div class="popover-menu__separator" role="separator"></div>
+            <button type="button" role="menuitem" data-file-action="open">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 6.5h5l1.5 1.5h6.5v8h-13z" /><path d="M3.5 6.5v-2h4" /></svg>
+              <span>Open design…</span>
+              <kbd>⌘O</kbd>
+            </button>
+            <button type="button" role="menuitem" data-file-action="save">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4h9.5L16 6.5V16H4z" /><path d="M7 4v4h6V4" /><path d="M6.5 16v-5h7v5" /></svg>
+              <span>Save design</span>
+              <kbd>⌘S</kbd>
+            </button>
+            <p class="popover-menu__note">Designs save as a .json file on your device. Gift links are never written to the file.</p>
+          </div>
+          <input id="file-input" type="file" accept=".json,application/json" class="sr-only" tabindex="-1" aria-hidden="true" />
+        </div>
       </div>
 
       <div class="app-bar__center">
