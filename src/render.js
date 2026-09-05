@@ -289,7 +289,10 @@ function drawQr(ctx, code, geometry, style, design = null) {
       drawTintedImage(ctx, emblem, design.emblemTint, box);
     } else {
       ctx.save();
-      const crisp = Boolean(design.emblemPixelArt);
+      // Nearest-neighbour only helps when pixel art is enlarged; shrinking a
+      // 1024px sprite that way drops pixels and looks broken.
+      const upscale = box.width > emblem.naturalWidth || box.height > emblem.naturalHeight;
+      const crisp = Boolean(design.emblemPixelArt) && upscale;
       ctx.imageSmoothingEnabled = !crisp;
       if (!crisp) ctx.imageSmoothingQuality = "high";
       drawContain(ctx, emblem, box.x, box.y, box.width, box.height);
@@ -525,7 +528,9 @@ function drawVisualLayer(ctx, layer, assets) {
   }
 
   ctx.save();
-  const crisp = layer.kind === "character" || Boolean(LOGOS[layer.assetId]?.pixelArt);
+  const pixelArt = layer.kind === "character" || Boolean(LOGOS[layer.assetId]?.pixelArt);
+  const upscale = layer.width > image.naturalWidth || (layer.height ?? 0) > image.naturalHeight;
+  const crisp = pixelArt && upscale;
   ctx.imageSmoothingEnabled = !crisp;
   if (!crisp) ctx.imageSmoothingQuality = "high";
   drawContainTransformed(ctx, image, layer);

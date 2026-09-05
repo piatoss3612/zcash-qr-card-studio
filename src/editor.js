@@ -231,7 +231,8 @@ export function createEditor(app) {
   function syncProofGuides() {
     const qr = app.scene.layers.qr;
     if (qr) setSvgRect(el.qrGuide, qr.x, qr.y, qr.width, qr.height);
-    el.proofGuides.toggleAttribute("hidden", !el.guideToggle.checked);
+    // Guides are off by default; they appear while a layer is being moved or resized.
+    el.proofGuides.toggleAttribute("hidden", !(el.guideToggle.checked || transform));
   }
 
   function clearSnapGuides() {
@@ -318,6 +319,7 @@ export function createEditor(app) {
     };
     el.frame.setPointerCapture(event.pointerId);
     event.preventDefault();
+    syncProofGuides();
   }
 
   function updatePointerTransform(event) {
@@ -365,6 +367,7 @@ export function createEditor(app) {
     clearSnapGuides();
     app.commit(transform.before);
     transform = null;
+    syncProofGuides();
     app.requestRender();
   }
 
