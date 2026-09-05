@@ -1352,6 +1352,7 @@ body[data-drawer="closed"] #tool-drawer {
 .prop-section {
   padding: 14px;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 12px;
   align-content: start;
   border-bottom: 1px solid var(--line);
@@ -1359,6 +1360,44 @@ body[data-drawer="closed"] #tool-drawer {
 
 .prop-section--layers {
   border-bottom: 0;
+}
+
+/* Desktop: the layer list is pinned to the bottom of the properties column
+   with its own scroll, so it never drops below the fold. */
+@media (min-width: 900px) {
+  .properties {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .properties__scroll {
+    min-height: 0;
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+
+  .prop-section--layers {
+    flex: 0 1 auto;
+    min-height: 0;
+    max-height: 42%;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    border-top: 1px solid var(--line);
+    background: var(--chrome);
+  }
+
+  .prop-section--layers .layer-list {
+    min-height: 0;
+    grid-auto-rows: max-content;
+    align-content: start;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    padding-right: 2px;
+  }
 }
 
 /* Hero: the QR content block is the first thing a new user must fill. */
@@ -1390,6 +1429,8 @@ body[data-qr-state="ready"] .prop-section--hero {
 
 .hero-title {
   grid-area: title;
+  overflow: visible;
+  white-space: normal;
   color: var(--ink);
   font-size: 15px;
   font-weight: 700;
@@ -1483,9 +1524,12 @@ body[data-qr-state="ready"] .hero-status__check {
 /* fields */
 
 .mode-fields {
+  min-width: 0;
+  min-inline-size: 0;
   padding: 0;
   margin: 0;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 10px;
   border: 0;
 }
@@ -1545,6 +1589,7 @@ textarea {
 }
 
 textarea {
+  min-width: 0;
   min-height: 56px;
   line-height: 1.45;
   resize: vertical;
@@ -1728,6 +1773,66 @@ textarea::placeholder {
 
 .transform-block[hidden] {
   display: none;
+}
+
+.transform-details {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-control);
+  background: #fbfbfa;
+}
+
+.transform-summary {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) 14px;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  padding: 0 9px;
+  list-style: none;
+  cursor: pointer;
+  border-radius: var(--radius-control);
+}
+
+.transform-summary::-webkit-details-marker {
+  display: none;
+}
+
+.transform-summary:hover {
+  background: var(--control);
+}
+
+.transform-summary:focus-visible {
+  outline: 2px solid var(--brand-ring);
+  outline-offset: -2px;
+}
+
+.transform-readout {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.transform-summary__chevron {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: var(--text-muted);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 140ms var(--ease);
+}
+
+.transform-details[open] .transform-summary__chevron {
+  transform: rotate(180deg);
+}
+
+.transform-details .transform-grid {
+  padding: 4px 9px 10px;
 }
 
 .transform-grid {
@@ -2205,9 +2310,23 @@ button.preflight__row:focus-visible {
 
 /* Drawer overlays the stage on medium screens. */
 @media (max-width: 1200px) {
+  .workbench {
+    grid-template-columns: var(--rail-w) 240px minmax(0, 1fr) 300px;
+  }
+
+  body[data-drawer="closed"] .workbench {
+    grid-template-columns: var(--rail-w) minmax(0, 1fr) 300px;
+  }
+
+  .tool-panel {
+    padding: 12px 12px 20px;
+  }
+}
+
+@media (max-width: 960px) {
   .workbench,
   body[data-drawer="closed"] .workbench {
-    grid-template-columns: var(--rail-w) minmax(0, 1fr) 320px;
+    grid-template-columns: var(--rail-w) minmax(0, 1fr) 288px;
   }
 
   #tool-drawer {
@@ -2238,17 +2357,6 @@ button.preflight__row:focus-visible {
 
   .doc-name-field {
     flex-basis: 150px;
-  }
-}
-
-@media (max-width: 960px) {
-  .properties {
-    width: 288px;
-  }
-
-  .workbench,
-  body[data-drawer="closed"] .workbench {
-    grid-template-columns: var(--rail-w) minmax(0, 1fr) 288px;
   }
 }
 

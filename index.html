@@ -549,6 +549,7 @@
 
       <!-- ─────────── Properties ─────────── -->
       <aside class="properties" aria-label="Properties">
+        <div class="properties__scroll">
         <!-- Content -->
         <section id="content-panel" class="prop-section prop-section--hero">
           <header class="prop-head prop-head--hero">
@@ -796,14 +797,6 @@
           </div>
 
           <div id="transform-block" class="transform-block">
-            <span class="eyebrow">Transform</span>
-            <div class="transform-grid">
-              <label class="number-field" for="transform-x"><span>X</span><input id="transform-x" type="number" inputmode="numeric" value="690" /></label>
-              <label class="number-field" for="transform-y"><span>Y</span><input id="transform-y" type="number" inputmode="numeric" value="1005" /></label>
-              <label class="number-field" for="transform-width"><span>W</span><input id="transform-width" type="number" inputmode="numeric" value="500" /></label>
-              <label class="number-field" for="transform-height"><span>H</span><input id="transform-height" type="number" inputmode="numeric" value="650" /></label>
-              <label class="number-field number-field--wide" for="transform-rotation"><span>Rotation</span><input id="transform-rotation" type="number" inputmode="decimal" step="0.5" value="0" /></label>
-            </div>
             <div class="layer-actions">
               <button id="flip-button" class="icon-button icon-button--outline" type="button" title="Flip horizontal" aria-label="Flip horizontal">
                 <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14" /><path d="M7.5 6.5 3.5 10l4 3.5z" /><path d="M12.5 6.5 16.5 10l-4 3.5z" /></svg>
@@ -818,8 +811,23 @@
                 <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 6h11" /><path d="M8 6V4.25h4V6" /><path d="M6.25 6l.75 10h6l.75-10" /></svg>
               </button>
             </div>
+            <details class="transform-details">
+              <summary class="transform-summary">
+                <span class="eyebrow">Transform</span>
+                <span id="transform-readout" class="transform-readout">286, 250 · 740 × 740</span>
+                <svg class="transform-summary__chevron" viewBox="0 0 20 20" aria-hidden="true"><path d="m6 8 4 4 4-4" /></svg>
+              </summary>
+              <div class="transform-grid">
+                <label class="number-field" for="transform-x"><span>X</span><input id="transform-x" type="number" inputmode="numeric" value="690" /></label>
+                <label class="number-field" for="transform-y"><span>Y</span><input id="transform-y" type="number" inputmode="numeric" value="1005" /></label>
+                <label class="number-field" for="transform-width"><span>W</span><input id="transform-width" type="number" inputmode="numeric" value="500" /></label>
+                <label class="number-field" for="transform-height"><span>H</span><input id="transform-height" type="number" inputmode="numeric" value="650" /></label>
+                <label class="number-field number-field--wide" for="transform-rotation"><span>Rotation</span><input id="transform-rotation" type="number" inputmode="decimal" step="0.5" value="0" /></label>
+              </div>
+            </details>
           </div>
         </section>
+        </div>
 
         <!-- Layers -->
         <section class="prop-section prop-section--layers">

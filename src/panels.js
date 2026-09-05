@@ -136,6 +136,7 @@ export function createPanels(app) {
     selectionBlocks: [...document.querySelectorAll("[data-selection-kind]")],
     selectedLayerName: document.getElementById("selected-layer-name"),
     transformBlock: document.getElementById("transform-block"),
+    transformReadout: document.getElementById("transform-readout"),
     transformX: document.getElementById("transform-x"),
     transformY: document.getElementById("transform-y"),
     transformWidth: document.getElementById("transform-width"),
@@ -362,6 +363,10 @@ export function createPanels(app) {
     setValue(el.transformWidth, Math.round(layer.width));
     setValue(el.transformHeight, Math.round(layer.height ?? 0));
     setValue(el.transformRotation, Math.round((layer.rotation ?? 0) * 10) / 10);
+    const rotation = Math.round((layer.rotation ?? 0) * 10) / 10;
+    el.transformReadout.textContent =
+      `${Math.round(layer.x)}, ${Math.round(layer.y)} · ${Math.round(layer.width)} × ${Math.round(layer.height ?? 0)}`
+      + (rotation ? ` · ${rotation}°` : "");
     for (const input of [el.transformX, el.transformY, el.transformWidth]) input.disabled = locked;
     el.transformHeight.disabled = locked || kind === "text";
     el.transformRotation.disabled = locked || !rotatable;
