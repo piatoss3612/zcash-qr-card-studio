@@ -83,7 +83,15 @@
             <svg class="button__icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3.5v9" /><path d="M6.25 9.25 10 13l3.75-3.75" /><path d="M4 15.5h12" /></svg>
             <span>Export</span>
           </button>
-          <div id="export-menu" class="popover-menu" role="menu" aria-label="Export options" hidden>
+          <div id="export-menu" class="popover-menu popover-menu--export" role="menu" aria-label="Export options" hidden>
+            <div class="preflight" aria-label="Preflight">
+              <div id="preflight-summary" class="preflight__summary" data-level="pass">
+                <span class="preflight__badge" aria-hidden="true"></span>
+                <span id="preflight-summary-text">Ready to print</span>
+              </div>
+              <ul id="preflight-list" class="preflight__list"></ul>
+            </div>
+            <div class="popover-menu__separator" role="separator"></div>
             <button type="button" role="menuitem" data-export-action="png">
               <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3.5v9" /><path d="M6.25 9.25 10 13l3.75-3.75" /><path d="M4 15.5h12" /></svg>
               <span>Download PNG</span>

@@ -29,6 +29,7 @@ import {
   setMode,
 } from "./scene.js";
 import { maskGiftLink, parseBatchLines } from "./qr-content.js";
+import { preflight, summarize } from "./preflight.js";
 import {
   drawPrintCanvas,
   exportBatch,
@@ -159,6 +160,9 @@ export function createPanels(app) {
 
     exportButton: document.getElementById("export-button"),
     exportMenu: document.getElementById("export-menu"),
+    preflightSummary: document.getElementById("preflight-summary"),
+    preflightSummaryText: document.getElementById("preflight-summary-text"),
+    preflightList: document.getElementById("preflight-list"),
     printCanvas: document.getElementById("print-canvas"),
     cardCanvas: document.getElementById("card-canvas"),
 
@@ -609,8 +613,45 @@ export function createPanels(app) {
   // -------------------------------------------------------- export menu
 
   function setExportMenu(open) {
+    if (open) syncPreflight();
     el.exportMenu.hidden = !open;
     el.exportButton.setAttribute("aria-expanded", String(open));
+  }
+
+  /** Rebuild the preflight list in the export popover from the current scene. */
+  function syncPreflight() {
+    const checks = preflight(scene(), { qr: app.qr, qrCode: app.qrCode });
+    const summary = summarize(checks);
+    el.preflightSummary.dataset.level = summary.level;
+    el.preflightSummaryText.textContent = summary.text;
+    // Passing checks stay collapsed behind the summary; only problems get a row.
+    const shown = checks.filter((check) => check.level !== "pass");
+    el.preflightList.hidden = shown.length === 0;
+    el.preflightList.replaceChildren(
+      ...shown.map((check) => {
+        const item = document.createElement("li");
+        item.className = "preflight__item";
+        item.dataset.level = check.level;
+        const body = document.createElement(check.layerId ? "button" : "div");
+        body.className = "preflight__row";
+        if (check.layerId) {
+          body.type = "button";
+          body.title = "Select this layer";
+          body.addEventListener("click", () => {
+            setExportMenu(false);
+            selectLayer(scene(), check.layerId);
+            app.requestRender();
+          });
+        }
+        const title = document.createElement("strong");
+        title.textContent = check.title;
+        const detail = document.createElement("span");
+        detail.textContent = check.detail;
+        body.append(title, detail);
+        item.append(body);
+        return item;
+      }),
+    );
   }
 
   function closeMenus() {
@@ -1046,6 +1087,7 @@ export function createPanels(app) {
     syncLayerList();
     el.undo.disabled = !app.history.canUndo;
     el.redo.disabled = !app.history.canRedo;
+    if (!el.exportMenu.hidden) syncPreflight();
     // Batch export only needs the assets; single exports also need a valid QR.
     el.exportButton.disabled = !app.assetsLoaded;
     const singleReady = app.canExport();
