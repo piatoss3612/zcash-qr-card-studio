@@ -53,6 +53,23 @@ function outsideSafeArea(box) {
   );
 }
 
+function relativeLuminance(hex) {
+  const value = /^#?([0-9a-f]{6})$/i.exec(hex)?.[1];
+  if (!value) return 0;
+  const channel = (i) => {
+    const c = parseInt(value.slice(i, i + 2), 16) / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  };
+  return 0.2126 * channel(0) + 0.7152 * channel(2) + 0.0722 * channel(4);
+}
+
+/** WCAG contrast ratio between two hex colours. */
+export function contrastRatio(a, b) {
+  const la = relativeLuminance(a);
+  const lb = relativeLuminance(b);
+  return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05);
+}
+
 function mm(px) {
   return Math.round(px * MM_PER_PX);
 }
@@ -170,7 +187,22 @@ export function preflight(scene, { qr = { value: null, error: null, warnings: []
     checks.push({ id: "safe-area", level: "pass", title: "Text and logos inside the safe area", detail: "Nothing will be trimmed." });
   }
 
-  // 6. Empty text boxes
+  // 6. Module colour contrast against the panel (scanners want dark on light)
+  const moduleColor = scene.qrDesign?.color;
+  if (moduleColor) {
+    const ratio = contrastRatio(moduleColor, "#ffffff");
+    if (ratio < 4) {
+      checks.push({
+        id: "qr-contrast",
+        level: "warn",
+        title: "QR modules are too light",
+        detail: `Contrast ${ratio.toFixed(1)}:1 against the panel. Use a darker module colour (4:1 or more).`,
+        layerId: qrLayer?.id,
+      });
+    }
+  }
+
+  // 7. Empty text boxes
   const emptyText = layers.filter((layer) => layer.kind === "text" && !layer.text?.trim());
   if (emptyText.length) {
     checks.push({

@@ -15,6 +15,9 @@ import {
   TEXT_ROLES,
   CAPTIONS,
   fontWeightFor,
+  QR_SHAPES,
+  QR_EMBLEMS,
+  defaultQrEmblem,
 } from "./catalog.js";
 
 const VISIBLE_EDGE = 72;
@@ -194,6 +197,7 @@ function buildFromTemplate(scene, template) {
   scene.templateId = template.id;
   scene.layoutId = LAYOUTS[template.layoutId] ? template.layoutId : "center";
   scene.qrStyle = QR_STYLES[template.qrStyle] ? template.qrStyle : "clean";
+  scene.qrDesign = { shape: "square", color: null, emblem: defaultQrEmblem(scene.mode) };
   scene.order = [];
   scene.layers = {};
   scene.nextLayerId = 1;
@@ -223,6 +227,7 @@ export function createScene({ mode = "link", templateId } = {}) {
     templateId: template.id,
     layoutId: template.layoutId,
     qrStyle: template.qrStyle,
+    qrDesign: { shape: "square", color: null, emblem: defaultQrEmblem(safeMode) },
     selectedLayerId: "qr",
     order: [],
     nextLayerId: 1,
@@ -245,6 +250,7 @@ export function restore(scene, snap) {
   scene.templateId = clone.templateId;
   scene.layoutId = clone.layoutId;
   scene.qrStyle = clone.qrStyle;
+  scene.qrDesign = clone.qrDesign ?? { shape: "square", color: null, emblem: defaultQrEmblem(clone.mode) };
   scene.selectedLayerId = clone.selectedLayerId;
   scene.order = clone.order;
   scene.nextLayerId = clone.nextLayerId;
@@ -339,7 +345,32 @@ export function setMode(scene, mode) {
   }
   // The bound amount · label line only makes sense on payment cards.
   if (mode !== "payment") setPaymentSummary(scene, false);
+  // A default emblem follows the card type; a chosen one is kept.
+  if (scene.qrDesign && scene.qrDesign.emblem === defaultQrEmblem(previous)) {
+    scene.qrDesign.emblem = defaultQrEmblem(mode);
+  }
   return ensureInstallLayer(scene);
+}
+
+/**
+ * Update the QR module design. Unknown values are ignored.
+ * @param {object} scene
+ * @param {{ shape?: string, color?: string|null, emblem?: string }} patch
+ * @returns {boolean} whether anything changed
+ */
+export function setQrDesign(scene, patch) {
+  const next = { ...scene.qrDesign };
+  if (patch.shape !== undefined && QR_SHAPES[patch.shape]) next.shape = patch.shape;
+  if (patch.emblem !== undefined && QR_EMBLEMS[patch.emblem]) next.emblem = patch.emblem;
+  if (patch.color !== undefined) next.color = typeof patch.color === "string" ? patch.color : null;
+  const changed = JSON.stringify(next) !== JSON.stringify(scene.qrDesign);
+  scene.qrDesign = next;
+  return changed;
+}
+
+/** @returns {"M"|"H"} the error-correction level the design needs. */
+export function qrLevelFor(scene) {
+  return scene.qrDesign?.emblem && scene.qrDesign.emblem !== "none" ? "H" : "M";
 }
 
 /** Toggle the optional Get Vizor card (link mode only). */

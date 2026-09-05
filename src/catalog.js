@@ -70,6 +70,29 @@ export const QR_STYLES = Object.freeze({
   soft: { id: "soft", label: "Soft", panel: "#ffffff", modules: "#1d2c3a", radius: 34, shadow: true, stroke: "rgba(85, 118, 164, 0.36)" },
 });
 
+export const QR_SHAPES = Object.freeze({
+  square: { id: "square", label: "Square" },
+  rounded: { id: "rounded", label: "Rounded" },
+  dots: { id: "dots", label: "Dots" },
+});
+
+// Emblems sit in the QR centre; the code is generated at error-correction level H
+// when one is present so the covered area (about 8%) stays well inside the 30% budget.
+export const QR_EMBLEMS = Object.freeze({
+  none: { id: "none", label: "None", logoId: null },
+  vizorcat: { id: "vizorcat", label: "Vizorcat", logoId: "vizorcat-head" },
+  zcash: { id: "zcash", label: "Zcash", logoId: "zcash" },
+  "vizor-mark": { id: "vizor-mark", label: "Vizor mark", logoId: "vizor-mark", tint: "#141818" },
+});
+export const QR_EMBLEM_FRACTION = 0.28;
+
+/** @returns {string} the emblem a fresh card of this type starts with. */
+export function defaultQrEmblem(mode) {
+  if (mode === "payment") return "zcash";
+  if (mode === "giftcard") return "vizor-mark";
+  return "vizorcat";
+}
+
 export const COLORS = Object.freeze({
   ink: "#141818",
   secondary: "#5d6262",
@@ -86,6 +109,14 @@ export const LOGO_PALETTE = Object.freeze([
   { id: "white", label: "White", value: COLORS.white },
   { id: "crimson", label: "Crimson", value: COLORS.crimson },
   { id: "gold", label: "Zcash Gold", value: COLORS.gold },
+]);
+
+// Module colours. All are dark enough to scan on the white/cream QR panels.
+export const QR_MODULE_PALETTE = Object.freeze([
+  { id: "ink", label: "Ink", value: null },
+  { id: "indigo", label: "Indigo", value: "#1d2c3a" },
+  { id: "forest", label: "Forest", value: "#1f3d2b" },
+  { id: "crimson", label: "Crimson", value: "#8f0838" },
 ]);
 
 export const TEXT_PALETTE = Object.freeze([

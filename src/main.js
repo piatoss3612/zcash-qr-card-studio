@@ -1,7 +1,7 @@
 // Bootstrap: scene + history, the render scheduler, and the editor/panel wiring.
 
 import { INSTALL_URL } from "./catalog.js";
-import { History, createScene, restore, snapshot, syncBoundText } from "./scene.js";
+import { History, createScene, qrLevelFor, restore, snapshot, syncBoundText } from "./scene.js";
 import { buildQrValue } from "./qr-content.js";
 import { assetsReady, loadAssets, makeQr, renderScene } from "./render.js";
 import { createEditor } from "./editor.js";
@@ -100,7 +100,7 @@ function draw() {
   let code = null;
   if (app.qr.value) {
     try {
-      code = makeQr(app.qr.value);
+      code = makeQr(app.qr.value, qrLevelFor(scene));
     } catch {
       app.qr = { ...app.qr, error: "This value is too long to fit in one QR code." };
     }

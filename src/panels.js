@@ -11,6 +11,7 @@ import {
   TEXT_PALETTE,
   FONTS,
   fontWeightFor,
+  QR_MODULE_PALETTE,
   templatesForMode,
 } from "./catalog.js";
 import {
@@ -32,6 +33,7 @@ import {
   setLayerProps,
   setMode,
   setPaymentSummary,
+  setQrDesign,
   snapshot,
 } from "./scene.js";
 import { maskGiftLink, parseBatchLines } from "./qr-content.js";
@@ -131,6 +133,10 @@ export function createPanels(app) {
     addBody: document.getElementById("add-body-button"),
     layoutInputs: [...document.querySelectorAll('input[name="layout"]')],
     qrStyleInputs: [...document.querySelectorAll('input[name="qr-style"]')],
+    qrShapeInputs: [...document.querySelectorAll('input[name="qr-shape"]')],
+    qrColorInputs: [...document.querySelectorAll('input[name="qr-color"]')],
+    qrColorCustom: document.getElementById("qr-color-custom"),
+    qrEmblemInputs: [...document.querySelectorAll('input[name="qr-emblem"]')],
 
     modeFieldsets: [...document.querySelectorAll("[data-mode-fields]")],
     includeInstall: document.getElementById("include-install"),
@@ -1000,6 +1006,27 @@ export function createPanels(app) {
       });
     });
   }
+  for (const input of el.qrShapeInputs) {
+    input.addEventListener("change", () => {
+      if (input.checked) edit(() => setQrDesign(scene(), { shape: input.value }));
+    });
+  }
+  for (const input of el.qrEmblemInputs) {
+    input.addEventListener("change", () => {
+      if (input.checked) edit(() => setQrDesign(scene(), { emblem: input.value }));
+    });
+  }
+  for (const input of el.qrColorInputs) {
+    input.addEventListener("change", () => {
+      if (!input.checked) return;
+      edit(() => setQrDesign(scene(), { color: paletteValue(QR_MODULE_PALETTE, input.value, el.qrColorCustom) }));
+    });
+  }
+  el.qrColorCustom.addEventListener("input", () => {
+    const custom = el.qrColorInputs.find((input) => input.value === "custom");
+    if (custom) custom.checked = true;
+    edit(() => setQrDesign(scene(), { color: el.qrColorCustom.value }));
+  });
 
   for (const [id, key] of CONTENT_FIELDS) {
     const field = document.getElementById(id);
@@ -1279,6 +1306,12 @@ export function createPanels(app) {
     for (const input of el.layoutInputs) input.checked = input.value === current.layoutId;
     scheduleLayoutPreviews();
     for (const input of el.qrStyleInputs) input.checked = input.value === current.qrStyle;
+    const design = current.qrDesign ?? { shape: "square", color: null, emblem: "none" };
+    for (const input of el.qrShapeInputs) input.checked = input.value === design.shape;
+    for (const input of el.qrEmblemInputs) input.checked = input.value === design.emblem;
+    const colorId = design.color ? paletteId(QR_MODULE_PALETTE, design.color) : "ink";
+    for (const input of el.qrColorInputs) input.checked = input.value === colorId;
+    if (colorId === "custom" && design.color) el.qrColorCustom.value = design.color;
     for (const card of el.templateGrid.querySelectorAll(".template-card")) {
       card.setAttribute("aria-pressed", String(card.dataset.templateId === current.templateId));
     }

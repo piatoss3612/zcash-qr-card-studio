@@ -2,7 +2,7 @@
 // Pure: no DOM. Gift links are secrets and are never written to a file.
 
 import { BACKGROUNDS, CHARACTERS, FONTS, LAYOUTS, LOGOS, MODES, QR_STYLES, TEMPLATES, fontWeightFor } from "./catalog.js";
-import { constrainLayer, createScene, snapshot } from "./scene.js";
+import { constrainLayer, createScene, setQrDesign, snapshot } from "./scene.js";
 
 export const DESIGN_FILE_APP = "zcash-qr-card-studio";
 export const DESIGN_FILE_VERSION = 1;
@@ -116,6 +116,13 @@ export function parseDesign(text) {
   scene.layoutId = LAYOUTS[raw.layoutId] ? raw.layoutId : scene.layoutId;
   scene.qrStyle = QR_STYLES[raw.qrStyle] ? raw.qrStyle : scene.qrStyle;
   scene.includeInstall = raw.includeInstall !== false;
+  if (raw.qrDesign && typeof raw.qrDesign === "object") {
+    setQrDesign(scene, {
+      shape: raw.qrDesign.shape,
+      emblem: raw.qrDesign.emblem,
+      color: typeof raw.qrDesign.color === "string" && /^#[0-9a-f]{6}$/i.test(raw.qrDesign.color) ? raw.qrDesign.color : null,
+    });
+  }
 
   const content = raw.content && typeof raw.content === "object" ? raw.content : {};
   for (const key of Object.keys(scene.content)) {

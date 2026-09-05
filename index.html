@@ -822,6 +822,74 @@
               </label>
             </div>
             </div>
+            <div class="swatch-block">
+              <span class="eyebrow">Modules</span>
+              <div class="segmented segmented--sm segmented--fill" role="radiogroup" aria-label="Module shape">
+                <label class="segmented__item"><input type="radio" name="qr-shape" value="square" checked /><span>Square</span></label>
+                <label class="segmented__item"><input type="radio" name="qr-shape" value="rounded" /><span>Rounded</span></label>
+                <label class="segmented__item"><input type="radio" name="qr-shape" value="dots" /><span>Dots</span></label>
+              </div>
+            </div>
+            <div class="swatch-block">
+              <span class="eyebrow">Module colour</span>
+              <div class="swatch-row" role="radiogroup" aria-label="Module colour">
+                <label class="swatch" title="Ink">
+                  <input type="radio" name="qr-color" value="ink" checked />
+                  <span class="swatch__dot" style="--swatch:#151919" aria-hidden="true"></span>
+                  <span class="sr-only">Ink</span>
+                </label>
+                <label class="swatch" title="Indigo">
+                  <input type="radio" name="qr-color" value="indigo" />
+                  <span class="swatch__dot" style="--swatch:#1d2c3a" aria-hidden="true"></span>
+                  <span class="sr-only">Indigo</span>
+                </label>
+                <label class="swatch" title="Forest">
+                  <input type="radio" name="qr-color" value="forest" />
+                  <span class="swatch__dot" style="--swatch:#1f3d2b" aria-hidden="true"></span>
+                  <span class="sr-only">Forest</span>
+                </label>
+                <label class="swatch" title="Crimson">
+                  <input type="radio" name="qr-color" value="crimson" />
+                  <span class="swatch__dot" style="--swatch:#8f0838" aria-hidden="true"></span>
+                  <span class="sr-only">Crimson</span>
+                </label>
+                <label class="swatch swatch--custom" title="Custom colour">
+                  <input type="radio" name="qr-color" value="custom" />
+                  <span class="swatch__dot swatch__dot--custom" aria-hidden="true"></span>
+                  <span class="sr-only">Custom</span>
+                </label>
+                <label class="color-input">
+                  <span class="sr-only">Custom module colour value</span>
+                  <input id="qr-color-custom" type="color" value="#151919" />
+                </label>
+              </div>
+            </div>
+            <div class="swatch-block">
+              <span class="eyebrow">Centre emblem</span>
+              <div class="emblem-row" role="radiogroup" aria-label="Centre emblem">
+                <label class="emblem-choice" title="None">
+                  <input type="radio" name="qr-emblem" value="none" />
+                  <span class="emblem-choice__box emblem-choice__box--none" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="m5.5 5.5 9 9" /><path d="m14.5 5.5-9 9" /></svg></span>
+                  <span class="emblem-choice__label">None</span>
+                </label>
+                <label class="emblem-choice" title="Vizorcat">
+                  <input type="radio" name="qr-emblem" value="vizorcat" />
+                  <span class="emblem-choice__box emblem-choice__box--pixel" aria-hidden="true"><img src="./assets/logos/vizorcat-classic-head.png" alt="" /></span>
+                  <span class="emblem-choice__label">Vizorcat</span>
+                </label>
+                <label class="emblem-choice" title="Vizor mark">
+                  <input type="radio" name="qr-emblem" value="vizor-mark" />
+                  <span class="emblem-choice__box" aria-hidden="true"><img src="./assets/vizor-icon.svg" alt="" style="filter: brightness(0.12)" /></span>
+                  <span class="emblem-choice__label">Vizor</span>
+                </label>
+                <label class="emblem-choice" title="Zcash">
+                  <input type="radio" name="qr-emblem" value="zcash" />
+                  <span class="emblem-choice__box" aria-hidden="true"><img src="./assets/logos/zcash.svg" alt="" /></span>
+                  <span class="emblem-choice__label">Zcash</span>
+                </label>
+              </div>
+              <p class="field-help">With an emblem the code is generated at error-correction level H, so it stays scannable.</p>
+            </div>
             <p class="empty-note">The QR is always on the card. Resize it, but keep it inside the safe area.</p>
           </div>
 

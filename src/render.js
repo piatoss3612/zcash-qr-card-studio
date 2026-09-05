@@ -13,7 +13,11 @@ import {
   INSTALL_LAYER,
   FONTS,
   fontWeightFor,
+  QR_SHAPES,
+  QR_EMBLEMS,
+  QR_EMBLEM_FRACTION,
 } from "./catalog.js";
+import { qrLevelFor } from "./scene.js";
 import { createZip } from "./zip.js";
 
 const TINT_CACHE_LIMIT = 64;
@@ -27,7 +31,7 @@ const tintCache = new Map();
 let measureContext = null;
 /** @type {HTMLCanvasElement|null} */
 let thumbSource = null;
-/** @type {unknown} */
+/** @type {Record<string, unknown>|null} */
 let sampleCode = null;
 
 // ---------------------------------------------------------------------------
@@ -110,8 +114,8 @@ export function assetsReady(scene, assets) {
  * @param {string} value
  * @returns {any} qrcode object
  */
-export function makeQr(value) {
-  const code = qrcode(0, "M");
+export function makeQr(value, level = "M") {
+  const code = qrcode(0, level === "H" ? "H" : "M");
   code.addData(value, "Byte");
   code.make();
   return code;
@@ -121,9 +125,10 @@ export function makeQr(value) {
  * Memoized sample QR for thumbnails and template previews.
  * @returns {any}
  */
-export function sampleQrCode() {
-  if (!sampleCode) sampleCode = makeQr("https://vizor.cash");
-  return sampleCode;
+export function sampleQrCode(level = "M") {
+  if (!sampleCode) sampleCode = {};
+  if (!sampleCode[level]) sampleCode[level] = makeQr("https://vizor.cash", level);
+  return sampleCode[level];
 }
 
 // ---------------------------------------------------------------------------
@@ -204,7 +209,7 @@ function drawBackground(ctx, background, image) {
  * @param {{ x: number, y: number, size: number, padding?: number, radius?: number }} geometry
  * @param {any} style
  */
-function drawQr(ctx, code, geometry, style) {
+function drawQr(ctx, code, geometry, style, design = null) {
   const { x, y, size, padding = 0 } = geometry;
 
   drawQrPanel(ctx, geometry, style);
@@ -218,14 +223,97 @@ function drawQr(ctx, code, geometry, style) {
   const originX = fieldX + QUIET_MODULES * moduleSize;
   const originY = fieldY + QUIET_MODULES * moduleSize;
 
-  ctx.fillStyle = style.modules;
+  const shape = QR_SHAPES[design?.shape] ? design.shape : "square";
+  ctx.fillStyle = design?.color || style.modules;
+
+  const inFinder = (row, col) =>
+    (row < 7 && col < 7) || (row < 7 && col >= count - 7) || (row >= count - 7 && col < 7);
+
   for (let row = 0; row < count; row += 1) {
     for (let col = 0; col < count; col += 1) {
-      if (code.isDark(row, col)) {
-        ctx.fillRect(originX + col * moduleSize, originY + row * moduleSize, moduleSize, moduleSize);
+      if (!code.isDark(row, col)) continue;
+      if (shape !== "square" && inFinder(row, col)) continue;
+      const px = originX + col * moduleSize;
+      const py = originY + row * moduleSize;
+      if (shape === "dots") {
+        ctx.beginPath();
+        ctx.arc(px + moduleSize / 2, py + moduleSize / 2, moduleSize * 0.46, 0, Math.PI * 2);
+        ctx.fill();
+      } else if (shape === "rounded") {
+        roundedRect(ctx, px, py, moduleSize, moduleSize, moduleSize * 0.32);
+        ctx.fill();
+      } else {
+        ctx.fillRect(px, py, moduleSize, moduleSize);
       }
     }
   }
+
+  // Finder patterns drawn as solid shapes so the eyes stay crisp for the scanner.
+  if (shape !== "square") {
+    const eyes = [
+      [originX, originY],
+      [originX + (count - 7) * moduleSize, originY],
+      [originX, originY + (count - 7) * moduleSize],
+    ];
+    const radius = shape === "dots" ? moduleSize * 2.2 : moduleSize * 1.4;
+    for (const [ex, ey] of eyes) {
+      const outer = moduleSize * 7;
+      roundedRect(ctx, ex, ey, outer, outer, radius);
+      ctx.fill();
+      ctx.save();
+      ctx.fillStyle = style.panel;
+      roundedRect(ctx, ex + moduleSize, ey + moduleSize, outer - moduleSize * 2, outer - moduleSize * 2, radius * 0.7);
+      ctx.fill();
+      ctx.restore();
+      const inner = moduleSize * 3;
+      roundedRect(ctx, ex + moduleSize * 2, ey + moduleSize * 2, inner, inner, shape === "dots" ? inner / 2 : radius * 0.5);
+      ctx.fill();
+    }
+  }
+
+  // Centre emblem on a small panel; the code is level H whenever one is set.
+  const emblem = design?.emblemImage;
+  if (emblem?.naturalWidth) {
+    const modules = Math.max(5, Math.round(count * QR_EMBLEM_FRACTION));
+    const area = modules * moduleSize;
+    const cx = originX + (count * moduleSize) / 2;
+    const cy = originY + (count * moduleSize) / 2;
+    const pad = Math.max(2, Math.round(moduleSize * 0.9));
+    ctx.save();
+    ctx.fillStyle = style.panel;
+    roundedRect(ctx, cx - area / 2, cy - area / 2, area, area, Math.round(area * 0.18));
+    ctx.fill();
+    ctx.restore();
+    const box = { x: cx - area / 2 + pad, y: cy - area / 2 + pad, width: area - pad * 2, height: area - pad * 2 };
+    if (design.emblemTint) {
+      drawTintedImage(ctx, emblem, design.emblemTint, box);
+    } else {
+      ctx.save();
+      const crisp = Boolean(design.emblemPixelArt);
+      ctx.imageSmoothingEnabled = !crisp;
+      if (!crisp) ctx.imageSmoothingQuality = "high";
+      drawContain(ctx, emblem, box.x, box.y, box.width, box.height);
+      ctx.restore();
+    }
+  }
+}
+
+/**
+ * Resolve a scene's QR design into what drawQr needs (emblem image looked up in assets).
+ * @param {any} scene
+ * @param {any} assets
+ */
+function resolveQrDesign(scene, assets) {
+  const design = scene.qrDesign ?? { shape: "square", color: null, emblem: "none" };
+  const emblem = QR_EMBLEMS[design.emblem];
+  const logo = emblem?.logoId ? LOGOS[emblem.logoId] : null;
+  return {
+    shape: design.shape,
+    color: design.color,
+    emblemImage: logo ? assets.logos?.[logo.id] ?? null : null,
+    emblemTint: emblem?.tint ?? null,
+    emblemPixelArt: Boolean(logo?.pixelArt),
+  };
 }
 
 /**
@@ -264,7 +352,7 @@ function drawQrPanel(ctx, geometry, style) {
  * @param {{ x: number, y: number, size: number, radius?: number }} geometry
  * @param {any} style
  */
-function drawQrPlaceholder(ctx, geometry, style) {
+function drawQrPlaceholder(ctx, geometry, style, design = null) {
   const { x, y, size } = geometry;
   const radius = geometry.radius ?? style.radius;
 
@@ -276,7 +364,7 @@ function drawQrPlaceholder(ctx, geometry, style) {
   roundedRect(ctx, x, y, size, size, radius);
   ctx.clip();
   ctx.globalAlpha = 0.14;
-  drawQr(ctx, sampleQrCode(), { ...geometry, radius }, { ...style, panel: "transparent", shadow: false, stroke: null });
+  drawQr(ctx, sampleQrCode(), { ...geometry, radius }, { ...style, panel: "transparent", shadow: false, stroke: null }, design);
   ctx.restore();
 
   ctx.save();
@@ -598,8 +686,9 @@ export function renderScene(ctx, scene, { assets, qrCode, installCode }) {
         size: Math.min(layer.width, layer.height),
         padding: 0,
       };
-      if (qrCode) drawQr(ctx, qrCode, geometry, style);
-      else drawQrPlaceholder(ctx, geometry, style);
+      const design = resolveQrDesign(scene, assets);
+      if (qrCode) drawQr(ctx, qrCode, geometry, style, design);
+      else drawQrPlaceholder(ctx, geometry, style, { shape: design.shape, color: design.color });
     } else if (layer.kind === "install") {
       drawInstallLayer(ctx, installCode, layer);
     }
@@ -772,7 +861,7 @@ export async function exportBatch(scene, items, { assets, installCode, onProgres
   for (let i = 0; i < items.length; i += 1) {
     const item = items[i];
     const target = setContent ? (setContent(scene, item) ?? scene) : scene;
-    const code = makeQr(item.value);
+    const code = makeQr(item.value, qrLevelFor(target));
     const blob = await exportPngBlob(target, { assets, qrCode: code, installCode });
     files.push({
       name: `card-${String(item.index + 1).padStart(3, "0")}.png`,

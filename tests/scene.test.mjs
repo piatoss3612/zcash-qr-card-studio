@@ -15,6 +15,7 @@ import {
   makeLogoLayer,
   makeTextLayer,
   movableLayers,
+  qrLevelFor,
   removeLayer,
   reorderLayer,
   restore,
@@ -26,6 +27,7 @@ import {
   setLayerProps,
   setMode,
   setPaymentSummary,
+  setQrDesign,
   snapshot,
   syncBoundText,
 } from "../src/scene.js";
@@ -407,4 +409,20 @@ test("setMode swaps an untouched caption and drops the payment summary", () => {
   roleLayer(scene, "caption").text = "Custom words";
   setMode(scene, "giftcard");
   assert.equal(roleLayer(scene, "caption").text, "Custom words", "edited captions are kept");
+});
+
+test("QR design defaults follow the card type and can be edited", () => {
+  const scene = createScene({ mode: "payment" });
+  assert.deepEqual(scene.qrDesign, { shape: "square", color: null, emblem: "zcash" });
+  assert.equal(qrLevelFor(scene), "H");
+  setMode(scene, "giftcard");
+  assert.equal(scene.qrDesign.emblem, "vizor-mark", "default emblem follows the card type");
+  setMode(scene, "link");
+  assert.equal(scene.qrDesign.emblem, "vizorcat");
+  assert.equal(setQrDesign(scene, { emblem: "none", shape: "dots", color: "#1d2c3a" }), true);
+  assert.equal(qrLevelFor(scene), "M");
+  setMode(scene, "payment");
+  assert.equal(scene.qrDesign.emblem, "none", "a chosen emblem is kept across card types");
+  assert.equal(setQrDesign(scene, { shape: "hexagons" }), false, "unknown values are ignored");
+  assert.equal(scene.qrDesign.shape, "dots");
 });

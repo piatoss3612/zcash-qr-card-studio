@@ -69,3 +69,12 @@ test("text outside the safe area and empty text boxes warn", () => {
   assert.equal(byId(checks, "safe-area").level, "warn");
   assert.equal(byId(checks, "safe-area").layerId, text.id);
 });
+
+test("light module colours warn on contrast", () => {
+  const scene = createScene({ mode: "link" });
+  scene.qrDesign = { shape: "square", color: "#f4b728", emblem: "none" };
+  const check = byId(preflight(scene, { qr: okQr, qrCode: code }), "qr-contrast");
+  assert.equal(check.level, "warn");
+  scene.qrDesign.color = "#1d2c3a";
+  assert.equal(byId(preflight(scene, { qr: okQr, qrCode: code }), "qr-contrast"), undefined);
+});

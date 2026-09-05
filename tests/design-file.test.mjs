@@ -59,3 +59,14 @@ test("install card follows the card type, not the file", () => {
   const { scene } = parseDesign(JSON.stringify(data));
   assert.ok(!scene.order.includes("install"));
 });
+
+test("QR design round-trips and rejects junk", () => {
+  const scene = createScene({ mode: "link" });
+  scene.qrDesign = { shape: "rounded", color: "#1f3d2b", emblem: "zcash" };
+  const { scene: loaded } = parseDesign(designToJson(scene));
+  assert.deepEqual(loaded.qrDesign, { shape: "rounded", color: "#1f3d2b", emblem: "zcash" });
+  const data = serializeDesign(scene);
+  data.scene.qrDesign = { shape: "blob", color: "red", emblem: "nope" };
+  const { scene: cleaned } = parseDesign(JSON.stringify(data));
+  assert.deepEqual(cleaned.qrDesign, { shape: "square", color: null, emblem: "vizorcat" });
+});
