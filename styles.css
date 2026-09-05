@@ -1448,7 +1448,7 @@ body[data-qr-state="ready"] .prop-section--hero {
   box-shadow: inset 3px 0 0 transparent;
 }
 
-.prop-head--hero {
+.prop-head.prop-head--hero {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   grid-template-areas: "eyebrow status" "title title";
@@ -1461,7 +1461,7 @@ body[data-qr-state="ready"] .prop-section--hero {
   white-space: nowrap;
 }
 
-.hero-title {
+.prop-head .hero-title {
   grid-area: title;
   overflow: visible;
   white-space: normal;
@@ -1470,6 +1470,16 @@ body[data-qr-state="ready"] .prop-section--hero {
   font-weight: 700;
   letter-spacing: -0.01em;
   line-height: 1.25;
+}
+
+.hero-title [data-hero-mode] {
+  display: none;
+}
+
+body[data-mode="payment"] .hero-title [data-hero-mode="payment"],
+body[data-mode="link"] .hero-title [data-hero-mode="link"],
+body[data-mode="giftcard"] .hero-title [data-hero-mode="giftcard"] {
+  display: inline;
 }
 
 .hero-status {
@@ -2644,6 +2654,19 @@ button.preflight__row:focus-visible {
 
   body[data-drawer="open"] #tool-drawer {
     display: block;
+  }
+
+  /* Full-width bottom sheet: fill it with thumbnail-sized columns instead of two huge ones. */
+  .template-grid {
+    grid-template-columns: repeat(auto-fill, minmax(124px, 1fr));
+  }
+
+  .asset-grid {
+    grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+  }
+
+  .text-presets {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   }
 
   .popover-menu.context-menu,
