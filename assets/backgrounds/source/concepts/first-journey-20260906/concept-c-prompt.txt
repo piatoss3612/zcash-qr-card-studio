@@ -1,0 +1,22 @@
+Use case: precise-object-edit.
+Asset: full-bleed A6 portrait background for Vizor QR Card Studio.
+Input image 1: First Journey B, the edit target. Preserve its warm ivory fibrous print paper, fine carved indigo linework, muted sage and ochre, refined flat-ink storybook illustration, portrait format and large central negative space. Redesign the landscape to express a young martial-arts wanderer climbing toward a remote mountain school.
+Input image 2: approved Whispering Grove, supporting reference for the existing collection's paper, fine woodcut-inspired contour scale and print finish only; do not copy its woodland composition.
+
+PRIMARY CHANGE: Replace the generic signed hiking trail with ONE cohesive East Asian wuxia mountain-pass scene: a narrow old stone stairway climbing around a dramatic steep rocky cliff at the RIGHT edge, with one wind-shaped pine growing sideways from a crevice and a suggestion of distant steep mountain peaks. The staircase is the visual story: the viewer can follow worn uneven stone treads from the lower-right corner, turning inward around an outcrop, then disappearing behind the cliff above. Believable tread/landing geometry, no floating or impossible stairs. Path stays peripheral, at the far right and bottom-right. The cliff should feel tall and continue beyond the page edge, rather than a little freestanding landscape sticker. Use layered fractured rock planes and restrained fine carved contour marks inspired by classical mountain landscape composition, translated into the SAME refined print medium.
+A single asymmetrical pine leans from a rock crevice at the outer upper-right, its trunk curved by weather and sparse flat needle clusters reaching along the top-right edge. The pine must be visibly rooted in the cliff. Two or three steep distant ridge fragments sit behind the cliff at the far upper-right edge, pale and partly omitted into bare paper to suggest depth; use negative space instead of a fog gradient. Concentrate everything into ONE connected asymmetrical scene along the right perimeter. Leave the left side almost entirely paper.
+REMOVE the entire left wooden signpost, all its grasses, the isolated upper-left mountain illustration, the separate top-corner branch, and the ochre dirt trail. Do not introduce new unrelated corner ornaments.
+
+Composition / QR protection:
+- Central and upper-central rectangle x=18–80%, y=13–64% must remain clean warm ivory paper, completely free of terrain, branch, staircase, contours or shadows.
+- Lower-left installation area x=8–57%, y=67–96% also remains clean warm ivory.
+- Top center logo area x=15–80%, y=0–13% stays clear.
+- Main cliff stays within outer right 15–18% above y=64%. Below y=70%, it can widen gently toward the bottom-right corner, but must not enter the protected lower-left area.
+- Character overlay will stand at lower-right; keep its area predominantly pale and use sparse contour lines, not a large solid dark cliff.
+- At least 75–80% of sheet reads as unprinted warm ivory paper. No rectangular panels or visible guides.
+
+Style: refined original storybook PRINT illustration, delicate woodcut-inspired contour clusters, restrained limited flat inks, subtle pixel-adjacent stepped LINE rhythm; polished and intentional. NOT blocky low-resolution pixel scenery, NOT painterly watercolor or photorealistic landscape. Match image 2's line density and craftsmanship. Warm off-white fibrous paper, graphite-indigo rock/pine contours, desaturated sage needle clusters, very restrained pale ochre stone highlights. No full-page yellow wash, mist overlay or gradient. No dense crosshatching.
+
+Mood: a hopeful first journey into the martial world, quiet anticipation and an inviting route upward.
+Background only: no cat, character, animal, person, book, sword, QR, text, calligraphy, logos, flags, emblems, temple, shrine, pagoda, gate, building, religious symbol, decorative frame, UI or watermark. Do not use red lanterns, cherry blossoms, sun/moon disks, bamboo borders or generic East Asian decorations. The mountain geometry, old ascending stone steps and wind-shaped pine must carry the place.
+Portrait ratio approximately 0.72, intended for 1311 x 1819 px A6.

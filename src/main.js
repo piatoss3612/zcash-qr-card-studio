@@ -1,7 +1,9 @@
 // Bootstrap: scene + history, the render scheduler, and the editor/panel wiring.
 
+import { createEventScene } from "./event-card.js";
+import { createStudio } from "./studio.js";
 import { INSTALL_URL } from "./catalog.js";
-import { History, createScene, qrLevelFor, restore, snapshot, syncBoundText } from "./scene.js";
+import { History, qrLevelFor, restore, snapshot, syncBoundText } from "./scene.js";
 import { buildQrValue } from "./qr-content.js";
 import { assetsReady, loadAssets, makeQr, renderScene } from "./render.js";
 import { createEditor } from "./editor.js";
@@ -22,8 +24,8 @@ const canvas = document.getElementById("card-canvas");
 const context = canvas.getContext("2d", { alpha: false });
 const statusOutput = document.getElementById("render-status");
 
-const scene = createScene({ mode: "payment" });
-scene.content.url = document.getElementById("field-url").value;
+const scene = createEventScene("payment");
+
 const history = new History();
 
 let frame = 0;
@@ -62,11 +64,12 @@ const app = {
   undo,
   redo,
   /** @returns {boolean} whether the card can be exported right now. */
-  canExport: () => app.assetsLoaded && Boolean(app.qrCode),
+  canExport: () => app.assetsLoaded && assetsReady(scene, app.assets) && Boolean(app.qrCode),
 };
 
 const editor = createEditor(app);
 const panels = createPanels(app);
+const studio = createStudio(app, panels);
 app.closeMenus = panels.closeMenus;
 app.openLayerMenu = panels.openLayerMenu;
 
@@ -87,7 +90,9 @@ function redo() {
 /** Derive the idle status line from the scene state. */
 function autoStatus() {
   if (Date.now() < stickyUntil || !app.assetsLoaded) return;
-  if (app.qr.error) writeStatus("Check the QR content", "error");
+  const contentKey = scene.mode === "payment" ? "address" : scene.mode === "giftcard" ? "giftLink" : "url";
+  if (!scene.content[contentKey].trim()) writeStatus("Add QR content", "ready");
+  else if (app.qr.error) writeStatus("Check the QR content", "error");
   else if (!assetsReady(scene, app.assets)) writeStatus("Some artwork is missing", "error");
   else writeStatus("Ready", "ready");
 }
@@ -113,6 +118,7 @@ function draw() {
   });
   editor.sync();
   panels.sync();
+  studio.sync();
   autoStatus();
 }
 

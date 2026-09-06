@@ -1,0 +1,20 @@
+Use case: precise-object-edit.
+Asset: Wandering Swordsman, concept B.
+
+Image 1 is the edit target and ONLY cat identity source: the brown mackerel-tabby Vizorcat swordsman with green eyes, cream muzzle, indigo cross-collar clothes, cloth bundle, single sheathed sword and ringed tail.
+Image 2 is the approved Vizorcat Standard model sheet, authoritative for round skull/cheeks, big eyes, short body and limbs, round paws, ear anatomy and coarse pixel-art language. Do not reproduce the magenta background.
+
+User correction: the character looks too shabby. Give this SAME individual the dignity and clear silhouette of a composed wandering martial-arts swordsman. Add a broad bamboo conical travel hat (satgat/douli) and tidy the clothes. Keep the same walking pose, expression, coat markings, eyes, tail, bundle and sword count.
+
+Required changes:
+1. Replace the patched, ragged-looking indigo garment with a CLEAN WELL-KEPT muted deep-indigo short cross-collar travel robe. Remove the large stitched patch and all dirt, holes, fraying and random faded blotches. Use a crisp warm-ivory inner collar, tidy charcoal sash, clean hems and a few broad elegant fabric folds. Well-made everyday travel clothing: not luxury brocade, ceremonial costume, armor or a long floor-length robe.
+2. Add ONE broad natural bamboo/straw conical hat, with a low shallow crown and a clear woven rim. Tilt it back slightly so the entire eyes, nose and mouth remain readable. Fit it physically onto the round cat head. The two biological ears should emerge through small natural fitted openings in the rear/top portion of the hat, with believable overlap at each base. No detached floating ears, duplicate ears, horns or impossible hat placement. The hat must look wearable, not float above the head or sit impossibly on the tips of the ears.
+3. Render the hat using broad warm honey-bamboo pixel planes, a handful of simple radial rib lines and a dark clean rim. Avoid dense weaving noise, tassels, emblems or decorative text. One thin plain securing cord is acceptable, but keep it clear of the face.
+4. Keep the bundle small, plain and neatly tied. The visible sword grip should be plain, maintained dark wood/leather with restrained muted-brass fittings; exactly one sword fully in its one sheath. Let a short portion of the scabbard read along the hip, without growing a second weapon or blade.
+
+Preserve the same warm brown striped CAT identity and relaxed smile. Keep the large-head, short-torso Vizorcat construction: around 2–2.2 head-heights for the body excluding the added hat, stubby feline legs and round paws, no human hands or elongated anatomy. Preserve the current walking step and the paw holding the travel bundle strap. The hat and clean clothing should do the work; no new props, action pose or face redesign.
+
+Style: deliberate chunky pixel-art sprite matching the Standard, consistent square grid, staircase contours, dark outline and clean flat clusters. 3–4 discrete shades per material. No noisy texture, grain, tiny scratches, smooth 3D gradients or glossy toy rendering.
+
+One full-body character only, generous clear padding, the entire wide hat, both ears, all paws and feet, full tail, bundle and sheath inside frame. True RGBA transparent background preferred; if unavailable use a uniform flat near-white background, never a checkerboard.
+No real religious symbols, talismans, prayer beads, national/army insignia, flags, calligraphy, text, logo, QR, environment, ground, cast shadow, visual effects, watermark or frame.

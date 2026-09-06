@@ -1,0 +1,24 @@
+Use case: stylized-concept.
+Asset type: standalone full-bleed portrait BACKGROUND ONLY for an A6 Vizor QR event card, aspect ratio 1311:1819.
+
+Primary request: create a quiet, print-friendly old alchemist's workshop background to accompany a separately composited bronze Egyptian Mau pixel-art mascot carrying a black homunculus in a dry flask. Do NOT draw the mascot or its flask. The workshop is a fictional sunlit Mediterranean stone study, with restrained pale limestone architecture and old brass/glass laboratory equipment. Warm and thoughtful, not ominous or cluttered.
+
+REFERENCE ROLES:
+Image 1, Hearthlight Exchange v2, is the reference for the warm ivory paper field, pale stone architecture cropped tightly into the edges, restrained storybook print detail and low peripheral counter. Borrow its material language and generous empty center, NOT its celebration decorations, ribbons, confetti, brass routing lines or tokens.
+Image 2, Frost Archive v2, is the reference for especially light low-ink treatment, tiny corner equipment and a narrow right-edge structure that leaves almost the entire sheet quiet. Do NOT borrow ice, snow, survey instruments or the horizon.
+
+SCENE, keep just a few connected peripheral elements:
+- Upper-left extreme corner: a small cropped pale stone ledge supports ONE compact believable old glass distillation setup, a small round vessel with curved side neck leading into a tiny receiver, mounted on a simple old-brass cradle. The assembly stays entirely within the leftmost 15 percent and topmost 17 percent. Thin muted blue-green glass contours, clear interiors and a few ochre brass accents, no liquid glow or smoke. It should read as a single instrument, not a jumble of bottles.
+- Far-right edge: an extremely narrow cropped pale limestone recess with a gently curved top, only the outermost 12 percent of the sheet. A short recessed shelf near the upper-right holds TWO small plain ceramic reagent jars without labels, one sandy cream and one muted blue-green. Jars are contained within that narrow edge recess and never project toward the center.
+- Extreme bottom-right corner: a very shallow fragment of pale stone workbench with a thin worn-brass lip, tightly cropped mostly outside the sheet. Keep this below 94 percent page height or within the rightmost 7 percent, so a full character can sit in front of mostly blank paper.
+These are fragments of one quiet workshop around a large plain ivory plaster/paper field; do not create an all-sides decorative frame. No other props.
+
+COMPOSITION GATE:
+At least 85 percent of the canvas should remain nearly unprinted warm ivory, evenly light and spacious. Reserve the full rectangle x=18..82 percent, y=12..64 percent as clean paper for a large payment QR and quiet zone. Reserve x=7..57 percent, y=65..96 percent as clean paper for instructions and installation QR. Keep x=28..74 percent, y=3..15 percent clear for a logo. Keep the lower-right character zone x=58..92 percent, y=64..94 percent predominantly plain ivory as well. These are invisible layout constraints: do not draw rectangles, QR placeholders, panels, text or borders. All visible contours, shadows, shelves and objects remain OUTSIDE protected areas. No horizontal line crossing the page, no floor grid, no full room perspective.
+
+STYLE:
+Refined restrained storybook print illustration with tactile warm ivory paper, limited flat spot colors, fine deliberate etched contours and subtle pixel-art-adjacent stepped edges. Same collection as the references. Pale limestone cream, soft muted blue-green and sparing old-brass ochre, a little soft brown linework only at the corners. Keep lines simpler and ink coverage low, not low-resolution blocky pixel art, not photorealistic, not a dark fantasy painting, no plastic 3D render. Paper grain delicate and uniform, no dirty parchment stains or full-page color wash. No deep shadows or glow clouds.
+
+AVOID:
+No cat, creature, homunculus, human, animal or character silhouette. No extra character flask. No text, letters, numbers, alchemy glyphs, diagrams, formulas, labels, logos, QR codes, UI, mockup, watermark, book pages, hieroglyphs, religious/national symbols, royal decorations, pyramids, gears, pipes, steampunk machinery, magic circles, stars, floating particles, large furnace, fire or cauldron. No brown vignette, ornate gold border, symmetrical repeated ornaments or dense shelving.
+Output exactly one portrait background, opaque warm ivory paper, no transparency or checkerboard.

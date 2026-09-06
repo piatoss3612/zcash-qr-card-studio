@@ -1,0 +1,4 @@
+Use case: precise-object-edit.
+Edit target: the supplied Wandering Swordsman F cat concept.
+Remove ONLY the entire leafy grass sprig held at the image-right mouth corner: both green leaves and the complete green stem. Restore the tiny underlying mouth/cream cheek/robe/background pixels naturally. Mouth must be a simple relaxed smile with nothing held in it.
+Preserve EVERYTHING ELSE: same brown mackerel tabby identity, large head and short-limbed body proportions, eyes, ears, whiskers, straw hat and its fit, indigo robe, cream collar, black sash, bundle and its holding paw, sheathed sword, walking pose, feet, tail, pixel density, colors, framing and background. Do not add any new prop, ornament, symbol or text. One complete character, no cropping. This is just removal of the grass. Existing anatomy follows the approved Vizorcat Standard and must stay unchanged.

@@ -9,14 +9,15 @@
     />
     <title>Zcash QR Card Studio</title>
     <link rel="icon" href="./assets/vizorcat-icon.png" type="image/png" />
-    <link rel="stylesheet" href="./styles.css?v=20260905" />
+    <link rel="stylesheet" href="./styles.css?v=20260906" />
+    <link rel="stylesheet" href="./studio.css?v=20260906" />
   </head>
   <body data-mode="payment" data-qr-state="pending">
     <!-- ══════════════════════════ TOP BAR ══════════════════════════ -->
     <header class="app-bar">
       <div class="app-bar__left">
         <a class="brand-link" href="./" aria-label="Zcash QR Card Studio">
-          <img class="brand-mark" src="./assets/vizorcat-icon.png" alt="" width="28" height="28" />
+          <img class="brand-mark" src="./assets/vizorcat-icon.png" alt="" width="40" height="40" />
           <span class="brand-name">QR Card Studio</span>
         </a>
         <div class="doc-name-field">
@@ -67,6 +68,9 @@
       </div>
 
       <div class="app-bar__right">
+        <a class="icon-button github-link" href="https://github.com/piatoss3612/zcash-qr-card-studio" target="_blank" rel="noopener noreferrer" aria-label="View QR Card Studio on GitHub (opens in a new tab)" title="View on GitHub">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.23c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.69 0-1.26.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.16 1.18A11 11 0 0 1 12 5.95c.98 0 1.97.13 2.9.39 2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.73.8 1.18 1.82 1.18 3.08 0 4.42-2.69 5.4-5.25 5.68.41.36.78 1.06.78 2.14v3.25c0 .31.21.68.79.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" /></svg>
+        </a>
         <div class="button-group" aria-label="History">
           <button id="undo-button" class="icon-button" type="button" aria-label="Undo" disabled>
             <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5.5 3.5 9 7 12.5" /><path d="M3.5 9h7.75A4.25 4.25 0 0 1 15.5 13.25v0a4.25 4.25 0 0 1-4.25 4.25H8" /></svg>
@@ -103,7 +107,7 @@
             aria-controls="export-menu"
           >
             <svg class="button__icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3.5v9" /><path d="M6.25 9.25 10 13l3.75-3.75" /><path d="M4 15.5h12" /></svg>
-            <span>Export</span>
+            <span>Review & print</span>
           </button>
           <div id="export-menu" class="popover-menu popover-menu--export" role="menu" aria-label="Export options" hidden>
             <div class="preflight" aria-label="Preflight">
@@ -201,7 +205,7 @@
 
           <div class="drawer-group">
             <span class="eyebrow">Templates</span>
-            <p class="drawer-note">Applying a template replaces the background and every layer. Your QR content is kept.</p>
+            <p class="drawer-note">Choose a theme. Your QR content, event name and heading are kept.</p>
           </div>
           <div id="template-grid" class="template-grid">
             <button class="template-card" type="button" data-template-id="link-launch" aria-pressed="true">
@@ -255,6 +259,11 @@
               <span class="asset-name">Hearthlight Exchange</span>
             </label>
             <label class="asset-choice">
+              <input type="radio" name="background" value="workshop" />
+              <span class="asset-thumb asset-thumb--scene"><img src="./assets/backgrounds/alchemist-workshop-v1.png" alt="" loading="lazy" /></span>
+              <span class="asset-name">Alchemist Workshop</span>
+            </label>
+            <label class="asset-choice">
               <input type="radio" name="background" value="rampart" />
               <span class="asset-thumb asset-thumb--scene"><img src="./assets/backgrounds/brass-rampart-v3.png" alt="" loading="lazy" /></span>
               <span class="asset-name">Brass Rampart</span>
@@ -285,6 +294,11 @@
               <span class="asset-name">Modernist Commons</span>
             </label>
             <label class="asset-choice">
+              <input type="radio" name="background" value="journey" />
+              <span class="asset-thumb asset-thumb--scene"><img src="./assets/backgrounds/first-journey-v1.png" alt="" loading="lazy" /></span>
+              <span class="asset-name">First Journey</span>
+            </label>
+            <label class="asset-choice">
               <input type="radio" name="background" value="paper" />
               <span class="asset-thumb asset-thumb--paper" aria-hidden="true"></span>
               <span class="asset-name">Quiet Paper</span>
@@ -300,15 +314,19 @@
               <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5.5 5.5 9 9" /><path d="m14.5 5.5-9 9" /></svg>
             </button>
           </header>
-          <p class="drawer-note">Click a Vizorcat to swap the selected one, or add it when nothing is selected.</p>
+          <p class="drawer-note">Choose a Vizorcat to replace the character on your card.</p>
           <div class="asset-grid">
-            <button class="asset-card" type="button" data-character-id="samurai" aria-pressed="true">
+            <button class="asset-card" type="button" data-character-id="classic" aria-pressed="true">
+              <span class="asset-thumb asset-thumb--figure"><img src="./assets/characters/classic-guardian.png" alt="" loading="lazy" /></span>
+              <span class="asset-name">Classic Guardian</span>
+            </button>
+            <button class="asset-card" type="button" data-character-id="samurai" aria-pressed="false">
               <span class="asset-thumb asset-thumb--figure" style="background:#111d2b"><img src="./assets/characters/samurai.png" alt="" loading="lazy" /></span>
               <span class="asset-name">Samurai</span>
             </button>
-            <button class="asset-card" type="button" data-character-id="classic" aria-pressed="false">
-              <span class="asset-thumb asset-thumb--figure"><img src="./assets/characters/classic-guardian.png" alt="" loading="lazy" /></span>
-              <span class="asset-name">Classic Guardian</span>
+            <button class="asset-card" type="button" data-character-id="oni" aria-pressed="false">
+              <span class="asset-thumb asset-thumb--figure" style="background:#111d2b"><img src="./assets/characters/oni-samurai-v2.png" alt="" loading="lazy" /></span>
+              <span class="asset-name">Oni Samurai</span>
             </button>
             <button class="asset-card" type="button" data-character-id="orbital" aria-pressed="false">
               <span class="asset-thumb asset-thumb--figure" style="background:#0d3156"><img src="./assets/characters/orbital-rescue-ranger.png" alt="" loading="lazy" /></span>
@@ -331,17 +349,23 @@
               <span class="asset-name">Snow Surveyor</span>
             </button>
             <button class="asset-card" type="button" data-character-id="stonehold" aria-pressed="false">
-              <span class="asset-thumb asset-thumb--figure"><img src="./assets/characters/stonehold-warden.png" alt="" loading="lazy" /></span>
+              <span class="asset-thumb asset-thumb--figure"><img src="./assets/characters/stonehold-warden-v5.png" alt="" loading="lazy" /></span>
               <span class="asset-name">Stonehold Warden</span>
             </button>
             <button class="asset-card" type="button" data-character-id="hearthlight" aria-pressed="false">
-              <span class="asset-thumb asset-thumb--figure"><img src="./assets/characters/hearthlight-host.png" alt="" loading="lazy" /></span>
+              <span class="asset-thumb asset-thumb--figure"><img src="./assets/characters/hearthlight-host-v2.png" alt="" loading="lazy" /></span>
               <span class="asset-name">Hearthlight Host</span>
             </button>
-            <button class="asset-card" type="button" data-character-id="nightglass" aria-pressed="false">
-              <span class="asset-thumb asset-thumb--figure"><img src="./assets/characters/nightglass-rider.png" alt="" loading="lazy" /></span>
-              <span class="asset-name">Nightglass Rider</span>
+            <button class="asset-card" type="button" data-character-id="alchemist" aria-pressed="false">
+              <span class="asset-thumb asset-thumb--figure"><img src="./assets/characters/workshop-alchemist-v1.png" alt="" loading="lazy" /></span>
+              <span class="asset-name">Workshop Alchemist</span>
             </button>
+
+            <button class="asset-card" type="button" data-character-id="swordsman" aria-pressed="false">
+              <span class="asset-thumb asset-thumb--figure"><img src="./assets/characters/wandering-swordsman-v1.png" alt="" loading="lazy" /></span>
+              <span class="asset-name">Wandering Swordsman</span>
+            </button>
+
           </div>
           <button id="add-character-button" class="button button--secondary button--block" type="button">
             <svg class="button__icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 4.5v11" /><path d="M4.5 10h11" /></svg>
@@ -566,7 +590,7 @@
             </label>
           </div>
           <p class="mode-picker__hint">
-            <span data-hero-mode="payment">A ZIP-321 request any Zcash wallet can pay.</span>
+            <span data-hero-mode="payment">A payment request for a Zcash wallet.</span>
             <span data-hero-mode="giftcard">A Vizor gift link. Whoever scans it can claim the funds.</span>
             <span data-hero-mode="link">Any web link, with an optional Get Vizor card.</span>
           </p>
@@ -618,7 +642,7 @@
                 inputmode="url"
                 spellcheck="false"
                 autocomplete="off"
-                value="https://vizor.cash"
+                value=""
                 placeholder="https://example.com"
               />
             </label>
@@ -909,7 +933,7 @@
                   <span class="emblem-choice__label">Zcash</span>
                 </label>
               </div>
-              <p class="field-help">With an emblem the code is generated at error-correction level H, so it stays scannable.</p>
+              <p class="field-help">An emblem uses higher error correction. Test a printed sample with your wallet.</p>
             </div>
             <p class="empty-note">The QR is always on the card. Resize it, but keep it inside the safe area.</p>
           </div>
@@ -1118,6 +1142,8 @@
           <progress id="batch-progress" class="batch-progress" max="100" value="0" hidden></progress>
         </div>
         <ul id="batch-errors" class="batch-errors"></ul>
+        <label id="batch-exclude-row" class="batch-exclude" hidden><input id="batch-exclude" type="checkbox"><span id="batch-exclude-text"></span></label>
+        <p class="dialog__hint">Gift card numbers identify printed copies, not claim status. Reprinting a card does not create a new gift.</p>
         <footer class="dialog__actions">
           <button id="batch-cancel-button" class="button button--secondary" type="button">Cancel</button>
           <button id="batch-run-button" class="button button--primary" type="button">Export ZIP</button>
@@ -1126,6 +1152,6 @@
     </dialog>
 
     <script src="./vendor/qrcode.js"></script>
-    <script type="module" src="./src/main.js?v=20260903"></script>
+    <script type="module" src="./src/main.js?v=20260906"></script>
   </body>
 </html>

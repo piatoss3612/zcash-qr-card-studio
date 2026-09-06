@@ -3,10 +3,32 @@ import assert from "node:assert/strict";
 
 import { addLayer, createScene, makeLogoLayer, makeTextLayer, setLayerProps } from "../src/scene.js";
 import { preflight, summarize } from "../src/preflight.js";
+import { createEventScene, applyEventTheme } from "../src/event-card.js";
 
 const okQr = { value: "https://vizor.cash", error: null, warnings: [] };
 const code = { getModuleCount: () => 25 };
 const byId = (checks, id) => checks.find((check) => check.id === id);
+
+test("large polearm art ignores transparent space but still detects body, blade and flipped overlap", () => {
+  const scene = createEventScene("link");
+  applyEventTheme(scene, "link-blossom");
+  const cat = Object.values(scene.layers).find((layer) => layer.kind === "character");
+  // Keep collision fixtures independent of the catalog's adjustable default scale.
+  Object.assign(cat, { x: 664.8, y: 994, width: 620.4, height: 726 });
+  const check = () => byId(preflight(scene, { qr: okQr, qrCode: code }), "qr-covered").level;
+  assert.equal(check(), "pass", "blade stands beside the QR; empty space is transparent");
+  cat.y -= 160;
+  assert.equal(check(), "warn", "moving the body over the QR is still detected");
+  cat.y += 160;
+  cat.flipX = true;
+  assert.equal(check(), "warn", "flipped blade now crosses the QR");
+  cat.flipX = false;
+  Object.assign(scene.layers.qr, { x: 1160, y: 1015, width: 80, height: 100 });
+  assert.equal(check(), "warn", "blade itself remains protected");
+  cat.rotation = 180;
+  Object.assign(scene.layers.qr, { x: 820, y: 1020, width: 100, height: 100 });
+  assert.equal(check(), "warn", "rotated artwork still participates in coverage checks");
+});
 
 test("a fresh link card passes every check", () => {
   const checks = preflight(createScene({ mode: "link" }), { qr: okQr, qrCode: code });

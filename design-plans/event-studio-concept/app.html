@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Event Studio · Interactive concept</title><link rel="stylesheet" href="./style.css"></head>
+<body>
+  <header class="app-header">
+    <a href="./app.html" class="brand"><img src="../../assets/logos/vizorcat-classic-head.png" alt="" width="30" height="30"><span>QR Card Studio</span></a>
+    <span class="header-divider"></span><span class="project-title">Zcash Community Day</span>
+    <div class="header-actions"><span class="prototype-badge">Concept preview</span><button id="undo" class="icon-button" aria-label="Undo last edit" disabled>↶</button><button id="redo" class="icon-button" aria-label="Redo last edit" disabled>↷</button></div>
+  </header>
+  <nav class="flow-nav" aria-label="Card creation"><button data-step="content" aria-current="step">Content</button><button data-step="design">Design</button><button data-step="review">Review & print</button></nav>
+  <main id="main"></main>
+  <div id="notice" role="status" class="notice" hidden></div>
+  <script src="../../vendor/qrcode.js"></script><script src="./app.js"></script>
+</body>
+</html>

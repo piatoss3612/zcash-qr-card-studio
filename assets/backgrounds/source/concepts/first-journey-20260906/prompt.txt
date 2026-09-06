@@ -1,0 +1,13 @@
+Use case: stylized-concept.
+Asset: standalone A6 portrait background for Zcash QR Card Studio, approximately 1311:1819 aspect ratio. Background only; do not draw a card mockup, character, lettering or QR.
+Scene: a quiet mountain trail at the beginning of a young wandering swordsman's first journey. Fresh early morning, muted blue-gray distant mountain silhouettes, a little pale mist, warm ivory sky and sandy footpath. Modest and welcoming rather than epic or ominous. Match a brown tabby pixel-art traveler wearing a straw conical hat, clean indigo robe and tan travel bundle.
+Composition is functional printed stationery with sparse scenery at the edges:
+- Use a single nearly uniform warm ivory field across the entire central area; this is deliberate negative space.
+- Reserve x=18–80%, y=12–64% entirely clear and nearly flat ivory for heading and payment QR plus its quiet zone. No mountain contour, branch, mist streak, pebble, shadow, texture pattern or path may cross this rectangle.
+- Reserve x=8–57%, y=67–95% entirely clear and nearly flat ivory for installation QR and guidance.
+- Reserve top center x=15–85%, y=0–13% clear for logo/title.
+- Small distant layered mountains appear only in the extreme upper-left and upper-right corners, cropped by the outer edges, fading completely before the reserved field.
+- One simple weathered wooden trail signpost, only two small blank arrow planks, stands at the far left edge around y=43–60%, entirely inside x=0–10%; no text or symbols.
+- A narrow warm-sand path enters from the bottom-right corner and bends up along the outer right edge, disappearing into pale mist. Keep it within x=83–100% and y=66–100%. Very sparse low grass and two or three flat stones at the extreme bottom-right only. Keep the character placement region x=58–93%, y=65–94% mostly pale and uncluttered.
+Art direction: restrained illustrated game-world print background, matte flat shapes, subtle stepped/pixel-adjacent silhouettes compatible with a coarse pixel-art character. Limited palette of warm ivory, dusty indigo, muted sage and pale ochre. Crisp intentional silhouettes, minimal internal marks. Very low ink coverage, no busy foliage or ornamental framing. Do not make a complete rectangular border. Asymmetric composition.
+No people, cats, animals, swords, books, temples, pagodas, shrines, flags, religious or national symbols, emblems, calligraphy, text, logos, QR codes, labels, grids, inset boxes, watermarks. No dramatic sun disk, red moon, blossoms, floating leaves, sparkles, glows, photorealistic texture, elaborate ink splatter or decorative swirls. The center and lower-left must be usable blank space, not a full landscape.

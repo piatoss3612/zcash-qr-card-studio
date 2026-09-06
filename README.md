@@ -20,7 +20,7 @@
 
 ---
 
-The studio works like a lightweight photo editor: a tool rail and drawer on the left, a zoomable card canvas in the middle, and a properties panel on the right. Pick a template, background, Vizorcat, logo and heading, tune the QR, then move, resize, rotate and stack layers. Export a print-ready PNG, print directly, or batch-render a ZIP.
+The studio starts with Content → Design → Review & print. Enter an event name, heading and QR content, then choose a theme and Vizorcat. Theme changes preserve your content and wording. Enable **Free positioning & layers** for the full editing tools. Export a print-ready PNG, print A6 or A4 sheets, display the card on screen, or batch-render a ZIP. On mobile the preview can be expanded, and undo/redo remain accessible.
 
 ## Quick start
 
@@ -54,9 +54,9 @@ A gift link carries a secret in its URL fragment: whoever scans the card can cla
 
 ### Composition
 
-- **Templates** — one per background theme and card type. Each ships a logo, the themed Vizorcat and a call-to-action heading under the QR ("Scan to pay with Zcash" / "Scan to open" / "Scan to claim your gift"). Applying one replaces every layer but keeps the QR content you typed.
+- **Templates** — one per background theme and card type. Each ships a logo, the themed Vizorcat and a call-to-action heading under the QR ("Scan to pay with Zcash" / "Scan to open" / "Scan to claim your gift"). Choosing one changes the background and primary character while keeping the QR, event name, heading and other layers. The initial event layout reserves separate areas for the QR, text, character and installation instructions.
 - **Arrangement** — Centered / QR left / QR right, with live thumbnails of the current card at the top of the Templates panel. Themes whose artwork sits bottom-right (Brass Rampart, Hearthlight Exchange, Modernist Commons) default to QR right.
-- **Backgrounds, Vizorcat, logos** — clicking a card replaces the selected layer of that kind, or adds a new layer when none is selected. `Add as new layer` always adds.
+- **Backgrounds, Vizorcat, logos** — a character choice replaces the selected character or the primary character, and a locked character stays unchanged. Logo choices replace the selected logo or add one when no logo is selected. `Add as new layer` always adds.
 - **Logo colour** — every logo layer carries its own colour. Single-colour marks offer Original / Ink / White / Crimson / Zcash Gold / custom; multi-colour artwork is drawn as-is. The Logos drawer lists Vizor and Zcash marks first; partner logos sit in a folded section with a caution note (see [Third-party marks](#third-party-marks)).
 - **Layers** — drag rows in the layer list to reorder, or use the `⋯` menu / right-click for Duplicate, Lock, Flip, Bring to front / Send to back and Delete. From a layer row, `Shift+F10` opens the menu.
 
@@ -85,7 +85,9 @@ A gift link carries a secret in its URL fragment: whoever scans the card can cla
 - **Export preflight** — opening `Export` runs a print check: QR content, module size on paper, layers covering the main or install QR, text and logos outside the safe area, module contrast, emblem density and empty text boxes. Warnings never block export; clicking one selects the offending layer.
 - **Download PNG** — 300 ppi with 3 mm bleed, for a print shop.
 - **Print / PDF** — the trimmed A6 card. In the print dialog pick A6 paper, 100% scale, no margins; on A4, print at actual size and cut.
-- **Batch export** — one QR value per line, rendered into a ZIP of PNGs named `card-001.png`, `card-002.png`, … The document name, sanitised, names the export files.
+- **Office printer** — landscape A4 sheets with space for two full-size A6 cards and cut marks. The sheet preview uses 150 ppi raster images; print-shop PNGs retain 300 ppi. Use 100% scale and disable browser headers and footers.
+- **Display on screen** — shows the current card without editor controls.
+- **Batch export** — one QR value per line, rendered into a ZIP of PNGs or A4 print sheets. Duplicate gift links and invalid rows are shown before output; explicitly choose whether to exclude them. Gift copies receive `GIFT 001` identifiers, which identify printed copies and do not track claims. PNGs are named `card-001.png`, `card-002.png`, … The document name, sanitised, names the export files.
 
 ## Vizorcat
 
@@ -96,15 +98,16 @@ The Classic Guardian's head is the studio's own mark: favicon, top-bar logo, the
 | Vizorcat | Theme | Home background |
 |---|---|---|
 | Classic Guardian | Knight of the stonehold | Brass Rampart, Quiet Paper |
-| Samurai | Shogun samurai, the one-eyed boss | Indigo Wave, Blossom Drift, Crimson Core, Dark Core |
+| Samurai | Shogun samurai, the one-eyed boss | Indigo Wave, Crimson Core, Dark Core |
+| Oni Samurai | One-eyed samurai with an oni mask, naginata and an inviting palm-up paw | Blossom Drift |
 | Stonehold Warden | Compact stonehold guardian with hammer and cape | Dragon Flight |
 | Crimson Grove Ranger | Crimson-hooded forest ranger | Whispering Grove |
 | Snow Surveyor | White-and-silver polar surveyor | Frost Archive |
 | Hearthlight Host | Warm gift-exchange host | Hearthlight Exchange |
+| Workshop Alchemist | Bronze Mau alchemist with a black homunculus in a dry flask | Alchemist Workshop |
 | Orbital Ranger | Orbital rescue ranger | Lunar Orbit |
 | Astral Wayfinder | Hooded navigator with an astrolabe | Astral Chart |
 | Commons Guide | Community meetup guide | Modernist Commons |
-| Nightglass Rider | Cybernetic shadow rider | Any custom composition |
 
 Vizorcats are authored in the separate `vizorcat` project. Only approved stickers are copied into `assets/characters/`, each with a record in `assets/characters/source/` naming the Variant, the Theme, the generation prompt, the alpha-extraction steps and the file hash. New characters must pass the identity, scale and alpha gates in `AGENTS.md` before they are registered in `src/catalog.js`.
 
@@ -126,6 +129,9 @@ Vizorcats are authored in the separate `vizorcat` project. Only approved sticker
 `index.html` loads `vendor/qrcode.js` as a classic script and `src/main.js` as an ES module; every path is repository-relative.
 
 ```
+src/studio.js       Content / Design / Review shell, live checks, display and A4 preview
+src/event-card.js   event composition, theme preservation, character replacement, gift numbering
+src/print-sheet.js  A4 sheet placement and crop marks
 src/catalog.js      assets, palettes, fonts, card types, layouts, templates (pure data)
 src/scene.js        DOM-free scene model: layers, constraints, templates, history
 src/qr-content.js   DOM-free ZIP-321 builder, address classification, link validation, batch parsing

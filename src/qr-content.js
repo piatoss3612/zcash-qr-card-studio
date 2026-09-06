@@ -301,6 +301,8 @@ export function buildQrValue(scene) {
 export function parseBatchLines(scene, text) {
   const items = [];
   const errors = [];
+  const duplicates = [];
+  const seen = new Map();
   const lines = String(text ?? "").split(/\r?\n/);
 
   lines.forEach((raw, position) => {
@@ -315,11 +317,16 @@ export function parseBatchLines(scene, text) {
       } else {
         value = normalizeUrl(line);
       }
+      if (scene.mode === "giftcard" && seen.has(value)) {
+        duplicates.push({ line: position + 1, firstLine: seen.get(value) });
+        return;
+      }
+      seen.set(value, position + 1);
       items.push({ index: items.length, value });
     } catch (error) {
       errors.push({ line: position + 1, message: error.message });
     }
   });
 
-  return { items, errors };
+  return { items, errors, duplicates };
 }

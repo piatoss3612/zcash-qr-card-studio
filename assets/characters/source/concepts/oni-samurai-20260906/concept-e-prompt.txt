@@ -1,0 +1,22 @@
+Use case: identity-preserve
+Asset type: ONE full-body Oni Samurai Vizorcat concept E, a relaxed arrogant polearm wielder.
+Input 1 is the current Oni Samurai design reference. Its angry crouch and sword-drawing action are REJECTED by the user. Keep the character identity, armor and mask, but replace that pose, weapon and expression entirely as below. Input 2 is the approved one-eyed-boss model sheet, anatomy reference only.
+
+USER DIRECTION:
+A slightly haughty, effortlessly confident samurai cat, standing comfortably with a NAGINATA in one forepaw and casually extending the other forepaw. Charming self-assurance, not rage or intimidation.
+
+POSE:
+Upright but relaxed, slight three-quarter view. Weight settled into one short leg, the other foot casually a little forward, shoulders loose, chin lifted just a little. Keep the compact round cat silhouette and standard very short feline limbs. Not a battle crouch, no charging, no wide strained stance.
+On screen-right, one forepaw naturally grips a single tall naginata shaft around shoulder height. The weapon stands almost upright beside the body, with its blunt butt resting just beside that foot. The staff is one continuous straight dark lacquered shaft with modest crimson wrapping and a restrained gold collar, topped by ONE clearly CURVED single-edged SILVER SWORD-LIKE BLADE. It must visibly be a curved blade mounted on a long pole, NOT a straight spear point, trident, axe, double-blade or fantasy scythe. The blade extends a modest distance above the helmet without becoming gigantic.
+On screen-left, the other forepaw is casually extended outward at lower chest height with its round palm turned partly upward toward the viewer, a relaxed inviting/challenging 'well, come on then' gesture. A small amount of soft elbow bend; readable round cat paw with simple pink pads, no human fingers, no pointing index finger. The gesture feels poised and mildly smug, not customer-service greeting or furious attack.
+Exactly two forepaws attached to two short arms and two short planted feet. Complete tail curves calmly behind the body. Remove the katana, hilt, guard and scabbard entirely; the naginata is the only weapon. Keep the waist cords, not extra weapon mounts.
+
+EXPRESSION:
+Remove ALL tense forehead/fur wrinkles, brow compression and fierce inner-corner slant from input 1. The open amber eye has a relaxed slightly lowered upper lid, only about 10–15% lower than a naturally open eye, with a large clear warm gold iris and pupil. A calm subtly superior sideways glance, not a sleepy eye and not a harsh angry slit. Do not add human eyebrows. Keep the anatomical right eye permanently closed with its familiar healed scar (screen-left in near-frontal view). Retain the same dark crimson sculpted oni half-mask with prominent curved nose, cheek ridges, carved mouth, small gold fangs and trim. Let the body language and relaxed eye soften the naturally stern mask.
+
+PRESERVE:
+Exact same charcoal-black short-haired one-eyed cat, round skull, short stocky body, triangular ears, thick tail, the gold crescent navy kabuto, navy segmented samurai armor with muted gold edging, crimson cords and dark crimson oni mask. Armor articulates naturally but is not redesigned. Same crisp pixel-art edges, chunky coherent pixel clusters and detailed restrained shading. Not a human body, 3D render, smooth vector or painterly redesign.
+
+COMPOSITION:
+One complete isolated character plus its single naginata. Frame the ENTIRE naginata from blade tip to blunt butt, both ears, all paws/feet and complete tail inside the image with generous margin. Use a portrait canvas if needed, but never stretch the cat or lengthen its legs to fill it. No scenery, floor, cast shadow, blood, enemy, cape, fan, added horns, flags, tassels, speed lines, glows, text, logos, UI or comparison panels.
+Actual transparent alpha background if supported; never draw a checkerboard pattern.

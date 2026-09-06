@@ -444,7 +444,7 @@ function drawInstallLayer(ctx, code, transform) {
   ctx.font = `400 34px ${FONTS.Zarathustra.stack}`;
   ctx.textAlign = "start";
   ctx.textBaseline = "alphabetic";
-  ctx.fillText("Get Vizor", 226, 88);
+  ctx.fillText("1. Get Vizor", 226, 88);
   ctx.fillStyle = "#5d6262";
   ctx.font = `500 20px ${FONTS.Geist.stack}`;
   ctx.fillText("Scan to install Vizor first.", 226, 130);

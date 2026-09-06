@@ -1,7 +1,7 @@
 // Export preflight: pure checks over a scene that tell the user what may go
 // wrong in print before they export. No DOM, no rendering.
 
-import { OUTPUT, QUIET_MODULES } from "./catalog.js";
+import { OUTPUT, QUIET_MODULES, CHARACTERS } from "./catalog.js";
 
 /**
  * Recommended minimum size of one QR module on paper. The scene already keeps
@@ -43,6 +43,34 @@ function overlapArea(a, b) {
   const width = Math.min(a.x + a.width, b.x + b.width) - Math.max(a.x, b.x);
   const height = Math.min(a.y + a.height, b.y + b.height) - Math.max(a.y, b.y);
   return width > 0 && height > 0 ? width * height : 0;
+}
+
+/** Map measured opaque regions through the same contain/flip/rotation as rendering. */
+function paintedBounds(layer) {
+  const coverage = layer.kind === "character" && CHARACTERS[layer.assetId]?.coverage;
+  if (!coverage) return [axisBounds(layer)];
+  const scale = Math.min(layer.width / coverage.width, layer.height / coverage.height);
+  const width = Math.round(coverage.width * scale);
+  const height = Math.round(coverage.height * scale);
+  const left = Math.round(-width / 2);
+  const top = Math.round(-height / 2);
+  const radians = (layer.rotation ?? 0) * Math.PI / 180;
+  const cos = Math.cos(radians), sin = Math.sin(radians);
+  return coverage.regions.map((region) => {
+    const points = [
+      [region.x, region.y], [region.x + region.width, region.y],
+      [region.x, region.y + region.height], [region.x + region.width, region.y + region.height],
+    ].map(([x, y]) => {
+      const localX = (left + x * width / coverage.width) * (layer.flipX ? -1 : 1);
+      const localY = top + y * height / coverage.height;
+      return [layer.x + layer.width / 2 + localX * cos - localY * sin,
+        layer.y + layer.height / 2 + localX * sin + localY * cos];
+    });
+    const x = Math.min(...points.map(([x]) => x));
+    const y = Math.min(...points.map(([, y]) => y));
+    return { x, y, width: Math.max(...points.map(([x]) => x)) - x,
+      height: Math.max(...points.map(([, y]) => y)) - y };
+  });
 }
 
 function outsideSafeArea(box) {
@@ -93,7 +121,7 @@ function coveringLayers(layers, target) {
   return layers.slice(index + 1).filter((layer) => {
     if (layer.kind === "background") return false;
     if (layer.kind === "text" && !layer.text?.trim()) return false;
-    return overlapArea(box, axisBounds(layer)) > minimum;
+    return paintedBounds(layer).reduce((area, bounds) => area + overlapArea(box, bounds), 0) > minimum;
   });
 }
 
@@ -218,7 +246,7 @@ export function preflight(scene, { qr = { value: null, error: null, warnings: []
   }
 
   // 7. Empty text boxes
-  const emptyText = layers.filter((layer) => layer.kind === "text" && !layer.text?.trim());
+  const emptyText = layers.filter((layer) => layer.kind === "text" && !layer.bound && !layer.text?.trim());
   if (emptyText.length) {
     checks.push({
       id: "empty-text",

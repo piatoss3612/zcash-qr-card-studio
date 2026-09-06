@@ -439,7 +439,7 @@ export function applyLayout(scene, layoutId) {
 function placeSummaryUnderCaption(scene) {
   const caption = roleLayer(scene, "caption");
   const summary = roleLayer(scene, "summary");
-  if (!caption || !summary) return;
+  if (!caption || !summary || scene.layoutId === "event") return;
   const gap = Math.round(summary.fontSize * 0.5);
   summary.y = Math.round(caption.y + (caption.height ?? 0) + gap);
 }

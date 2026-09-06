@@ -1,0 +1,17 @@
+Use case: precise-object-edit.
+Edit the supplied Wandering Swordsman concept C. Correct ONLY the fit and perspective of the bamboo conical hat and its contact with the cat's head.
+
+Problem to fix: the current hat looks like a broad low plate pressing down on the forehead and squashing the ears. The user wants a naturally worn conical travel hat with breathing room around the head.
+
+Hat correction:
+- Give the hat a clearly three-dimensional SHALLOW CONICAL CROWN with enough interior volume to fit the existing ROUND CAT SKULL; do not flatten or shrink the skull to accommodate the hat.
+- Lift the FRONT brim a modest amount above the eyebrows and tilt the hat BACK slightly. Show a narrow, believable band of forehead fur between the brim and the upper eye line. Keep the entire eyes and brow region free.
+- The hat rests on an unobtrusive inner band on the upper crown of the head. Convey a small shaded underside and natural gap at the forehead while keeping clear physical support at the top/back. It must not hover in midair.
+- Narrow the overall brim width slightly (about 10%) and make its ellipse and near/far edges coherent with the existing three-quarter head angle. The front rim should feel light and thin, not a thick slab or a plate cutting across the face.
+- Preserve both natural feline ears at their ORIGINAL anatomical root positions. Fit two small openings in the hat around the ear bases, with subtle visible woven rims. Ears should emerge naturally rather than being pasted behind the hat, floating, duplicated, compressed or bent. Do not turn the ears into horns or relocate them.
+- Keep the same plain honey-bamboo material, simple radial ribs, coarse pixel clusters and restrained shaded underside. No new decorations, hanging tassels or emblems.
+- Retain the thin plain chin cord only if it remains unobtrusive and naturally supports the new angle.
+
+KEEP EVERYTHING ELSE IDENTICAL: the round brown mackerel-tabby face, olive-green eyes and gaze, small smile, single thin green grass blade at the mouth corner, cream muzzle, head-to-body proportions, clean indigo robe, ivory collar, black sash, one cloth travel bundle and holding paw, one sheathed sword, walking stance, hands, feet, full ringed tail, colors and pixel-art style. Do not redesign the pose or raise the entire head relative to the body.
+
+One full-body character, all hat edges and ears within the frame with clear padding. Preserve the current framing as much as possible. No added objects, text, diagrams, arrows, labels, scenery, cast shadow, logos or QR code. This is a precise hat-fit correction; avoid changes outside the hat and immediate head-contact region.

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Event Studio · 화면 시안</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#e9e9e6;color:#202424;font:14px system-ui,sans-serif}button,a{font:inherit}button{cursor:pointer}.review-bar{padding:12px 24px;background:#fafaf8;color:#252a27;display:flex;gap:28px;align-items:center;flex-wrap:wrap}.identity{margin-right:auto}.identity strong{display:block;font-size:15px}.identity span{display:block;font-size:11px;color:#737a72;margin-top:4px}.switch{display:flex;gap:4px;background:none;padding:0;border-radius:0}.switch button{border:0;background:none;color:#71786e;padding:10px 13px;border-radius:0;font-size:12px}.switch button[aria-pressed=true]{background:none;color:#b90a4a;box-shadow:inset 0 -2px #b90a4a}.review-note{margin:0;padding:12px 28px;background:#fafaf8;border-bottom:1px solid #d9ddda;color:#59625d;font-size:12px;line-height:1.6;display:flex;gap:20px;justify-content:space-between}.review-note a{color:#7b2346;white-space:nowrap}.stage{padding:12px 24px 24px;display:flex;justify-content:center;align-items:flex-start}iframe{display:block;width:100%;max-width:1560px;height:850px;border:1px solid #d0d3cf;background:#fff;border-radius:0;box-shadow:none}iframe.mobile{width:390px;height:844px;border:7px solid #242928;border-radius:30px}.caption{max-width:1100px;margin:0 auto 30px;padding:0 24px;line-height:1.8;color:#59625d;font-size:13px}button:focus-visible,a:focus-visible{outline:3px solid #de8dac;outline-offset:3px}@media(max-width:700px){.review-bar{padding:16px;gap:12px}.identity{width:100%}.switch button{padding:8px}.review-note{padding:12px 16px;display:block}.review-note a{display:block;margin-top:6px}.stage{padding:12px}iframe{height:870px}.device-switch{display:none}}
+  </style>
+</head>
+<body>
+  <header class="review-bar">
+    <div class="identity"><strong>Event Studio / 화면 시안 02</strong><span>Zcash QR Card Studio · 현장 제작 흐름</span></div>
+    <nav class="switch" aria-label="검토 화면">
+      <button data-screen="create" aria-pressed="true">01 제작 화면</button>
+      <button data-screen="cards" aria-pressed="false">02 카드 결과물</button>
+      <button data-screen="review" aria-pressed="false">03 출력 확인</button>
+    </nav>
+    <div class="switch device-switch" aria-label="화면 크기"><button data-device="desktop" aria-pressed="true">Desktop</button><button data-device="mobile" aria-pressed="false">Mobile</button></div>
+  </header>
+  <p class="review-note"><span>인터랙티브 목업 · 입력·테마·캐릭터·실행 취소를 눌러볼 수 있습니다. QR와 점검 결과는 예시이며 실제 결제·수령·파일 출력 기능은 없습니다.</span><a href="./app.html" target="_blank" rel="noopener">전체 화면 ↗</a></p>
+  <main class="stage"><iframe title="Event Studio 인터랙티브 시안" src="./app.html"></iframe></main>
+  <p class="caption" id="caption">검토 포인트: 카드의 목적과 필수 내용을 먼저 정하고, 테마와 캐릭터는 안전한 배치 안에서 교체합니다. Mobile을 누르면 입력 우선 배치와 접을 수 있는 미리보기를 확인할 수 있습니다.</p>
+  <script>
+    const frame=document.querySelector('iframe');
+    const notes={create:'검토 포인트: 카드의 목적과 필수 내용을 먼저 정하고, 테마와 캐릭터는 안전한 배치 안에서 교체합니다. Mobile을 누르면 입력 우선 배치와 접을 수 있는 미리보기를 확인할 수 있습니다.',cards:'검토 포인트: 방문객이 행사명, 스캔 목적, 다음 행동을 카드만 보고 이해할 수 있는지 봅니다. 두 카드 모두 A6 비율이며, 화면상의 크기는 실제 인쇄 크기와 다릅니다.',review:'검토 포인트: 단일 카드와 기프트 배치의 출력 흐름입니다. 기프트 배치는 100개 중 중복 2개·형식 오류 1개가 있는 가상 상황을 보여주며, 제외 여부를 직접 선택해야 합니다.'};
+    document.querySelectorAll('[data-screen]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-screen]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));frame.contentWindow.postMessage({screen:b.dataset.screen},location.origin);document.querySelector('#caption').textContent=notes[b.dataset.screen]}));
+    window.addEventListener('message',event=>{if(event.source!==frame.contentWindow||event.origin!==location.origin||!notes[event.data?.activeScreen])return;document.querySelectorAll('[data-screen]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.screen===event.data.activeScreen)));document.querySelector('#caption').textContent=notes[event.data.activeScreen]});
+    document.querySelectorAll('[data-device]').forEach(b=>b.addEventListener('click',()=>{window.addEventListener('message',event=>{if(event.source!==frame.contentWindow||event.origin!==location.origin||!notes[event.data?.activeScreen])return;document.querySelectorAll('[data-screen]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.screen===event.data.activeScreen)));document.querySelector('#caption').textContent=notes[event.data.activeScreen]});
+    document.querySelectorAll('[data-device]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));frame.classList.toggle('mobile',b.dataset.device==='mobile')}));
+  </script>
+</body>
+</html>

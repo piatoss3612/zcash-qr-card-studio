@@ -17,7 +17,16 @@
       "source": "generated for QR Card Studio",
       "sourceRecord": "source/samurai.md",
       "variant": "one-eyed-boss",
-      "usage": "original campaign pose with hanbo, one sheathed katana, and secular gunbai; only Japanese-inspired campaign theme"
+      "usage": "original campaign pose with hanbo, one sheathed katana, and secular gunbai"
+    },
+    {
+      "id": "oni-samurai",
+      "file": "oni-samurai-v2.png",
+      "sha256": "4b1dc1239536ffde5091adde9a038afed059f1f08542d51381e540d127782fbd",
+      "source": "user-approved concept with authorized local alpha extraction",
+      "sourceRecord": "source/oni-samurai-v2.md",
+      "variant": "one-eyed-boss",
+      "usage": "compact one-eyed oni samurai with original lighter charcoal/navy palette, naginata and inviting paw, paired with Blossom Drift"
     },
     {
       "id": "orbital-rescue-ranger",
@@ -66,19 +75,19 @@
     },
     {
       "id": "stonehold-warden",
-      "file": "stonehold-warden.png",
-      "sha256": "39712cf0d211489c45c15ecc3bb4826757876899c2719e50b7de8163dc041dd9",
-      "source": "iteratively edited and locally extracted for QR Card Studio",
-      "sourceRecord": "source/stonehold-warden.md",
+      "file": "stonehold-warden-v5.png",
+      "sha256": "f5fe6ee431871d103cbb963799b64676c62ea48dc30f089c1d1e32728443f98c",
+      "source": "user-approved readability refinement with deterministic alpha extraction",
+      "sourceRecord": "source/stonehold-warden-v5.md",
       "variant": "manx-inspired-celtic-warden",
       "usage": "three-quarter Manx-inspired Celtic warden with a fitted open-face helmet, braided beard, and one grounded hammer"
     },
     {
       "id": "hearthlight-host",
-      "file": "hearthlight-host.png",
-      "sha256": "5cc4014ce6f93a67a48ef169f57982c00b9a51e45044db6894b0baf375cb15a0",
-      "source": "generated, precisely reworked, and locally extracted for QR Card Studio",
-      "sourceRecord": "source/hearthlight-host.md",
+      "file": "hearthlight-host-v2.png",
+      "sha256": "419bd0bcf69b37ffced808a7e5d999bae246121f81b75b8f79e50c9c4a519318",
+      "source": "user-approved readability refinement with deterministic alpha extraction",
+      "sourceRecord": "source/hearthlight-host-v2.md",
       "variant": "burmese-inspired-standard-geometry",
       "usage": "secular winter-gathering host presenting one gift in a tailored open-face hood and coat"
     },
@@ -90,6 +99,24 @@
       "sourceRecord": "source/nightglass-rider.md",
       "variant": "vizorcat-inspired-cybernetic-rider",
       "usage": "compact feline masked rider with an empty nightglass face, one crimson holographic sight, and retained shadow wisps"
+    },
+    {
+      "id": "workshop-alchemist",
+      "file": "workshop-alchemist-v1.png",
+      "sha256": "df668be70a07fb2e5504ec1862c6731508062528183cbcc4b6af3dce44cf08c1",
+      "source": "user-approved concept with deterministic alpha extraction",
+      "sourceRecord": "source/workshop-alchemist-v1.md",
+      "variant": "bronze-egyptian-mau-inspired-standard-geometry",
+      "usage": "frontal workshop alchemist holding a dry glass flask with one black homunculus"
+    },
+    {
+      "id": "wandering-swordsman",
+      "file": "wandering-swordsman-v1.png",
+      "sha256": "2b441f4dd5a36dd762c51032b46c62fa36e2d6822767cf451eb1be9599645653",
+      "source": "user-approved concept with deterministic alpha extraction",
+      "sourceRecord": "source/wandering-swordsman-v1.md",
+      "variant": "brown-mackerel-tabby-inspired-standard-geometry",
+      "usage": "beginner wandering swordsman with a straw hat, indigo robe, travel bundle and one small swordsmanship manual"
     }
   ]
 }

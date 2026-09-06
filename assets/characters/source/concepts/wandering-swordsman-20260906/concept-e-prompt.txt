@@ -1,0 +1,13 @@
+Use case: precise-object-edit.
+Edit this exact Wandering Swordsman concept D with ONE tiny localized substitution.
+
+Replace the almost invisible thin green leaf at the mouth with ONE recognizable foxtail-grass sprig (Setaria-type grass seed head, Korean gangajipul), casually held at the SAME image-right corner of the existing smile.
+- A thin curved muted-green stem exits the mouth diagonally toward screen-right and slightly down.
+- At its outer end is one compact plump tapered oval seed head with a softly bristled pixel silhouette, pale yellow-green/olive-gold. It must clearly read as a single foxtail grass head rather than just a leaf, a second whisker, a cigarette, a feather, a wheat bouquet or a cigar.
+- Let the seed head project JUST BEYOND the cream cheek/outer facial silhouette on the image-right side so it is readable against the background rather than disappearing over the muzzle.
+- Keep it modest: seed head approximately one-quarter of the width of a single eye, and the entire stem-plus-head no longer than one eye width. A slight natural curve gives it a relaxed casually chewed feeling.
+- Use a handful of clean coarse pixel clusters and 2–3 restrained shades, not many fine hairs. No glow, huge plume, multiple stalks, loose seeds or visual effects.
+- The stem physically meets the lip corner. Do not reshape the smile or change any whisker.
+
+Preserve EVERYTHING ELSE EXACTLY from the supplied image: the new hat fit and its tilt, ears, brown mackerel-tabby identity, face and olive-green eyes, expression, clean indigo cross-collar robe, ivory collar, black sash, single travel bundle and holding paw, one sheathed sword, walking pose, all paws/feet, entire tail, proportions, framing, palette, background and pixel rendering.
+One complete character only, no text, labels, arrows, frames, scenery or additional props. This is only the grass visibility correction.

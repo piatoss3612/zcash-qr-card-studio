@@ -1,7 +1,7 @@
 # Nightglass Rider source
 
 - Finalized: 2026-09-04
-- Status: registered in the QR Card Studio character catalog as `nightglass` / `Nightglass Rider`
+- Status: removed from the selectable QR Card Studio catalog on 2026-09-06 at the user's request. Original and exploration candidates are retained as authoring records.
 - Tool path: serial built-in image exploration, one approved precise head edit, then deterministic local alpha extraction
 - Use case: movable QR Card Studio character sticker
 - Character identity: an original Vizorcat-inspired cybernetic masked rider; feline silhouette cues remain in the armored ears, paws, and segmented tail

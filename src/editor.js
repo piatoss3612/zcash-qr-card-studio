@@ -190,7 +190,7 @@ export function createEditor(app) {
   /** Position the selection box, handles and rotation stem over the selected layer. */
   function syncSelectionOverlay() {
     const layer = selectedLayer(app.scene);
-    const hide = !layer || layer.kind === "background";
+    const hide = !app.freeEditing || !layer || layer.kind === "background";
     el.selectionBox.toggleAttribute("hidden", hide);
     if (hide) return;
 
@@ -291,6 +291,7 @@ export function createEditor(app) {
   }
 
   function beginPointerTransform(event) {
+    if (!app.freeEditing) return;
     if (event.button !== 0) return;
     const point = canvasPoint(event);
     let handle = event.target instanceof Element ? event.target.dataset.handle : null;
@@ -384,6 +385,7 @@ export function createEditor(app) {
     const modifier = event.metaKey || event.ctrlKey;
     const editing = isTextEditingTarget(event.target);
     const key = event.key.toLowerCase();
+    if (!app.freeEditing && (["arrowup","arrowdown","arrowleft","arrowright","delete","backspace"].includes(key) || (modifier && key === "d"))) return;
 
     if (event.key === "?" && !modifier && !editing) {
       event.preventDefault();
@@ -483,6 +485,7 @@ export function createEditor(app) {
   el.frame.addEventListener("pointerup", finishPointerTransform);
   el.frame.addEventListener("pointercancel", finishPointerTransform);
   el.frame.addEventListener("dblclick", (event) => {
+    if (!app.freeEditing) return;
     const hit = hitTestLayer(canvasPoint(event));
     if (!hit || hit.kind !== "text") return;
     selectLayer(app.scene, hit.id);
@@ -493,6 +496,7 @@ export function createEditor(app) {
     });
   });
   el.frame.addEventListener("contextmenu", (event) => {
+    if (!app.freeEditing) return;
     const hit = hitTestLayer(canvasPoint(event));
     if (!hit) return;
     event.preventDefault();

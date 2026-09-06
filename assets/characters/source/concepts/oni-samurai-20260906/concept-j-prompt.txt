@@ -1,0 +1,20 @@
+Use case: identity-preserve
+Create ONE corrected full-body Oni Samurai Vizorcat, concept J.
+Reference 1 is the ORIGINAL approved Samurai: AUTHORITATIVE for compact proportions, lighter charcoal fur, readable navy-blue armor, palette brightness, crisp chunky pixel clusters and restrained shading.
+Reference 2 is the current Oni Samurai, the EDIT TARGET: keep its selected costume and palm-up gesture, but its elongated humanoid torso/legs and dark muddy rendering are REJECTED.
+Reference 3 is the approved one-eyed-boss model sheet: strict feline anatomy/identity authority. Do not copy its magenta background or expression panels.
+
+PRIMARY CORRECTION — restore the original cat, not a man in cat armor:
+Use the exact original Samurai's big round skull, short neckless body, squat rounded belly, short broad little arms, VERY SHORT legs and round feline paws. Make the head including ears about HALF the ear-tip-to-sole height, as a compact approximately two-head-tall mascot. The entire body BELOW the mask to the soles should be no taller than the head INCLUDING ears. No elongated abdomen, narrow human waist, long upper thighs, tall shins, human shoulders, separate long boot shafts or muscular human anatomy. Fit armor onto a little cat. Shorten the chestplate to a few broad overlapping plates, pull the waist knot upward, shorten the armor skirt and show only short stubby feet below it. Jinbaori ends at the compact hip/skirt; it must NOT elongate the torso. Preserve the round skull and triangular ears rather than merely stretching the head wider or squashing the entire image. Crisp deliberate pixel-art construction at the ORIGINAL reference's pixel density; remove the accumulated fine painted grain.
+
+COLOR CORRECTION:
+Match reference 1's midtone values and clear readable colors: medium charcoal-grey fur with visible soft grey planes, NAVY / slate-blue armor midtones, bright warm gold edges and muted coral inner ears. Use black primarily for outlines and small occluded shadows. No near-black all-over armor, smoky brown color cast, dark vignette, soot texture or cinematic low-key lighting. The reference 1 cat should look like the very same cat in different equipment, not a darker color variant.
+Preserve the user's selected dark crimson oni half-mask color and sculpted nose/cheeks, gold fangs and details; improve readability without turning it neon scarlet.
+
+KEEP FROM REFERENCE 2:
+The compact amber eye with its gently slanted upper lid and calm serious veteran expression. Do NOT make it larger, round, wide-open, innocent or baby-eyed; no angry brow creases. Permanent scarred closed eye on the same side. Gold crescent navy kabuto. The same sculpted oni half-mask, short open indigo jinbaori with gold wave hem and oxblood lining, navy segmented armor and crimson waist knot. Exactly one upright naginata on screen-right, silver curved single-edged blade, dark shaft, red wrap and one short crimson tassel; scale its length naturally with the restored compact character so it extends only modestly above the ears. No fan, sword, sheath, new emblem or equipment.
+
+CRITICAL PAW POSE:
+Screen-left forepaw extends in a relaxed inviting gesture: its FURRY BACK faces DOWN and its PAD-BEARING PALM faces UP like a shallow horizontal cup viewed obliquely, not a vertical stop-sign palm facing the camera. Keep short rounded grouped toes; four main toes plus a small inner proximal dewclaw digit, not five human fingers. Pads can be partly hidden by the oblique view. No duplication. Other forepaw grips the pole naturally.
+
+One complete isolated full-body cat with both ears, two short arms, two short legs, ONE complete thick curved tail, and full naginata from tip to butt inside generous frame margins. A genuine transparent background if possible; never draw a checkerboard. No shadow, floor, landscape, text, labels or panels.

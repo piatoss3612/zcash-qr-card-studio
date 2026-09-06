@@ -1,0 +1,17 @@
+Use case: precise-object-edit.
+Edit image 1, Nightglass concept C. Image 2 is the approved Vizorcat Standard anatomy reference. The user rejected the forward hand because our previous edit made the hand and forearm look like a long blunt tube or amputated stump.
+
+Correct ONLY THE FORWARD ARM AND PAW ON THE LEFT SIDE OF THE IMAGE. The rest of the character must stay identical.
+Make a believable small feline front paw attached to a SHORT BENT armored arm:
+- Retract this arm toward the body by bending its elbow. Keep the shoulder exactly in place. The little paw should finish just outside the torso's left silhouette near waist height, NOT far out to the left.
+- The forearm is short, angled diagonally forward and downward, and visibly ends in a simple narrow wrist cuff.
+- Beyond the cuff sits a distinct small broad rounded cat paw: wider than the wrist, short from wrist to toe tips, gently domed on top, softly flattened along its underside. Its silhouette is subtly scalloped across THREE VERY SHORT joined toe tips, just like a cat forepaw. Use only two shallow contour notches; NO long digits or gaps, NO opposing thumb, NO human palm.
+- Show the TOP/back and slightly the side of the relaxed paw, with toes pointing downward and a little forward. No palm-up presenting gesture. No exposed central paw pad is necessary.
+- A simple dark graphite armored cap follows this organic paw shape, with restrained pixel highlights; the wrist connection remains readable.
+- The total paw is approximately the same size as the OTHER existing hand. It should not look like a mitten-shaped boxing fist, a narrow sausage, a cylinder, a flipper, a fingerless stump, a shoe attached to an arm, a claw or a crab pincer.
+- The intent is a poised compact feline hero advancing, with relaxed bent arms. No pointing or punching.
+
+Preserve EXACTLY the huge cat-eared helmet, black face cavity and single crimson sight, gold brow, asymmetric shoulder plates, chest, other arm and hand, pelvis, stepping legs, both boots and curled armored tail. Preserve the same black/violet palette, proportions, pixel density and three-quarter advancing stance. Do not alter any part outside the specified forward arm/paw correction. Keep original camera and full-body framing.
+Use image 2 ONLY to understand the short forelimb and distinct small rounded cat paw, not its bare fur or face.
+
+One full-body image, no extra view or diagram. Coarse deliberate pixel-art with stepped contours. Genuine transparent RGBA background if available; no checkerboard, magenta matte, floor, shadow, text, arrows, labels, weapons or extra objects.

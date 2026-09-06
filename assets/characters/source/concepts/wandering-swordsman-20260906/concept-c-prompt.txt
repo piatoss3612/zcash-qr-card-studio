@@ -1,0 +1,9 @@
+Use case: precise-object-edit.
+Edit this exact supplied Wandering Swordsman concept B with ONLY ONE SMALL ADDITION.
+
+At the character's mouth corner on the RIGHT SIDE OF THE IMAGE, add ONE thin natural green blade of grass held casually between the lips. A short stem is gently caught at the corner of the existing small smile, and the single slender leaf projects diagonally out toward screen-right, with a relaxed slight curve and a tapered tip. About the length of the distance between the cat's nose and one eye, not longer. It should read immediately as a casually chewed grass blade, evoking an unhurried wandering swordsman.
+Use muted olive green with one restrained lighter pixel edge. Keep it delicate and legible, only a few pixels thick at sprite scale. There is exactly ONE grass blade, no bunch, second stem, flower, straw bouquet, tobacco, cigarette, pipe, smoke, toothpick or large leaf. Do not cover the nose, eyes, whiskers or face. Do not open or reshape the mouth, add teeth, a grin or change the facial expression.
+
+Preserve EVERYTHING ELSE in the image: the exact brown mackerel-tabby cat identity, olive-green eyes and gaze, face shape, broad bamboo conical hat and ear placement, tidy dark indigo clothing, ivory collar, waist sash, one cloth travel bundle, single sheathed sword, paws, stepping pose, legs, feet, tail, proportions, framing, pixel density, palette and shading. No new accessories or creative changes outside the grass blade.
+Match the existing deliberate square pixel-art grid and stepped outlines.
+Exactly one complete character in one view. Keep transparent background if present; otherwise preserve the existing background for this precise concept edit rather than redrawing the character to solve alpha. No text, watermark, labels, borders or extra views.

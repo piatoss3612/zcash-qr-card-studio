@@ -1,3 +1,4 @@
+import { applyEventTheme, createEventScene, replaceEventCharacter, EVENT_TITLES, eventText, setEventText, numberedCard } from "./event-card.js";
 // DOM binding for everything outside the canvas: mode switch, tool rail and drawer,
 // asset panels, content fields, selection panel, layer list, export menu and batch dialog.
 
@@ -17,8 +18,6 @@ import {
 import {
   addLayer,
   applyLayout,
-  applyTemplate,
-  createScene,
   duplicateLayer,
   makeCharacterLayer,
   makeLogoLayer,
@@ -40,6 +39,7 @@ import { maskGiftLink, parseBatchLines } from "./qr-content.js";
 import { preflight, summarize } from "./preflight.js";
 import { designToJson, parseDesign } from "./design-file.js";
 import {
+  assetsReady,
   drawPrintCanvas,
   exportBatch,
   exportPngBlob,
@@ -199,7 +199,7 @@ export function createPanels(app) {
   };
   el.contextMenuActions = [...el.contextMenu.querySelectorAll("[data-layer-action]")];
 
-  const pick = { character: "samurai", logo: "vizor" };
+  const pick = { character: "classic", logo: "vizor" };
   let activePanel = "templates";
   let drawerOpen = true;
   let contextMenuLayerId = null;
@@ -254,7 +254,8 @@ export function createPanels(app) {
 
         const thumb = document.createElement("span");
         thumb.className = "template-card__thumb";
-        const preview = createScene({ mode: template.mode, templateId: template.id });
+        const preview = createEventScene(template.mode);
+        applyEventTheme(preview, template.id);
         thumb.append(
           renderThumbnail(preview, {
             assets: app.assets,
@@ -270,7 +271,7 @@ export function createPanels(app) {
 
         card.append(thumb, label);
         card.addEventListener("click", () => {
-          edit(() => applyTemplate(scene(), template.id), { composition: false });
+          edit(() => applyEventTheme(scene(), template.id), { composition: false });
           app.compositionDirty = false;
         });
         return card;
@@ -310,26 +311,8 @@ export function createPanels(app) {
 
   function applyCharacterCard(assetId) {
     pick.character = assetId;
-    const layer = selectedLayer(scene());
-    edit(() => {
-      if (layer && layer.kind === "character" && !layer.locked) {
-        const replacement = makeCharacterLayer(assetId, scene());
-        if (!replacement) return false;
-        setLayerProps(scene(), layer.id, {
-          assetId,
-          label: CHARACTERS[assetId]?.label ?? "Vizorcat",
-          x: layer.x + (layer.width - replacement.width) / 2,
-          y: layer.y + layer.height - replacement.height,
-          width: replacement.width,
-          height: replacement.height,
-        });
-      } else {
-        const made = makeCharacterLayer(assetId, scene());
-        if (!made) return false;
-        addLayer(scene(), made);
-      }
-      return true;
-    });
+    edit(() => replaceEventCharacter(scene(), assetId));
+    if (selectedLayer(scene())?.locked) app.setStatus("Unlock the character before replacing it", "error");
   }
 
   function applyLogoCard(assetId) {
@@ -378,9 +361,19 @@ export function createPanels(app) {
 
   function switchMode(mode) {
     edit(() => {
-      // An untouched composition follows the card type; edited work is preserved.
-      if (!app.compositionDirty) applyTemplate(scene(), MODES[mode].defaultTemplate);
-      else setMode(scene(), mode);
+      const previous = scene().mode;
+      const title = eventText(scene(), "event-heading");
+      setMode(scene(), mode);
+      if (mode === "payment") setPaymentSummary(scene(), true);
+      const logo = scene().order.map(id=>scene().layers[id]).find(layer=>layer.kind === "logo");
+      if (logo && ["zcash", "vizor"].includes(logo.assetId)) {
+        const assetId = mode === "payment" ? "zcash" : "vizor";
+        Object.assign(logo, {assetId, label:LOGOS[assetId].label, width:mode === "payment"?70:180, height:mode === "payment"?70:52});
+      }
+      if (title === EVENT_TITLES[previous]) setEventText(scene(), "event-heading", EVENT_TITLES[mode]);
+      const caption = roleLayer(scene(), "caption");
+      if (caption) caption.text = mode === "giftcard" ? "2. Scan to claim your gift" : mode === "payment" ? "Scan to pay with Zcash" : "Scan to open the event guide";
+      scene().templateId = `${mode}-${scene().layers.background.assetId}`;
       return true;
     }, { composition: false });
     syncTemplates();
@@ -728,6 +721,7 @@ export function createPanels(app) {
   // -------------------------------------------------------- export menu
 
   function setExportMenu(open) {
+    if (open && app.showStep) { app.showStep("review"); return; }
     if (open) syncPreflight();
     el.exportMenu.hidden = !open;
     el.exportButton.setAttribute("aria-expanded", String(open));
@@ -818,7 +812,7 @@ export function createPanels(app) {
   function newCard() {
     if (app.history.size > 0 && !window.confirm("Start a new card? Unsaved changes will be lost.")) return;
     edit(() => {
-      const fresh = createScene({ mode: scene().mode });
+      const fresh = createEventScene(scene().mode);
       Object.assign(scene(), fresh);
       return true;
     });
@@ -866,19 +860,27 @@ export function createPanels(app) {
     window.print();
   }
 
+  let batchFormat = "zip";
+  let batchBusy = false;
+  el.batchDialog.addEventListener("cancel", event => { if (batchBusy) event.preventDefault(); });
   // ------------------------------------------------------- batch dialog
 
   function syncBatch() {
-    const { items, errors } = parseBatchLines(scene(), el.batchInput.value);
-    el.batchCount.textContent = `${items.length} card${items.length === 1 ? "" : "s"}`;
+    const { items, errors, duplicates } = parseBatchLines(scene(), el.batchInput.value);
+    const issues = [...errors, ...duplicates.map(item=>({line:item.line,message:`Duplicate of line ${item.firstLine}. This would reprint the same gift.`}))];
+    const omitted = issues.length;
+    const exclude = document.getElementById("batch-exclude");
+    document.getElementById("batch-exclude-row").hidden = omitted === 0;
+    document.getElementById("batch-exclude-text").textContent = `Exclude ${omitted} problem row${omitted===1?'':'s'} and use only the ${items.length} valid cards.`;
+    el.batchCount.textContent = `${items.length} valid · ${duplicates.length} duplicate · ${errors.length} invalid`;
     el.batchErrors.replaceChildren(
-      ...errors.slice(0, 8).map((error) => {
+      ...issues.map((error) => {
         const item = document.createElement("li");
         item.textContent = `Line ${error.line}: ${error.message}`;
         return item;
       }),
     );
-    el.batchRun.disabled = items.length === 0;
+    el.batchRun.disabled = batchBusy || items.length === 0 || (omitted > 0 && !exclude.checked) || !app.assetsLoaded || !assetsReady(scene(), app.assets);
     el.batchPreview.replaceChildren(...batchPreviewNodes(items));
     return items;
   }
@@ -893,10 +895,13 @@ export function createPanels(app) {
     const first = document.createElement("code");
     const value = items[0].value;
     first.textContent = scene().mode === "giftcard" ? maskGiftLink(value) : value.length > 72 ? `${value.slice(0, 72)}…` : value;
-    return ["Saved as ", zip, ` containing ${range}. First card encodes `, first, "."];
+    return batchFormat === "sheet" ? [`${items.length} cards on ${Math.ceil(items.length / 2)} A4 sheets. Two A6 cards per sheet.`] : ["Will save as ", zip, ` containing ${range}. First card encodes `, first, "."];
   }
 
-  function openBatchDialog() {
+  function openBatchDialog(format = "zip") {
+    batchFormat = format;
+    document.getElementById("batch-exclude").checked = false;
+    el.batchRun.textContent = format === "sheet" ? "Prepare A4 sheets" : "Export ZIP";
     el.batchHint.textContent = MODES[scene().mode].batchHint;
     el.batchInput.placeholder = MODES[scene().mode].batchPlaceholder ?? "";
     el.batchProgress.hidden = true;
@@ -906,16 +911,27 @@ export function createPanels(app) {
 
   async function runBatch() {
     const items = syncBatch();
-    if (items.length === 0) return;
+    if (el.batchRun.disabled) return;
+    batchBusy = true;
+    document.getElementById("batch-exclude").disabled = true;
     el.batchRun.disabled = true;
+    el.batchInput.disabled = true;
+    el.batchCancel.disabled = true;
     el.batchProgress.hidden = false;
     el.batchProgress.max = items.length;
     el.batchProgress.value = 0;
     app.setStatus(`Exporting 0/${items.length}…`, "busy");
     try {
-      const blob = await exportBatch(scene(), items, {
+      if (batchFormat === "sheet") {
+        await app.prepareSheets(items);
+        el.batchDialog.close();
+        app.setStatus(`Prepared ${items.length} cards for printing`, "ready");
+        return;
+      }
+      const blob = await exportBatch(snapshot(scene()), items, {
         assets: app.assets,
         installCode: app.installCode,
+        setContent: scene().mode === "giftcard" ? (current,item)=>numberedCard(current,item.index) : undefined,
         onProgress: (done, total) => {
           el.batchProgress.value = done;
           app.setStatus(`Exporting ${done}/${total}…`, "busy");
@@ -927,7 +943,11 @@ export function createPanels(app) {
     } catch (error) {
       app.setStatus(`Batch export failed: ${error.message}`, "error");
     } finally {
-      el.batchRun.disabled = false;
+      batchBusy = false;
+      document.getElementById("batch-exclude").disabled = false;
+      el.batchInput.disabled = false;
+      el.batchCancel.disabled = false;
+      syncBatch();
       el.batchProgress.hidden = true;
     }
   }
@@ -942,10 +962,6 @@ export function createPanels(app) {
 
   for (const tab of el.toolTabs) {
     tab.addEventListener("click", () => {
-      if (drawerOpen && activePanel === tab.dataset.panel) {
-        setDrawer(false);
-        return;
-      }
       setActivePanel(tab.dataset.panel);
       setDrawer(true);
       if (tab.dataset.panel === "templates") {
@@ -1256,7 +1272,8 @@ export function createPanels(app) {
     });
   }
 
-  el.batchInput.addEventListener("input", syncBatch);
+  el.batchInput.addEventListener("input", () => { document.getElementById("batch-exclude").checked = false; syncBatch(); });
+  document.getElementById("batch-exclude").addEventListener("change", syncBatch);
   el.batchRun.addEventListener("click", runBatch);
   el.batchCancel.addEventListener("click", () => el.batchDialog.close());
   function openHelp() {
@@ -1336,7 +1353,8 @@ export function createPanels(app) {
     el.showSummary.checked = Boolean(roleLayer(current, "summary"));
     updateMemoCount();
 
-    el.contentError.textContent = app.qr.error ?? "";
+    const key = current.mode === "payment" ? "address" : current.mode === "giftcard" ? "giftLink" : "url";
+    el.contentError.textContent = current.content[key].trim() ? app.qr.error ?? "" : "";
     el.contentWarning.textContent = app.qr.warnings.join(" ");
     const preview = app.qr.value ?? "";
     el.valuePreview.textContent = current.mode === "giftcard" ? maskGiftLink(preview) : preview;
@@ -1359,5 +1377,5 @@ export function createPanels(app) {
   }
 
   setActivePanel(activePanel);
-  return { sync, syncTemplates, closeMenus, openLayerMenu, setDrawer };
+  return { sync, syncTemplates, closeMenus, openLayerMenu, setDrawer, downloadPng, printCard, openBatchDialog };
 }

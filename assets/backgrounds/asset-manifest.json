@@ -84,6 +84,20 @@
       "file": "modernist-commons-v1.png",
       "source": "source/modernist-commons-v1.md",
       "sha256": "6377d1d9d70e94a021a53d227759af98e7ee0789b7eef579952f37ae711b51d9"
+    },
+    {
+      "id": "workshop",
+      "label": "Alchemist Workshop",
+      "file": "alchemist-workshop-v1.png",
+      "source": "source/alchemist-workshop-v1.md",
+      "sha256": "ba81d7b05d469804c305de7633454ee84c0d53cdb7e5eed8017ed22727163646"
+    },
+    {
+      "id": "journey",
+      "label": "First Journey",
+      "file": "first-journey-v1.png",
+      "source": "source/first-journey-v1.md",
+      "sha256": "9caf6d1dc024ecaaae5706c3e434f661e9d858fae755ee6d6bc58f80daab8edb"
     }
   ]
 }

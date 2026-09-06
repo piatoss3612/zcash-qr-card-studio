@@ -1,0 +1,17 @@
+Use case: precise-object-edit
+Asset type: Stonehold Warden readability refinement, candidate A.
+
+Input image 1 is the ONLY character identity and edit target: existing Stonehold Warden, a compact brown tabby Manx-inspired guardian with golden eyes, a hornless open iron helmet fitted around both real cat ears, heavy moustache and two braided beard sides, one grounded square hammer, muted quilted tunic and short red cape.
+Input image 2 is the approved Vizorcat Standard model sheet, authoritative for pixel-art density, short-limbed mascot anatomy, rounded paws and facial clarity. Use it as a STYLE AND ANATOMY CONSTRAINT, not a replacement cat. Its magenta matte is not output content.
+
+Make a focused readability cleanup. Preserve the SAME cat, silhouette, proportions, pose, expression, ear/helmet fit, naturally short rounded tail, clothing, palette, one hammer and equipment placement. Do not invent a new character or redesign the pose.
+1. Simplify the over-detailed beard into 5–7 clear large fur masses. Keep the heavy curved moustache, TWO side braids with the same gold ties, and a central beard. Show each braid with only 3–4 bold interlocking pixel clusters. Remove individual hair strands, dense streaks, texture noise and crosshatching. Maintain the beard's overall silhouette and length; do not shave it or move the eyes.
+2. Restore facial hierarchy: large warm gold eyes with dark pupils and small matched highlights; pink nose and cream muzzle cleanly legible above the beard. Preserve face identity and the existing calm, seasoned expression. Keep the eyebrow/helmet brow clear from the eye openings.
+3. Render the iron helmet, shoulder guard and hammer with broad deliberate planar pixel shading, just 3–4 discrete values per material and a few controlled highlights. Remove mottling, fine scratches and pseudo-photoreal texture. Keep the narrow Celtic knotwork brow band, helmet ear openings, hammer gold inset and the simple gold fittings.
+4. Simplify the tunic quilting, leather, fur markings and cape to the same coarse uniform pixel grid. Fewer larger diamond panels and only a few folds. Retain the current recognizable outfit colors and layout.
+5. Keep the existing round white feline paws exactly: one rests on the hammer handle, the other is raised beside the face. No fingers, boxing gloves, claws, new gestures or joint changes.
+
+The resulting sprite should visually belong with the approved Standard: chunky stepped outlines, clean flat clusters, limited consistent palette, easily readable at about 200–250 pixels in height. Do not merely blur, resample, smooth or pixelate the original texture. Redraw its shading in a simpler authored pixel language.
+
+Exactly one full-body character, same three-quarter standing composition, all ears, paws, feet, cape, short tail and full hammer inside the frame, with clear padding.
+Provide true RGBA transparency with clean alpha, including the ENCLOSED GAP BETWEEN THE HAMMER HANDLE AND THE BODY. The source contains a white checkerboard fragment in that gap: remove it completely, while preserving the actual white paws and cream fur. No checkerboard anywhere, no magenta, no solid background, ground, shadow, text, logo, QR, watermark or extra objects.

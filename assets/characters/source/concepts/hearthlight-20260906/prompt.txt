@@ -1,0 +1,17 @@
+Use case: precise-object-edit.
+Asset type: Hearthlight Host — restrained readability refinement, candidate A.
+
+Image 1 is the sole edit target and identity authority: the current sable-brown Burmese-inspired Vizorcat winter host. Image 2 is the approved Vizorcat Standard model sheet for consistent anatomy and coarse pixel-art grammar only. Its magenta matte is not output content.
+
+Make a light polish, not a redesign:
+- Preserve the SAME individual face exactly: round skull and cheeks, large matched golden eyes with dark pupils, tiny brown nose, warm closed smile, short whiskers, warm sable coat and darker muzzle/paws/tail. Keep both ears, their natural hood openings and all facial feature positions.
+- Preserve the large head, short body, short limbs, round feline paws, full curved tail, and the same three-quarter standing pose.
+- Preserve the one small cream gift box, its crimson ribbon and bow, the supporting round paw and the other relaxed paw. Do not change hand pose, redraw fingers, add objects or alter parcel count.
+- Preserve the evergreen open-face hood and shoulder mantle, cranberry coat, brass edging and the exact four visible brass toggles.
+- Make the coat feel less long and heavy: lift ONLY its lower hem very slightly, about one small quilting row / 5–8% of coat length, retain the center opening and trim, leave the underlying cat anatomy and foot positions unchanged. No cropped jacket or newly exposed belly.
+- Simplify the hood and coat quilting into fewer larger readable diamond clusters. Give the red coat only 3–4 distinct shading steps and the green hood 3 distinct steps. Remove dense micro-texture and diffuse glossy shading.
+- Simplify fur shading into broad clean pixel clusters, keeping its markings and palette; do not smooth or blur. Make the gift wrapping and brass fasteners similarly clear and restrained.
+
+The aim is for this same gentle gift-bearing character to sit beside the newly simplified Stonehold and approved Standard without looking like a glossy toy. Use deliberate consistent square pixel grid, stepped outlines and clean pixel clusters. No photographic textures, scratches, grain, smooth gradients or tiny noisy highlights. Preserve the current charm and expression.
+
+Exactly one full-body character, same framing, all ears, paws, feet, tail and entire gift inside frame with padding. True transparent RGBA background preferred. No baked checkerboard or magenta. If alpha cannot be emitted, use a uniform flat near-white exterior instead of checkerboard. No environment, floor, cast shadow, snow, ornaments, visor, goggles, helmet, extra props, text, logo, QR, border or watermark.

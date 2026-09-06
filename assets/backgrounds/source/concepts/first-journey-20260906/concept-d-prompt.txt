@@ -1,0 +1,21 @@
+Use case: style-transfer.
+Asset: full-bleed A6 portrait background for Vizor QR Card Studio.
+Input image 1 is the edit target, First Journey C mountain ascent: retain the connected scene of old stone steps ascending around the right cliff, a wind-shaped pine rooted in its crevice, and distant steep peaks.
+Input image 2 is the approved Indigo Wave background, PRIMARY rendering reference: match its restrained muted-indigo line elegance, warm off-white fibrous paper, long coherent flowing contours, open spaces between lines and very low ink coverage. Borrow its drawing language, not its wave subject. User asks for a more East Asian ink-landscape feeling, not densely hatched storybook rock illustration.
+
+Transform image 1's rendering substantially:
+- REMOVE roughly 75 percent of the tiny carved marks, dense scratchy hatching, granular rock textures and fussy vegetation.
+- Describe the cliff with a few long fluid tapering brush contours following the rock's vertical fold and turning planes. Expressive economical indigo ink strokes, slightly varied thickness and occasional dry-brush breaks, with broad untouched paper inside the shapes.
+- Use a small number of elongated rhythmic contour groups with breathing room like image 2's wave curves, but following believable MOUNTAIN geology. Do not literally draw waves on the cliff.
+- Distant peaks become two or three simple pale blue-gray brush outlines; incomplete lower edges dissolve into bare paper, not a fog gradient. A restrained East Asian ink landscape sense of depth through omission and line weight.
+- The pine trunk has a graceful bent brush gesture; needles become sparse compact groups of several deliberate strokes rather than dozens of radiating etched hairs.
+- Stone stairs remain legible and connected: only top-edge brush lines and a few tread divisions, natural irregular worn stone, very little shading. Still a believable continuous ascending route around the cliff.
+- Remove most small weeds; retain at most two small grass clumps near the extreme bottom-right.
+- Mostly monochrome soft indigo on warm off-white paper, matching image 2. Optional extremely faint warm stone tone only at the extreme edge. No broad color washes, dark ink pools or full-page tint.
+This should read as a spacious ink-drawn mountain scene with the graphic restraint of the supplied wave print, not an engraving, detailed fantasy illustration, watercolor postcard, low-resolution pixel art, vector clip art or photorealistic painting.
+
+Composition correction:
+Gently narrow and shift the entire connected mountain scene toward the right edge to restore QR clearance. Above y=65%, confine ALL landscape ink (including pine and distant mountains) to x=82–100%. A cropped branch may follow the extreme top-right margin but must not enter central logo space. Below y=65%, rock and steps may open toward the bottom-right within x=60–100%. Keep the broad central and upper-center x=18–80%, y=13–64% completely unprinted apart from natural paper texture. Keep lower-left x=8–57%, y=67–96% completely clear. At least 80% of page should feel like untouched paper. No panel shapes, border or guides.
+Keep a tall cliff cropped by the right edge, not a floating miniature. Preserve the upward journey, rooted pine and stairs. Left and top-center remain quiet paper.
+Background only; no character, cats, animals, people, text, calligraphy, signature, seal, QR, logo, flags, symbols, temple, pagoda, shrine, building, wave, ocean, red sun, decorative border or watermark.
+Portrait ratio approximately 0.72.

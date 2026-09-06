@@ -21,6 +21,7 @@ export const BACKGROUNDS = Object.freeze({
   dragon: { id: "dragon", label: "Dragon Flight", image: "./assets/backgrounds/dragon-flight-v1.png", fill: "#f5eddd" },
   frost: { id: "frost", label: "Frost Archive", image: "./assets/backgrounds/frost-archive-v2.png", fill: "#f5f5f1" },
   hearth: { id: "hearth", label: "Hearthlight Exchange", image: "./assets/backgrounds/hearthlight-exchange-v2.png", fill: "#f6efe2" },
+  workshop: { id: "workshop", label: "Alchemist Workshop", image: "./assets/backgrounds/alchemist-workshop-v1.png", fill: "#f6efe2" },
   rampart: { id: "rampart", label: "Brass Rampart", image: "./assets/backgrounds/brass-rampart-v3.png", fill: "#f2e4c7" },
   lunar: { id: "lunar", label: "Lunar Orbit", image: "./assets/backgrounds/lunar-orbit-v2.png", fill: "#edf3f6" },
   astral: { id: "astral", label: "Astral Chart", image: "./assets/backgrounds/astral-chart-v2.png", fill: "#eee3cf" },
@@ -28,20 +29,32 @@ export const BACKGROUNDS = Object.freeze({
   dark: { id: "dark", label: "Dark Core", image: "./assets/backgrounds/dark-core-v3.png", fill: "#f1f2f2" },
   commons: { id: "commons", label: "Modernist Commons", image: "./assets/backgrounds/modernist-commons-v1.png", fill: "#f3ead5" },
   paper: { id: "paper", label: "Quiet Paper", image: null, fill: "#f7f3ec" },
+  journey: { id: "journey", label: "First Journey", image: "./assets/backgrounds/first-journey-v1.png", fill: "#f7f3ec" },
 });
 
 // `thumbBackground` is only used by the library thumbnails (some characters are drawn for dark scenes).
 export const CHARACTERS = Object.freeze({
-  samurai: { id: "samurai", label: "Samurai", image: "./assets/characters/samurai.png", thumbBackground: "#111d2b" },
   classic: { id: "classic", label: "Classic Guardian", image: "./assets/characters/classic-guardian.png" },
+  samurai: { id: "samurai", label: "Samurai", image: "./assets/characters/samurai.png", thumbBackground: "#111d2b" },
+  oni: {
+    id: "oni", label: "Oni Samurai", image: "./assets/characters/oni-samurai-v2.png",
+    thumbBackground: "#111d2b", defaultScale: 1.2,
+    // Conservative bounds of all opaque pixels, split above the ears so the
+    // transparent space beside the tall blade is not treated as QR coverage.
+    coverage: { width: 1035, height: 1289, regions: [
+      { x: 889, y: 25, width: 121, height: 226 },
+      { x: 25, y: 251, width: 957, height: 1013 },
+    ] },
+  },
   orbital: { id: "orbital", label: "Orbital Ranger", image: "./assets/characters/orbital-rescue-ranger.png", thumbBackground: "#0d3156" },
   astral: { id: "astral", label: "Astral Wayfinder", image: "./assets/characters/astral-wayfinder-v2.png", thumbBackground: "#2f2857" },
   commons: { id: "commons", label: "Commons Guide", image: "./assets/characters/commons-guide.png", defaultScale: 0.91 },
   grove: { id: "grove", label: "Crimson Grove Ranger", image: "./assets/characters/crimson-grove-ranger.png", defaultScale: 1.08 },
   snow: { id: "snow", label: "Snow Surveyor", image: "./assets/characters/siberian-snow-surveyor-v2.png" },
-  stonehold: { id: "stonehold", label: "Stonehold Warden", image: "./assets/characters/stonehold-warden.png" },
-  hearthlight: { id: "hearthlight", label: "Hearthlight Host", image: "./assets/characters/hearthlight-host.png", defaultScale: 0.9 },
-  nightglass: { id: "nightglass", label: "Nightglass Rider", image: "./assets/characters/nightglass-rider.png", defaultScale: 1.3 },
+  stonehold: { id: "stonehold", label: "Stonehold Warden", image: "./assets/characters/stonehold-warden-v5.png" },
+  hearthlight: { id: "hearthlight", label: "Hearthlight Host", image: "./assets/characters/hearthlight-host-v2.png", defaultScale: 0.9 },
+  alchemist: { id: "alchemist", label: "Workshop Alchemist", image: "./assets/characters/workshop-alchemist-v1.png", defaultScale: 0.9 },
+  swordsman: { id: "swordsman", label: "Wandering Swordsman", image: "./assets/characters/wandering-swordsman-v1.png", defaultScale: 0.9 },
 });
 
 // `recolorable`: single-colour marks that can be tinted with any colour (source-in tint).
@@ -197,6 +210,16 @@ export const INSTALL_LAYER = Object.freeze({
 // summary → character + Get Vizor footer. `logo` boxes are for the wordmark; the
 // square `mark` box is used by payment cards (Zcash mark).
 export const LAYOUTS = Object.freeze({
+  event: {
+    id: "event", label: "Event card",
+    qr: { x:340, y:500, size:630 },
+    logo: { x:140, y:105, width:180, height:52 },
+    mark: { x:140, y:105, size:70 },
+    caption: { x:140, y:425, width:1030, align:"center" },
+    summary: { x:140, y:1235, width:500, align:"left" },
+    character: { x:740, y:1170, width:470, height:550 },
+    install: { x:140, y:1460, width:500, height:190 },
+  },
   center: {
     id: "center",
     label: "Centered",
@@ -253,16 +276,18 @@ export const THEMES = Object.freeze([
   { background: "rampart", character: "classic", qrStyle: "ink", layoutId: "qr-right", headingFont: "Zarathustra" },
   { background: "paper", character: "classic", qrStyle: "ink", headingFont: "Zarathustra" },
   { background: "wave", character: "samurai", qrStyle: "clean", headingFont: "Silkscreen" },
-  { background: "blossom", character: "samurai", qrStyle: "soft", headingFont: "Zarathustra" },
+  { background: "blossom", character: "oni", qrStyle: "soft", headingFont: "Zarathustra" },
   { background: "dragon", character: "stonehold", qrStyle: "clean", headingFont: "Silkscreen" },
   { background: "forest", character: "grove", qrStyle: "soft", headingFont: "Zarathustra" },
   { background: "frost", character: "snow", qrStyle: "soft", headingFont: "SpaceGrotesk" },
   { background: "hearth", character: "hearthlight", qrStyle: "clean", layoutId: "qr-right", headingFont: "Zarathustra" },
+  { background: "workshop", character: "alchemist", qrStyle: "clean", layoutId: "center", headingFont: "Zarathustra" },
   { background: "lunar", character: "orbital", qrStyle: "clean", headingFont: "SpaceGrotesk" },
   { background: "astral", character: "astral", qrStyle: "soft", headingFont: "SpaceGrotesk" },
   { background: "commons", character: "commons", qrStyle: "ink", layoutId: "qr-right", headingFont: "SpaceGrotesk" },
   { background: "crimson", character: "samurai", qrStyle: "clean", headingFont: "Silkscreen" },
   { background: "dark", character: "samurai", qrStyle: "ink", headingFont: "Silkscreen" },
+  { id: "swordsman", label: "First Journey", background: "journey", character: "swordsman", qrStyle: "ink", headingFont: "Zarathustra" },
 ]);
 
 // Character box for a layout, honouring the asset's defaultScale (same maths as makeCharacterLayer).
@@ -317,12 +342,12 @@ function buildTemplates() {
   const templates = {};
   for (const mode of Object.keys(MODES)) {
     for (const theme of THEMES) {
-      const id = `${mode}-${theme.background}`;
+      const id = `${mode}-${theme.id ?? theme.background}`;
       const layout = LAYOUTS[theme.layoutId] ?? LAYOUTS.center;
       templates[id] = {
         id,
         mode,
-        label: BACKGROUNDS[theme.background].label,
+        label: theme.label ?? BACKGROUNDS[theme.background].label,
         background: theme.background,
         layoutId: layout.id,
         qrStyle: theme.qrStyle,

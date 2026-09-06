@@ -77,9 +77,10 @@ test("template logo layers take size from the catalog and pair the themed charac
 test("every card type gets one template per theme, Brass Rampart + Classic first", () => {
   for (const mode of ["payment", "link", "giftcard"]) {
     const ids = Object.values(TEMPLATES).filter((t) => t.mode === mode).map((t) => t.id);
-    assert.equal(ids.length, 13);
+    assert.equal(ids.length, 14);
     assert.equal(ids[0], `${mode}-rampart`);
     assert.equal(TEMPLATES[ids[0]].layers[1].assetId, "classic");
+    assert.equal(TEMPLATES[`${mode}-workshop`].layers[1].assetId, "alchemist");
   }
 });
 

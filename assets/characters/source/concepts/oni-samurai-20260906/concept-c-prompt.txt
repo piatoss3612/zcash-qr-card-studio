@@ -1,0 +1,13 @@
+Use case: precise-object-edit
+Asset type: ONE full-body Oni Samurai Vizorcat concept C.
+Input 1: concept B, the EXACT EDIT TARGET and authority for pose, body, armor, framing and dark crimson mask color.
+Input 2: concept A, reference ONLY for the sculpted mask design. Do NOT copy its open-palm pose or command fan.
+Input 3: approved one-eyed-boss anatomy model sheet; reference ONLY for permanent feline identity. Do not copy its background.
+
+Make exactly these two coordinated changes to image 1:
+1. Restore the more powerful ONI HALF-MASK sculptural design from image 2: pronounced curved nose bridge and raised rounded nostril forms, expressive swept cheeks, broad carved snarling mouth recess, curved fang construction, lower-lip/chin contour and fine gold rim/fittings. Closely follow A's recognizable faceplate geometry, not B's tiny simplified mouth. Recolor that mask to B's DARK OXBLOOD CRIMSON lacquer, with restrained red highlights and shadowed red recesses; do not return to A's bright scarlet. Fit it under the eye line naturally on this same short feline muzzle.
+2. Narrow ONLY the single OPEN amber eye (screen-right) by lowering its upper eyelid over roughly the top 20–30 percent of the original opening. Preserve the original eye socket size and lower contour. The upper lid has a subtle focused downward slope toward the nose, producing a calm, confident swordsman gaze, not a sleepy half-closed eye or an exaggerated angry cartoon. Keep a generous visible gold iris, dark pupil and one small highlight. Do not add human eyebrows. The OTHER eye (screen-left / anatomical right) stays permanently closed with its existing healed scar unchanged.
+
+Preserve image 1 otherwise: same slight three-quarter stance with short planted legs, same head size and round skull, black/charcoal coat, both ears, golden crescent kabuto, navy segmented armor, gold trims and crimson cords, exactly two short round feline forepaws, one resting on the hilt and the other holding the scabbard just below its mouth, exactly one katana fully sheathed, complete tail, overall silhouette, lighting and pixel density. No exposed blade. No command fan. Do not add cape, coat, scarf, horns, accessories, new ornaments, text, emblems or props.
+Style: same crisp pixel-art edges, chunky pixel clusters and controlled texture; no photorealism, painterly rendering, vector smoothing or 3D.
+Composition: one complete character with ears, feet, tail and entire scabbard comfortably inside frame. Genuine transparent alpha background if supported; never draw a checkerboard pattern. No ground, scenery, shadow, UI or comparison panels.

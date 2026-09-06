@@ -1,0 +1,27 @@
+Use case: stylized-concept
+Asset type: ONE new Vizorcat campaign character concept, "Wandering Swordsman", candidate A, for an event QR-card studio.
+
+The supplied image is the USER-APPROVED VIZORCAT STANDARD MODEL SHEET. It is the absolute authority for round skull/cheek volume, large-eye scale and positions, tiny nose/mouth construction, ear roots, short barrel torso, very short limbs, round feline paws and consistent pixel-art rendering. Its gray coat and magenta background are not output content. The user has explicitly chosen a NEW brown mackerel-tabby shorthair identity; this is not a recoloring of an existing themed Variant.
+
+Character identity:
+A brown mackerel-tabby shorthaired cat: warm muted taupe-brown fur, dark chocolate narrow tabby stripes on forehead, cheeks, visible limbs and the full ringed tail, cream muzzle and small cream throat, pink-brown nose, olive-green irises with very large dark pupils and tiny matched highlights. The face is round and unmistakably Vizorcat. Gentle knowing small smile, relaxed attentive eyes, friendly seasoned traveler rather than angry warrior. No human eyebrows, scars, facial hair, mane or long hair. Use the Standard's same body proportions, about 2–2.2 head-heights overall; do not make the body tall or slim.
+
+Theme:
+A wandering swordsman from a secular East Asian martial-arts fantasy (murim/wuxia) world, humble and unhurried. The theme is conveyed by clothing cut, travel bundle and sword. No actual religious insignia, political/national emblems, flags or historical uniform.
+- A faded indigo/woad-blue SHORT cross-collar outer robe with loose but compact sleeves, over a warm ivory inner wrap collar.
+- A simple charcoal cloth waist sash, practical plain hems and one discreet stitched cloth repair patch. Modestly worn through a few broad color blocks, NOT dirt/scratch noise.
+- Robe hem ends around the upper thighs, with only one small trailing cloth corner lifted by a light breeze. No ankle-length robe, cape or long scarf.
+- Simple muted cloth ankle wraps with small ROUND CAT PAWS clearly readable; no human toes, sandals with separate toes or long boots.
+- Exactly one small soft sand-colored cloth travel bundle, tied with one plain knot and slung over one shoulder/back. No carrying pole, extra bag or dangling equipment.
+- Exactly one straight sword COMPLETELY SHEATHED in one plain worn dark-brown scabbard at the hip, pointing diagonally backward/down. One understated short guard, one wrapped grip and one small pommel. Entire blade enclosed. One sword only; no spare handle, knife or second sheath. Keep the sheathed sword compact and within the character's framing.
+
+Pose:
+A relaxed three-quarter walking step toward screen-right, with the large head turned gently back toward screen-left as if noticing someone along the road. Both eyes should still be visible. One SHORT rounded paw rests naturally on the cloth bundle's strap/knot near the shoulder; the other hangs relaxed near the waist, clear of the sword grip. Avoid complex finger gestures, waving, pointing, human hands, boxing fists and exaggerated action. The full ringed tail curves behind in a compact balancing arc. The whole image should suggest a small wandering hero with a story, not a static costume mannequin.
+
+Style:
+Authentic hand-placed coarse pixel-art sprite matching the Standard. Visible uniform square pixel grid, hard staircase dark outlines, large clean color clusters, restrained palette with 3–4 discrete shades per material. Clothing folds are few and broad. No smooth 3D shading, toy gloss, airbrushed gradients, grain, noisy micro-texture, photoreal fur or embroidery.
+Keep the silhouette, props and facial features readable at a 200–250px display height.
+
+Output:
+Exactly ONE complete full-body character, a single pose, centered with generous clear padding. Both ears, all paws, every foot, tail, entire bundle and whole sheathed sword inside frame. Genuinely transparent RGBA background preferred; if actual alpha cannot be emitted, use one UNIFORM FLAT LIGHT GRAY background, never a checkerboard.
+No setting, ground, platform, cast shadow, smoke, glow, effects, landscape, frame, text, calligraphy, symbols, seals, talismans, prayer beads, logos, QR codes or watermark. No hat, headband, visor, goggles, helmet, samurai armor or new props.
