@@ -159,7 +159,18 @@ Partner logos remain the property of their owners. `assets/logos/source/partner-
 
 ## Deployment
 
-Deploy the repository root as the static hosting root; GitHub Pages can serve `index.html` and its relative asset paths directly. `vendor/qrcode.js` is a pinned copy of `qrcode-generator` (see `vendor/LICENSE`).
+Prepare a hosting-independent static bundle from the repository root:
+
+```bash
+node --test
+python3 scripts/prepare-static-site.py
+```
+
+The script prints a fresh `output/static-site-*/site` directory and `site.zip`, with `SHA256SUMS` beside it. Upload the contents of `site/` as the hosting root. There is no application build step or server runtime. The bundle includes runtime assets, bundled license texts and `.nojekyll`; authoring concepts, QA images, tests and Git metadata are excluded. Each run creates a separate directory and leaves earlier bundles intact.
+
+Preview the printed directory with `python3 -m http.server 4173 --directory <site-directory>`. Verify theme selection, a populated QR with Get Vizor guidance, mobile preview and PNG export before publishing. Relative paths support hosting under a project subdirectory. `vendor/qrcode.js` is a pinned copy of `qrcode-generator` (see `vendor/LICENSE`).
+
+As checked on 2026-09-06, the GitHub repository is private and its Pages API returns 404; no active Pages configuration was confirmed. Packaging does not enable hosting, change repository visibility or trigger a deployment. Choose the hosting destination and resolve the existing [third-party mark review](#third-party-marks) before public publication.
 
 ## Assets and privacy
 
