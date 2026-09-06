@@ -508,6 +508,13 @@
         <div id="canvas-stage" class="canvas-stage">
           <div id="canvas-frame" class="canvas-frame">
             <canvas id="card-canvas" width="1311" height="1819" aria-label="Card preview"></canvas>
+            <div id="card-loading" class="card-loading" role="status" aria-live="polite">
+              <div class="card-loading__message">
+                <strong id="card-loading-title">Loading your card…</strong>
+                <p id="card-loading-detail">Preparing fonts and artwork</p>
+                <progress id="card-loading-progress" aria-label="Artwork loaded"></progress>
+              </div>
+            </div>
             <svg
               id="proof-guides"
               class="proof-guides"

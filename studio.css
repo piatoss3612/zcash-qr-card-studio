@@ -855,3 +855,23 @@ body.free-editing #studio-design .tool-tab {
   .batch-footer .button { min-height: 44px; }
   .batch-footer .button--primary { flex: 1; }
 }
+
+/* A DOM overlay keeps loading feedback out of exported card pixels. */
+.card-loading {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: rgba(247, 243, 236, .94);
+  pointer-events: none;
+}
+.card-loading[hidden] { display: none; }
+.card-loading__message { width: min(100%, 230px); text-align: center; color: var(--ink); }
+.card-loading strong { display: block; font-size: 15px; font-weight: 600; line-height: 1.5; }
+.card-loading p { margin: 8px 0 16px; color: var(--text-secondary); font-size: 12px; line-height: 1.5; }
+.card-loading progress { display: block; width: 100%; height: 6px; accent-color: var(--brand); }
+.card-loading progress[hidden] { display: none; }
+.card-loading[data-state="error"] strong { color: var(--danger); }
+@media print { .card-loading { display: none; } }

@@ -21,6 +21,12 @@ window.addEventListener("unhandledrejection", (event) => {
 });
 
 const canvas = document.getElementById("card-canvas");
+const cardLoading = document.getElementById("card-loading");
+const cardLoadingTitle = document.getElementById("card-loading-title");
+const cardLoadingDetail = document.getElementById("card-loading-detail");
+const cardLoadingProgress = document.getElementById("card-loading-progress");
+let assetLoadFailed = false;
+canvas.setAttribute("aria-busy", "true");
 const context = canvas.getContext("2d", { alpha: false });
 const statusOutput = document.getElementById("render-status");
 
@@ -116,6 +122,17 @@ function draw() {
     qrCode: code,
     installCode: app.installCode,
   });
+  if (app.assetsLoaded) {
+    const missing = assetLoadFailed || !assetsReady(scene, app.assets);
+    cardLoading.hidden = !missing;
+    canvas.setAttribute("aria-busy", "false");
+    if (missing) {
+      cardLoading.dataset.state = "error";
+      cardLoadingTitle.textContent = "Artwork couldn’t load";
+      cardLoadingDetail.textContent = "Check your connection and reload the page to try again.";
+      cardLoadingProgress.hidden = true;
+    }
+  }
   editor.sync();
   panels.sync();
   studio.sync();
@@ -133,7 +150,12 @@ panels.syncTemplates();
 schedule();
 
 writeStatus("Loading assets…", "busy");
-loadAssets((loaded, total) => writeStatus(`Loading assets ${loaded}/${total}`, "busy"))
+loadAssets((loaded, total) => {
+  writeStatus(`Loading assets ${loaded}/${total}`, "busy");
+  cardLoadingDetail.textContent = `${loaded} of ${total} assets loaded`;
+  cardLoadingProgress.max = total;
+  cardLoadingProgress.value = loaded;
+})
   .then((assets) => {
     app.assets = assets;
     app.assetsLoaded = true;
@@ -141,6 +163,7 @@ loadAssets((loaded, total) => writeStatus(`Loading assets ${loaded}/${total}`, "
     schedule();
   })
   .catch((error) => {
+    assetLoadFailed = true;
     app.assetsLoaded = true;
     setStatus(`Asset loading failed: ${error.message}`, "error");
     schedule();
