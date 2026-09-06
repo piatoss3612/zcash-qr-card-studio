@@ -30,6 +30,7 @@ export const BACKGROUNDS = Object.freeze({
   commons: { id: "commons", label: "Modernist Commons", image: "./assets/backgrounds/modernist-commons-v1.png", fill: "#f3ead5" },
   paper: { id: "paper", label: "Quiet Paper", image: null, fill: "#f7f3ec" },
   journey: { id: "journey", label: "First Journey", image: "./assets/backgrounds/first-journey-v1.png", fill: "#f7f3ec" },
+  moonlit: { id: "moonlit", label: "Moonlit Village", image: "./assets/backgrounds/moonlit-village-v1.png", fill: "#f7efdf" },
 });
 
 // `thumbBackground` is only used by the library thumbnails (some characters are drawn for dark scenes).
@@ -55,6 +56,12 @@ export const CHARACTERS = Object.freeze({
   hearthlight: { id: "hearthlight", label: "Hearthlight Host", image: "./assets/characters/hearthlight-host-v2.png", defaultScale: 0.9 },
   alchemist: { id: "alchemist", label: "Workshop Alchemist", image: "./assets/characters/workshop-alchemist-v1.png", defaultScale: 0.9 },
   swordsman: { id: "swordsman", label: "Wandering Swordsman", image: "./assets/characters/wandering-swordsman-v1.png", defaultScale: 0.9 },
+  strongman: {
+    id: "strongman", label: "Tal Strongman", image: "./assets/characters/tal-strongman-v1.png", defaultScale: 1.1,
+    coverage: { width: 1088, height: 1145, regions: [
+      { x: 25, y: 25, width: 1038, height: 1095 },
+    ] },
+  },
 });
 
 // `recolorable`: single-colour marks that can be tinted with any colour (source-in tint).
@@ -288,6 +295,7 @@ export const THEMES = Object.freeze([
   { background: "crimson", character: "samurai", qrStyle: "clean", headingFont: "Silkscreen" },
   { background: "dark", character: "samurai", qrStyle: "ink", headingFont: "Silkscreen" },
   { id: "swordsman", label: "First Journey", background: "journey", character: "swordsman", qrStyle: "ink", headingFont: "Zarathustra" },
+  { background: "moonlit", character: "strongman", qrStyle: "ink", layoutId: "event", headingFont: "Zarathustra" },
 ]);
 
 // Character box for a layout, honouring the asset's defaultScale (same maths as makeCharacterLayer).

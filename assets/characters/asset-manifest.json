@@ -117,6 +117,15 @@
       "sourceRecord": "source/wandering-swordsman-v1.md",
       "variant": "brown-mackerel-tabby-inspired-standard-geometry",
       "usage": "beginner wandering swordsman with a straw hat, indigo robe, travel bundle and one small swordsmanship manual"
+    },
+    {
+      "id": "tal-strongman",
+      "file": "tal-strongman-v1.png",
+      "source": "user-approved concept with deterministic alpha extraction",
+      "sourceRecord": "source/tal-strongman-v1.md",
+      "variant": "korean-domestic-shorthair-tabby-standard-geometry",
+      "usage": "confident tal-mask strongman in teal carrying a heavy round iron mace over the shoulder",
+      "sha256": "8bf5fa7007ed2c0775d98208c9f84656cd62b595f357fa7869ad2c92bc4f852d"
     }
   ]
 }

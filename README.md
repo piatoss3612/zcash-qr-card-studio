@@ -105,6 +105,7 @@ The Classic Guardian's head is the studio's own mark: favicon, top-bar logo, the
 | Snow Surveyor | White-and-silver polar surveyor | Frost Archive |
 | Hearthlight Host | Warm gift-exchange host | Hearthlight Exchange |
 | Workshop Alchemist | Bronze Mau alchemist with a black homunculus in a dry flask | Alchemist Workshop |
+| Tal Strongman | Gray-brown tabby in teal with a laughing wooden mask and a shoulder-carried iron mace | Moonlit Village |
 | Orbital Ranger | Orbital rescue ranger | Lunar Orbit |
 | Astral Wayfinder | Hooded navigator with an astrolabe | Astral Chart |
 | Commons Guide | Community meetup guide | Modernist Commons |
