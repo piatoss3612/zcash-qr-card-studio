@@ -862,68 +862,120 @@ export function createPanels(app) {
 
   let batchFormat = "zip";
   let batchBusy = false;
-  el.batchDialog.addEventListener("cancel", event => { if (batchBusy) event.preventDefault(); });
-  // ------------------------------------------------------- batch dialog
+  let batchImporting = false;
+  const batchExclude = document.getElementById("batch-exclude");
+  const batchFormats = document.getElementById("batch-formats");
+  const batchStatus = document.getElementById("batch-status");
+  const batchFailure = document.getElementById("batch-failure");
+  const batchImport = document.getElementById("batch-import-button");
+  const batchFile = document.getElementById("batch-file");
+  el.batchDialog.addEventListener("cancel", event => { if (batchBusy || batchImporting) event.preventDefault(); });
+  el.batchDialog.querySelector("form").addEventListener("submit", event => event.preventDefault());
+
+  function clearBatchFailure() {
+    batchFailure.hidden = true;
+    batchFailure.textContent = "";
+  }
 
   function syncBatch() {
     const { items, errors, duplicates } = parseBatchLines(scene(), el.batchInput.value);
-    const issues = [...errors, ...duplicates.map(item=>({line:item.line,message:`Duplicate of line ${item.firstLine}. This would reprint the same gift.`}))];
+    const issues = [...errors, ...duplicates.map(item => ({line: item.line, message: `Duplicate of line ${item.firstLine}. This would reprint the same gift.`}))].sort((a, b) => a.line - b.line);
     const omitted = issues.length;
-    const exclude = document.getElementById("batch-exclude");
-    document.getElementById("batch-exclude-row").hidden = omitted === 0;
-    document.getElementById("batch-exclude-text").textContent = `Exclude ${omitted} problem row${omitted===1?'':'s'} and use only the ${items.length} valid cards.`;
-    el.batchCount.textContent = `${items.length} valid · ${duplicates.length} duplicate · ${errors.length} invalid`;
-    el.batchErrors.replaceChildren(
-      ...issues.map((error) => {
-        const item = document.createElement("li");
-        item.textContent = `Line ${error.line}: ${error.message}`;
-        return item;
-      }),
-    );
-    el.batchRun.disabled = batchBusy || items.length === 0 || (omitted > 0 && !exclude.checked) || !app.assetsLoaded || !assetsReady(scene(), app.assets);
+    document.getElementById("batch-exclude-row").hidden = omitted === 0 || items.length === 0;
+    document.getElementById("batch-exclude-text").textContent = `Skip ${omitted} problem row${omitted === 1 ? "" : "s"} and make ${items.length} valid card${items.length === 1 ? "" : "s"}.`;
+    el.batchCount.textContent = items.length + omitted === 0 ? "No cards yet" : `${items.length} ready${errors.length ? ` · ${errors.length} invalid` : ""}${duplicates.length ? ` · ${duplicates.length} duplicate` : ""}`;
+    el.batchErrors.replaceChildren(...issues.map(error => {
+      const item = document.createElement("li");
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = `Line ${error.line}: ${error.message}`;
+      button.title = "Select this line to fix it";
+      button.disabled = batchBusy;
+      button.addEventListener("click", () => {
+        const lines = el.batchInput.value.split("\n");
+        const start = lines.slice(0, error.line - 1).reduce((total, line) => total + line.length + 1, 0);
+        el.batchInput.focus();
+        el.batchInput.setSelectionRange(start, start + lines[error.line - 1].length);
+        const lineHeight = parseFloat(getComputedStyle(el.batchInput).lineHeight);
+        el.batchInput.scrollTop = Math.max(0, (error.line - 2) * lineHeight);
+      });
+      item.append(button);
+      return item;
+    }));
+    const ready = app.assetsLoaded && assetsReady(scene(), app.assets);
+    el.batchRun.disabled = batchBusy || batchImporting || items.length === 0 || (omitted > 0 && !batchExclude.checked) || !ready;
+    if (!batchBusy) {
+      const count = items.length;
+      el.batchRun.textContent = batchFormat === "sheet" ? (count ? `Preview ${Math.ceil(count / 2)} A4 sheet${count > 2 ? "s" : ""}` : "Preview A4 sheets") : (count ? `Download ${count} PNG${count === 1 ? "" : "s"} / ZIP` : "Download ZIP");
+      batchStatus.textContent = batchImporting ? "Reading your text file…" : !ready ? "Waiting for the design artwork to load…" : !count ? (omitted ? "Fix the highlighted rows to continue." : "Add your list to get started.") : omitted && !batchExclude.checked ? "Fix the problem rows, or choose to skip them." : `Ready to make ${count} card${count === 1 ? "" : "s"} with your current design.`;
+    }
     el.batchPreview.replaceChildren(...batchPreviewNodes(items));
     return items;
   }
 
-  /** "Saved as x-batch.zip with card-001.png … card-00N.png · first card encodes …" */
   function batchPreviewNodes(items) {
-    if (items.length === 0) return [];
-    const zip = document.createElement("code");
-    zip.textContent = `${documentSlug()}-batch.zip`;
-    const last = String(items.length).padStart(3, "0");
-    const range = items.length === 1 ? "card-001.png" : `card-001.png … card-${last}.png`;
-    const first = document.createElement("code");
+    if (items.length === 0) return ["Add valid rows to see your output here."];
+    const count = document.createElement("strong");
+    count.textContent = `${items.length} card${items.length === 1 ? "" : "s"}`;
+    const detail = document.createElement("span");
+    if (batchFormat === "sheet") {
+      detail.textContent = `${Math.ceil(items.length / 2)} A4 sheet${items.length > 2 ? "s" : ""}. Preview before printing at 100% scale.`;
+    } else {
+      const name = document.createElement("code");
+      name.textContent = `${documentSlug()}-batch.zip`;
+      detail.append(name, document.createElement("br"), items.length === 1 ? "card-001.png" : `card-001.png – card-${String(items.length).padStart(3, "0")}.png`);
+    }
+    const first = document.createElement("span");
+    first.className = "batch-first-value";
     const value = items[0].value;
-    first.textContent = scene().mode === "giftcard" ? maskGiftLink(value) : value.length > 72 ? `${value.slice(0, 72)}…` : value;
-    return batchFormat === "sheet" ? [`${items.length} cards on ${Math.ceil(items.length / 2)} A4 sheets. Two A6 cards per sheet.`] : ["Will save as ", zip, ` containing ${range}. First card encodes `, first, "."];
+    first.textContent = `First QR: ${scene().mode === "giftcard" ? maskGiftLink(value) : value.length > 96 ? `${value.slice(0, 96)}…` : value}`;
+    return [count, detail, first];
   }
 
   function openBatchDialog(format = "zip") {
     batchFormat = format;
-    document.getElementById("batch-exclude").checked = false;
-    el.batchRun.textContent = format === "sheet" ? "Prepare A4 sheets" : "Export ZIP";
+    batchExclude.checked = false;
+    for (const input of batchFormats.querySelectorAll("input")) input.checked = input.value === format;
     el.batchHint.textContent = MODES[scene().mode].batchHint;
     el.batchInput.placeholder = MODES[scene().mode].batchPlaceholder ?? "";
+    document.getElementById("batch-gift-note").hidden = scene().mode !== "giftcard";
     el.batchProgress.hidden = true;
+    clearBatchFailure();
     syncBatch();
     el.batchDialog.showModal();
+    el.batchInput.focus();
+  }
+
+  function setBatchBusy(busy) {
+    batchBusy = busy;
+    batchFormats.disabled = busy;
+    batchExclude.disabled = busy;
+    batchImport.disabled = busy;
+    el.batchInput.disabled = busy;
+    el.batchCancel.disabled = busy;
+    el.batchDialog.setAttribute("aria-busy", String(busy));
+    syncBatch();
   }
 
   async function runBatch() {
     const items = syncBatch();
     if (el.batchRun.disabled) return;
-    batchBusy = true;
-    document.getElementById("batch-exclude").disabled = true;
-    el.batchRun.disabled = true;
-    el.batchInput.disabled = true;
-    el.batchCancel.disabled = true;
+    clearBatchFailure();
+    setBatchBusy(true);
+    el.batchRun.textContent = "Preparing cards…";
     el.batchProgress.hidden = false;
     el.batchProgress.max = items.length;
     el.batchProgress.value = 0;
-    app.setStatus(`Exporting 0/${items.length}…`, "busy");
+    const onProgress = (done, total) => {
+      el.batchProgress.value = done;
+      batchStatus.textContent = done === total ? "Finishing your output…" : `Preparing card ${done + 1} of ${total}. Keep this window open.`;
+      app.setStatus(`Preparing ${done}/${total}…`, "busy");
+    };
+    onProgress(0, items.length);
+    let success = "";
     try {
       if (batchFormat === "sheet") {
-        await app.prepareSheets(items);
+        await app.prepareSheets(items, onProgress);
         el.batchDialog.close();
         app.setStatus(`Prepared ${items.length} cards for printing`, "ready");
         return;
@@ -931,24 +983,20 @@ export function createPanels(app) {
       const blob = await exportBatch(snapshot(scene()), items, {
         assets: app.assets,
         installCode: app.installCode,
-        setContent: scene().mode === "giftcard" ? (current,item)=>numberedCard(current,item.index) : undefined,
-        onProgress: (done, total) => {
-          el.batchProgress.value = done;
-          app.setStatus(`Exporting ${done}/${total}…`, "busy");
-        },
+        setContent: scene().mode === "giftcard" ? (current, item) => numberedCard(current, item.index) : undefined,
+        onProgress,
       });
       saveBlob(blob, `${documentSlug()}-batch.zip`);
+      success = `ZIP download started · ${items.length} card${items.length === 1 ? "" : "s"}. Your list is kept here for another export.`;
       app.setStatus(`Batch export done · ${items.length} cards`, "ready");
-      el.batchDialog.close();
     } catch (error) {
+      batchFailure.textContent = "Could not prepare the cards. Your list is unchanged. Check the rows or try a smaller batch, then retry.";
+      batchFailure.hidden = false;
       app.setStatus(`Batch export failed: ${error.message}`, "error");
     } finally {
-      batchBusy = false;
-      document.getElementById("batch-exclude").disabled = false;
-      el.batchInput.disabled = false;
-      el.batchCancel.disabled = false;
-      syncBatch();
+      setBatchBusy(false);
       el.batchProgress.hidden = true;
+      if (success) batchStatus.textContent = success;
     }
   }
 
@@ -1272,7 +1320,33 @@ export function createPanels(app) {
     });
   }
 
-  el.batchInput.addEventListener("input", () => { document.getElementById("batch-exclude").checked = false; syncBatch(); });
+  el.batchInput.addEventListener("input", () => { batchExclude.checked = false; clearBatchFailure(); syncBatch(); });
+  batchFormats.addEventListener("change", event => { batchFormat = event.target.value; clearBatchFailure(); syncBatch(); });
+  batchImport.addEventListener("click", () => batchFile.click());
+  batchFile.addEventListener("change", async () => {
+    const file = batchFile.files[0];
+    if (!file) return;
+    clearBatchFailure();
+    batchImporting = true;
+    batchImport.disabled = true;
+    el.batchCancel.disabled = true;
+    syncBatch();
+    try {
+      const text = await file.text();
+      const separator = el.batchInput.value && !el.batchInput.value.endsWith("\n") ? "\n" : "";
+      el.batchInput.value += separator + text;
+      batchExclude.checked = false;
+    } catch {
+      batchFailure.textContent = "Could not read this file. Paste its contents into the list instead.";
+      batchFailure.hidden = false;
+    } finally {
+      batchImporting = false;
+      batchImport.disabled = false;
+      el.batchCancel.disabled = false;
+      batchFile.value = "";
+      syncBatch();
+    }
+  });
   document.getElementById("batch-exclude").addEventListener("change", syncBatch);
   el.batchRun.addEventListener("click", runBatch);
   el.batchCancel.addEventListener("click", () => el.batchDialog.close());
@@ -1366,6 +1440,8 @@ export function createPanels(app) {
     el.undo.disabled = !app.history.canUndo;
     el.redo.disabled = !app.history.canRedo;
     if (!el.exportMenu.hidden) syncPreflight();
+    if (el.batchDialog.open && !batchBusy && !batchImporting) syncBatch();
+
     // Batch export only needs the assets; single exports also need a valid QR.
     el.exportButton.disabled = !app.assetsLoaded;
     const singleReady = app.canExport();

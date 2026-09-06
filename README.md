@@ -87,7 +87,7 @@ A gift link carries a secret in its URL fragment: whoever scans the card can cla
 - **Print / PDF** — the trimmed A6 card. In the print dialog pick A6 paper, 100% scale, no margins; on A4, print at actual size and cut.
 - **Office printer** — landscape A4 sheets with space for two full-size A6 cards and cut marks. The sheet preview uses 150 ppi raster images; print-shop PNGs retain 300 ppi. Use 100% scale and disable browser headers and footers.
 - **Display on screen** — shows the current card without editor controls.
-- **Batch export** — one QR value per line, rendered into a ZIP of PNGs or A4 print sheets. Duplicate gift links and invalid rows are shown before output; explicitly choose whether to exclude them. Gift copies receive `GIFT 001` identifiers, which identify printed copies and do not track claims. PNGs are named `card-001.png`, `card-002.png`, … The document name, sanitised, names the export files.
+- **Batch export** — paste one QR value per line or append a `.txt` list, then choose a ZIP of PNGs or A4 print sheets in the same dialog. Output counts and file names update as you edit. Click a problem row to select it in the input; duplicate gift links and invalid rows require an explicit choice to skip them. Progress and failures appear in the dialog, and the list stays available after a ZIP download. Gift copies receive `GIFT 001` identifiers, which identify printed copies and do not track claims. PNGs are named `card-001.png`, `card-002.png`, … The document name, sanitised, names the export files.
 
 ## Vizorcat
 

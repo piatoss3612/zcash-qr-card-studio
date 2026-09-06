@@ -1135,27 +1135,53 @@
       </form>
     </dialog>
 
-    <dialog id="batch-dialog" class="dialog" aria-labelledby="batch-dialog-title">
+    <dialog id="batch-dialog" class="dialog dialog--batch" aria-labelledby="batch-dialog-title" aria-describedby="batch-description">
       <form method="dialog" class="dialog__form">
         <header class="dialog__head">
-          <h2 id="batch-dialog-title">Batch export</h2>
-          <p id="batch-hint" class="dialog__hint">One URL per line.</p>
+          <p class="batch-eyebrow">MULTIPLE CARDS</p>
+          <h2 id="batch-dialog-title">One design. A card for every line.</h2>
+          <p id="batch-description" class="dialog__hint">Use your current design with a different QR on each card. Your list stays in this browser.</p>
         </header>
-        <label class="field" for="batch-input">
-          <span class="field-label">Values</span>
-          <textarea id="batch-input" rows="8" spellcheck="false" placeholder="https://example.com/one&#10;https://example.com/two"></textarea>
-        </label>
-        <p id="batch-preview" class="batch-preview" aria-live="polite"></p>
-        <div class="dialog__status">
-          <span id="batch-count" class="batch-count">0 cards</span>
-          <progress id="batch-progress" class="batch-progress" max="100" value="0" hidden></progress>
+        <div class="batch-workspace">
+          <section class="batch-entry" aria-labelledby="batch-input-label">
+            <div class="batch-section-head">
+              <label id="batch-input-label" class="field-label" for="batch-input">1. Add your list</label>
+              <button id="batch-import-button" class="button button--secondary" type="button">Add .txt file</button>
+              <input id="batch-file" type="file" accept=".txt,text/plain" hidden>
+            </div>
+            <p id="batch-hint" class="dialog__hint">One URL per line.</p>
+            <textarea id="batch-input" rows="10" spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="batch-hint" placeholder="https://example.com/one&#10;https://example.com/two"></textarea>
+            <p class="dialog__hint">Paste a column from your spreadsheet, or append a text file. Blank lines are ignored.</p>
+            <div class="batch-validation">
+              <p id="batch-count" class="batch-count" role="status">No cards yet</p>
+              <ul id="batch-errors" class="batch-errors" aria-label="Rows to fix"></ul>
+              <label id="batch-exclude-row" class="batch-exclude" hidden><input id="batch-exclude" type="checkbox"><span id="batch-exclude-text"></span></label>
+            </div>
+          </section>
+          <section class="batch-output" aria-labelledby="batch-output-title">
+            <h3 id="batch-output-title" class="field-label">2. Choose your output</h3>
+            <fieldset id="batch-formats" class="batch-formats">
+              <legend class="sr-only">Output format</legend>
+              <label><input type="radio" name="batch-format" value="zip" checked><span><strong>PNG images / ZIP</strong><small>One print-ready image per card<br>300 ppi, with bleed</small></span></label>
+              <label><input type="radio" name="batch-format" value="sheet"><span><strong>A4 print sheets</strong><small>Two A6 cards per sheet<br>Landscape, with cut marks</small></span></label>
+            </fieldset>
+            <div class="batch-output-summary">
+              <p class="batch-eyebrow">YOUR OUTPUT</p>
+              <p id="batch-preview" class="batch-preview" aria-live="polite"></p>
+            </div>
+            <p id="batch-gift-note" class="dialog__hint" hidden>Gift numbers identify printed copies, not claim status. Reprinting a card does not create a new gift.</p>
+          </section>
         </div>
-        <ul id="batch-errors" class="batch-errors"></ul>
-        <label id="batch-exclude-row" class="batch-exclude" hidden><input id="batch-exclude" type="checkbox"><span id="batch-exclude-text"></span></label>
-        <p class="dialog__hint">Gift card numbers identify printed copies, not claim status. Reprinting a card does not create a new gift.</p>
-        <footer class="dialog__actions">
-          <button id="batch-cancel-button" class="button button--secondary" type="button">Cancel</button>
-          <button id="batch-run-button" class="button button--primary" type="button">Export ZIP</button>
+        <footer class="batch-footer">
+          <div class="batch-feedback">
+            <p id="batch-status" class="dialog__hint" role="status"></p>
+            <p id="batch-failure" class="batch-failure" role="alert" hidden></p>
+            <progress id="batch-progress" class="batch-progress" max="100" value="0" aria-label="Cards prepared" hidden></progress>
+          </div>
+          <div class="dialog__actions">
+            <button id="batch-cancel-button" class="button button--secondary" type="button">Close</button>
+            <button id="batch-run-button" class="button button--primary" type="button">Download ZIP</button>
+          </div>
         </footer>
       </form>
     </dialog>

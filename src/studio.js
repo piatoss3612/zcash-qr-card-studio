@@ -137,7 +137,7 @@ export function createStudio(app, panels) {
     body.classList.remove("printing-sheets");
     printStyle.textContent = "";
   });
-  app.prepareSheets = async (items) => {
+  app.prepareSheets = async (items, onProgress) => {
     const original = snapshot(app.scene);
     const target = document.getElementById("sheet-pages");
     target.replaceChildren();
@@ -172,6 +172,7 @@ export function createStudio(app, panels) {
       img.src = canvas.toDataURL("image/png");
       await img.decode();
       target.append(img);
+      onProgress?.(slots[slots.length - 1].index + 1, items.length);
       await new Promise((resolve) => setTimeout(resolve, 0));
     }
     printPreview.showModal();
