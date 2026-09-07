@@ -3074,11 +3074,23 @@ button.preflight__row:focus-visible {
     background: white;
   }
 
-  body > *:not(#print-canvas) {
+  body.printing-card > *:not(#root) {
     display: none !important;
   }
 
-  #print-canvas {
+  body.printing-card > #root {
+    display: block !important;
+  }
+
+  body.printing-card > #root > *:not(.react-shell) {
+    display: none !important;
+  }
+
+  body.printing-card #root .react-shell > *:not(#print-canvas) {
+    display: none !important;
+  }
+
+  body.printing-card #print-canvas {
     display: block;
     width: 105mm;
     height: 148mm;

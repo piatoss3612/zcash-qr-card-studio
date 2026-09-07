@@ -1,5 +1,25 @@
 # Third-party notices
 
+## Rare UI Gooey Nav
+
+- Project: <https://github.com/swamimalode07/rare-ui>
+- Registry component: `gooey-nav` (adapted for this Vite React app by removing the Next.js pathname/link adapter)
+- License: MIT
+- Source file: `src/components/GooeyNav.tsx`
+- Copyright: Swami Malode, 2026
+- Full license text: `vendor/rare-ui-LICENSE.txt`
+
+The component keeps the registry's Motion spring geometry and Gooey seam
+animation. Its app-specific adapter uses local buttons because this studio is
+a single static page without Next.js routing.
+
+## React static build
+
+- React and React DOM: MIT, <https://github.com/facebook/react>
+- Vite: MIT, <https://github.com/vitejs/vite>
+- Motion: MIT, <https://github.com/motiondivision/motion>
+- Tailwind CSS: MIT, <https://github.com/tailwindlabs/tailwindcss>
+
 ## qrcode-generator
 
 - Project: <https://github.com/kazuhikoarase/qrcode-generator>

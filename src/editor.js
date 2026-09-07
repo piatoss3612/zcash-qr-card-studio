@@ -114,12 +114,14 @@ export function createEditor(app) {
     const width = Math.max(80, el.stage.clientWidth - padX);
     const height = Math.max(80, el.stage.clientHeight - padY);
     const value = Math.min(width / BASE_WIDTH, height / BASE_HEIGHT);
+    if (!Number.isFinite(value) || value <= 0) return 1;
     return Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, value));
   }
 
   /** Write the zoom into the frame size and the label. */
   function applyZoom(value) {
-    zoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, value));
+    const next = Number.isFinite(value) && value > 0 ? value : 1;
+    zoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, next));
     const width = Math.round(BASE_WIDTH * zoom);
     el.frame.style.width = `${width}px`;
     el.frame.style.height = `${Math.round((width * OUTPUT.height) / OUTPUT.width)}px`;
@@ -484,7 +486,7 @@ export function createEditor(app) {
   el.frame.addEventListener("pointermove", updatePointerTransform);
   el.frame.addEventListener("pointerup", finishPointerTransform);
   el.frame.addEventListener("pointercancel", finishPointerTransform);
-  el.frame.addEventListener("dblclick", (event) => {
+  const onDoubleClick = (event) => {
     if (!app.freeEditing) return;
     const hit = hitTestLayer(canvasPoint(event));
     if (!hit || hit.kind !== "text") return;
@@ -494,34 +496,35 @@ export function createEditor(app) {
       el.textContent.focus();
       el.textContent.select();
     });
-  });
-  el.frame.addEventListener("contextmenu", (event) => {
+  };
+  const onContextMenu = (event) => {
     if (!app.freeEditing) return;
     const hit = hitTestLayer(canvasPoint(event));
     if (!hit) return;
     event.preventDefault();
     app.openLayerMenu?.(hit.id, event.clientX, event.clientY);
-  });
+  };
 
   // Clicking the empty stage around the card clears the selection.
-  el.stage.addEventListener("pointerdown", (event) => {
+  const onStagePointerDown = (event) => {
     if (event.button !== 0 || event.target !== el.stage) return;
     const current = selectedLayer(app.scene);
     if (!current || current.kind === "background") return;
     selectLayer(app.scene, "background");
     app.requestRender();
-  });
+  };
 
-  el.stage.addEventListener(
-    "wheel",
-    (event) => {
+  const onWheel = (event) => {
       if (!event.metaKey && !event.ctrlKey) return;
       event.preventDefault();
       const factor = Math.exp(-event.deltaY / 320);
       zoomAround(zoom * factor, event.clientX, event.clientY);
-    },
-    { passive: false },
-  );
+  };
+
+  el.frame.addEventListener("dblclick", onDoubleClick);
+  el.frame.addEventListener("contextmenu", onContextMenu);
+  el.stage.addEventListener("pointerdown", onStagePointerDown);
+  el.stage.addEventListener("wheel", onWheel, { passive: false });
 
   el.zoomIn.addEventListener("click", zoomIn);
   el.zoomOut.addEventListener("click", zoomOut);
@@ -533,7 +536,8 @@ export function createEditor(app) {
   };
   window.addEventListener("resize", refit);
   // The stage is content-sized until the grid settles, so follow its real size.
-  if (typeof ResizeObserver === "function") new ResizeObserver(refit).observe(el.stage);
+  const observer = typeof ResizeObserver === "function" ? new ResizeObserver(refit) : null;
+  observer?.observe(el.stage);
 
   zoomFit();
 
@@ -546,5 +550,22 @@ export function createEditor(app) {
     zoomIn,
     zoomOut,
     zoomFit,
+    destroy() {
+      el.frame.removeEventListener("pointerdown", beginPointerTransform);
+      el.frame.removeEventListener("pointermove", updatePointerTransform);
+      el.frame.removeEventListener("pointerup", finishPointerTransform);
+      el.frame.removeEventListener("pointercancel", finishPointerTransform);
+      el.frame.removeEventListener("dblclick", onDoubleClick);
+      el.frame.removeEventListener("contextmenu", onContextMenu);
+      el.stage.removeEventListener("pointerdown", onStagePointerDown);
+      el.stage.removeEventListener("wheel", onWheel);
+      el.zoomIn.removeEventListener("click", zoomIn);
+      el.zoomOut.removeEventListener("click", zoomOut);
+      el.zoomFit.removeEventListener("click", zoomFit);
+      el.guideToggle.removeEventListener("change", syncProofGuides);
+      window.removeEventListener("keydown", handleKeydown);
+      window.removeEventListener("resize", refit);
+      observer?.disconnect();
+    },
   };
 }

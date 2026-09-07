@@ -25,10 +25,19 @@ The studio starts with Content → Design → Review & print. Enter an event nam
 ## Quick start
 
 ```bash
-python3 -m http.server 4173 --directory .
+npm install
+npm run dev
 ```
 
-Open `http://127.0.0.1:4173`. There is no build step.
+Open the local Vite URL shown in the terminal (normally
+`http://127.0.0.1:5173`). The production output is a self-contained `dist/`
+directory with repository-relative URLs, so it can be uploaded to any static
+hosting provider or served from a project subpath.
+
+```bash
+npm run build
+npm run preview
+```
 
 Tests cover the DOM-free modules and run from the repository root:
 
@@ -127,10 +136,13 @@ Vizorcats are authored in the separate `vizorcat` project. Only approved sticker
 
 ## Project layout
 
-`index.html` loads `vendor/qrcode.js` as a classic script and `src/main.js` as an ES module; every path is repository-relative.
+`index.html` loads the pinned `vendor/qrcode.js` classic script and the Vite
+React entry at `src/main.jsx`; every runtime asset path is repository-relative.
 
 ```
-src/studio.js       Content / Design / Review shell, live checks, display and A4 preview
+src/App.jsx         React-owned Content / Design / Review shell
+src/main.jsx        Vite React mount boundary and editor lifecycle
+src/studio.js       Canvas engine binding, live checks, display and A4 preview
 src/event-card.js   event composition, theme preservation, character replacement, gift numbering
 src/print-sheet.js  A4 sheet placement and crop marks
 src/catalog.js      assets, palettes, fonts, card types, layouts, templates (pure data)
@@ -143,7 +155,7 @@ src/snapping.js     DOM-free snap computation
 src/render.js       canvas drawing, text, QR modules and emblems, PNG export, print, thumbnails, batch
 src/editor.js       canvas interaction: zoom, pointer transforms, snapping guides, shortcuts
 src/panels.js       DOM binding for the rail, drawer, properties panel, layer list, menus, dialogs
-src/main.js         bootstrap and render scheduler
+src/components/GooeyNav.tsx  Rare UI Gooey Nav adaptation for workflow steps
 tests/              node:test suites for the DOM-free modules
 ```
 
@@ -159,18 +171,29 @@ Partner logos remain the property of their owners. `assets/logos/source/partner-
 
 ## Deployment
 
-Prepare a hosting-independent static bundle from the repository root:
+Every push to `main` runs the GitHub Actions Pages workflow. It installs the
+locked dependencies, runs the tests, builds the app and publishes `dist/` to
+GitHub Pages. Use **Run workflow** for a manual deployment; the workflow
+publishes only the Vite `dist/` output.
+
+For a local production check or an independent static bundle, run:
 
 ```bash
 node --test
+npm run build
 python3 scripts/prepare-static-site.py
 ```
 
-The script prints a fresh `output/static-site-*/site` directory and `site.zip`, with `SHA256SUMS` beside it. Upload the contents of `site/` as the hosting root. There is no application build step or server runtime. The bundle includes runtime assets, bundled license texts and `.nojekyll`; authoring concepts, QA images, tests and Git metadata are excluded. Each run creates a separate directory and leaves earlier bundles intact.
+The Vite build writes `dist/`, and the packaging script prints a fresh
+`output/static-site-*/site` directory and `site.zip`, with `SHA256SUMS` beside
+it. The Pages workflow uses `dist/` directly. The packaging output includes
+runtime assets, bundled license texts and `.nojekyll`; authoring concepts, QA
+images, tests and Git metadata are excluded. Each packaging run creates a
+separate directory and leaves earlier bundles intact.
 
 Preview the printed directory with `python3 -m http.server 4173 --directory <site-directory>`. Verify theme selection, a populated QR with Get Vizor guidance, mobile preview and PNG export before publishing. Relative paths support hosting under a project subdirectory. `vendor/qrcode.js` is a pinned copy of `qrcode-generator` (see `vendor/LICENSE`).
 
-As checked on 2026-09-06, the GitHub repository is private and its Pages API returns 404; no active Pages configuration was confirmed. Packaging does not enable hosting, change repository visibility or trigger a deployment. Choose the hosting destination and resolve the existing [third-party mark review](#third-party-marks) before public publication.
+Before public publication, resolve the existing [third-party mark review](#third-party-marks).
 
 ## Assets and privacy
 

@@ -1,0 +1,7 @@
+@tailwind utilities;
+
+/* Tailwind owns the React-only shell controls; the canvas editor keeps its
+   established design tokens in styles.css and studio.css. */
+.react-shell {
+  isolation: isolate;
+}

@@ -7,26 +7,24 @@ import tempfile
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
+DIST = ROOT / 'dist'
+if not DIST.is_dir():
+    raise SystemExit('dist/ is missing; run npm run build first')
 output = ROOT / 'output'
 output.mkdir(exist_ok=True)
 # A fresh directory avoids deleting or mixing in a previous release.
 release = Path(tempfile.mkdtemp(prefix='static-site-', dir=output))
 site = release / 'site'
-files = [ROOT / name for name in (
-    'index.html', 'styles.css', 'studio.css', 'LICENSE', 'THIRD_PARTY_NOTICES.md'
-)]
-files += sorted((ROOT / 'src').glob('*.js'))
-files += sorted(p for p in (ROOT / 'vendor').rglob('*') if p.is_file())
-files += sorted(p for p in (ROOT / 'assets').rglob('*') if p.is_file()
-                and 'source' not in p.relative_to(ROOT / 'assets').parts
-                and p.name != 'asset-manifest.json' and not p.name.startswith('.'))
-# Preserve bundled licenses and the provenance referenced by third-party notices.
+files = sorted(p for p in DIST.rglob('*') if p.is_file())
+files += [ROOT / name for name in ('LICENSE', 'THIRD_PARTY_NOTICES.md', 'vendor/LICENSE', 'vendor/rare-ui-LICENSE.txt')]
+# Preserve the provenance referenced by third-party marks without shipping the
+# authoring images and rejected concepts.
 files += sorted(p for p in (ROOT / 'assets').rglob('*') if p.is_file()
                 and 'source' in p.parts and p.suffix == '.txt'
                 and 'concepts' not in p.parts)
 files += [ROOT / 'assets/logos/source/partner-logos.md']
 for source in files:
-    target = site / source.relative_to(ROOT)
+    target = site / (source.relative_to(DIST) if source.is_relative_to(DIST) else source.relative_to(ROOT))
     target.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(source, target)
 (site / '.nojekyll').touch()

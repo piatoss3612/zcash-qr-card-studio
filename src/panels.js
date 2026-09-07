@@ -197,6 +197,11 @@ export function createPanels(app) {
     batchRun: document.getElementById("batch-run-button"),
     batchCancel: document.getElementById("batch-cancel-button"),
   };
+  const disposables = [];
+  const listen = (target, type, handler, options) => {
+    target.addEventListener(type, handler, options);
+    disposables.push(() => target.removeEventListener(type, handler, options));
+  };
   el.contextMenuActions = [...el.contextMenu.querySelectorAll("[data-layer-action]")];
 
   const pick = { character: "classic", logo: "vizor" };
@@ -857,6 +862,7 @@ export function createPanels(app) {
 
   function printCard() {
     drawPrintCanvas(el.printCanvas, el.cardCanvas);
+    document.body.classList.add("printing-card");
     window.print();
   }
 
@@ -869,8 +875,8 @@ export function createPanels(app) {
   const batchFailure = document.getElementById("batch-failure");
   const batchImport = document.getElementById("batch-import-button");
   const batchFile = document.getElementById("batch-file");
-  el.batchDialog.addEventListener("cancel", event => { if (batchBusy || batchImporting) event.preventDefault(); });
-  el.batchDialog.querySelector("form").addEventListener("submit", event => event.preventDefault());
+  listen(el.batchDialog, "cancel", event => { if (batchBusy || batchImporting) event.preventDefault(); });
+  listen(el.batchDialog.querySelector("form"), "submit", event => event.preventDefault());
 
   function clearBatchFailure() {
     batchFailure.hidden = true;
@@ -1003,13 +1009,13 @@ export function createPanels(app) {
   // ------------------------------------------------------------- wiring
 
   for (const input of el.modeInputs) {
-    input.addEventListener("change", () => {
+    listen(input, "change", () => {
       if (input.checked) switchMode(input.value);
     });
   }
 
   for (const tab of el.toolTabs) {
-    tab.addEventListener("click", () => {
+    listen(tab, "click", () => {
       setActivePanel(tab.dataset.panel);
       setDrawer(true);
       if (tab.dataset.panel === "templates") {
@@ -1019,11 +1025,11 @@ export function createPanels(app) {
     });
   }
   for (const button of el.drawerCloseButtons) {
-    button.addEventListener("click", () => setDrawer(false));
+    listen(button, "click", () => setDrawer(false));
   }
 
   for (const input of el.backgroundInputs) {
-    input.addEventListener("change", () => {
+    listen(input, "change", () => {
       if (!input.checked) return;
       edit(() => {
         scene().layers.background.assetId = input.value;
@@ -1032,12 +1038,12 @@ export function createPanels(app) {
     });
   }
   for (const card of el.characterCards) {
-    card.addEventListener("click", () => applyCharacterCard(card.dataset.characterId));
+    listen(card, "click", () => applyCharacterCard(card.dataset.characterId));
   }
   for (const card of el.logoCards) {
-    card.addEventListener("click", () => applyLogoCard(card.dataset.logoId));
+    listen(card, "click", () => applyLogoCard(card.dataset.logoId));
   }
-  el.addCharacter.addEventListener("click", () => {
+  listen(el.addCharacter, "click", () => {
     edit(() => {
       const made = makeCharacterLayer(pick.character, scene());
       if (!made) return false;
@@ -1045,7 +1051,7 @@ export function createPanels(app) {
       return true;
     });
   });
-  el.addLogo.addEventListener("click", () => {
+  listen(el.addLogo, "click", () => {
     edit(() => {
       const made = makeLogoLayer(pick.logo, {}, scene());
       if (!made) return false;
@@ -1053,16 +1059,16 @@ export function createPanels(app) {
       return true;
     });
   });
-  el.addHeading.addEventListener("click", () => addTextLayer("heading"));
-  el.addBody.addEventListener("click", () => addTextLayer("body"));
+  listen(el.addHeading, "click", () => addTextLayer("heading"));
+  listen(el.addBody, "click", () => addTextLayer("body"));
 
   for (const input of el.layoutInputs) {
-    input.addEventListener("change", () => {
+    listen(input, "change", () => {
       if (input.checked) edit(() => applyLayout(scene(), input.value));
     });
   }
   for (const input of el.qrStyleInputs) {
-    input.addEventListener("change", () => {
+    listen(input, "change", () => {
       if (!input.checked) return;
       edit(() => {
         scene().qrStyle = input.value;
@@ -1071,22 +1077,22 @@ export function createPanels(app) {
     });
   }
   for (const input of el.qrShapeInputs) {
-    input.addEventListener("change", () => {
+    listen(input, "change", () => {
       if (input.checked) edit(() => setQrDesign(scene(), { shape: input.value }));
     });
   }
   for (const input of el.qrEmblemInputs) {
-    input.addEventListener("change", () => {
+    listen(input, "change", () => {
       if (input.checked) edit(() => setQrDesign(scene(), { emblem: input.value }));
     });
   }
   for (const input of el.qrColorInputs) {
-    input.addEventListener("change", () => {
+    listen(input, "change", () => {
       if (!input.checked) return;
       edit(() => setQrDesign(scene(), { color: paletteValue(QR_MODULE_PALETTE, input.value, el.qrColorCustom) }));
     });
   }
-  el.qrColorCustom.addEventListener("input", () => {
+  listen(el.qrColorCustom, "input", () => {
     const custom = el.qrColorInputs.find((input) => input.value === "custom");
     if (custom) custom.checked = true;
     edit(() => setQrDesign(scene(), { color: el.qrColorCustom.value }));
@@ -1095,24 +1101,24 @@ export function createPanels(app) {
   for (const [id, key] of CONTENT_FIELDS) {
     const field = document.getElementById(id);
     if (!field) continue;
-    field.addEventListener("focus", () => {
+    listen(field, "focus", () => {
       fieldSnapshot = app.takeSnapshot();
     });
-    field.addEventListener("input", () => {
+    listen(field, "input", () => {
       scene().content[key] = field.value;
       if (key === "memo") updateMemoCount();
       app.requestRender();
     });
-    field.addEventListener("change", () => {
+    listen(field, "change", () => {
       if (fieldSnapshot) app.commit(fieldSnapshot);
       fieldSnapshot = null;
       app.requestRender();
     });
   }
-  el.includeInstall.addEventListener("change", () => {
+  listen(el.includeInstall, "change", () => {
     edit(() => setIncludeInstall(scene(), el.includeInstall.checked));
   });
-  el.showSummary.addEventListener("change", () => {
+  listen(el.showSummary, "change", () => {
     edit(() => setPaymentSummary(scene(), el.showSummary.checked));
   });
 
@@ -1123,10 +1129,10 @@ export function createPanels(app) {
     el.transformHeight,
     el.transformRotation,
   ]) {
-    input.addEventListener("focus", () => {
+    listen(input, "focus", () => {
       fieldSnapshot = app.takeSnapshot();
     });
-    input.addEventListener("input", () => {
+    listen(input, "input", () => {
       const layer = selectedLayer(scene());
       const value = Number(input.value);
       if (!layer || layer.locked || !Number.isFinite(value)) return;
@@ -1156,14 +1162,14 @@ export function createPanels(app) {
       if (layer.kind === "text") syncTextLayerHeight(layer);
       app.requestRender();
     });
-    input.addEventListener("change", () => {
+    listen(input, "change", () => {
       if (fieldSnapshot) app.commit(fieldSnapshot);
       fieldSnapshot = null;
       app.requestRender();
     });
   }
 
-  el.flipButton.addEventListener("click", () => {
+  listen(el.flipButton, "click", () => {
     edit(() => {
       const layer = selectedLayer(scene());
       if (!layer || layer.locked || !["character", "logo"].includes(layer.kind)) return false;
@@ -1171,7 +1177,7 @@ export function createPanels(app) {
       return true;
     });
   });
-  el.lockButton.addEventListener("click", () => {
+  listen(el.lockButton, "click", () => {
     edit(() => {
       const layer = selectedLayer(scene());
       if (!layer || layer.kind === "background") return false;
@@ -1179,10 +1185,10 @@ export function createPanels(app) {
       return true;
     });
   });
-  el.duplicateButton.addEventListener("click", () => {
+  listen(el.duplicateButton, "click", () => {
     edit(() => Boolean(duplicateLayer(scene(), scene().selectedLayerId)));
   });
-  el.deleteButton.addEventListener("click", () => {
+  listen(el.deleteButton, "click", () => {
     edit(() => removeLayer(scene(), scene().selectedLayerId));
   });
 
@@ -1195,37 +1201,37 @@ export function createPanels(app) {
     });
   };
   for (const input of el.logoColorInputs) {
-    input.addEventListener("change", () => {
+    listen(input, "change", () => {
       if (input.checked) commitColor(LOGO_PALETTE, input.value, el.logoColorCustom);
     });
   }
-  el.logoColorCustom.addEventListener("input", () => {
+  listen(el.logoColorCustom, "input", () => {
     const custom = el.logoColorInputs.find((input) => input.value === "custom");
     if (custom) custom.checked = true;
     commitColor(LOGO_PALETTE, "custom", el.logoColorCustom);
   });
   for (const input of el.textColorInputs) {
-    input.addEventListener("change", () => {
+    listen(input, "change", () => {
       if (input.checked) commitColor(TEXT_PALETTE, input.value, el.textColorCustom);
     });
   }
-  el.textColorCustom.addEventListener("input", () => {
+  listen(el.textColorCustom, "input", () => {
     const custom = el.textColorInputs.find((input) => input.value === "custom");
     if (custom) custom.checked = true;
     commitColor(TEXT_PALETTE, "custom", el.textColorCustom);
   });
 
-  el.textContent.addEventListener("focus", () => {
+  listen(el.textContent, "focus", () => {
     fieldSnapshot = app.takeSnapshot();
   });
-  el.textContent.addEventListener("input", () => {
+  listen(el.textContent, "input", () => {
     const layer = selectedLayer(scene());
     if (!layer || layer.kind !== "text") return;
     setLayerProps(scene(), layer.id, { text: el.textContent.value });
     syncTextLayerHeight(layer);
     app.requestRender();
   });
-  el.textContent.addEventListener("change", () => {
+  listen(el.textContent, "change", () => {
     if (fieldSnapshot) app.commit(fieldSnapshot);
     fieldSnapshot = null;
     app.requestRender();
@@ -1240,7 +1246,7 @@ export function createPanels(app) {
       return true;
     });
   };
-  el.textFont.addEventListener("change", () => {
+  listen(el.textFont, "change", () => {
     const family = el.textFont.value;
     const layer = selectedLayer(scene());
     commitTextProps({
@@ -1248,33 +1254,33 @@ export function createPanels(app) {
       fontWeight: fontWeightFor(family, layer?.fontWeight ?? 500),
     });
   });
-  el.textUppercase.addEventListener("change", () => {
+  listen(el.textUppercase, "change", () => {
     commitTextProps({ uppercase: el.textUppercase.checked });
   });
-  el.textSize.addEventListener("change", () => {
+  listen(el.textSize, "change", () => {
     const size = Number(el.textSize.value);
     if (Number.isFinite(size) && size > 0) commitTextProps({ fontSize: size });
   });
-  el.textWeight.addEventListener("change", () => {
+  listen(el.textWeight, "change", () => {
     commitTextProps({ fontWeight: Number(el.textWeight.value) || 500 });
   });
   for (const input of el.textAlignInputs) {
-    input.addEventListener("change", () => {
+    listen(input, "change", () => {
       if (input.checked) commitTextProps({ align: input.value });
     });
   }
 
-  el.contextMenu.addEventListener("keydown", handleContextMenuKeydown);
-  el.contextMenu.addEventListener("focusout", () => {
+  listen(el.contextMenu, "keydown", handleContextMenuKeydown);
+  listen(el.contextMenu, "focusout", () => {
     requestAnimationFrame(() => {
       if (!el.contextMenu.contains(document.activeElement)) closeLayerContextMenu();
     });
   });
   for (const action of el.contextMenuActions) {
-    action.addEventListener("click", () => runLayerAction(action.dataset.layerAction));
+    listen(action, "click", () => runLayerAction(action.dataset.layerAction));
   }
 
-  el.status.addEventListener("click", () => {
+  listen(el.status, "click", () => {
     if (el.status.dataset.state !== "error") return;
     const field = el.modeFieldsets
       .find((fieldset) => !fieldset.hidden)
@@ -1283,13 +1289,13 @@ export function createPanels(app) {
     field?.select?.();
   });
 
-  el.fileButton.addEventListener("click", () => {
+  listen(el.fileButton, "click", () => {
     const open = el.fileMenu.hidden;
     closeMenus();
     setFileMenu(open);
   });
   for (const item of el.fileMenu.querySelectorAll("[data-file-action]")) {
-    item.addEventListener("click", () => {
+    listen(item, "click", () => {
       setFileMenu(false);
       const action = item.dataset.fileAction;
       if (action === "save") saveDesign();
@@ -1297,7 +1303,7 @@ export function createPanels(app) {
       if (action === "new") newCard();
     });
   }
-  el.fileInput.addEventListener("change", () => {
+  listen(el.fileInput, "change", () => {
     const file = el.fileInput.files?.[0];
     if (!file) return;
     file.text().then(loadDesignText, (error) => app.setStatus(`Could not read the file: ${error.message}`, "error"));
@@ -1305,13 +1311,13 @@ export function createPanels(app) {
   app.saveDesign = saveDesign;
   app.openDesign = openDesignPicker;
 
-  el.exportButton.addEventListener("click", () => {
+  listen(el.exportButton, "click", () => {
     const open = el.exportMenu.hidden;
     closeMenus();
     setExportMenu(open);
   });
   for (const item of el.exportMenu.querySelectorAll("[data-export-action]")) {
-    item.addEventListener("click", () => {
+    listen(item, "click", () => {
       setExportMenu(false);
       const action = item.dataset.exportAction;
       if (action === "png") downloadPng();
@@ -1320,10 +1326,10 @@ export function createPanels(app) {
     });
   }
 
-  el.batchInput.addEventListener("input", () => { batchExclude.checked = false; clearBatchFailure(); syncBatch(); });
-  batchFormats.addEventListener("change", event => { batchFormat = event.target.value; clearBatchFailure(); syncBatch(); });
-  batchImport.addEventListener("click", () => batchFile.click());
-  batchFile.addEventListener("change", async () => {
+  listen(el.batchInput, "input", () => { batchExclude.checked = false; clearBatchFailure(); syncBatch(); });
+  listen(batchFormats, "change", event => { batchFormat = event.target.value; clearBatchFailure(); syncBatch(); });
+  listen(batchImport, "click", () => batchFile.click());
+  listen(batchFile, "change", async () => {
     const file = batchFile.files[0];
     if (!file) return;
     clearBatchFailure();
@@ -1347,20 +1353,20 @@ export function createPanels(app) {
       syncBatch();
     }
   });
-  document.getElementById("batch-exclude").addEventListener("change", syncBatch);
-  el.batchRun.addEventListener("click", runBatch);
-  el.batchCancel.addEventListener("click", () => el.batchDialog.close());
+  listen(document.getElementById("batch-exclude"), "change", syncBatch);
+  listen(el.batchRun, "click", runBatch);
+  listen(el.batchCancel, "click", () => el.batchDialog.close());
   function openHelp() {
     closeMenus();
     if (!el.helpDialog.open) el.helpDialog.showModal();
   }
-  el.helpButton.addEventListener("click", openHelp);
+  listen(el.helpButton, "click", openHelp);
   app.openHelp = openHelp;
 
-  el.undo.addEventListener("click", () => app.undo());
-  el.redo.addEventListener("click", () => app.redo());
+  listen(el.undo, "click", () => app.undo());
+  listen(el.redo, "click", () => app.redo());
 
-  document.addEventListener("pointerdown", (event) => {
+  const onDocumentPointerDown = (event) => {
     if (!el.contextMenu.hidden && !el.contextMenu.contains(event.target)) {
       closeLayerContextMenu();
     }
@@ -1370,14 +1376,18 @@ export function createPanels(app) {
     if (!el.fileMenu.hidden && !event.target.closest?.(".file-wrap")) {
       setFileMenu(false);
     }
-  });
-  window.addEventListener("resize", () => closeLayerContextMenu());
-  window.addEventListener("scroll", () => closeLayerContextMenu(), true);
-  window.addEventListener("beforeunload", (event) => {
+  };
+  const onResize = () => closeLayerContextMenu();
+  const onScroll = () => closeLayerContextMenu();
+  const onBeforeUnload = (event) => {
     if (app.history.size === 0) return;
     event.preventDefault();
     event.returnValue = "";
-  });
+  };
+  listen(document, "pointerdown", onDocumentPointerDown);
+  listen(window, "resize", onResize);
+  listen(window, "scroll", onScroll, true);
+  listen(window, "beforeunload", onBeforeUnload);
 
   // -------------------------------------------------------------- sync
 
@@ -1453,5 +1463,21 @@ export function createPanels(app) {
   }
 
   setActivePanel(activePanel);
-  return { sync, syncTemplates, closeMenus, openLayerMenu, setDrawer, downloadPng, printCard, openBatchDialog };
+  return {
+    sync,
+    syncTemplates,
+    closeMenus,
+    openLayerMenu,
+    setDrawer,
+    downloadPng,
+    printCard,
+    openBatchDialog,
+    destroy() {
+      for (const dispose of disposables.splice(0)) dispose();
+      document.removeEventListener("pointerdown", onDocumentPointerDown);
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("scroll", onScroll, true);
+      window.removeEventListener("beforeunload", onBeforeUnload);
+    },
+  };
 }
