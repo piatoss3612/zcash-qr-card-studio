@@ -888,7 +888,7 @@ export function createPanels(app) {
       const item = document.createElement("li");
       const button = document.createElement("button");
       button.type = "button";
-      button.textContent = `Line ${error.line}: ${error.message}`;
+      button.textContent = `Edit line ${error.line}: ${error.message}`;
       button.title = "Select this line to fix it";
       button.disabled = batchBusy;
       button.addEventListener("click", () => {
