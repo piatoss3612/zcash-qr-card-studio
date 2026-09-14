@@ -1955,7 +1955,7 @@ textarea::placeholder {
 }
 
 .field-note {
-  color: var(--text-muted);
+  color: var(--text-secondary);
   font-size: 10.5px;
   line-height: 1.45;
 }

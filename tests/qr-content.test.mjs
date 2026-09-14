@@ -132,7 +132,7 @@ test("normalizeUrl adds https and rejects unsafe schemes", () => {
   assert.throws(() => normalizeUrl("JavaScript:alert(1)"), /http and https/);
   assert.throws(() => normalizeUrl("data:text/html,<b>x</b>"), /http and https/);
   assert.throws(() => normalizeUrl("zcash:t1abc"), /http and https/);
-  assert.throws(() => normalizeUrl("https://"), /not valid/);
+  assert.throws(() => normalizeUrl("https://"), /Enter a complete web address/);
 });
 
 test("validateGiftLink demands https and a fragment", () => {

@@ -178,7 +178,7 @@ function NavLabel({
       "flex cursor-pointer items-center whitespace-nowrap font-medium [&_svg]:shrink-0",
       isActive ? FADE_IN : FADE_OUT,
       SIZES[size].label,
-      !isActive && "text-[#868593]",
+      !isActive && "text-[var(--text-secondary)]",
     ),
     style: isActive ? { color: activeLabelColor } : undefined,
     onClick: onSelect,

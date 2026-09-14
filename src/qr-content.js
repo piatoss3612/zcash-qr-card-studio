@@ -201,12 +201,12 @@ export function normalizeUrl(value) {
   try {
     parsed = new URL(candidate);
   } catch {
-    throw new Error("That link is not valid.");
+    throw new Error("Enter a complete web address, such as https://example.com.");
   }
   if (parsed.protocol !== "https:" && parsed.protocol !== "http:") {
     throw new Error("Only http and https links are supported.");
   }
-  if (!parsed.hostname) throw new Error("That link is not valid.");
+  if (!parsed.hostname) throw new Error("Enter a complete web address, such as https://example.com.");
   return parsed.toString();
 }
 
