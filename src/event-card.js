@@ -1,11 +1,12 @@
 // Event layouts use ordinary layers so the existing design-file format remains sufficient.
-import { CHARACTERS, TEMPLATES, LAYOUTS } from "./catalog.js";
+import { CHARACTERS, TEMPLATES, LAYOUTS, LOGOS, eventLayout } from "./catalog.js";
 import {
   addLayer,
   createScene,
   makeCharacterLayer,
   roleLayer,
   setPaymentSummary,
+  removeLayer,
   snapshot,
 } from "./scene.js";
 
@@ -13,6 +14,11 @@ export const EVENT_TITLES = {
   payment: "Pay with Zcash",
   giftcard: "Your Zcash gift",
   link: "Event guide",
+};
+export const EVENT_CAPTIONS = {
+  payment: "Scan to pay with Zcash",
+  giftcard: "Scan with Vizor to claim",
+  link: "Scan to open the event guide",
 };
 export function eventText(scene, id) {
   return scene.layers[id]?.text ?? "";
@@ -29,12 +35,13 @@ export function setEventText(scene, id, text) {
   }
   if (!layer) {
     const heading = id === "event-heading";
+    const layout = eventLayout(scene.layers.background.assetId);
     layer = addLayer(scene, {
       kind: "text",
       text: "",
       label: "",
       fontFamily: heading ? "Zarathustra" : "Geist",
-      fontSize: heading ? 76 : 30,
+      fontSize: heading ? 76 : 36,
       fontWeight: 500,
       color: "#141818",
       align: "center",
@@ -46,6 +53,7 @@ export function setEventText(scene, id, text) {
       rotation: 0,
       locked: false,
       deletable: true,
+      ...(heading ? layout.heading : layout.eventName),
     });
     delete scene.layers[layer.id];
     scene.order[scene.order.indexOf(layer.id)] = id;
@@ -62,11 +70,54 @@ export function setEventText(scene, id, text) {
 export function applyEventTheme(scene, templateId) {
   const template = TEMPLATES[templateId];
   if (!template) return false;
+  const previousLayout = eventLayout(scene.layers.background.assetId);
   scene.templateId = templateId;
   scene.layers.background.assetId = template.background;
   const cat = template.layers.find((layer) => layer.kind === "character");
   if (cat) replaceEventCharacter(scene, cat.assetId);
+  applyEventPlacement(scene, previousLayout);
   return true;
+}
+
+export function syncEventCaption(scene) {
+  if (scene.layoutId !== "event") return;
+  const layout = eventLayout(scene.layers.background.assetId);
+  const caption = roleLayer(scene, "caption");
+  if (layout.showDefaultCaption === false) {
+    if (caption && Object.values(EVENT_CAPTIONS).includes(caption.text)) removeLayer(scene, caption.id);
+  } else if (!caption) {
+    addLayer(scene, {kind:"text",role:"caption",text:EVENT_CAPTIONS[scene.mode],label:"Scan instruction",
+      fontFamily:"Geist",fontSize:44,fontWeight:500,color:"#141818",lineHeight:1.15,
+      height:51,rotation:0,locked:false,deletable:true,...layout.caption});
+  }
+}
+
+function applyEventPlacement(scene, previousLayout = LAYOUTS.event) {
+  if (scene.layoutId !== "event") return;
+  const layout = eventLayout(scene.layers.background.assetId);
+  syncEventCaption(scene);
+  const qr = scene.layers.qr;
+  if (qr && !qr.locked) Object.assign(qr, {x:layout.qr.x,y:layout.qr.y,width:layout.qr.size,height:layout.qr.size});
+  const character = scene.order.map(id=>scene.layers[id]).find(layer=>layer.kind === "character");
+  if (character && !character.locked) {
+    character.x += layout.character.x - previousLayout.character.x;
+    character.y += layout.character.y - previousLayout.character.y;
+  }
+  for (const [layer, slot] of [
+    [scene.layers["event-heading"], layout.heading],
+    [scene.layers["event-name"], layout.eventName],
+    [roleLayer(scene, "caption"), { fontSize:44, ...layout.caption }],
+    [roleLayer(scene, "summary"), { fontSize:48, fontWeight:700, ...layout.summary }],
+  ]) {
+    if (layer && !layer.locked) Object.assign(layer, slot);
+  }
+  const logo = scene.order.map(id => scene.layers[id]).find(layer => layer.kind === "logo");
+  if (logo && !logo.locked) {
+    const slot = LOGOS[logo.assetId]?.wordmark ? layout.logo : layout.mark;
+    const ratio = logo.height / logo.width;
+    const width = slot.width ?? slot.size;
+    Object.assign(logo, { x:slot.x, y:slot.y, width, height:width*ratio });
+  }
 }
 
 /** A catalog click replaces the selected character, or the primary character. */
@@ -130,20 +181,16 @@ export function createEventScene(mode = "payment") {
     width: 1030,
     height: 45,
     fontFamily: "Geist",
-    fontSize: 34,
+    fontSize: 44,
     fontWeight: 500,
     uppercase: false,
     align: "center",
-    text:
-      mode === "giftcard"
-        ? "2. Scan to claim your gift"
-        : mode === "link"
-          ? "Scan to open the event guide"
-          : "Scan to pay with Zcash",
+    text: EVENT_CAPTIONS[mode],
   });
   setEventText(scene, "event-name", "");
   setEventText(scene, "event-heading", EVENT_TITLES[mode]);
   if (mode === "payment") setPaymentSummary(scene, true);
+  applyEventPlacement(scene);
   scene.selectedLayerId = "qr";
   return scene;
 }

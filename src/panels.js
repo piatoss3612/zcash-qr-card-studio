@@ -1,9 +1,10 @@
-import { applyEventTheme, createEventScene, replaceEventCharacter, EVENT_TITLES, eventText, setEventText, numberedCard } from "./event-card.js";
+import { applyEventTheme, createEventScene, replaceEventCharacter, EVENT_TITLES, EVENT_CAPTIONS, eventText, setEventText, numberedCard, syncEventCaption } from "./event-card.js";
 // DOM binding for everything outside the canvas: mode switch, tool rail and drawer,
 // asset panels, content fields, selection panel, layer list, export menu and batch dialog.
 
 import {
   BACKGROUNDS,
+  eventLayout,
   CHARACTERS,
   INSTALL_LAYER,
   LOGOS,
@@ -373,11 +374,15 @@ export function createPanels(app) {
       const logo = scene().order.map(id=>scene().layers[id]).find(layer=>layer.kind === "logo");
       if (logo && ["zcash", "vizor"].includes(logo.assetId)) {
         const assetId = mode === "payment" ? "zcash" : "vizor";
-        Object.assign(logo, {assetId, label:LOGOS[assetId].label, width:mode === "payment"?70:180, height:mode === "payment"?70:52});
+        const layout = scene().layoutId === "event" ? eventLayout(scene().layers.background.assetId) : null;
+        const width = mode === "payment" ? (layout?.mark.size ?? 70) : (layout?.logo.width ?? 180);
+        const height = mode === "payment" ? width : width * 52 / 180;
+        Object.assign(logo, {assetId, label:LOGOS[assetId].label, x:logo.x+(logo.width-width)/2, y:logo.y+(logo.height-height)/2, width, height});
       }
       if (title === EVENT_TITLES[previous]) setEventText(scene(), "event-heading", EVENT_TITLES[mode]);
       const caption = roleLayer(scene(), "caption");
-      if (caption) caption.text = mode === "giftcard" ? "2. Scan to claim your gift" : mode === "payment" ? "Scan to pay with Zcash" : "Scan to open the event guide";
+      if (caption) caption.text = EVENT_CAPTIONS[mode];
+      syncEventCaption(scene());
       scene().templateId = `${mode}-${scene().layers.background.assetId}`;
       return true;
     }, { composition: false });

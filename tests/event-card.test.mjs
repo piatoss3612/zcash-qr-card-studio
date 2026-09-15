@@ -13,6 +13,7 @@ import { preflight } from "../src/preflight.js";
 import { parseBatchLines } from "../src/qr-content.js";
 import { SHEET, sheetSlots } from "../src/print-sheet.js";
 import { CHARACTERS } from "../src/catalog.js";
+import { roleLayer } from "../src/scene.js";
 
 test("theme character scale survives replacement without accumulating on repeated selection", () => {
   const scene = createEventScene("link");
@@ -25,6 +26,7 @@ test("theme character scale survives replacement without accumulating on repeate
   applyEventTheme(scene, "link-blossom");
   assert.deepEqual(cat, scaled);
   replaceEventCharacter(scene, "classic");
+  applyEventTheme(scene, "link-rampart");
   for (const key of ["x", "y", "width", "height"]) {
     assert.ok(Math.abs(cat[key] - original[key]) < 0.01, key);
   }
@@ -40,7 +42,7 @@ test("event cards keep QR and install areas clear in each mode", () => {
     assert.deepEqual(issues, [], mode);
   }
 });
-test("theme changes keep destination, custom wording and QR geometry", () => {
+test("theme changes keep destination and wording while restoring each QR placement", () => {
   const scene = createEventScene("payment");
   scene.content.address = "sample";
   scene.content.amount = "0.05";
@@ -48,11 +50,40 @@ test("theme changes keep destination, custom wording and QR geometry", () => {
   setEventText(scene, "event-heading", "Coffee Booth");
   const qr = { ...scene.layers.qr };
   applyEventTheme(scene, "payment-hearth");
-  assert.deepEqual(scene.layers.qr, qr);
+  assert.notDeepEqual(scene.layers.qr, qr);
   assert.equal(scene.content.address, "sample");
   assert.equal(eventText(scene, "event-name"), "Community Day");
   assert.equal(eventText(scene, "event-heading"), "Coffee Booth");
   assert.equal(scene.layers.background.assetId, "hearth");
+  applyEventTheme(scene, "payment-rampart");
+  assert.deepEqual(scene.layers.qr, qr);
+});
+test("theme placement returns to its composition and respects locked text", () => {
+  const scene = createEventScene("giftcard");
+  setEventText(scene, "event-name", "Community Day");
+  const heading = { ...scene.layers["event-heading"] };
+  const name = { ...scene.layers["event-name"] };
+  applyEventTheme(scene, "giftcard-paper");
+  assert.notEqual(scene.layers["event-heading"].x, heading.x);
+  applyEventTheme(scene, "giftcard-rampart");
+  assert.deepEqual(scene.layers["event-heading"], heading);
+  assert.deepEqual(scene.layers["event-name"], name);
+  scene.layers["event-heading"].locked = true;
+  applyEventTheme(scene, "giftcard-paper");
+  assert.equal(scene.layers["event-heading"].x, heading.x);
+});
+test("A omits redundant instructions but preserves custom text and locked QR placement", () => {
+  const scene = createEventScene("payment");
+  assert.equal(roleLayer(scene, "caption"), null);
+  applyEventTheme(scene, "payment-paper");
+  const caption = roleLayer(scene, "caption");
+  assert.ok(caption);
+  caption.text = "Ask the host before paying";
+  scene.layers.qr.locked = true;
+  const qr = {...scene.layers.qr};
+  applyEventTheme(scene, "payment-rampart");
+  assert.equal(roleLayer(scene, "caption").text, "Ask the host before paying");
+  assert.deepEqual(scene.layers.qr, qr);
 });
 test("catalog selection while QR is selected replaces one character and respects locks", () => {
   const scene = createEventScene();

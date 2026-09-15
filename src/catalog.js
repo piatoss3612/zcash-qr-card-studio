@@ -223,9 +223,11 @@ export const LAYOUTS = Object.freeze({
     logo: { x:140, y:105, width:180, height:52 },
     mark: { x:140, y:105, size:70 },
     caption: { x:140, y:425, width:1030, align:"center" },
-    summary: { x:140, y:1235, width:500, align:"left" },
+    summary: { x:140, y:1165, width:560, align:"left" },
     character: { x:740, y:1170, width:470, height:550 },
     install: { x:140, y:1460, width:500, height:190 },
+    heading: { x:140, y:235, width:1030, fontSize:76, align:"center" },
+    eventName: { x:250, y:120, width:930, fontSize:36, align:"center" },
   },
   center: {
     id: "center",
@@ -261,6 +263,26 @@ export const LAYOUTS = Object.freeze({
     install: Object.freeze({ x: 541, y: 1535, width: 500, height: 190, radius: 18 }),
   },
 });
+
+// Theme-specific event compositions follow the negative space in the artwork.
+export const EVENT_LAYOUTS = Object.freeze({
+  rampart: {
+    ...LAYOUTS.event,
+    qr: { x:380, y:680, size:550 },
+    logo: { x:566, y:1330, width:160, height:46 },
+    mark: { x:620, y:1330, size:52 },
+    heading: { x:310, y:480, width:720, fontSize:80, align:"center" },
+    eventName: { x:310, y:415, width:720, fontSize:30, align:"center" },
+    caption: { x:310, y:1260, width:720, fontSize:34, align:"center" },
+    showDefaultCaption: false,
+    summary: { x:310, y:590, width:720, fontSize:52, fontWeight:500, align:"center" },
+    character: { x:800, y:1220, width:470, height:550 },
+  },
+});
+
+export function eventLayout(backgroundId) {
+  return EVENT_LAYOUTS[backgroundId] ?? LAYOUTS.event;
+}
 
 /** Default call-to-action under the QR, per card type. */
 export const CAPTIONS = Object.freeze({

@@ -6,6 +6,7 @@ import {
   CHARACTERS,
   INSTALL_LAYER,
   LAYOUTS,
+  eventLayout,
   LOGOS,
   MODES,
   OUTPUT,
@@ -110,6 +111,7 @@ function cascadeOffset(scene, kind) {
 }
 
 function layoutOf(scene) {
+  if (scene.layoutId === "event") return eventLayout(scene.layers.background?.assetId);
   return LAYOUTS[scene.layoutId] ?? LAYOUTS.center;
 }
 
@@ -451,10 +453,10 @@ export function roleLayer(scene, role) {
 }
 
 /** @returns {string} the summary line for a payment card: "0.05 ZEC · Coffee stand". */
-export function paymentSummaryText(content) {
+export function paymentSummaryText(content, separator = " · ") {
   const amount = String(content.amount ?? "").trim();
   const label = String(content.label ?? "").trim();
-  return [amount ? `${amount} ZEC` : "", label].filter(Boolean).join(" · ");
+  return [amount ? `${amount} ZEC` : "", label].filter(Boolean).join(separator);
 }
 
 /**
@@ -466,7 +468,7 @@ export function syncBoundText(scene) {
   for (const id of scene.order) {
     const layer = scene.layers[id];
     if (layer?.kind !== "text" || layer.bound !== "payment-summary") continue;
-    const text = paymentSummaryText(scene.content);
+    const text = paymentSummaryText(scene.content, scene.layoutId === "event" && scene.layers.background.assetId !== "rampart" ? "\n" : " · ");
     if (layer.text !== text) {
       layer.text = text;
       layer.label = "Amount · label";
@@ -492,15 +494,16 @@ export function setPaymentSummary(scene, show) {
   if (existing) return false;
   const layout = layoutOf(scene);
   const role = TEXT_ROLES.summary;
+  const fontSize = scene.layoutId === "event" ? (layout.summary.fontSize ?? 48) : role.fontSize;
   const layer = addLayer(scene, {
     kind: "text",
     role: "summary",
     bound: "payment-summary",
     label: "Amount · label",
-    text: paymentSummaryText(scene.content),
-    fontFamily: role.fontFamily,
-    fontSize: role.fontSize,
-    fontWeight: role.fontWeight,
+    text: paymentSummaryText(scene.content, scene.layoutId === "event" && scene.layers.background.assetId !== "rampart" ? "\n" : " · "),
+    fontFamily: scene.layoutId === "event" ? "Geist" : role.fontFamily,
+    fontSize,
+    fontWeight: layout.summary.fontWeight ?? role.fontWeight,
     uppercase: false,
     color: role.color,
     align: layout.summary.align,
@@ -508,7 +511,7 @@ export function setPaymentSummary(scene, show) {
     x: layout.summary.x,
     y: layout.summary.y,
     width: layout.summary.width,
-    height: Math.round(role.fontSize * role.lineHeight),
+    height: Math.round(fontSize * role.lineHeight),
     rotation: 0,
     locked: false,
     deletable: true,

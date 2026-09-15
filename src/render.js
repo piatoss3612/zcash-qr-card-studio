@@ -441,13 +441,11 @@ function drawInstallLayer(ctx, code, transform) {
   ctx.fill();
 
   ctx.fillStyle = "#141818";
-  ctx.font = `400 34px ${FONTS.Zarathustra.stack}`;
+  ctx.font = `500 42px ${FONTS.Geist.stack}`;
   ctx.textAlign = "start";
   ctx.textBaseline = "alphabetic";
-  ctx.fillText("1. Get Vizor", 226, 88);
-  ctx.fillStyle = "#5d6262";
-  ctx.font = `500 20px ${FONTS.Geist.stack}`;
-  ctx.fillText("Scan to install Vizor first.", 226, 130);
+  ctx.fillText("Need Vizor?", 226, 78);
+  ctx.fillText("Install here", 226, 134);
   ctx.restore();
 }
 
@@ -652,7 +650,8 @@ export function drawTextLayer(ctx, layer) {
 
   const x = align === "center" ? 0 : align === "right" ? layer.width / 2 : -layer.width / 2;
   for (let i = 0; i < lines.length; i += 1) {
-    ctx.fillText(lines[i], x, -height / 2 + i * lineStep + layer.fontSize * 0.8);
+    const baseline = -height / 2 + i * lineStep + layer.fontSize * 0.8;
+    ctx.fillText(lines[i], x, baseline);
   }
   ctx.restore();
 }
