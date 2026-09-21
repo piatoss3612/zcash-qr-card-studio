@@ -182,7 +182,7 @@ Wandering Swordsman and Tal Strongman. Six are shown initially; Explore all
 reveals the full collection. The selected character remains visible when the
 gallery is collapsed or a saved link is restored. Existing approved local
 assets are reused without edits.
-The existing 50–130% size control applies in every layout. Compact reserves a
+The existing 50–400% size control applies in every layout. Compact reserves a
 separate character region at every allowed scale.
 
 ## Current mascot and corner logos
@@ -214,7 +214,7 @@ still link directly to that request.
 
 The companion also has a bottom-right resize handle, shown on hover/focus and
 always available on touch devices. Drag it to resize proportionally between
-50–130%, synchronized with the 1% size slider. Arrow keys on the resize handle
+50–400%, synchronized with the 1% size slider. Arrow keys on the resize handle
 adjust by 1%, Shift by 5%, and Home/End select the limits. Resizing preserves the
 top-left corner unless moving inward is necessary to stay inside the card.
 
@@ -236,3 +236,16 @@ Local browser verification confirms the launch page and exact wallet href.
 Actual wallet opening on desktop/mobile and public Vercel routing remain to be
 verified after deployment. The route must be publicly accessible without login
 for shared cards to work.
+
+## Cropped companions
+
+Upper body enlarges and places the companion at the lower-right edge for each
+format. Drag beyond any card edge to crop; the preview, PNG and SVG share the
+same clipping. Reset restores the full character at 100%. The size slider stays
+available when a resize handle is outside the card. QR overlap is a conservative
+bounding-box warning and does not prevent sharing.
+
+Existing links retain their fit-relative coordinates. New gestures use
+`companionPosition=canvas` and signed canvas percentages, avoiding zero or
+negative travel when the character exceeds the card size. A small visible strip
+is retained so the character can still be dragged back.

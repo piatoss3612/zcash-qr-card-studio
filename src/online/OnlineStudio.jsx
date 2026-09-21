@@ -12,7 +12,7 @@ import {
   validateAddress,
   cardLinks,
 } from "./card-data.js";
-import { renderCard } from "./card-render.js";
+import { renderCard, resizeCompanion, upperBodyCompanion } from "./card-render.js";
 import { loadCardAsset, svgUrl, downloadPng, serviceBase } from "./browser.js";
 import "./online.css";
 import CardPreview, { companionOverlapsQr } from "./CardPreview.jsx";
@@ -374,19 +374,20 @@ export default function OnlineStudio() {
                 id="oc-companion-size"
                 type="range"
                 min="50"
-                max="130"
+                max="400"
                 step="1"
                 value={draft.companionScale}
                 onChange={(event) =>
-                  update("companionScale", event.target.value)
+                  setDraft(previous => ({ ...previous, ...resizeCompanion(previous, Number(event.target.value)) }))
                 }
                 aria-describedby="oc-size-note"
               />
+              <button type="button" className="oc-companion-more" onClick={() => setDraft(previous => ({ ...previous, ...upperBodyCompanion(previous) }))}>Upper body</button>
               <div className="oc-size-footer">
                 <p id="oc-size-note" className="oc-hint">
-                  Keeps your QR and text clear.
+                  Drag beyond the edge to crop. Keep the QR clear.
                 </p>
-                <button onClick={() => update("companionScale", "100")}>
+                <button onClick={() => setDraft(previous => ({ ...previous, companionScale: "100", companionPosition: "fit", companionX: "", companionY: "" }))}>
                   Reset
                 </button>
               </div>
@@ -490,9 +491,9 @@ export default function OnlineStudio() {
                 </div>
                 <div className="oc-card-slot" aria-busy={result.key !== key}>
                   {result.svg ? (
-                    <CardPreview card={draft} svg={result.svg} onResize={changes => { setMessage(""); setDraft(previous => ({ ...previous, ...changes })); }} onPosition={(companionX, companionY) => {
+                    <CardPreview card={draft} svg={result.svg} onResize={changes => { setMessage(""); setDraft(previous => ({ ...previous, ...changes })); }} onPosition={position => {
                       setMessage("");
-                      setDraft(previous => ({ ...previous, companionX, companionY }));
+                      setDraft(previous => ({ ...previous, ...position }));
                     }} />
                   ) : (
                     <div className="oc-card-loading">
@@ -511,7 +512,7 @@ export default function OnlineStudio() {
           </div>
           <p className="oc-preview-caption">
             <span id="oc-position-help">Drag the companion to move it, or its corner handle to resize. Arrow keys adjust the focused handle; Shift makes larger steps.</span>
-            {draft.companion !== "none" && <button className="oc-position-reset" onClick={() => setDraft(previous => ({ ...previous, companionX: "", companionY: "" }))}>Reset position</button>}
+            {draft.companion !== "none" && <button className="oc-position-reset" onClick={() => setDraft(previous => ({ ...previous, companionPosition: "fit", companionX: "", companionY: "" }))}>Reset position</button>}
             <span>Use Open wallet below to test the payment link.</span>
             {companionOverlapsQr(draft) && <span className="oc-position-warning" role="status">Companion overlaps the QR or its quiet zone. Move it away before sharing.</span>}
           </p>

@@ -93,12 +93,14 @@ export const DEFAULT_CARD = Object.freeze({
   companion: "classic",
   logo: "zcash",
   companionScale: "100",
+  companionPosition: "fit",
   companionX: "",
   companionY: "",
   amount: "",
   memo: "",
 });
-export function validPosition(value) {
+export function validPosition(value, mode = "fit") {
+  if (mode === "canvas") return value === "" || (typeof value === "string" && /^-?\d{1,3}(?:\.\d{1,3})?$/.test(value) && Math.abs(Number(value)) <= 200);
   return value === "" || (typeof value === "string" && /^(?:\d{1,2}(?:\.\d{1,3})?|100(?:\.0{1,3})?)$/.test(value));
 }
 
@@ -111,10 +113,11 @@ export function restoreDraft(saved) {
   for (const [key, catalog] of Object.entries({ style: STYLES, layout: LAYOUTS, companion: COMPANIONS, logo: CARD_LOGOS })) {
     if (!Object.hasOwn(catalog, draft[key])) draft[key] = DEFAULT_CARD[key];
   }
-  if (!/^(?:[5-9][0-9]|1[0-2][0-9]|130)$/.test(draft.companionScale))
+  if (!/^(?:[5-9][0-9]|[1-3][0-9]{2}|400)$/.test(draft.companionScale))
     draft.companionScale = DEFAULT_CARD.companionScale;
+  if (!["fit", "canvas"].includes(draft.companionPosition)) draft.companionPosition = "fit";
   for (const key of ["companionX", "companionY"])
-    if (!validPosition(draft[key])) draft[key] = "";
+    if (!validPosition(draft[key], draft.companionPosition)) draft[key] = "";
   return draft;
 }
 
@@ -227,13 +230,14 @@ export async function validateCard(raw) {
     companion: raw.companion,
     logo: raw.logo ?? "zcash",
     companionScale: field(raw.companionScale ?? "100", 3, "Vizorcat size"),
+    companionPosition: raw.companionPosition ?? "fit",
     companionX: raw.companionX ?? "",
     companionY: raw.companionY ?? "",
     amount: field(raw.amount ?? "", 32, "Amount"),
     memo: field(raw.memo ?? "", 80, "Memo"),
   };
-  if (!validPosition(card.companionX) || !validPosition(card.companionY))
-    throw new Error("Companion position must be between 0 and 100 percent.");
+  if (!["fit", "canvas"].includes(card.companionPosition) || !validPosition(card.companionX, card.companionPosition) || !validPosition(card.companionY, card.companionPosition))
+    throw new Error("Choose a supported companion position.");
   if (!card.name) throw new Error("Enter your name.");
   if (
     !Object.hasOwn(STYLES, card.style) ||
@@ -242,8 +246,8 @@ export async function validateCard(raw) {
     !Object.hasOwn(LAYOUTS, card.layout)
   )
     throw new Error("Choose a supported card style, format, and companion.");
-  if (!/^(?:[5-9][0-9]|1[0-2][0-9]|130)$/.test(card.companionScale))
-    throw new Error("Vizorcat size must be between 50 and 130 percent.");
+  if (!/^(?:[5-9][0-9]|[1-3][0-9]{2}|400)$/.test(card.companionScale))
+    throw new Error("Vizorcat size must be between 50 and 400 percent.");
   await validateAddress(card.address);
   const uri = buildZip321({ ...card, label: card.name });
   card.amount =

@@ -90,17 +90,34 @@ export function companionBox(card) {
   const { width, height } = LAYOUTS[card.layout];
   const x = card.companionX ? Number(card.companionX) / 100 * (width - w) : (portrait ? 300 : compact ? 552 : isQr ? 450 : 387) - w / 2;
   const y = card.companionY ? Number(card.companionY) / 100 * (height - h) : (portrait ? 448 : compact ? 194 : isQr ? 284 : 227) - h;
+  if (card.companionPosition === "canvas") return {
+    x: Math.max(24 - w, Math.min(width - 24, Number(card.companionX || 0) / 100 * width)),
+    y: Math.max(24 - h, Math.min(height - 24, Number(card.companionY || 0) / 100 * height)), w, h,
+  };
   return { x: Math.max(0, Math.min(width - w, x)), y: Math.max(0, Math.min(height - h, y)), w, h };
 }
 
-/** Resize around the top-left corner, moving inward only at a card edge. */
+/** Canvas percentages remain stable even when the artwork is larger than the card. */
+export function positionCompanion(card, x, y) {
+  const box = companionBox(card);
+  const { width, height } = LAYOUTS[card.layout];
+  const percent = (value, extent, size) => (100 * Math.max(24 - extent, Math.min(size - 24, value)) / size).toFixed(3);
+  return { companionPosition: "canvas", companionX: percent(x, box.w, width), companionY: percent(y, box.h, height) };
+}
+
 export function resizeCompanion(card, scale) {
   const old = companionBox(card);
-  const companionScale = String(Math.max(50, Math.min(130, Math.round(scale))));
-  const next = companionBox({ ...card, companionScale });
+  const companionScale = String(Math.max(50, Math.min(400, Math.round(scale))));
+  return { companionScale, ...positionCompanion({ ...card, companionScale }, old.x, old.y) };
+}
+
+export function upperBodyCompanion(card) {
   const { width, height } = LAYOUTS[card.layout];
-  const position = (value, travel) => (100 * Math.min(value, travel) / travel).toFixed(3);
-  return { companionScale, companionX: position(old.x, width - next.w), companionY: position(old.y, height - next.h) };
+  const companionScale = card.layout === "portrait" ? "160" : card.layout === "compact" ? "220" : "240";
+  const enlarged = { ...card, companionScale };
+  const box = companionBox(enlarged);
+  const x = Math.max(card.layout === "profile" ? 0 : 192, width - box.w);
+  return { companionScale, ...positionCompanion(enlarged, x, height - box.h * .7) };
 }
 
 /** loadAsset returns data URIs from repository assets only. */
@@ -186,7 +203,7 @@ export async function renderCard(card, loadAsset, { demo = false } = {}) {
   }
   const actionX = portrait ? 28 : compact ? textX : isQr ? 200 : 28;
   const actionY = portrait ? 288 : compact ? 213 : isQr ? 247 : 223;
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeXml(`Support ${card.name} with Zcash`)}">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" overflow="hidden" role="img" aria-label="${escapeXml(`Support ${card.name} with Zcash`)}">
 <title>${escapeXml(`${card.name} · Support with Zcash`)}</title>
 <defs><style>@font-face{font-family:Card;src:url('${font}') format('woff2')}@font-face{font-family:Body;src:url('${bodyFont}') format('woff2')}@font-face{font-family:Bio;src:url('${bioFont}') format('woff2');font-weight:400}text{font-family:Body,Arial,sans-serif;fill:${theme.ink}}text.name{font-family:Card,Arial,sans-serif}text.bio{font-family:Bio,Arial,sans-serif;font-weight:400}</style></defs>
 <rect width="${width}" height="${height}" fill="${theme.bg}"/>

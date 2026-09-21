@@ -283,7 +283,7 @@ test("Vizorcat size round trips through shared links without changing payment", 
   for (const companionScale of [
     "0",
     "49",
-    "131",
+    "401",
     "1000",
     "NaN",
     "75.5",
@@ -408,8 +408,8 @@ test("resizing preserves the top-left position except when constrained by a card
     assert.equal(resized.companionScale, "120");
     const edge = { ...card, companionX: "100", companionY: "100" };
     const bounded = companionBox({ ...edge, ...resizeCompanion(edge, 500) });
-    assert.ok(bounded.x + bounded.w <= LAYOUTS[layout].width);
-    assert.ok(bounded.y + bounded.h <= LAYOUTS[layout].height);
+    assert.ok(bounded.x < LAYOUTS[layout].width);
+    assert.ok(bounded.y < LAYOUTS[layout].height);
     assert.equal(resizeCompanion(card, -50).companionScale, "50");
   }
 });
@@ -451,5 +451,24 @@ test("every companion shares and renders using a bundled local asset without cha
     } else {
       assert.doesNotMatch(svg, /class="companion"/);
     }
+  }
+});
+
+test("cropped companions round-trip, resize beyond the card, and retain a visible drag area", async () => {
+  const { upperBodyCompanion, positionCompanion, resizeCompanion } = await import("../src/online/card-render.js");
+  for (const layout of Object.keys(LAYOUTS)) {
+    const card = await validateCard({ ...base, layout, ...upperBodyCompanion({ ...base, layout }) });
+    assert.deepEqual(await parseCard(serializeCard(card)), card);
+    assert.equal(paymentUri(card), paymentUri(base));
+    const box = companionBox(card);
+    assert.ok(box.y + box.h > LAYOUTS[layout].height);
+    if (layout !== "profile") assert.ok(box.x >= 180);
+    const large = { ...card, ...resizeCompanion(card, 400) };
+    const moved = await validateCard({ ...large, ...positionCompanion(large, -9999, -9999) });
+    const cropped = companionBox(moved);
+    assert.ok(cropped.x + cropped.w >= 23.99);
+    assert.ok(cropped.y + cropped.h >= 23.99);
+    assert.deepEqual(await parseCard(serializeCard(moved)), moved);
+    assert.match(await renderCard(moved, loadAsset), /overflow="hidden"/);
   }
 });

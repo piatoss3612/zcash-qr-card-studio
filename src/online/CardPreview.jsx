@@ -1,13 +1,13 @@
 import { useRef } from "react";
 import { COMPANIONS, LAYOUTS } from "./card-data.js";
-import { companionBox, resizeCompanion } from "./card-render.js";
+import { companionBox, resizeCompanion, positionCompanion } from "./card-render.js";
 import { svgUrl } from "./browser.js";
 
 export function companionOverlapsQr(card) {
   if (card.companion === "none" || card.layout === "profile") return false;
   const b = companionBox(card);
   const x = card.layout === "compact" ? 16 : 20;
-  const y = card.layout === "compact" ? 24 : 148;
+  const y = card.layout === "portrait" ? 288 : card.layout === "compact" ? 24 : 148;
   return b.x < x + 160 && b.x + b.w > x && b.y < y + 160 && b.y + b.h > y;
 }
 
@@ -18,8 +18,7 @@ export default function CardPreview({ card, svg, onPosition, onResize }) {
   const { width, height } = LAYOUTS[card.layout];
   const path = COMPANIONS[card.companion].path;
   function move(x, y) {
-    const percent = (value, max) => (100 * Math.max(0, Math.min(max, value)) / max).toFixed(3);
-    onPosition(percent(x, width - box.w), percent(y, height - box.h));
+    onPosition(positionCompanion(card, x, y));
   }
   return <div ref={surface} className="oc-editable-card" style={{ aspectRatio: `${width}/${height}` }}>
     <img src={svgUrl(svg.replace(/<image class="companion"[^>]*\/>/, ""))} alt={`Card preview for ${card.name || "your name"}`} width={width} draggable="false" />
@@ -73,7 +72,7 @@ export default function CardPreview({ card, svg, onPosition, onResize }) {
         const direction = { ArrowRight: 1, ArrowUp: 1, ArrowLeft: -1, ArrowDown: -1 }[event.key];
         if (!direction && !["Home", "End"].includes(event.key)) return;
         event.preventDefault();
-        const scale = event.key === "Home" ? 50 : event.key === "End" ? 130 : Number(card.companionScale) + direction * (event.shiftKey ? 5 : 1);
+        const scale = event.key === "Home" ? 50 : event.key === "End" ? 400 : Number(card.companionScale) + direction * (event.shiftKey ? 5 : 1);
         onResize(resizeCompanion(card, scale));
       }}
     ><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M4 12 12 4M6 4h6v6M4 6v6h6" fill="none" stroke="currentColor" strokeWidth="1.5" /></svg></button>
