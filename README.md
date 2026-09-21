@@ -18,7 +18,7 @@
 
 ## Make a card
 
-**Embed** — Personal Zcash cards for GitHub READMEs and websites. Customize the layout, logo and Vizorcat, then copy Markdown/HTML or download a PNG.
+**Embed** — Personal Zcash cards for GitHub READMEs and websites. Choose a layout, one of eight styles (including Aurora, Blueprint and Airmail) and a matching Vizorcat, then copy Markdown/HTML or download a PNG.
 
 **Print** — A6 payment, gift and link cards. Export a print-ready PNG, print A6/A4 sheets, or batch-export a ZIP.
 
@@ -26,56 +26,60 @@
 
 These live examples use the maintainer's receiving address. Click a card to open its HTTPS wallet-launch page, which attempts to open the same ZIP-321 request encoded in the QR. Your wallet handles payment review and confirmation. No amount is preset.
 
-### Signature · Paper
+### Signature · Airmail
 
-[![Support with Zcash](https://zcash-qr-card-studio.vercel.app/api/card.svg?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=paper&layout=qr&companion=standard&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)](https://zcash-qr-card-studio.vercel.app/pay?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=paper&layout=qr&companion=standard&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)
+[![Support with Zcash](https://zcash-qr-card-studio.vercel.app/api/card.svg?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=airmail&layout=qr&companion=courier&logo=zcash&companionScale=100&companionPosition=fit&companionX=&companionY=&amount=&memo=)](https://zcash-qr-card-studio.vercel.app/pay?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=airmail&layout=qr&companion=courier&logo=zcash&companionScale=100&companionPosition=fit&companionX=&companionY=&amount=&memo=)
+
+Airmail Courier delivers the card inside a striped envelope with a perforated stamp.
 
 <details>
 <summary>Copy Markdown or HTML</summary>
 
 ```markdown
-[![Support with Zcash](https://zcash-qr-card-studio.vercel.app/api/card.svg?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=paper&layout=qr&companion=standard&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)](https://zcash-qr-card-studio.vercel.app/pay?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=paper&layout=qr&companion=standard&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)
+[![Support with Zcash](https://zcash-qr-card-studio.vercel.app/api/card.svg?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=airmail&layout=qr&companion=courier&logo=zcash&companionScale=100&companionPosition=fit&companionX=&companionY=&amount=&memo=)](https://zcash-qr-card-studio.vercel.app/pay?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=airmail&layout=qr&companion=courier&logo=zcash&companionScale=100&companionPosition=fit&companionX=&companionY=&amount=&memo=)
 ```
 
 ```html
-<a href="https://zcash-qr-card-studio.vercel.app/pay?v=1&amp;name=piatoss3612&amp;bio=Building+with+Zcash&amp;address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&amp;style=paper&amp;layout=qr&amp;companion=standard&amp;logo=zcash&amp;companionScale=100&amp;companionX=&amp;companionY=&amp;amount=&amp;memo="><img src="https://zcash-qr-card-studio.vercel.app/api/card.svg?v=1&amp;name=piatoss3612&amp;bio=Building+with+Zcash&amp;address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&amp;style=paper&amp;layout=qr&amp;companion=standard&amp;logo=zcash&amp;companionScale=100&amp;companionX=&amp;companionY=&amp;amount=&amp;memo=" alt="Support piatoss3612 with Zcash" width="560" style="max-width:100%;height:auto" /></a>
+<a href="https://zcash-qr-card-studio.vercel.app/pay?v=1&amp;name=piatoss3612&amp;bio=Building+with+Zcash&amp;address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&amp;style=airmail&amp;layout=qr&amp;companion=courier&amp;logo=zcash&amp;companionScale=100&amp;companionPosition=fit&amp;companionX=&amp;companionY=&amp;amount=&amp;memo="><img src="https://zcash-qr-card-studio.vercel.app/api/card.svg?v=1&amp;name=piatoss3612&amp;bio=Building+with+Zcash&amp;address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&amp;style=airmail&amp;layout=qr&amp;companion=courier&amp;logo=zcash&amp;companionScale=100&amp;companionPosition=fit&amp;companionX=&amp;companionY=&amp;amount=&amp;memo=" alt="Support piatoss3612 with Zcash" width="560" style="max-width:100%;height:auto" /></a>
 ```
 
 </details>
 
-[Customize this example](https://zcash-qr-card-studio.vercel.app/online#v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=paper&layout=qr&companion=standard&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)
+[Customize this example](https://zcash-qr-card-studio.vercel.app/online#v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=airmail&layout=qr&companion=courier&logo=zcash&companionScale=100&companionPosition=fit&companionX=&companionY=&amount=&memo=)
 
-### Compact · Midnight
+### Compact · Aurora
 
-[![Support with Zcash](https://zcash-qr-card-studio.vercel.app/api/card.svg?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=midnight&layout=compact&companion=classic&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)](https://zcash-qr-card-studio.vercel.app/pay?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=midnight&layout=compact&companion=classic&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)
+[![Support with Zcash](https://zcash-qr-card-studio.vercel.app/api/card.svg?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=aurora&layout=compact&companion=photographer&logo=zcash&companionScale=100&companionPosition=fit&companionX=&companionY=&amount=&memo=)](https://zcash-qr-card-studio.vercel.app/pay?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=aurora&layout=compact&companion=photographer&logo=zcash&companionScale=100&companionPosition=fit&companionX=&companionY=&amount=&memo=)
+
+A low-profile QR card with northern-light glows and the Aurora Photographer.
 
 <details>
 <summary>Copy Markdown</summary>
 
 ```markdown
-[![Support with Zcash](https://zcash-qr-card-studio.vercel.app/api/card.svg?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=midnight&layout=compact&companion=classic&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)](https://zcash-qr-card-studio.vercel.app/pay?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=midnight&layout=compact&companion=classic&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)
+[![Support with Zcash](https://zcash-qr-card-studio.vercel.app/api/card.svg?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=aurora&layout=compact&companion=photographer&logo=zcash&companionScale=100&companionPosition=fit&companionX=&companionY=&amount=&memo=)](https://zcash-qr-card-studio.vercel.app/pay?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=aurora&layout=compact&companion=photographer&logo=zcash&companionScale=100&companionPosition=fit&companionX=&companionY=&amount=&memo=)
 ```
 
 </details>
 
-[Customize this example](https://zcash-qr-card-studio.vercel.app/online#v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=midnight&layout=compact&companion=classic&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)
+[Customize this example](https://zcash-qr-card-studio.vercel.app/online#v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=aurora&layout=compact&companion=photographer&logo=zcash&companionScale=100&companionPosition=fit&companionX=&companionY=&amount=&memo=)
 
-### Profile · Pixel
+### Profile · Blueprint
 
-[![Support with Zcash](https://zcash-qr-card-studio.vercel.app/api/card.svg?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=pixel&layout=profile&companion=samurai&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)](https://zcash-qr-card-studio.vercel.app/pay?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=pixel&layout=profile&companion=samurai&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)
+[![Support with Zcash](https://zcash-qr-card-studio.vercel.app/api/card.svg?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=blueprint&layout=profile&companion=architect&logo=zcash&companionScale=100&companionPosition=fit&companionX=&companionY=&amount=&memo=)](https://zcash-qr-card-studio.vercel.app/pay?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=blueprint&layout=profile&companion=architect&logo=zcash&companionScale=100&companionPosition=fit&companionX=&companionY=&amount=&memo=)
 
-A smaller profile card without a QR; the image remains clickable.
+A smaller profile card without a QR; the image remains clickable. Shown with the Blueprint Architect.
 
 <details>
 <summary>Copy Markdown</summary>
 
 ```markdown
-[![Support with Zcash](https://zcash-qr-card-studio.vercel.app/api/card.svg?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=pixel&layout=profile&companion=samurai&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)](https://zcash-qr-card-studio.vercel.app/pay?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=pixel&layout=profile&companion=samurai&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)
+[![Support with Zcash](https://zcash-qr-card-studio.vercel.app/api/card.svg?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=blueprint&layout=profile&companion=architect&logo=zcash&companionScale=100&companionPosition=fit&companionX=&companionY=&amount=&memo=)](https://zcash-qr-card-studio.vercel.app/pay?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=blueprint&layout=profile&companion=architect&logo=zcash&companionScale=100&companionPosition=fit&companionX=&companionY=&amount=&memo=)
 ```
 
 </details>
 
-[Customize this example](https://zcash-qr-card-studio.vercel.app/online#v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=pixel&layout=profile&companion=samurai&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)
+[Customize this example](https://zcash-qr-card-studio.vercel.app/online#v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=blueprint&layout=profile&companion=architect&logo=zcash&companionScale=100&companionPosition=fit&companionX=&companionY=&amount=&memo=)
 
 ### Use your own address
 
