@@ -148,8 +148,8 @@ format and 12px in profile format while preserving the allowed size range.
 
 ## Editor navigation and drafts
 
-Both editors share the `Print · A6` / `Embed · README & Web` navigation below
-the header. Each keeps its own draft in same-tab session storage, including
+Both editors share compact `Print` / `Embed` navigation inside the existing
+header. Each keeps its own draft in same-tab session storage, including
 incomplete online-card fields. Reloading or switching editors restores the
 latest draft; an explicit editing-link fragment takes precedence. This is not
 cross-device or permanent storage. Save an editing link or design file for

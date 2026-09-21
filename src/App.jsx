@@ -15,6 +15,7 @@ const EditorMarkup = memo(function EditorMarkup() {
         <img className="brand-mark" src="./assets/vizorcat-icon.png" alt="" width={40} height={40} />
         <span className="brand-name">QR Card Studio</span>
       </a>
+      <CardTypeNav current="print" />
       <div className="doc-name-field">
         <label className="sr-only" htmlFor="document-name">Document name</label>
         <input id="document-name" type="text" defaultValue="Untitled card" spellCheck="false" autoComplete="off" />
@@ -113,7 +114,6 @@ const EditorMarkup = memo(function EditorMarkup() {
       </div>
     </div>
   </header>
-  <CardTypeNav current="print" />
   {/* ══════════════════════════ WORKBENCH ══════════════════════════ */}
   <div className="workbench">
     <div className="studio-sidebar">

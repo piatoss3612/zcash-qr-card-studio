@@ -3,11 +3,11 @@ import "./card-type-nav.css";
 export function CardTypeNav({ current }) {
   return (
     <nav className="card-type-nav" aria-label="Card type">
-      <a href="./" aria-current={current === "print" ? "page" : undefined}>
-        Print <span>· A6</span>
+      <a href="./" title="Print A6 cards" aria-current={current === "print" ? "page" : undefined}>
+        Print
       </a>
-      <a href="./online.html" aria-current={current === "embed" ? "page" : undefined}>
-        Embed <span>· README &amp; Web</span>
+      <a href="./online.html" title="Embed cards in README and websites" aria-current={current === "embed" ? "page" : undefined}>
+        Embed
       </a>
     </nav>
   );

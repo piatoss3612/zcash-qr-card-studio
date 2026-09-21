@@ -1,27 +1,25 @@
 .card-type-nav {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  padding: 8px 16px;
-  background: #fffef9;
-  border-bottom: 1px solid #d9ddd1;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 9px;
+  background: #edf0e7;
   flex-shrink: 0;
 }
 .card-type-nav a {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  min-height: 44px;
-  padding: 0 14px;
-  border-radius: 8px;
+  justify-content: center;
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: 6px;
   color: #4e5848;
-  font: 500 14px/1.4 Arial, sans-serif;
+  font: 500 13px/1.4 Arial, sans-serif;
   text-decoration: none;
+  white-space: nowrap;
 }
-.card-type-nav a[aria-current="page"] { background: #e9eddf; color: #263922; }
-.card-type-nav a:hover { background: #f0f2eb; }
+.card-type-nav a[aria-current="page"] { background: #fffef9; color: #263922; box-shadow: 0 1px 3px #17231f14; }
+.card-type-nav a:hover { color: #17231f; }
 .card-type-nav a:focus-visible { outline: 2px solid #466743; outline-offset: 2px; }
-@media (max-width: 380px) {
-  .card-type-nav { gap: 4px; padding-inline: 8px; }
-  .card-type-nav a { padding-inline: 9px; font-size: 13px; }
-}
+@media (pointer: coarse) { .card-type-nav a { min-height: 44px; } }

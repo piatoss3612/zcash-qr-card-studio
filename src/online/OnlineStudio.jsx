@@ -210,7 +210,7 @@ export default function OnlineStudio() {
             QR Card Studio<span className="oc-brand-note">Made for Zcash</span>
           </span>
         </a>
-
+        <CardTypeNav current="embed" />
         <a
           className="oc-source"
           href="https://github.com/piatoss3612/zcash-qr-card-studio"
@@ -220,7 +220,6 @@ export default function OnlineStudio() {
           Open source <Arrow />
         </a>
       </header>
-      <CardTypeNav current="embed" />
       <div className="oc-page-heading">
         <div>
           <span className="oc-kicker">A SMALL CARD. A DIRECT CONNECTION.</span>
