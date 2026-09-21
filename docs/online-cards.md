@@ -175,8 +175,8 @@ Geist Mono on deep green with a light QR quiet zone. Compact shares the same
 ZIP-321 request and density checks as Signature, and its dimensions flow through
 preview, PNG export and HTML embeds. Layouts are saved in editing links.
 
-The companion gallery includes 14 characters plus No companion: Vizorcat,
-Surprised, Samurai, Wayfinder, Orbital Ranger, Grove Ranger, Oni Samurai,
+The companion gallery includes 13 characters plus No companion: Vizorcat,
+Samurai, Wayfinder, Orbital Ranger, Grove Ranger, Oni Samurai,
 Commons Guide, Snow Surveyor, Stonehold Warden, Hearthlight Host, Alchemist,
 Wandering Swordsman and Tal Strongman. Six are shown initially; Explore all
 reveals the full collection. The selected character remains visible when the
@@ -188,7 +188,7 @@ separate character region at every allowed scale.
 ## Current mascot and corner logos
 
 The armored Guardian is labeled **Vizorcat** and is the default companion.
-The bare companion is **Surprised**, the full-body cat with three yellow accent
+**Surprised** is hidden from the companion picker but remains supported in existing shared cards. Its asset is the full-body cat with three yellow accent
 marks extracted from the approved editorial-07 concept, replacing the temporary
 Happy portrait. Other companions remain unchanged.
 

@@ -351,7 +351,7 @@ export default function OnlineStudio() {
           <fieldset className="oc-fieldset">
             <legend>Companion</legend>
             <div className="oc-companion-grid" id="oc-companion-options">
-              {Object.entries(COMPANIONS).filter(([id], index) => showAllCompanions || index < 6 || id === "none" || id === draft.companion).map(([id, companion]) => (
+              {Object.entries(COMPANIONS).filter(([id]) => id !== "standard").filter(([id], index) => showAllCompanions || index < 6 || id === "none" || id === draft.companion).map(([id, companion]) => (
                 <button key={id} aria-pressed={draft.companion === id} onClick={() => update("companion", id)}>
                   {companion.path ? <img src={`./${companion.path}`} alt="" loading="lazy" /> : <span className="oc-no-companion" aria-hidden="true">—</span>}
                   <span>{companion.label}</span>
@@ -359,7 +359,7 @@ export default function OnlineStudio() {
               ))}
             </div>
             <button type="button" className="oc-companion-more" aria-expanded={showAllCompanions} aria-controls="oc-companion-options" onClick={() => setShowAllCompanions(value => !value)}>
-              {showAllCompanions ? "Show fewer companions" : "Explore all 14 companions"}
+              {showAllCompanions ? "Show fewer companions" : "Explore all 13 companions"}
             </button>
           </fieldset>
           {draft.companion !== "none" && (
