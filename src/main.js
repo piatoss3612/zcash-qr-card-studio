@@ -1,5 +1,6 @@
 // React mount boundary for the scene, render scheduler and imperative editor
 // services. The DOM-free modules remain reusable outside the UI.
+import { designToJson, parseDesign } from "./design-file.js";
 import { createEventScene } from "./event-card.js";
 import { createStudio } from "./studio.js";
 import { INSTALL_URL } from "./catalog.js";
@@ -34,6 +35,24 @@ export function mountApp({ onStepChange } = {}) {
   const context = canvas.getContext("2d", { alpha: false });
   const scene = createEventScene("payment");
   const history = new History();
+  try {
+    const saved = sessionStorage.getItem("print-card-draft");
+    if (saved) {
+      const draft = parseDesign(saved);
+      Object.assign(scene, draft.scene);
+      document.getElementById("document-name").value = draft.name;
+    }
+  } catch {}
+
+  function saveDraft() {
+    try {
+      sessionStorage.setItem("print-card-draft", designToJson(scene, {
+        name: document.getElementById("document-name").value,
+      }));
+      return !scene.content.giftLink;
+    } catch { return false; }
+  }
+  window.addEventListener("pagehide", saveDraft);
 
   function writeStatus(text, state) {
     statusOutput.textContent = text;
@@ -48,6 +67,7 @@ export function mountApp({ onStepChange } = {}) {
   const app = {
     scene,
     history,
+    saveDraft,
     assets: { backgrounds: {}, characters: {}, logos: {} },
     installCode: makeQr(INSTALL_URL),
     qrCode: null,
@@ -154,6 +174,7 @@ export function mountApp({ onStepChange } = {}) {
   return {
     showStep: app.showStep,
     destroy() {
+      window.removeEventListener("pagehide", saveDraft);
       mounted = false;
       if (frame) cancelAnimationFrame(frame);
       window.removeEventListener("error", onError);

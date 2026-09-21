@@ -1385,6 +1385,7 @@ export function createPanels(app) {
   const onResize = () => closeLayerContextMenu();
   const onScroll = () => closeLayerContextMenu();
   const onBeforeUnload = (event) => {
+    if (app.saveDraft?.()) return;
     if (app.history.size === 0) return;
     event.preventDefault();
     event.returnValue = "";

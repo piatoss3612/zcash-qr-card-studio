@@ -126,6 +126,33 @@
       "variant": "korean-domestic-shorthair-tabby-standard-geometry",
       "usage": "confident tal-mask strongman in teal carrying a heavy round iron mace over the shoulder",
       "sha256": "8bf5fa7007ed2c0775d98208c9f84656cd62b595f357fa7869ad2c92bc4f852d"
+    },
+    {
+      "id": "vizorcat-standard",
+      "file": "vizorcat-standard.png",
+      "sha256": "63ee429b65ba5a76676da30878da2977a429e10e127cd1a98299b0bcc2fdc50a",
+      "source": "approved Standard front view, built-in alpha extraction",
+      "sourceRecord": "source/vizorcat-standard.md",
+      "variant": "vizorcat-standard",
+      "usage": "online editorial support cards"
+    },
+    {
+      "id": "vizorcat-happy",
+      "file": "vizorcat-happy.png",
+      "sha256": "7421cd081944dff5636767154555e2240a2a93cb54c6fc4717a154f722f4d827",
+      "source": "approved Standard happy expression cutout",
+      "sourceRecord": "source/vizorcat-happy.md",
+      "variant": "vizorcat-standard",
+      "usage": "online-only happy expression portrait"
+    },
+    {
+      "id": "vizorcat-surprised",
+      "file": "vizorcat-surprised.png",
+      "sha256": "785598495e9d684b7cacd78886d93babaa6e90fe6a11f8c92b9f1e0ad50b1f62",
+      "source": "approved editorial-07 full-body extraction",
+      "sourceRecord": "source/vizorcat-surprised.md",
+      "variant": "vizorcat-standard",
+      "usage": "online surprised companion with yellow accent marks"
     }
   ]
 }

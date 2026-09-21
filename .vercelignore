@@ -1,0 +1,11 @@
+.git/
+.github/
+.playwright-cli/
+.wrangler/
+output/
+archive/
+design-plans/
+assets/**/qa/
+assets/**/concepts/
+assets/**/imagegen/
+*.log

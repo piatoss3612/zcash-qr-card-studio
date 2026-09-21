@@ -26,6 +26,7 @@ a single static page without Next.js routing.
 - Version: 2.0.4
 - License: MIT
 - Vendored file: `vendor/qrcode.js`
+- Online card renderer: pinned npm package `qrcode-generator@2.0.4`
 
 The full license text is preserved in `vendor/LICENSE`.
 
@@ -48,6 +49,8 @@ The source repository's license text is preserved in `assets/logos/source/cipher
 | Zarathustra | `assets/fonts/zarathustra-v01.woff2` | Vizor brand typeface | Bundled with the Vizor brand kit |
 
 Google Fonts builds of Space Grotesk, Silkscreen and Geist Mono are vendored as woff2 (latin subset) so the studio never loads fonts from the network.
+
+`assets/fonts/geist-regular.woff2` is vendored from [Vercel's Geist Regular webfont](https://github.com/vercel/geist-font/blob/main/fonts/Geist/webfonts/Geist-Regular.woff2) for online-card descriptions, under the SIL Open Font License 1.1 listed above.
 
 ## Brand marks
 

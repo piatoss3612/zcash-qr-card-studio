@@ -1,0 +1,10 @@
+Precisely recompose the attached Zcash developer card, preserving its landscape dimensions, opaque warm ivory background, black type, golden Zcash logo top right, and EXACT unchanged pixel Vizorcat identity, face, proportions, pose and rendering.
+
+Requested layout correction:
+1. Upper-left identity group: name "rowan" remains at its current location and size. Below it place exact bio on two lines: "Building tools for" / "a more private web." Reduce bio font size by approximately 22% from input, use regular weight and comfortable line-height. Keep the name and bio visibly grouped.
+2. REMOVE the GitHub icon and repository from beneath the bio. Leave generous blank ivory space separating identity group from QR.
+3. KEEP the QR placeholder EXACTLY the same size and lower-left position as the input, including clean quiet space. Never shrink it to fit more text.
+4. RELOCATE the repository credit into the empty space immediately RIGHT of the QR and LEFT of the cat, centered approximately vertically alongside the QR. This is the only repository credit. Use a very small GitHub icon followed by plain text "rowan/privacy-tools" on one line. Font around 70% of the input repository text size. Keep it readable and restrained; fit within the empty middle column without entering QR quiet zone or touching cat. No underline, no arrow, no capsule, no box: this is identity information, not an independent link or QR instruction.
+5. Keep the cat on the right, unchanged size and position. Keep the single small diagonal arrow lower-right. No Support label, no scan instruction, no duplicate handle, no labels such as project or featured work.
+Optically align left edges of name, bio and QR. The result must clearly have two spatial groups on left: identity above; QR with small repository credit alongside below. Preserve generous air between groups.
+No new ornament, divider, border, tile, frame, shadow, gradient, surrounding page or outside caption. One flat full-bleed finished card concept. All cat ears feet and tail visible. QR remains a non-production visual placeholder, no printed disclaimer.

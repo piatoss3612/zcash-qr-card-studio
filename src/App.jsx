@@ -2,6 +2,8 @@ import { memo, useEffect, useRef, useState } from "react";
 import { GooeyNav } from "./components/GooeyNav.tsx";
 import { mountApp } from "./main.js";
 
+import { CardTypeNav } from "./CardTypeNav.jsx";
+
 const STEPS = ["content", "design", "review"];
 
 const EditorMarkup = memo(function EditorMarkup() {
@@ -111,6 +113,7 @@ const EditorMarkup = memo(function EditorMarkup() {
       </div>
     </div>
   </header>
+  <CardTypeNav current="print" />
   {/* ══════════════════════════ WORKBENCH ══════════════════════════ */}
   <div className="workbench">
     <div className="studio-sidebar">

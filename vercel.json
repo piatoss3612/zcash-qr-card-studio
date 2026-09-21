@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "buildCommand": "npm test && npm run build",
+  "outputDirectory": "dist",
+  "functions": {
+    "api/card.js": {
+      "includeFiles": "assets/{characters,logos,fonts}/*.{png,svg,woff2}"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/pay",
+      "destination": "/api/pay"
+    },
+    {
+      "source": "/api/card.svg",
+      "destination": "/api/card"
+    },
+    {
+      "source": "/online",
+      "destination": "/online.html"
+    },
+    {
+      "source": "/support",
+      "destination": "/support.html"
+    }
+  ],
+  "installCommand": "npm ci"
+}

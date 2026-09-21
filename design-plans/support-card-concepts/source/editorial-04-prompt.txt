@@ -1,0 +1,15 @@
+Use case: ui-mockup. Recompose the attached developer Zcash support card into a polished NEW editorial concept, including a separate linked project caption below the card. Preserve the EXACT attached Vizorcat character identity, proportions, pixel rendering, face, paws, ears and tail. Do not redesign the cat.
+
+Output ONE flat front-facing design preview, landscape, opaque background, not a photographed object. Show a single landscape ivory card on a white page with a little white margin below for a separate text link. The card itself has no border, shadow, internal dividers, panels or rounded containers.
+
+Card composition:
+Upper left: "rowan" as the only name, in a sophisticated medium-weight geometric grotesk resembling Space Grotesk Medium. Much less heavy than the original. No extra-bold black blob lettering. Name takes about 40% of card width and has deliberate spacious letterforms.
+Below name: two lines "Building tools for" / "a more private web." in a restrained readable regular sans resembling Geist Regular.
+Upper right: preserve the original small golden Zcash circle logo.
+Lower left: a prominent QR placeholder, about 26% of card width, black on the same ivory surface with generous clean quiet space and absolutely no tile/frame.
+Right half: the exact existing pixel Vizorcat, moderately sized, feet aligned near QR bottom; freely standing on ivory, with ample space around its silhouette.
+Delete the word "Support" completely. Delete ALL other call-to-action sentences. Only a discreet small diagonal arrow ↗ at the card lower-right indicates the entire card can be activated. The intended action is direct zcash: ZIP-321 wallet launch, NOT a donation website or intermediary support page. Do not print URI strings.
+No project link text INSIDE the card.
+
+BELOW the card on the white page, aligned to the card left edge, show a separate small GitHub icon followed by an underlined text link "rowan / privacy-tools ↗". This is an illustrative featured project, separate from the card, NOT part of the payment image. Keep this row secondary but readable, with 20px-equivalent vertical whitespace between card and project link. Do not add stars, badges or metrics.
+The whole composition should look like a tasteful developer profile signature. Strong whitespace, confident subtle typography, clean hierarchy. Avoid loud display weight, gigantic bio text, pill buttons, any frames around cat or QR, ornamental shapes, scenery, additional text or duplicated names. The QR is a non-production concept placeholder; do not add a printed disclaimer.

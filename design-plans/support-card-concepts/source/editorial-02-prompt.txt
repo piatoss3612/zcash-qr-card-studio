@@ -1,0 +1,1 @@
+Revision: use the repository Zcash coin logo; remove both support labels and keep one Support arrow beside QR; use one-line display name rowan plus optional secondary @rowan; preserve the opaque ivory surface, original Vizorcat, and unframed composition. Built-in image edit, referencing editorial-01.png and assets/logos/zcash-coin.png. QR remains a concept placeholder.

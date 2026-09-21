@@ -3,8 +3,36 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { paymentLaunch } from "./server/payment-launch.js";
+import { cardApi } from "./server/card-api.js";
 
 const projectRoot = path.dirname(fileURLToPath(import.meta.url));
+
+function cardApiDev() {
+  const cache = new Map();
+  const middleware = async (req, res, next) => {
+    const url = new URL(req.url, "http://localhost");
+    if (url.pathname === "/pay") {
+      const response = await paymentLaunch(new Request(url, { method: req.method }));
+      res.writeHead(response.status, Object.fromEntries(response.headers));
+      res.end(Buffer.from(await response.arrayBuffer()));
+      return;
+    }
+    if (!url.pathname.startsWith("/api/")) return next();
+    try {
+      const response = await cardApi(new Request(url, { method: req.method }), async (asset) => {
+        if (!cache.has(asset)) {
+          const bytes = await fs.promises.readFile(path.join(projectRoot, asset));
+          cache.set(asset, `data:${asset.endsWith(".png") ? "image/png" : asset.endsWith(".svg") ? "image/svg+xml" : "font/woff2"};base64,${bytes.toString("base64")}`);
+        }
+        return cache.get(asset);
+      });
+      res.writeHead(response.status, Object.fromEntries(response.headers));
+      res.end(Buffer.from(await response.arrayBuffer()));
+    } catch { res.writeHead(500); res.end("Card service unavailable"); }
+  };
+  return { name: "support-card-api", configureServer(server) { server.middlewares.use(middleware); }, configurePreviewServer(server) { server.middlewares.use(middleware); } };
+}
 
 function copyRuntimeFiles() {
   const sourceRoot = path.join(projectRoot, "assets");
@@ -45,9 +73,10 @@ function copyRuntimeFiles() {
 
 export default defineConfig({
   base: "./",
-  plugins: [react(), copyRuntimeFiles()],
+  plugins: [react(), copyRuntimeFiles(), cardApiDev()],
   build: {
     target: "es2022",
     assetsInlineLimit: 0,
+    rollupOptions: { input: { studio: path.join(projectRoot, "index.html"), online: path.join(projectRoot, "online.html"), support: path.join(projectRoot, "support.html") } },
   },
 });

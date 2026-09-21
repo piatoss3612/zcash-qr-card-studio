@@ -5,8 +5,8 @@
 <h1 align="center">Zcash QR Card Studio</h1>
 
 <p align="center">
-  Design and print A6 QR cards for Zcash payments, Vizor gift links and web links.<br />
-  A static web app. Everything stays in your browser.
+  Print A6 QR cards or create personal Zcash support cards for the web.<br />
+  Print designs stay in your browser. Online cards share public payment details.
 </p>
 
 <p align="center">
@@ -21,6 +21,8 @@
 ---
 
 The studio starts with Content → Design → Review & print. Enter an event name, heading and QR content, then choose a theme and Vizorcat. Theme changes preserve your content and wording. Enable **Free positioning & layers** for the full editing tools. Export a print-ready PNG, print A6 or A4 sheets, display the card on screen, or batch-render a ZIP. On mobile the preview can be expanded, and undo/redo remain accessible.
+
+Choose **Online cards** in the top bar for a personal support card. Pick Profile or QR card, Paper / Midnight / Pixel, and an existing Vizorcat companion. Preview it inside a light or dark README, download a PNG, or copy Markdown and HTML when the image service is available. Clicking the card and scanning its QR use the same ZIP-321 request. GitHub strips `zcash:` links, so use the QR format in GitHub READMEs; clickable embeds require a host that permits wallet links. See [Online cards](docs/online-cards.md) for hosting, privacy, and verification details.
 
 ## Quick start
 
@@ -49,11 +51,11 @@ node --test
 
 Pick the card type at the top of the QR content panel. Payment requests are the default.
 
-| Card type | QR payload | Get Vizor card |
-|---|---|---|
-| Payment request | A ZIP-321 `zcash:` URI built from an address plus optional amount, memo, label and message. Opens in any Zcash wallet. | Never included |
-| Vizor gift card | A Vizor payment link (`https://link.vizor.cash/…#v1=…`). | Always included |
-| Link | Any `http`/`https` link. | Optional, on by default |
+| Card type       | QR payload                                                                                                             | Get Vizor card          |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------- | ----------------------- |
+| Payment request | A ZIP-321 `zcash:` URI built from an address plus optional amount, memo, label and message. Opens in any Zcash wallet. | Never included          |
+| Vizor gift card | A Vizor payment link (`https://link.vizor.cash/…#v1=…`).                                                               | Always included         |
+| Link            | Any `http`/`https` link.                                                                                               | Optional, on by default |
 
 Payment requests validate the address by prefix, charset and length (`t1`/`t3`, `zs1`, `u1`, `tex1`, plus testnet prefixes with a warning). Memos are base64url-encoded, limited to 512 bytes, and rejected for transparent addresses. Amounts allow at most 8 decimal places.
 
@@ -104,20 +106,20 @@ Vizorcat is the mascot family of the Vizor wallet: pixel-art cat companions that
 
 The Classic Guardian's head is the studio's own mark: favicon, top-bar logo, the `Vizorcat Classic` logo sticker and a QR emblem. The Samurai's head is available as a second sticker and emblem.
 
-| Vizorcat | Theme | Home background |
-|---|---|---|
-| Classic Guardian | Knight of the stonehold | Brass Rampart, Quiet Paper |
-| Samurai | Shogun samurai, the one-eyed boss | Indigo Wave, Crimson Core, Dark Core |
-| Oni Samurai | One-eyed samurai with an oni mask, naginata and an inviting palm-up paw | Blossom Drift |
-| Stonehold Warden | Compact stonehold guardian with hammer and cape | Dragon Flight |
-| Crimson Grove Ranger | Crimson-hooded forest ranger | Whispering Grove |
-| Snow Surveyor | White-and-silver polar surveyor | Frost Archive |
-| Hearthlight Host | Warm gift-exchange host | Hearthlight Exchange |
-| Workshop Alchemist | Bronze Mau alchemist with a black homunculus in a dry flask | Alchemist Workshop |
-| Tal Strongman | Gray-brown tabby in teal with a laughing wooden mask and a shoulder-carried iron mace | Moonlit Village |
-| Orbital Ranger | Orbital rescue ranger | Lunar Orbit |
-| Astral Wayfinder | Hooded navigator with an astrolabe | Astral Chart |
-| Commons Guide | Community meetup guide | Modernist Commons |
+| Vizorcat             | Theme                                                                                 | Home background                      |
+| -------------------- | ------------------------------------------------------------------------------------- | ------------------------------------ |
+| Classic Guardian     | Knight of the stonehold                                                               | Brass Rampart, Quiet Paper           |
+| Samurai              | Shogun samurai, the one-eyed boss                                                     | Indigo Wave, Crimson Core, Dark Core |
+| Oni Samurai          | One-eyed samurai with an oni mask, naginata and an inviting palm-up paw               | Blossom Drift                        |
+| Stonehold Warden     | Compact stonehold guardian with hammer and cape                                       | Dragon Flight                        |
+| Crimson Grove Ranger | Crimson-hooded forest ranger                                                          | Whispering Grove                     |
+| Snow Surveyor        | White-and-silver polar surveyor                                                       | Frost Archive                        |
+| Hearthlight Host     | Warm gift-exchange host                                                               | Hearthlight Exchange                 |
+| Workshop Alchemist   | Bronze Mau alchemist with a black homunculus in a dry flask                           | Alchemist Workshop                   |
+| Tal Strongman        | Gray-brown tabby in teal with a laughing wooden mask and a shoulder-carried iron mace | Moonlit Village                      |
+| Orbital Ranger       | Orbital rescue ranger                                                                 | Lunar Orbit                          |
+| Astral Wayfinder     | Hooded navigator with an astrolabe                                                    | Astral Chart                         |
+| Commons Guide        | Community meetup guide                                                                | Modernist Commons                    |
 
 Vizorcats are authored in the separate `vizorcat` project. Only approved stickers are copied into `assets/characters/`, each with a record in `assets/characters/source/` naming the Variant, the Theme, the generation prompt, the alpha-extraction steps and the file hash. New characters must pass the identity, scale and alpha gates in `AGENTS.md` before they are registered in `src/catalog.js`.
 
@@ -171,35 +173,35 @@ Partner logos remain the property of their owners. `assets/logos/source/partner-
 
 ## Deployment
 
-Every push to `main` runs the GitHub Actions Pages workflow. It installs the
-locked dependencies, runs the tests, builds the app and publishes `dist/` to
-GitHub Pages. Use **Run workflow** for a manual deployment; the workflow
-publishes only the Vite `dist/` output.
+Vercel is the primary deployment target. It serves the Vite editors and Node.js
+functions for card images and HTTPS wallet launch from one origin. GitHub
+Actions runs tests and builds only; it no longer publishes GitHub Pages.
 
-For a local production check or an independent static bundle, run:
+Import this repository in Vercel using the repository root and Node.js 22.
+`vercel.json` sets Vite, `npm ci`, the test/build command, `dist` output,
+function artwork inclusion and routes. No environment variables are required
+for a same-origin deployment; leave `VITE_CARD_SERVICE_URL` unset.
 
-```bash
-node --test
+See [Vercel deployment](docs/vercel-deployment.md) for setup and acceptance checks.
+For a local check:
+
+```sh
+npm test
 npm run build
-python3 scripts/prepare-static-site.py
+npm run preview
 ```
 
-The Vite build writes `dist/`, and the packaging script prints a fresh
-`output/static-site-*/site` directory and `site.zip`, with `SHA256SUMS` beside
-it. The Pages workflow uses `dist/` directly. The packaging output includes
-runtime assets, bundled license texts and `.nojekyll`; authoring concepts, QA
-images, tests and Git metadata are excluded. Each packaging run creates a
-separate directory and leaves earlier bundles intact.
-
-Preview the printed directory with `python3 -m http.server 4173 --directory <site-directory>`. Verify theme selection, a populated QR with Get Vizor guidance, mobile preview and PNG export before publishing. Relative paths support hosting under a project subdirectory. `vendor/qrcode.js` is a pinned copy of `qrcode-generator` (see `vendor/LICENSE`).
-
-Before public publication, resolve the existing [third-party mark review](#third-party-marks).
+Do not publish only `dist/`: image and wallet-launch APIs also need the Vercel
+functions in `api/`. Public image and `/pay` URLs must be accessible without
+login so GitHub and supporters can open them.
 
 ## Assets and privacy
 
 Original character and background assets were created with OpenAI image-generation tools, then selected, edited, composited and curated for this project. They are not represented as exclusively human-made or guaranteed unique. Third-party logos, fonts and libraries remain subject to their owners' terms; see `THIRD_PARTY_NOTICES.md` and the provenance records under each asset's `source/` directory.
 
-The application runs entirely in the browser. It does not collect, store or transmit QR contents, card designs or personal information, and it uses no accounts, analytics, cookies or browser storage. Gift-link fragments never leave the page and are never written to exported or saved files. OpenAI services are used only during asset production, never by the deployed application.
+The print application runs entirely in the browser. It does not collect, store or transmit QR contents, card designs or personal information, and it uses no accounts, analytics, cookies or browser storage. Gift-link fragments never leave the page and are never written to exported or saved files. OpenAI services are used only during asset production, never by the deployed application.
+
+Online support cards are intentionally public: image URLs contain the receiving address, name, introduction, optional amount and memo. An image request sends those details to the configured card service and may be cached by GitHub or another image proxy. The service generates SVG without accounts or a card database. Generated embeds use an HTTPS route that opens the ZIP-321 request; they never hold funds, verify identity, or report payment completion. Hosting providers may retain ordinary request logs. Do not put private information or gift links into an online card.
 
 Links encoded in QR codes are governed by the privacy practices of their destinations. A static hosting provider may process ordinary request information under its own policy; this project does not receive it.
 
