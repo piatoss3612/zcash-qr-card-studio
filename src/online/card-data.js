@@ -38,7 +38,7 @@ export const STYLES = {
   terminal: {
     label: "Terminal", description: "Monospace on deep green.",
     bg: "#101c18", ink: "#c6efd4", muted: "#9eb8a7",
-    accent: "#9ad6b0", border: "#3c5849", qrBackground: "#eef5e9",
+    accent: "#9ad6b0", border: "#3c5849",
   },
 };
 export const COMPANIONS = {

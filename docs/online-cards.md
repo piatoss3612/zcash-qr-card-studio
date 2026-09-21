@@ -171,7 +171,8 @@ explained at the format selector, before sharing.
 
 All four layouts support Paper, Midnight, Pixel, Editorial and Terminal.
 Editorial uses a warm ivory surface and Zarathustra serif; Terminal uses
-Geist Mono on deep green with a light QR quiet zone. Compact shares the same
+Geist Mono on deep green. Every QR sits on a white square, including its
+four-module quiet zone. Compact shares the same
 ZIP-321 request and density checks as Signature, and its dimensions flow through
 preview, PNG export and HTML embeds. Layouts are saved in editing links.
 

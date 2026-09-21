@@ -184,16 +184,15 @@ export async function renderCard(card, loadAsset, { demo = false } = {}) {
   let qr = "";
   if (isQr) {
     if (demo) {
-      qr = `<text x="${qrX + 80}" y="${qrY + 79}" text-anchor="middle" font-size="13" fill="${theme.muted}">Add your address</text><text x="${qrX + 80}" y="${qrY + 100}" text-anchor="middle" font-size="13" fill="${theme.muted}">to create a QR</text>`;
+      qr = `<rect x="${qrX}" y="${qrY}" width="${qrSize}" height="${qrSize}" fill="#fff"/><text x="${qrX + 80}" y="${qrY + 79}" text-anchor="middle" font-size="13" style="fill:#17231f">Add your address</text><text x="${qrX + 80}" y="${qrY + 100}" text-anchor="middle" font-size="13" style="fill:#17231f">to create a QR</text>`;
     } else {
       const uri = paymentUri(card);
       if (qrSize / (qrMatrix(uri).getModuleCount() + 8) < 2)
         throw new Error(
           "This QR is too dense at card size. Shorten the memo or use the profile format.",
         );
-      // Light styles share one uninterrupted surface. Dark cards retain the
-      // light quiet zone required by ordinary camera scanners, without a frame.
-      qr = qrSvg(uri, theme.qrBackground || (card.style === "midnight" ? "#f8f6ed" : theme.bg))
+      // Keep the QR and its four-module quiet zone on white in every style.
+      qr = qrSvg(uri)
         .replace("<svg ", `<svg x="${qrX}" y="${qrY}" `)
         .replace(
           /width="\d+" height="\d+"/,

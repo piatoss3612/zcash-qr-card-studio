@@ -432,7 +432,7 @@ test("new styles and portrait round-trip without changing the payment request", 
     assert.equal(paymentUri(card), paymentUri(original));
     const svg = await renderCard(card, loadAsset);
     assert.match(svg, /width="400" height="480"/);
-    if (style === "terminal") assert.match(svg, /fill="#eef5e9"/);
+    assert.match(svg, /fill="#fff"/);
   }
 });
 
