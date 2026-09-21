@@ -288,7 +288,7 @@ export function cardLinks(card, pageUrl, apiBase = pageUrl) {
     payment: payment,
     launch: launch.href,
     edit: edit.href,
-    markdown: `[![Support with Zcash](${image.href})](${launch.href})\n\n[Open Zcash wallet](${launch.href})`,
+    markdown: `[![Support with Zcash](${image.href})](${launch.href})`,
     html: `<a href="${escapeXml(launch.href)}"><img src="${escapeXml(image.href)}" alt="Support ${escapeXml(card.name)} with Zcash" width="${LAYOUTS[card.layout].width}" style="max-width:100%;height:auto" /></a>`,
   };
 }

@@ -10,7 +10,7 @@ test("HTTPS launch preserves exact payment intent and escapes creator text", asy
   const links = cardLinks(card, "https://site.example/online.html", "https://cards.example/");
   assert.equal(new URL(links.launch).protocol, "https:");
   assert.equal(new URL(links.launch).pathname, "/pay");
-  assert.ok(links.markdown.includes(`](${links.launch})`));
+  assert.equal(links.markdown, `[![Support with Zcash](${links.image})](${links.launch})`);
   const response = await paymentLaunch(new Request(links.launch));
   assert.equal(response.status, 200);
   assert.equal(response.headers.get("cache-control"), "no-store");
