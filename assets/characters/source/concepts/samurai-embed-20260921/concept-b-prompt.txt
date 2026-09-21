@@ -1,0 +1,12 @@
+Use case: precise-object-edit of the existing Samurai companion for online Zcash support cards (dark card backgrounds such as #182322).
+
+Edit reference 1 (attached): the current Samurai companion. This is a localized edit, not a redraw. LOCK exactly: the character's pose, silhouette, head size, head-to-body ratio, body height, leg length, paw sizes, tail, framing and position in the canvas; the one-eyed Boss identity (black short fur, one open golden eye, the closed scarred eye); the crescent-crested kabuto; every armor plate's shape and placement; the single sheathed katana; the command fan in the screen-right paw; the open screen-left paw; the pixel density and outline weight. Do not make the head smaller or the body taller.
+Reference 2 (attached): the one-eyed Boss model sheet — identity check only.
+
+Change ONLY these:
+1. Remove the lower-face hanbo mask completely. It must not appear anywhere: not on the face, not hanging at the neck, not merged into the chest armor or collar. Where it was, draw the cat's own black-furred lower face with a small friendly closed-mouth smile, matching the one-eyed Boss face grid.
+2. Soften the expression from stern to warm and confident: relax the open eye's brow slightly; keep the eye's size and position.
+3. Readability on a near-black background: brighten the existing crimson lacquer and aged-gold trim a little, and add subtle cool-gray rim highlights along the outer edges of the black fur (ears, head, paws, tail). Keep the fur black and keep the navy plates navy.
+
+No new objects, no text, crests, logos, frames, ground shadow or background.
+Background: transparent alpha if available; otherwise one perfectly flat pure #00FF00 chroma-key green with no gradient or checkerboard. Same canvas framing as reference 1. One edited image.

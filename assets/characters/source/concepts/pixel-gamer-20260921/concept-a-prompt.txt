@@ -1,0 +1,19 @@
+Use case: new themed Vizorcat companion for an online Zcash support card with a "Pixel" card style (soft periwinkle #e7edfa background with a chunky bitmap pixel font).
+
+Reference 1 (attached, authoritative identity): the Vizorcat Standard model sheet. Keep this exact cat: gray-and-white short-haired chibi cat, rounded head with softly squared cheeks occupying about 46-50% of full-body height, medium triangular ears at the same roots, two large round golden-yellow eyes, small pink triangular nose, short white muzzle and blaze, tiny cat mouth, cheek whiskers, white chest patch, white paw tips and white tail tip, short rounded torso with no waist, very short hind legs, round block paws, medium-thick curved tail. Upright on two hind feet. No long limbs, no humanoid anatomy, no redesign of the face.
+Reference 2 (attached, proportion, head shape and rendering): the approved Airmail Courier companion. Match its head size, skull outline, ear placement, body length, finished pixel-art density, outline weight, shading, cheerful expression and full-body framing. Do not copy its cap, neckerchief, satchel or envelope.
+The Theme may change clothing and props only.
+
+Head shape (critical — a previous version was rejected because the skull looked squashed by the ears): draw the exact Standard skull outline, a rounded head with a domed crown and softly squared cheeks. The ears rise from the upper skull at the Standard ear roots, with the rounded crown clearly visible between them. Do not flatten the top of the head, widen the head sideways, push the ears out to the corners, or let headwear compress the skull. Match the Airmail Courier's head size, skull shape and head-to-body ratio exactly; eyes are the same size, level and open at the canonical diameter.
+
+Theme: Retro Pixel Gamer.
+- A red sweatband headband worn across the forehead above the eyes, leaving the ears and eyes free.
+- A short-sleeved periwinkle-and-white striped T-shirt and small navy shorts.
+- Both forepaws hold a chunky retro handheld game console (light gray body, dark green screen, a black directional pad and two raspberry-red round buttons) in front of the belly, tilted so the screen faces screen-left; the screen shows only a plain glow, no text.
+- A tiny happy "victory" expression: eyes open at the canonical size, open smile.
+- Clean, bold pixel clusters that stay crisp at small sizes.
+
+Pose: head and eyes turned a little toward screen-left, where the QR code sits on the card; friendly expression. Stable compact standing pose with both feet under the body; keep raised paws and props close to the body so the silhouette stays compact and roughly 4:5 tall.
+
+Strictly no text, letters, numbers, readable glyphs, logos, QR codes, frames, ground shadow, scenery or background objects.
+Background: transparent alpha if available; otherwise one perfectly flat pure #00FF00 chroma-key green with no gradient, texture or checkerboard, and no green inside the character. Full character, both ears, tail, paws and every prop entirely inside the frame with generous margin. One image.

@@ -153,6 +153,78 @@
       "sourceRecord": "source/vizorcat-surprised.md",
       "variant": "vizorcat-standard",
       "usage": "online surprised companion with yellow accent marks"
+    },
+    {
+      "id": "airmail-courier",
+      "file": "airmail-courier-v1.png",
+      "sha256": "b2bf397d16570978239d9f7de0dd1a16782216c63f5eca45b8ed794775f368b3",
+      "source": "generated for QR Card Studio with local alpha normalization",
+      "sourceRecord": "source/airmail-courier-v1.md",
+      "variant": "vizorcat-standard",
+      "usage": "online-only Airmail Courier companion raising a sealed airmail envelope toward the QR side"
+    },
+    {
+      "id": "classic-guardian-embed",
+      "file": "classic-guardian-embed-v1.png",
+      "sha256": "5b62030d2ccc30912f50aefbe5f29ce86efb549c607eafad1ad22fbaaab9edd6",
+      "source": "generated for QR Card Studio with local alpha normalization",
+      "sourceRecord": "source/classic-guardian-embed-v1.md",
+      "variant": "vizorcat-standard",
+      "usage": "online embed replacement for the Classic Guardian: faces and waves toward the screen-left QR, happy expression"
+    },
+    {
+      "id": "samurai-embed",
+      "file": "samurai-embed-v2.png",
+      "sha256": "f9fe0d8f730bb96d408c8a660ed6e72e6115e0c9668b2894a35e22baa95fd0db",
+      "source": "localized edit of the print Samurai with local alpha normalization",
+      "sourceRecord": "source/samurai-embed-v2.md",
+      "variant": "one-eyed-boss",
+      "usage": "online embed Samurai: print pose and proportions kept, hanbo removed to show a smile, rim highlights for dark cards"
+    },
+    {
+      "id": "aurora-photographer",
+      "file": "aurora-photographer-v2.png",
+      "sha256": "a449ac6402cf3d18c737c47206760a254df3b0c7fdf1db0ddcdc26a77fee4fd2",
+      "source": "generated for QR Card Studio with local alpha normalization",
+      "sourceRecord": "source/aurora-photographer-v2.md",
+      "variant": "fluffy-warden",
+      "usage": "online-only Aurora Photographer companion (Fluffy Warden) in a teal beanie and violet parka, holding a vintage camera toward the QR side"
+    },
+    {
+      "id": "editorial-writer",
+      "file": "editorial-writer-v2.png",
+      "sha256": "35891285db03ad1b4b6b107c3c03019195f1ea626db8cb91332ac3c1cad8bfa1",
+      "source": "generated for QR Card Studio with local alpha normalization",
+      "sourceRecord": "source/editorial-writer-v2.md",
+      "variant": "moonpoint-watcher",
+      "usage": "online-only Editorial Writer companion (Moonpoint Watcher) in a terracotta beret and knitted vest, raising a fountain pen toward the QR side"
+    },
+    {
+      "id": "pixel-gamer",
+      "file": "pixel-gamer-v2.png",
+      "sha256": "e5c471d064746ffb51443fc070de7fd0518e7ff920c53676f5be08504785816f",
+      "source": "generated for QR Card Studio with local alpha normalization",
+      "sourceRecord": "source/pixel-gamer-v2.md",
+      "variant": "one-eyed-boss",
+      "usage": "online-only Pixel Gamer companion (one-eyed Boss) with a red headband, striped shirt and a retro handheld console"
+    },
+    {
+      "id": "blueprint-architect",
+      "file": "blueprint-architect-v1.png",
+      "sha256": "9810533a1f6c96ca81c776b9e5b0da7fa6b57f8470b45e3c9cadc5d1d2fec24b",
+      "source": "generated for QR Card Studio with local alpha normalization",
+      "sourceRecord": "source/blueprint-architect-v1.md",
+      "variant": "lithe-scout",
+      "usage": "online-only Blueprint Architect companion in a mustard work vest, raising a pencil toward the QR side with a rolled blueprint"
+    },
+    {
+      "id": "terminal-sysadmin",
+      "file": "terminal-sysadmin-v1.png",
+      "sha256": "b8ad1901f0420d668ae331da647bdbadad438187d8db496f3909d46913660d66",
+      "source": "generated for QR Card Studio with local alpha normalization",
+      "sourceRecord": "source/terminal-sysadmin-v1.md",
+      "variant": "round-guardian",
+      "usage": "online-only Terminal Sysadmin companion in a cream cardigan with a mint mug and a compact keyboard"
     }
   ]
 }

@@ -327,8 +327,9 @@ export default function OnlineStudio() {
                   title={style.description}
                 >
                   <span
+                    data-style={id}
                     style={{
-                      background: style.bg,
+                      backgroundColor: style.bg,
                       color: style.ink,
                       borderColor: style.border,
                     }}
@@ -349,7 +350,7 @@ export default function OnlineStudio() {
             </div>
           </fieldset>
           <fieldset className="oc-fieldset">
-            <legend>Companion</legend>
+            <legend>Vizorcat</legend>
             <div className="oc-companion-grid" id="oc-companion-options">
               {Object.entries(COMPANIONS).filter(([id]) => id !== "standard").filter(([id], index) => showAllCompanions || index < 6 || id === "none" || id === draft.companion).map(([id, companion]) => (
                 <button key={id} aria-pressed={draft.companion === id} onClick={() => update("companion", id)}>
@@ -359,7 +360,7 @@ export default function OnlineStudio() {
               ))}
             </div>
             <button type="button" className="oc-companion-more" aria-expanded={showAllCompanions} aria-controls="oc-companion-options" onClick={() => setShowAllCompanions(value => !value)}>
-              {showAllCompanions ? "Show fewer companions" : "Explore all 13 companions"}
+              {showAllCompanions ? "Show fewer Vizorcats" : `Explore all ${Object.keys(COMPANIONS).filter(id => !["standard", "none"].includes(id)).length} Vizorcats`}
             </button>
           </fieldset>
           {draft.companion !== "none" && (
@@ -511,10 +512,10 @@ export default function OnlineStudio() {
             </div>
           </div>
           <p className="oc-preview-caption">
-            <span id="oc-position-help">Drag the companion to move it, or its corner handle to resize. Arrow keys adjust the focused handle; Shift makes larger steps.</span>
+            <span id="oc-position-help">Drag the Vizorcat to move it, or its corner handle to resize. Arrow keys adjust the focused handle; Shift makes larger steps.</span>
             {draft.companion !== "none" && <button className="oc-position-reset" onClick={() => setDraft(previous => ({ ...previous, companionPosition: "fit", companionX: "", companionY: "" }))}>Reset position</button>}
             <span>Use Open wallet below to test the payment link.</span>
-            {companionOverlapsQr(draft) && <span className="oc-position-warning" role="status">Companion overlaps the QR or its quiet zone. Move it away before sharing.</span>}
+            {companionOverlapsQr(draft) && <span className="oc-position-warning" role="status">Vizorcat overlaps the QR or its quiet zone. Move it away before sharing.</span>}
           </p>
           <section className="oc-share" aria-label="Share your card">
             <div className="oc-section-title">

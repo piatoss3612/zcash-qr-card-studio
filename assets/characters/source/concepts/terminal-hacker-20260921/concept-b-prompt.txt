@@ -1,0 +1,18 @@
+Use case: new themed Vizorcat companion for an online Zcash support card with a "Terminal" card style (deep green #101c18 background with mint monospace text). Second attempt.
+
+Reference 1 (attached, authoritative identity): the Vizorcat Standard model sheet. Keep this exact cat: gray-and-white short-haired chibi cat, medium triangular ears, two large round golden-yellow eyes, small pink triangular nose, short white muzzle and blaze, tiny cat mouth, cheek whiskers, white chest patch, white paw tips and white tail tip, short rounded torso with no waist, very short hind legs, round block paws with visible paw shape, medium-thick curved tail. Upright on two hind feet. No long limbs, no humanoid anatomy.
+Reference 2 (attached, proportion, head shape and rendering): the approved Airmail Courier companion, which the user approved. Match its head size, skull outline, ear placement, body length, pixel-art density, outline weight, shading and full-body framing. Do not copy its cap, neckerchief, satchel or envelope.
+The Theme may change clothing and props only.
+
+Head shape (critical — a previous version was rejected because the skull looked squashed by the ears): draw the exact Standard skull outline, a rounded head with a domed crown and softly squared cheeks. The ears rise from the upper skull at the Standard ear roots, with the rounded crown clearly visible between them. Do not flatten the top of the head, widen the head sideways, push the ears out to the corners, or let headwear compress the skull. Match the Airmail Courier's head size, skull shape and head-to-body ratio exactly; eyes are the same size, level and open at the canonical diameter.
+
+Theme: Terminal Hacker — a cozy night-shift open-source developer.
+- An oversized hoodie in light sage green (clearly different from the gray fur) with mint drawstrings and cuffs; hood down behind the head so both ears and the domed crown are free.
+- Over-ear headphones in charcoal with mint accents resting around the neck, not on the head.
+- The screen-right forepaw holds a small open laptop against the body; its screen faces screen-left and shows only a solid mint glow with a few abstract horizontal bars — no letters, digits or symbols.
+- The screen-left forepaw gives a small relaxed wave toward screen-left, with a clearly drawn paw and pink pads visible.
+
+Pose: head and eyes turned a little toward screen-left, where the QR code sits on the card; friendly, relaxed smile. Stable compact standing pose with both feet under the body; keep raised paws and props close to the body so the silhouette stays compact and roughly 4:5 tall.
+
+Strictly no text, letters, numbers, readable glyphs, logos, QR codes, frames, ground shadow, scenery or background objects.
+Background: transparent alpha if available; otherwise one perfectly flat pure #00FF00 chroma-key green with no gradient, texture or checkerboard, and no green inside the character. Full character, both ears, tail, paws and every prop entirely inside the frame with generous margin. One image.

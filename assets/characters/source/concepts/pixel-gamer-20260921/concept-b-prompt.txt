@@ -1,0 +1,14 @@
+Use case: replace the coat and identity of an existing themed Vizorcat companion with a different Vizorcat Variant, for an online Zcash support card with a "Pixel" card style (soft periwinkle #e7edfa background with a chunky bitmap pixel font).
+
+Reference 1 (attached, authoritative identity): the one-eyed Boss Variant model sheet. Keep this exact cat: solid black short coat, the character-right eye closed with a healed scar, one open amber eye, thick tail, the Vizorcat Standard round skull, ear roots, short legs and round paws. Expression: a confident, playful grin — a friendly "final boss" gamer, not menacing.
+Reference 2 (attached): the previous gray-and-white version of this companion — use it ONLY for the outfit, props, pose and pixel-art rendering. Its gray-and-white coat, yellow eyes and white blaze must be completely replaced by the Variant's coat, eyes and markings.
+The Theme may change clothing and props only.
+
+Head shape (critical — earlier characters were rejected because the skull looked squashed by the ears or headwear): keep the Variant sheet's round skull and cheeks, domed crown and ear roots exactly. The headwear sits on the crown without flattening the skull, widening the head or pushing the ears out; both ears stay fully visible. Eyes stay at the Variant's canonical size and position.
+
+Theme: Retro Pixel Gamer (same outfit as reference 2) — a red sweatband across the forehead above the eyes (it does not cover the closed scarred eye or the open eye), a periwinkle-and-white striped T-shirt, navy shorts, and a chunky light-gray retro handheld game console with a blank green screen, black D-pad and two raspberry-red buttons held in both paws in front of the belly. The black coat should read crisply against a light periwinkle background.
+
+Pose: head and eyes turned a little toward screen-left, where the QR code sits on the card. Stable compact standing pose with both feet under the body; keep paws and props close to the body so the silhouette stays compact and roughly 4:5 tall.
+
+Strictly no text, letters, numbers, readable glyphs, logos, QR codes, frames, ground shadow, scenery or background objects.
+Background: transparent alpha if available; otherwise one perfectly flat pure #00FF00 chroma-key green with no gradient, texture or checkerboard. Full character, both ears, tail, paws and every prop entirely inside the frame with generous margin. One image.

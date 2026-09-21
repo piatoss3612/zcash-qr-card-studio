@@ -1,0 +1,14 @@
+Use case: replace the coat and identity of an existing themed Vizorcat companion with a different Vizorcat Variant, for an online Zcash support card with an "Editorial" card style (warm ivory #f5eee4 background with an expressive serif typeface and terracotta accents).
+
+Reference 1 (attached, authoritative identity): the Moonpoint Watcher Variant model sheet. Keep this exact cat: Siamese-colorpoint-inspired ivory-cream body, a symmetrical seal-brown facial mask, seal-brown ears, paws and tail, sapphire-blue eyes, quiet observant expression; the Vizorcat Standard round skull, eye grid, short legs and round paws with zero geometry change.
+Reference 2 (attached): the previous gray-and-white version of this companion — use it ONLY for the outfit, props, pose and pixel-art rendering. Its gray-and-white coat, yellow eyes and white blaze must be completely replaced by the Variant's coat, eyes and markings.
+The Theme may change clothing and props only.
+
+Head shape (critical — earlier characters were rejected because the skull looked squashed by the ears or headwear): keep the Variant sheet's round skull and cheeks, domed crown and ear roots exactly. The headwear sits on the crown without flattening the skull, widening the head or pushing the ears out; both ears stay fully visible. Eyes stay at the Variant's canonical size and position.
+
+Theme: Editorial Writer (same outfit as reference 2) — a terracotta-red beret on the crown between the ears, a cream collared shirt, a small dark-brown bow tie, a camel-brown knitted vest, a dark-green cloth notebook with a ribbon held against the chest, and a black-and-gold fountain pen raised toward screen-left. The seal-brown mask, ears and paws give contrast against an ivory page; keep the outfit colors warm and slightly muted.
+
+Pose: head and eyes turned a little toward screen-left, where the QR code sits on the card. Stable compact standing pose with both feet under the body; keep paws and props close to the body so the silhouette stays compact and roughly 4:5 tall.
+
+Strictly no text, letters, numbers, readable glyphs, logos, QR codes, frames, ground shadow, scenery or background objects.
+Background: transparent alpha if available; otherwise one perfectly flat pure #00FF00 chroma-key green with no gradient, texture or checkerboard. Full character, both ears, tail, paws and every prop entirely inside the frame with generous margin. One image.

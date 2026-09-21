@@ -40,17 +40,38 @@ export const STYLES = {
     bg: "#101c18", ink: "#c6efd4", muted: "#9eb8a7",
     accent: "#9ad6b0", border: "#3c5849",
   },
+  aurora: {
+    label: "Aurora", description: "Soft northern lights behind your name.",
+    bg: "#0f1124", ink: "#f6f4ff", muted: "#c9c6e6",
+    accent: "#f4b728", border: "#2c2d4d",
+  },
+  blueprint: {
+    label: "Blueprint", description: "Drafting grid with crop marks.",
+    bg: "#1b4a8a", ink: "#ffffff", muted: "#cfdcf2",
+    accent: "#8fb8ff", border: "#4f78b5",
+  },
+  airmail: {
+    label: "Airmail", description: "Striped envelope with a postage stamp.",
+    bg: "#fbf8f1", ink: "#1d2a44", muted: "#586377",
+    accent: "#c8413a", border: "#2f5da8",
+  },
 };
 export const COMPANIONS = {
   classic: {
     label: "Vizorcat",
-    path: "assets/characters/classic-guardian.png",
+    path: "assets/characters/classic-guardian-embed-v1.png",
   },
   standard: {
     label: "Surprised",
     path: "assets/characters/vizorcat-surprised.png",
   },
-  samurai: { label: "Samurai", path: "assets/characters/samurai.png" },
+  courier: { label: "Airmail Courier", path: "assets/characters/airmail-courier-v1.png" },
+  architect: { label: "Blueprint Architect", path: "assets/characters/blueprint-architect-v1.png" },
+  photographer: { label: "Aurora Photographer", path: "assets/characters/aurora-photographer-v2.png" },
+  sysadmin: { label: "Terminal Sysadmin", path: "assets/characters/terminal-sysadmin-v1.png" },
+  writer: { label: "Editorial Writer", path: "assets/characters/editorial-writer-v2.png" },
+  gamer: { label: "Pixel Gamer", path: "assets/characters/pixel-gamer-v2.png" },
+  samurai: { label: "Samurai", path: "assets/characters/samurai-embed-v2.png" },
   astral: {
     label: "Wayfinder",
     path: "assets/characters/astral-wayfinder-v2.png",
@@ -65,7 +86,7 @@ export const COMPANIONS = {
   alchemist: { label: "Alchemist", path: "assets/characters/workshop-alchemist-v1.png" },
   swordsman: { label: "Wandering Swordsman", path: "assets/characters/wandering-swordsman-v1.png" },
   strongman: { label: "Tal Strongman", path: "assets/characters/tal-strongman-v1.png" },
-  none: { label: "No companion", path: null },
+  none: { label: "No Vizorcat", path: null },
 };
 export const CARD_LOGOS = {
   zcash: { label: "Zcash", path: "assets/logos/zcash-coin.png" },
@@ -237,7 +258,7 @@ export async function validateCard(raw) {
     memo: field(raw.memo ?? "", 80, "Memo"),
   };
   if (!["fit", "canvas"].includes(card.companionPosition) || !validPosition(card.companionX, card.companionPosition) || !validPosition(card.companionY, card.companionPosition))
-    throw new Error("Choose a supported companion position.");
+    throw new Error("Choose a supported Vizorcat position.");
   if (!card.name) throw new Error("Enter your name.");
   if (
     !Object.hasOwn(STYLES, card.style) ||
@@ -245,7 +266,7 @@ export async function validateCard(raw) {
     !Object.hasOwn(CARD_LOGOS, card.logo) ||
     !Object.hasOwn(LAYOUTS, card.layout)
   )
-    throw new Error("Choose a supported card style, format, and companion.");
+    throw new Error("Choose a supported card style, format, and Vizorcat.");
   if (!/^(?:[5-9][0-9]|[1-3][0-9]{2}|400)$/.test(card.companionScale))
     throw new Error("Vizorcat size must be between 50 and 400 percent.");
   await validateAddress(card.address);

@@ -1,0 +1,15 @@
+Use case: new themed Vizorcat companion for an online Zcash support card with an "Airmail" envelope style.
+
+Reference 1 (attached, authoritative identity): the Vizorcat Standard model sheet. Keep this exact cat: gray-and-white short-haired chibi cat, rounded head with softly squared cheeks occupying about 46-50% of full-body height, medium triangular ears at the same roots, two large round golden-yellow eyes, small pink triangular nose, short white muzzle, tiny cat mouth, three short dark cheek marks inside each cheek, white chest patch, white paw tips and white tail tip, short rounded torso with no waist, very short hind legs, round block paws, medium-thick curved tail. Upright on two hind feet. No long limbs, no humanoid anatomy, no redesign of the face.
+Reference 2 (attached, rendering only): the Classic Guardian companion. Match its finished pixel-art density, outline weight, shading and full-body framing. Do not copy its armor, shield, helmet or dagger.
+
+Theme: Airmail Courier. The Theme may change clothing and props only.
+- A small navy-blue courier cap with a short brim, sitting between the ears without covering or moving them.
+- A small red neckerchief.
+- A compact brown leather messenger satchel on a diagonal strap across the chest, flap closed, resting at the hip.
+- In the forepaw on the screen-left side, the cat raises one sealed airmail envelope toward screen-left as if delivering it: a white envelope with a red-and-blue diagonal striped border and a small round red wax seal. The envelope stays small, about the size of the head's width.
+- The other forepaw hangs relaxed or rests on the satchel strap.
+Pose and expression: friendly slight smile, head and eyes turned a little toward screen-left, toward the raised envelope. Stable compact standing pose; both feet under the body.
+
+Strictly no text, letters, numbers, stamps with writing, logos, QR codes, frames, ground shadow, scenery or background objects.
+Background: one perfectly flat pure #00FF00 chroma-key green filling the whole canvas, with no gradient, texture, checkerboard or green inside the character. Full character, both ears, tail, paws, satchel and envelope entirely inside the frame with generous margin. One image.

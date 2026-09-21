@@ -1,0 +1,17 @@
+Use case: new themed Vizorcat companion for an online Zcash support card with a "Blueprint" card style (blueprint-blue #1b4a8a background with a white drafting grid).
+
+Reference 1 (attached, authoritative identity): the Vizorcat Standard model sheet. Keep this exact cat: gray-and-white short-haired chibi cat, rounded head with softly squared cheeks occupying about 46-50% of full-body height, medium triangular ears at the same roots, two large round golden-yellow eyes, small pink triangular nose, short white muzzle and blaze, tiny cat mouth, cheek whiskers, white chest patch, white paw tips and white tail tip, short rounded torso with no waist, very short hind legs, round block paws, medium-thick curved tail. Upright on two hind feet. No long limbs, no humanoid anatomy, no redesign of the face.
+Reference 2 (attached, rendering only): the approved Airmail Courier companion. Match its finished pixel-art density, outline weight, shading, cheerful expression and full-body framing. Do not copy its cap, neckerchief, satchel or envelope.
+The Theme may change clothing and props only.
+
+Theme: Blueprint Drafter.
+- A bright safety-yellow hard hat sitting between the ears without covering or moving them.
+- A light-gray work shirt with rolled sleeves under a denim-blue carpenter apron with a pencil pocket; one yellow pencil tucked in the pocket.
+- Under the screen-right arm, one rolled blueprint sheet (blue paper with thin white grid lines, tied with a small band).
+- The screen-left forepaw raises a small brass drafting compass, opened slightly, as if measuring toward screen-left.
+- Keep strong light values on the cat and hat so it reads clearly on a mid-blue background.
+
+Pose: head and eyes turned a little toward screen-left, where the QR code sits on the card; friendly expression. Stable compact standing pose with both feet under the body; keep raised paws and props close to the body so the silhouette stays compact and roughly 4:5 tall.
+
+Strictly no text, letters, numbers, readable glyphs, logos, QR codes, frames, ground shadow, scenery or background objects.
+Background: transparent alpha if available; otherwise one perfectly flat pure #00FF00 chroma-key green with no gradient, texture or checkerboard, and no green inside the character. Full character, both ears, tail, paws and every prop entirely inside the frame with generous margin. One image.

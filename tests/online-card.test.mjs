@@ -436,6 +436,20 @@ test("new styles and portrait round-trip without changing the payment request", 
   }
 });
 
+test("surface styles draw local artwork around a white QR tile without changing payment", async () => {
+  const original = await validateCard(base);
+  const surfaces = { aurora: /id="au-violet"/, blueprint: /id="bp-grid"/, airmail: /id="am-stripes"/ };
+  for (const [style, marker] of Object.entries(surfaces))
+    for (const layout of Object.keys(LAYOUTS)) {
+      const card = await validateCard({ ...base, style, layout });
+      assert.deepEqual(await parseCard(serializeCard(card)), card);
+      assert.equal(paymentUri(card), paymentUri(original));
+      const svg = await renderCard(card, loadAsset);
+      assert.match(svg, marker);
+      if (layout !== "profile") assert.match(svg, /<rect x="\d+" y="\d+" width="160" height="160"( rx="\d+")? fill="#fff"\/>|<rect width="\d+" height="\d+" fill="#fff"\/>/);
+    }
+});
+
 test("every companion shares and renders using a bundled local asset without changing payment", async () => {
   const { COMPANIONS } = await import("../src/online/card-data.js");
   const initial = await validateCard(base);

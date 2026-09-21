@@ -7,7 +7,73 @@ export const CARD_FONTS = {
   paper: "assets/fonts/geist-bold.woff2",
   midnight: "assets/fonts/geist-bold.woff2",
   pixel: "assets/fonts/silkscreen-regular.woff2",
+  aurora: "assets/fonts/geist-bold.woff2",
+  blueprint: "assets/fonts/space-grotesk-variable.woff2",
+  airmail: "assets/fonts/geist-bold.woff2",
 };
+const MONO_BIO = new Set(["terminal", "blueprint"]);
+/** Variable name faces declare their range so the requested weight is real, not synthesized. */
+const VARIABLE_NAME_WEIGHT = { blueprint: 700 };
+
+/** Style surfaces stay clear of the QR tile, its quiet zone and the text column. */
+function surface(style, theme, { width, height, portrait }) {
+  const W = width;
+  const H = height;
+  if (style === "aurora") {
+    const glow = (id, color, cx, cy, r, opacity) =>
+      `<radialGradient id="${id}" cx="${cx}" cy="${cy}" r="${r}" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="${color}" stop-opacity="${opacity}"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></radialGradient>`;
+    const reach = Math.max(W, H);
+    return {
+      radius: 20,
+      qrRadius: 12,
+      defs: glow("au-gold", "#f4b728", W * 0.86, H * 0.92, reach * 0.5, 0.42) +
+        glow("au-violet", "#7a5cff", W * 0.62, H * 0.08, reach * 0.55, 0.38) +
+        glow("au-teal", "#1fc8b4", W * 0.38, H, reach * 0.38, 0.34),
+      back: `<rect width="${W}" height="${H}" fill="url(#au-violet)"/><rect width="${W}" height="${H}" fill="url(#au-teal)"/><rect width="${W}" height="${H}" fill="url(#au-gold)"/>`,
+      edge: "rgba(255,255,255,.14)",
+    };
+  }
+  if (style === "blueprint") {
+    const mark = (x, y, dx, dy) => `M${x + dx * 12},${y}H${x}V${y + dy * 12}`;
+    return {
+      radius: 0,
+      defs: `<pattern id="bp-grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M10 0V40M20 0V40M30 0V40M0 10H40M0 20H40M0 30H40" stroke="#fff" stroke-opacity=".07" stroke-width="1"/><path d="M0 0V40M0 0H40" stroke="#fff" stroke-opacity=".16" stroke-width="1"/></pattern>`,
+      back: `<rect width="${W}" height="${H}" fill="url(#bp-grid)"/><path d="${mark(8, 8, 1, 1)}${mark(W - 8, 8, -1, 1)}${mark(8, H - 8, 1, -1)}${mark(W - 8, H - 8, -1, -1)}" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.5"/>`,
+      edge: "rgba(255,255,255,.14)",
+    };
+  }
+  if (style === "airmail") {
+    const band = 6;
+    // The stamp frames the corner logo slot (W - 56, 20, 30 × 30).
+    const sx = W - 63;
+    const sy = 13;
+    const size = 44;
+    let holes = "";
+    for (let t = 1; t < size; t += 6)
+      for (const [cx, cy] of [[sx + t, sy], [sx + t, sy + size], [sx, sy + t], [sx + size, sy + t]])
+        holes += `M${cx - 2},${cy}a2,2 0 1,0 4,0a2,2 0 1,0 -4,0`;
+    const stamp = `<g filter="url(#am-shadow)"><rect x="${sx}" y="${sy}" width="${size}" height="${size}" fill="#fff" mask="url(#am-perf)"/></g><rect x="${sx + 4.5}" y="${sy + 4.5}" width="${size - 9}" height="${size - 9}" fill="#e4ecf8" stroke="${theme.border}"/>`;
+    const waves = [0, 1, 2]
+      .map((i) => {
+        let d = `M${sx - 78},${27 + i * 8}`;
+        for (let x = sx - 78; x < sx - 18; x += 12) d += `q3,-3 6,0t6,0`;
+        return d;
+      })
+      .join("");
+    const postmark = portrait
+      ? ""
+      : `<g fill="none" stroke="${theme.ink}" stroke-opacity=".42" stroke-width="1.3"><circle cx="${sx + 2}" cy="43" r="17"/><circle cx="${sx + 2}" cy="43" r="13" stroke-dasharray="2 3"/><path d="${waves}"/></g>`;
+    return {
+      radius: 10,
+      qrRadius: 6,
+      defs: `<pattern id="am-stripes" width="28" height="28" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="10" height="28" fill="${theme.accent}"/><rect x="14" width="10" height="28" fill="${theme.border}"/></pattern><mask id="am-perf"><rect x="${sx}" y="${sy}" width="${size}" height="${size}" fill="#fff"/><path d="${holes}" fill="#000"/></mask><filter id="am-shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1" stdDeviation="1.2" flood-color="#1d2a44" flood-opacity=".28"/></filter>`,
+      back: `<path d="M0 0H${W}V${H}H0Z M${band} ${band}V${H - band}H${W - band}V${band}Z" fill="url(#am-stripes)" fill-rule="evenodd"/>${stamp}`,
+      front: postmark,
+      edge: "rgba(0,0,0,.1)",
+    };
+  }
+  return { radius: 0, defs: "", back: "", front: "", edge: "" };
+}
 
 export function qrMatrix(uri) {
   const qr = qrcode(0, "M");
@@ -132,7 +198,7 @@ export async function renderCard(card, loadAsset, { demo = false } = {}) {
   const qrY = portrait ? 288 : compact ? 24 : 148;
   const font = await loadAsset(CARD_FONTS[card.style]);
   const bodyFont = await loadAsset("assets/fonts/geist-medium.woff2");
-  const bioFont = await loadAsset(card.style === "terminal" ? "assets/fonts/geist-mono-variable.woff2" : "assets/fonts/geist-regular.woff2");
+  const bioFont = await loadAsset(MONO_BIO.has(card.style) ? "assets/fonts/geist-mono-variable.woff2" : "assets/fonts/geist-regular.woff2");
   const logoPath = CARD_LOGOS[card.logo ?? "zcash"].path;
   const logo = logoPath ? await loadAsset(logoPath) : null;
   const character = COMPANIONS[card.companion].path;
@@ -180,11 +246,13 @@ export async function renderCard(card, loadAsset, { demo = false } = {}) {
         `<text class="name" x="${textX}" y="${nameY + i * fittedSize * 1.15}" font-size="${fittedSize}">${escapeXml(row)}</text>`,
     )
     .join("");
+  const decor = surface(card.style, theme, { width, height, portrait });
   const qrSize = 160;
+  const tile = decor.qrRadius ? `<rect x="${qrX}" y="${qrY}" width="${qrSize}" height="${qrSize}" rx="${decor.qrRadius}" fill="#fff"/>` : "";
   let qr = "";
   if (isQr) {
     if (demo) {
-      qr = `<rect x="${qrX}" y="${qrY}" width="${qrSize}" height="${qrSize}" fill="#fff"/><text x="${qrX + 80}" y="${qrY + 79}" text-anchor="middle" font-size="13" style="fill:#17231f">Add your address</text><text x="${qrX + 80}" y="${qrY + 100}" text-anchor="middle" font-size="13" style="fill:#17231f">to create a QR</text>`;
+      qr = `<rect x="${qrX}" y="${qrY}" width="${qrSize}" height="${qrSize}" rx="${decor.qrRadius ?? 0}" fill="#fff"/><text x="${qrX + 80}" y="${qrY + 79}" text-anchor="middle" font-size="13" style="fill:#17231f">Add your address</text><text x="${qrX + 80}" y="${qrY + 100}" text-anchor="middle" font-size="13" style="fill:#17231f">to create a QR</text>`;
     } else {
       const uri = paymentUri(card);
       if (qrSize / (qrMatrix(uri).getModuleCount() + 8) < 2)
@@ -192,7 +260,7 @@ export async function renderCard(card, loadAsset, { demo = false } = {}) {
           "This QR is too dense at card size. Shorten the memo or use the profile format.",
         );
       // Keep the QR and its four-module quiet zone on white in every style.
-      qr = qrSvg(uri)
+      qr = tile + qrSvg(uri, tile ? "none" : "#fff")
         .replace("<svg ", `<svg x="${qrX}" y="${qrY}" `)
         .replace(
           /width="\d+" height="\d+"/,
@@ -200,17 +268,24 @@ export async function renderCard(card, loadAsset, { demo = false } = {}) {
         );
     }
   }
+  const weight = VARIABLE_NAME_WEIGHT[card.style];
+  const shape = decor.radius ? ` rx="${decor.radius}"` : "";
   const actionX = portrait ? 28 : compact ? textX : isQr ? 200 : 28;
   const actionY = portrait ? 288 : compact ? 213 : isQr ? 247 : 223;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" overflow="hidden" role="img" aria-label="${escapeXml(`Support ${card.name} with Zcash`)}">
 <title>${escapeXml(`${card.name} · Support with Zcash`)}</title>
-<defs><style>@font-face{font-family:Card;src:url('${font}') format('woff2')}@font-face{font-family:Body;src:url('${bodyFont}') format('woff2')}@font-face{font-family:Bio;src:url('${bioFont}') format('woff2');font-weight:400}text{font-family:Body,Arial,sans-serif;fill:${theme.ink}}text.name{font-family:Card,Arial,sans-serif}text.bio{font-family:Bio,Arial,sans-serif;font-weight:400}</style></defs>
+<defs><style>@font-face{font-family:Card;src:url('${font}') format('woff2')${weight ? ";font-weight:300 700" : ""}}@font-face{font-family:Body;src:url('${bodyFont}') format('woff2')}@font-face{font-family:Bio;src:url('${bioFont}') format('woff2');font-weight:400}text{font-family:Body,Arial,sans-serif;fill:${theme.ink}}text.name{font-family:Card,Arial,sans-serif${weight ? `;font-weight:${weight}` : ""}}text.bio{font-family:Bio,Arial,sans-serif;font-weight:400}</style>${decor.defs}${decor.radius ? `<clipPath id="card-shape"><rect width="${width}" height="${height}"${shape}/></clipPath>` : ""}</defs>
+<g${decor.radius ? ' clip-path="url(#card-shape)"' : ""}>
 <rect width="${width}" height="${height}" fill="${theme.bg}"/>
+${decor.back}
 ${logo ? card.logo === "vizor" ? `<defs><mask id="vizor-logo" mask-type="alpha"><image href="${logo}" x="${width - 56}" y="20" width="30" height="30" preserveAspectRatio="xMidYMid meet"/></mask></defs><rect x="${width - 56}" y="20" width="30" height="30" fill="${theme.ink}" mask="url(#vizor-logo)"/>` : `<image href="${logo}" x="${width - 56}" y="20" width="30" height="30" preserveAspectRatio="xMidYMid meet"/>` : ""}
+${decor.front ?? ""}
 ${fittedName}
 ${textBlock(card.bio || (demo ? "Building tools for a more private web." : ""), textX, bioY, compact ? 17 : 20, portrait ? 26 : compact ? 27 : isQr ? 29 : 24, 2, theme.ink)}
 ${qr}
 ${art ? `<image class="companion" href="${art}" x="${artBox.x}" y="${artBox.y}" width="${artBox.w}" height="${artBox.h}" preserveAspectRatio="xMidYMid meet"/>` : ""}
 ${card.amount ? `<text x="${actionX}" y="${actionY - 28}" font-size="13">${escapeXml(card.amount)} ZEC</text>` : ""}
+</g>
+${decor.edge ? `<rect x=".5" y=".5" width="${width - 1}" height="${height - 1}"${decor.radius ? ` rx="${decor.radius - 0.5}"` : ""} fill="none" stroke="${decor.edge}"/>` : ""}
 </svg>`;
 }

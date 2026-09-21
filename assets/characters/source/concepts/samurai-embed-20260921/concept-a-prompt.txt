@@ -1,0 +1,15 @@
+Use case: replacement pose of the "Samurai" companion for online Zcash support cards. The QR code sits on the screen-left side of the character, and cards are often dark (#182322, #101c18, #0f1124), so the character must be friendly and its silhouette must read clearly on a very dark background.
+
+Reference 1 (attached): the current Samurai companion — keep this exact character: the one-eyed Boss variant (black short fur, one open golden eye, the other eye closed with its scar, compact chibi Vizorcat proportions, round paws, tail) in the Shogun Samurai theme with the crescent-crested kabuto, lacquered armor plates, sash and exactly one katana fully seated in one scabbard at the waist. Same finished pixel-art density and outline weight.
+Reference 2 (attached): the one-eyed Boss model sheet — identity and proportion authority. Do not change the fur color, eye, scar or head-to-body ratio.
+Reference 3 (attached): the Shogun Samurai theme model sheet — armor language and materials.
+Reference 4 (attached): the approved hanbo holder element — the lower-face hanbo is lowered and hangs at the neck from this holder, so the whole face and mouth are visible.
+Reference 5 (attached): the approved katana element — the single katana and scabbard design.
+
+Changes from the current companion:
+- Expression: a warm, confident smile with the mouth visible (hanbo lowered at the neck, not worn over the face). The open eye looks toward screen-left. Friendly, welcoming — not stern.
+- Pose: body turned three-quarters toward screen-left, a small respectful bow of the head, and the screen-left forepaw extended palm-up in an inviting "please, this way" gesture, kept close to the body so the silhouette stays compact and roughly 4:5 tall. The screen-right forepaw rests on the katana's sheathed hilt. No command fan.
+- Readability on dark backgrounds: favor the bright crimson lacquer and aged-gold trim of the theme on the armor plates, keep navy only as a minor accent, and add subtle cool-gray rim highlights along the black fur edges of the ears, head, paws and tail so the outline separates from a near-black background. Keep the fur black.
+
+Strictly no text, letters, crests, logos, religious symbols, QR codes, frames, ground shadow, scenery, second sword or other weapons.
+Background: transparent alpha if available; otherwise one perfectly flat pure #00FF00 chroma-key green with no gradient, texture or checkerboard. Full character, both ears, tail, paws, kabuto crest and katana entirely inside the frame with generous margin. One image.

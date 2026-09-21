@@ -25,7 +25,7 @@ export default function CardPreview({ card, svg, onPosition, onResize }) {
     {path && <div className="oc-companion-selection" style={{ left: `${box.x / width * 100}%`, top: `${box.y / height * 100}%`, width: `${box.w / width * 100}%`, height: `${box.h / height * 100}%` }}><button
       type="button"
       className="oc-companion-handle"
-      aria-label="Move companion"
+      aria-label="Move Vizorcat"
       aria-describedby="oc-position-help"
       onPointerDown={event => {
         if (event.button !== 0) return;
@@ -49,7 +49,7 @@ export default function CardPreview({ card, svg, onPosition, onResize }) {
         move(box.x + delta[0] * step, box.y + delta[1] * step);
       }}
     ><img src={`./${path}`} alt="" draggable="false" /></button>
-    <button type="button" className="oc-companion-resize" aria-label="Resize companion" aria-describedby="oc-position-help"
+    <button type="button" className="oc-companion-resize" aria-label="Resize Vizorcat" aria-describedby="oc-position-help"
       onPointerDown={event => {
         if (event.button !== 0) return;
         const rect = surface.current.getBoundingClientRect();

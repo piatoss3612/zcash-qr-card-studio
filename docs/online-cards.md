@@ -169,18 +169,33 @@ explained at the format selector, before sharing.
 - **Portrait** (`portrait`, 400 × 480): vertical identity above a QR and companion.
 - **Profile** (`profile`, 480 × 260): no QR; opens the wallet through the HTTPS launch link.
 
-All four layouts support Paper, Midnight, Pixel, Editorial and Terminal.
-Editorial uses a warm ivory surface and Zarathustra serif; Terminal uses
-Geist Mono on deep green. Every QR sits on a white square, including its
-four-module quiet zone. Compact shares the same
+All four layouts support Paper, Midnight, Pixel, Editorial, Terminal, Aurora,
+Blueprint and Airmail. Editorial uses a warm ivory surface and Zarathustra
+serif; Terminal uses Geist Mono on deep green. Aurora is a rounded dark card
+with violet, teal and Zcash-gold glows. Blueprint draws a drafting grid and
+corner crop marks, with a Space Grotesk name and Geist Mono introduction.
+Airmail edges the card with red and blue envelope stripes and turns the corner
+logo into a perforated stamp with a postmark (the postmark is omitted in
+Portrait, where it would meet long names). These surfaces stay outside the
+QR, its quiet zone and the text column. Every QR sits on a white square,
+including its four-module quiet zone; Aurora and Airmail round the square's
+corners inside the quiet zone. Compact shares the same
 ZIP-321 request and density checks as Signature, and its dimensions flow through
 preview, PNG export and HTML embeds. Layouts are saved in editing links.
 
-The companion gallery includes 13 characters plus No companion: Vizorcat,
-Samurai, Wayfinder, Orbital Ranger, Grove Ranger, Oni Samurai,
+The Vizorcat gallery (labeled **Vizorcat** in the editor; the serialized field
+remains `companion`) includes 19 characters plus No Vizorcat: Vizorcat,
+Airmail Courier, Blueprint Architect, Aurora Photographer, Terminal Sysadmin,
+Editorial Writer, Pixel Gamer, Samurai, Wayfinder, Orbital Ranger, Grove Ranger, Oni Samurai,
 Commons Guide, Snow Surveyor, Stonehold Warden, Hearthlight Host, Alchemist,
 Wandering Swordsman and Tal Strongman. Six are shown initially; Explore all
-reveals the full collection. The selected character remains visible when the
+reveals the full collection. Airmail Courier (Standard), Blueprint Architect
+(Lithe Scout), Aurora Photographer (Fluffy Warden), Terminal Sysadmin (Round
+Guardian), Editorial Writer (Moonpoint Watcher) and Pixel Gamer (one-eyed Boss)
+are online-only Vizorcats made to pair with the
+Airmail, Blueprint, Aurora, Terminal, Editorial and Pixel styles. Online cards use embed-specific versions of Vizorcat (the
+Classic Guardian, now waving toward the QR) and Samurai (hanbo removed, smiling,
+rim-lit for dark cards); the print editor keeps the original files. The selected character remains visible when the
 gallery is collapsed or a saved link is restored. Existing approved local
 assets are reused without edits.
 The existing 50–400% size control applies in every layout. Compact reserves a

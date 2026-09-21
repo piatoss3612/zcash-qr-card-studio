@@ -1,0 +1,11 @@
+Use case: replacement pose of the default "Vizorcat" companion for online Zcash support cards. On these cards the QR code is always on the screen-left side of the character, so the character must address screen-left.
+
+Reference 1 (attached): the current Classic Guardian companion. Keep this exact character and equipment: the gray-and-white Vizorcat Standard cat with its face, golden eyes, pink nose, white blaze and muzzle, cheek whiskers, ears, short limbs, round paws and white-tipped tail; the steel knight helmet with the visor raised showing the whole face; steel pauldrons and gauntlets; cream tabard with brown leather harness and belt; round wooden shield with steel rim and boss; brown boots. Same finished pixel-art density, outline weight and shading.
+Reference 2 (attached): the Vizorcat Standard model sheet — identity and proportion authority (head about 46–50% of full-body height, short rounded torso, very short hind legs).
+Reference 3 (attached): the Classic Knight theme model sheet — armor silhouette, colors and materials.
+Reference 4 (attached): the approved dagger element — exactly one short dagger fully seated in exactly one brown scabbard at the hip, gold pommel and guard, no visible blade.
+
+New pose: the whole body turns three-quarters toward screen-left. The screen-left forepaw is raised to about shoulder height with the open paw pad facing up and outward, presenting something just beyond the left edge of the image, like a cheerful "right this way" gesture. The screen-right forepaw holds the round shield close against the body. Head and eyes look toward screen-left. Expression: happy and welcoming, an open wholesome cat smile with eyes open at the canonical size. Compact, stable standing pose with both feet under the body; keep the raised paw close to the body so the overall silhouette stays compact and roughly 4:5 tall.
+
+Strictly no text, letters, logos, QR codes, frames, ground shadow, scenery or extra weapons. No second dagger, sword or spear.
+Background: transparent alpha if available; otherwise one perfectly flat pure #00FF00 chroma-key green with no gradient, texture or checkerboard. Full character, both ears, tail, paws, shield and helmet entirely inside the frame with generous margin. One image.
