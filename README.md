@@ -10,42 +10,107 @@
 </p>
 
 <p align="center">
-  <a href="#quick-start">Quick start</a> ·
-  <a href="#card-types">Card types</a> ·
-  <a href="#editing">Editing</a> ·
-  <a href="#vizorcat">Vizorcat</a> ·
-  <a href="#output-contract">Output contract</a> ·
-  <a href="#project-layout">Project layout</a>
+  <a href="https://zcash-qr-card-studio.vercel.app/">Print A6 cards</a> ·
+  <a href="https://zcash-qr-card-studio.vercel.app/online">Create an Embed card</a> ·
+  <a href="#embed-examples">Embed examples</a> ·
+  <a href="#local-development">Local development</a>
 </p>
 
----
+## Make a card
 
-The studio starts with Content → Design → Review & print. Enter an event name, heading and QR content, then choose a theme and Vizorcat. Theme changes preserve your content and wording. Enable **Free positioning & layers** for the full editing tools. Export a print-ready PNG, print A6 or A4 sheets, display the card on screen, or batch-render a ZIP. On mobile the preview can be expanded, and undo/redo remain accessible.
+**Embed** — Create a personal card for a GitHub profile, README or website. Add your name, introduction and Zcash receiving address, choose a layout and style, then move and resize your Vizorcat. Copy Markdown or HTML, or download a PNG.
 
-Choose **Online cards** in the top bar for a personal support card. Pick Profile or QR card, Paper / Midnight / Pixel, and an existing Vizorcat companion. Preview it inside a light or dark README, download a PNG, or copy Markdown and HTML when the image service is available. Clicking the card and scanning its QR use the same ZIP-321 request. GitHub strips `zcash:` links, so use the QR format in GitHub READMEs; clickable embeds require a host that permits wallet links. See [Online cards](docs/online-cards.md) for hosting, privacy, and verification details.
+**Print** — Make an A6 payment, gift or link card through Content → Design → Review & print. Export a print-ready PNG, print A6 or A4 sheets, or batch-render a ZIP. Theme changes preserve your content; **Free positioning & layers** opens the full editing tools.
 
-## Quick start
+## Embed examples
+
+These live examples use the maintainer's receiving address. Click a card to open its HTTPS wallet-launch page, which attempts to open the same ZIP-321 request encoded in the QR. Your wallet handles payment review and confirmation. No amount is preset.
+
+### Signature · Paper
+
+[![Support with Zcash](https://zcash-qr-card-studio.vercel.app/api/card.svg?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=paper&layout=qr&companion=standard&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)](https://zcash-qr-card-studio.vercel.app/pay?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=paper&layout=qr&companion=standard&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)
+
+<details>
+<summary>Copy Markdown or HTML</summary>
+
+```markdown
+[![Support with Zcash](https://zcash-qr-card-studio.vercel.app/api/card.svg?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=paper&layout=qr&companion=standard&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)](https://zcash-qr-card-studio.vercel.app/pay?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=paper&layout=qr&companion=standard&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)
+```
+
+```html
+<a href="https://zcash-qr-card-studio.vercel.app/pay?v=1&amp;name=piatoss3612&amp;bio=Building+with+Zcash&amp;address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&amp;style=paper&amp;layout=qr&amp;companion=standard&amp;logo=zcash&amp;companionScale=100&amp;companionX=&amp;companionY=&amp;amount=&amp;memo="><img src="https://zcash-qr-card-studio.vercel.app/api/card.svg?v=1&amp;name=piatoss3612&amp;bio=Building+with+Zcash&amp;address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&amp;style=paper&amp;layout=qr&amp;companion=standard&amp;logo=zcash&amp;companionScale=100&amp;companionX=&amp;companionY=&amp;amount=&amp;memo=" alt="Support piatoss3612 with Zcash" width="560" style="max-width:100%;height:auto" /></a>
+```
+
+</details>
+
+[Customize this example](https://zcash-qr-card-studio.vercel.app/online.html#v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=paper&layout=qr&companion=standard&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)
+
+### Compact · Midnight
+
+[![Support with Zcash](https://zcash-qr-card-studio.vercel.app/api/card.svg?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=midnight&layout=compact&companion=classic&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)](https://zcash-qr-card-studio.vercel.app/pay?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=midnight&layout=compact&companion=classic&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)
+
+<details>
+<summary>Copy Markdown</summary>
+
+```markdown
+[![Support with Zcash](https://zcash-qr-card-studio.vercel.app/api/card.svg?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=midnight&layout=compact&companion=classic&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)](https://zcash-qr-card-studio.vercel.app/pay?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=midnight&layout=compact&companion=classic&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)
+```
+
+</details>
+
+[Customize this example](https://zcash-qr-card-studio.vercel.app/online.html#v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=midnight&layout=compact&companion=classic&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)
+
+### Profile · Pixel
+
+[![Support with Zcash](https://zcash-qr-card-studio.vercel.app/api/card.svg?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=pixel&layout=profile&companion=samurai&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)](https://zcash-qr-card-studio.vercel.app/pay?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=pixel&layout=profile&companion=samurai&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)
+
+A smaller profile card without a QR; the image remains clickable.
+
+<details>
+<summary>Copy Markdown</summary>
+
+```markdown
+[![Support with Zcash](https://zcash-qr-card-studio.vercel.app/api/card.svg?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=pixel&layout=profile&companion=samurai&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)](https://zcash-qr-card-studio.vercel.app/pay?v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=pixel&layout=profile&companion=samurai&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)
+```
+
+</details>
+
+[Customize this example](https://zcash-qr-card-studio.vercel.app/online.html#v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=pixel&layout=profile&companion=samurai&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)
+
+### Use your own address
+
+1. Open an example's **Customize** link or the [Embed editor](https://zcash-qr-card-studio.vercel.app/online).
+2. Replace the example name, introduction and receiving address with your own.
+3. Choose a layout, style, logo and companion; adjust its position and size in the preview.
+4. Copy **Markdown** into your README, or **HTML** into your website.
+
+The copied image is the link—no separate “Open Zcash wallet” text is needed beneath it. GitHub embeds link to the HTTPS `/pay` route, which attempts to open `zcash:` and provides a manual fallback. QR layouts also let visitors scan with a compatible wallet. Downloaded PNGs need a surrounding link if you want them to be clickable.
+
+Card URLs contain public payment details, including the address and any memo. Do not include secrets. Copying these examples unchanged directs payments to the maintainer; use the editor to generate your own links. See [Online cards](docs/online-cards.md) for the API and sharing details.
+
+## Local development
+
+Use Node.js 22.
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-Open the local Vite URL shown in the terminal (normally
-`http://127.0.0.1:5173`). The production output is a self-contained `dist/`
-directory with repository-relative URLs, so it can be uploaded to any static
-hosting provider or served from a project subpath.
+Open the Vite URL shown in the terminal, normally `http://127.0.0.1:5173`. This runs the editors; for a local preview that also serves the image and wallet-launch routes:
 
 ```bash
 npm run build
-npm run preview
+npm run preview:worker
 ```
 
-Tests cover the DOM-free modules and run from the repository root:
+Open the URL printed by Wrangler. To run the test suite:
 
 ```bash
-node --test
+npm test
 ```
+
+Production runs on Vercel with the image and wallet-launch functions. Publishing only `dist/` does not provide those routes; see [Deployment](#deployment).
 
 ## Card types
 
@@ -53,7 +118,7 @@ Pick the card type at the top of the QR content panel. Payment requests are the 
 
 | Card type       | QR payload                                                                                                             | Get Vizor card          |
 | --------------- | ---------------------------------------------------------------------------------------------------------------------- | ----------------------- |
-| Payment request | A ZIP-321 `zcash:` URI built from an address plus optional amount, memo, label and message. Opens in any Zcash wallet. | Never included          |
+| Payment request | A ZIP-321 `zcash:` URI built from an address plus optional amount, memo, label and message. For compatible Zcash wallets. | Never included          |
 | Vizor gift card | A Vizor payment link (`https://link.vizor.cash/…#v1=…`).                                                               | Always included         |
 | Link            | Any `http`/`https` link.                                                                                               | Optional, on by default |
 
@@ -199,7 +264,7 @@ login so GitHub and supporters can open them.
 
 Original character and background assets were created with OpenAI image-generation tools, then selected, edited, composited and curated for this project. They are not represented as exclusively human-made or guaranteed unique. Third-party logos, fonts and libraries remain subject to their owners' terms; see `THIRD_PARTY_NOTICES.md` and the provenance records under each asset's `source/` directory.
 
-The print application runs entirely in the browser. It does not collect, store or transmit QR contents, card designs or personal information, and it uses no accounts, analytics, cookies or browser storage. Gift-link fragments never leave the page and are never written to exported or saved files. OpenAI services are used only during asset production, never by the deployed application.
+The print editor processes card designs in the browser. Both editors keep drafts in same-tab session storage so switching between Print and Embed preserves your work. There are no accounts or analytics. Gift links are omitted from saved design files and session drafts; exported QR artwork still contains the gift link so it can be claimed. OpenAI services are used only during asset production, never by the deployed application.
 
 Online support cards are intentionally public: image URLs contain the receiving address, name, introduction, optional amount and memo. An image request sends those details to the configured card service and may be cached by GitHub or another image proxy. The service generates SVG without accounts or a card database. Generated embeds use an HTTPS route that opens the ZIP-321 request; they never hold funds, verify identity, or report payment completion. Hosting providers may retain ordinary request logs. Do not put private information or gift links into an online card.
 
