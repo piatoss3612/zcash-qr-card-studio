@@ -184,7 +184,7 @@ export async function renderCard(card, loadAsset, { demo = false } = {}) {
 <title>${escapeXml(`${card.name} · Support with Zcash`)}</title>
 <defs><style>@font-face{font-family:Card;src:url('${font}') format('woff2')}@font-face{font-family:Body;src:url('${bodyFont}') format('woff2')}@font-face{font-family:Bio;src:url('${bioFont}') format('woff2');font-weight:400}text{font-family:Body,Arial,sans-serif;fill:${theme.ink}}text.name{font-family:Card,Arial,sans-serif}text.bio{font-family:Bio,Arial,sans-serif;font-weight:400}</style></defs>
 <rect width="${width}" height="${height}" fill="${theme.bg}"/>
-${logo ? `<image href="${logo}" x="${width - 56}" y="20" width="30" height="30" preserveAspectRatio="xMidYMid meet"/>` : ""}
+${logo ? card.logo === "vizor" ? `<defs><mask id="vizor-logo" mask-type="alpha"><image href="${logo}" x="${width - 56}" y="20" width="30" height="30" preserveAspectRatio="xMidYMid meet"/></mask></defs><rect x="${width - 56}" y="20" width="30" height="30" fill="${theme.ink}" mask="url(#vizor-logo)"/>` : `<image href="${logo}" x="${width - 56}" y="20" width="30" height="30" preserveAspectRatio="xMidYMid meet"/>` : ""}
 ${fittedName}
 ${textBlock(card.bio || (demo ? "Building tools for a more private web." : ""), textX, bioY, compact ? 17 : 20, compact ? 27 : isQr ? 29 : 24, 2, theme.ink)}
 ${qr}

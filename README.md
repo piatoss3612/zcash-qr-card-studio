@@ -18,9 +18,9 @@
 
 ## Make a card
 
-**Embed** — Create a personal card for a GitHub profile, README or website. Add your name, introduction and Zcash receiving address, choose a layout and style, then move and resize your Vizorcat. Copy Markdown or HTML, or download a PNG.
+**Embed** — Personal Zcash cards for GitHub READMEs and websites. Customize the layout, logo and Vizorcat, then copy Markdown/HTML or download a PNG.
 
-**Print** — Make an A6 payment, gift or link card through Content → Design → Review & print. Export a print-ready PNG, print A6 or A4 sheets, or batch-render a ZIP. Theme changes preserve your content; **Free positioning & layers** opens the full editing tools.
+**Print** — A6 payment, gift and link cards. Export a print-ready PNG, print A6/A4 sheets, or batch-export a ZIP.
 
 ## Embed examples
 
@@ -43,7 +43,7 @@ These live examples use the maintainer's receiving address. Click a card to open
 
 </details>
 
-[Customize this example](https://zcash-qr-card-studio.vercel.app/online.html#v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=paper&layout=qr&companion=standard&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)
+[Customize this example](https://zcash-qr-card-studio.vercel.app/online#v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=paper&layout=qr&companion=standard&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)
 
 ### Compact · Midnight
 
@@ -58,7 +58,7 @@ These live examples use the maintainer's receiving address. Click a card to open
 
 </details>
 
-[Customize this example](https://zcash-qr-card-studio.vercel.app/online.html#v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=midnight&layout=compact&companion=classic&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)
+[Customize this example](https://zcash-qr-card-studio.vercel.app/online#v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=midnight&layout=compact&companion=classic&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)
 
 ### Profile · Pixel
 
@@ -75,18 +75,11 @@ A smaller profile card without a QR; the image remains clickable.
 
 </details>
 
-[Customize this example](https://zcash-qr-card-studio.vercel.app/online.html#v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=pixel&layout=profile&companion=samurai&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)
+[Customize this example](https://zcash-qr-card-studio.vercel.app/online#v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=pixel&layout=profile&companion=samurai&logo=zcash&companionScale=100&companionX=&companionY=&amount=&memo=)
 
 ### Use your own address
 
-1. Open an example's **Customize** link or the [Embed editor](https://zcash-qr-card-studio.vercel.app/online).
-2. Replace the example name, introduction and receiving address with your own.
-3. Choose a layout, style, logo and companion; adjust its position and size in the preview.
-4. Copy **Markdown** into your README, or **HTML** into your website.
-
-The copied image is the link—no separate “Open Zcash wallet” text is needed beneath it. GitHub embeds link to the HTTPS `/pay` route, which attempts to open `zcash:` and provides a manual fallback. QR layouts also let visitors scan with a compatible wallet. Downloaded PNGs need a surrounding link if you want them to be clickable.
-
-Card URLs contain public payment details, including the address and any memo. Do not include secrets. Copying these examples unchanged directs payments to the maintainer; use the editor to generate your own links. See [Online cards](docs/online-cards.md) for the API and sharing details.
+Open **Customize this example**, replace the name and address, then copy Markdown or HTML. The image itself links to an HTTPS page that launches the `zcash:` request; QR layouts also support scanning. These examples pay the maintainer if copied unchanged.
 
 ## Local development
 
@@ -97,7 +90,7 @@ npm ci
 npm run dev
 ```
 
-Open the Vite URL shown in the terminal, normally `http://127.0.0.1:5173`. This runs the editors; for a local preview that also serves the image and wallet-launch routes:
+Open the URL printed by Vite. To check the production build with the local Worker:
 
 ```bash
 npm run build
@@ -110,168 +103,20 @@ Open the URL printed by Wrangler. To run the test suite:
 npm test
 ```
 
-Production runs on Vercel with the image and wallet-launch functions. Publishing only `dist/` does not provide those routes; see [Deployment](#deployment).
+Deploy the repository to Vercel; publishing only `dist/` omits the image and wallet-launch functions. See the [deployment guide](docs/vercel-deployment.md).
 
-## Card types
+## Guides
 
-Pick the card type at the top of the QR content panel. Payment requests are the default.
+- [Print editor](docs/print-editor-guide.md) — card types, layers, shortcuts, A6/A4 output and assets
+- [Embed cards](docs/online-cards.md) — formats, sharing and image API
+- [Vercel deployment](docs/vercel-deployment.md) — setup and route checks
 
-| Card type       | QR payload                                                                                                             | Get Vizor card          |
-| --------------- | ---------------------------------------------------------------------------------------------------------------------- | ----------------------- |
-| Payment request | A ZIP-321 `zcash:` URI built from an address plus optional amount, memo, label and message. For compatible Zcash wallets. | Never included          |
-| Vizor gift card | A Vizor payment link (`https://link.vizor.cash/…#v1=…`).                                                               | Always included         |
-| Link            | Any `http`/`https` link.                                                                                               | Optional, on by default |
+## Privacy
 
-Payment requests validate the address by prefix, charset and length (`t1`/`t3`, `zs1`, `u1`, `tex1`, plus testnet prefixes with a warning). Memos are base64url-encoded, limited to 512 bytes, and rejected for transparent addresses. Amounts allow at most 8 decimal places.
-
-A gift link carries a secret in its URL fragment: whoever scans the card can claim the funds. In gift card mode the app shows a warning banner, masks the fragment in the encoded-value preview, and never writes the link into an exported file name or a saved design file.
-
-## Editing
-
-### Composition
-
-- **Templates** — one per background theme and card type. Each ships a logo, the themed Vizorcat and a call-to-action heading under the QR ("Scan to pay with Zcash" / "Scan to open" / "Scan to claim your gift"). Choosing one changes the background and primary character while keeping the QR, event name, heading and other layers. The initial event layout reserves separate areas for the QR, text, character and installation instructions.
-- **Arrangement** — Centered / QR left / QR right, with live thumbnails of the current card at the top of the Templates panel. Themes whose artwork sits bottom-right (Brass Rampart, Hearthlight Exchange, Modernist Commons) default to QR right.
-- **Backgrounds, Vizorcat, logos** — a character choice replaces the selected character or the primary character, and a locked character stays unchanged. Logo choices replace the selected logo or add one when no logo is selected. `Add as new layer` always adds.
-- **Logo colour** — every logo layer carries its own colour. Single-colour marks offer Original / Ink / White / Crimson / Zcash Gold / custom; multi-colour artwork is drawn as-is. The Logos drawer lists Vizor and Zcash marks first; partner logos sit in a folded section with a caution note (see [Third-party marks](#third-party-marks)).
-- **Layers** — drag rows in the layer list to reorder, or use the `⋯` menu / right-click for Duplicate, Lock, Flip, Bring to front / Send to back and Delete. From a layer row, `Shift+F10` opens the menu.
-
-### Type
-
-- **Text boxes** — heading and body presets with editable text, font, size, weight, alignment, uppercase and colour. Corner-resizing scales font size and width together. Double-click text on the canvas to edit it.
-- **Faces** — five bundled fonts: Zarathustra (serif), Geist (sans), Space Grotesk (geometric), Silkscreen (pixel, set in capitals) and Geist Mono. Each theme picks its heading face: pixel on Indigo Wave, Dragon Flight, Crimson Core and Dark Core; geometric on Frost Archive, Lunar Orbit, Astral Chart and Modernist Commons; serif elsewhere.
-- **Amount and label line** — payment cards can show a "0.05 ZEC · Coffee stand" line under the heading that follows the form fields. It behaves like any text layer for position, size and colour, but its text is bound to the fields.
-
-### QR
-
-- **Panel style** — Clean / Ink / Soft, set in the QR layer's properties.
-- **Modules** — square, rounded or dots (finder eyes stay solid) and a module colour (ink, indigo, forest, crimson or custom; preflight warns below 4:1 contrast).
-- **Centre emblem** — none, Vizorcat, Samurai, Vizor mark or Zcash. Defaults: Zcash on payment cards, Vizorcat on link cards, none on gift cards because long links make dense codes. Any emblem switches the code to error-correction level H and covers about 8% of it; preflight warns if an emblem sits on a dense code.
-
-### Canvas
-
-- **Snapping** — layers snap to the centre lines, the safe-area edges and other layers' edges and centres. Hold `Alt` to bypass, or switch `Snap` off in the stage footer.
-- **Print guides** — trim, safe-area and QR-zone outlines are an editor overlay and never print. They are off by default, appear while you drag or resize, and can be pinned on with the `Print guides` switch.
-- **Zoom** — fit plus 25/50/75/100/150/200%. `Cmd/Ctrl+wheel` zooms around the pointer, `Cmd/Ctrl+0` fits, `Cmd/Ctrl+=` / `Cmd/Ctrl+-` step.
-- **Keyboard** — arrows nudge by 1 px (`Shift` 10 px), `Delete` removes the selected layer, `Cmd/Ctrl+D` duplicates, `Escape` deselects, `Cmd/Ctrl+Z` / `Cmd/Ctrl+Shift+Z` undo and redo. The `?` key opens the shortcuts sheet.
-
-### Files and output
-
-- **Design files** — the `File` menu saves the design as `.json` (`Cmd/Ctrl+S`) and opens one back (`Cmd/Ctrl+O`). Opening replaces the composition as one undo step. Gift links are never written to the file.
-- **Export preflight** — opening `Export` runs a print check: QR content, module size on paper, layers covering the main or install QR, text and logos outside the safe area, module contrast, emblem density and empty text boxes. Warnings never block export; clicking one selects the offending layer.
-- **Download PNG** — 300 ppi with 3 mm bleed, for a print shop.
-- **Print / PDF** — the trimmed A6 card. In the print dialog pick A6 paper, 100% scale, no margins; on A4, print at actual size and cut.
-- **Office printer** — landscape A4 sheets with space for two full-size A6 cards and cut marks. The sheet preview uses 150 ppi raster images; print-shop PNGs retain 300 ppi. Use 100% scale and disable browser headers and footers.
-- **Display on screen** — shows the current card without editor controls.
-- **Batch export** — paste one QR value per line or append a `.txt` list, then choose a ZIP of PNGs or A4 print sheets in the same dialog. Output counts and file names update as you edit. Click a problem row to select it in the input; duplicate gift links and invalid rows require an explicit choice to skip them. Progress and failures appear in the dialog, and the list stays available after a ZIP download. Gift copies receive `GIFT 001` identifiers, which identify printed copies and do not track claims. PNGs are named `card-001.png`, `card-002.png`, … The document name, sanitised, names the export files.
-
-## Vizorcat
-
-Vizorcat is the mascot family of the Vizor wallet: pixel-art cat companions that share one character DNA. Every Vizorcat is a **Variant** (the bare cat: body, coat, eyes, ears, tail) plus a **Theme** (role, clothing, equipment, world). A Theme changes what the cat wears and carries, never its proportions, face or coat, and no Vizorcat is forced to wear a mechanical visor because the product is called Vizor.
-
-The Classic Guardian's head is the studio's own mark: favicon, top-bar logo, the `Vizorcat Classic` logo sticker and a QR emblem. The Samurai's head is available as a second sticker and emblem.
-
-| Vizorcat             | Theme                                                                                 | Home background                      |
-| -------------------- | ------------------------------------------------------------------------------------- | ------------------------------------ |
-| Classic Guardian     | Knight of the stonehold                                                               | Brass Rampart, Quiet Paper           |
-| Samurai              | Shogun samurai, the one-eyed boss                                                     | Indigo Wave, Crimson Core, Dark Core |
-| Oni Samurai          | One-eyed samurai with an oni mask, naginata and an inviting palm-up paw               | Blossom Drift                        |
-| Stonehold Warden     | Compact stonehold guardian with hammer and cape                                       | Dragon Flight                        |
-| Crimson Grove Ranger | Crimson-hooded forest ranger                                                          | Whispering Grove                     |
-| Snow Surveyor        | White-and-silver polar surveyor                                                       | Frost Archive                        |
-| Hearthlight Host     | Warm gift-exchange host                                                               | Hearthlight Exchange                 |
-| Workshop Alchemist   | Bronze Mau alchemist with a black homunculus in a dry flask                           | Alchemist Workshop                   |
-| Tal Strongman        | Gray-brown tabby in teal with a laughing wooden mask and a shoulder-carried iron mace | Moonlit Village                      |
-| Orbital Ranger       | Orbital rescue ranger                                                                 | Lunar Orbit                          |
-| Astral Wayfinder     | Hooded navigator with an astrolabe                                                    | Astral Chart                         |
-| Commons Guide        | Community meetup guide                                                                | Modernist Commons                    |
-
-Vizorcats are authored in the separate `vizorcat` project. Only approved stickers are copied into `assets/characters/`, each with a record in `assets/characters/source/` naming the Variant, the Theme, the generation prompt, the alpha-extraction steps and the file hash. New characters must pass the identity, scale and alpha gates in `AGENTS.md` before they are registered in `src/catalog.js`.
-
-## Output contract
-
-- Final trim size: A6 portrait, 105 × 148 mm
-- PNG: 1311 × 1819 px with 300 ppi `pHYs` metadata and 3 mm bleed
-- Print / PDF: the 105 × 148 mm trim area without the bleed
-- QR: error correction level M, or H when a centre emblem is set; four-module quiet zone on every side
-- The QR layer can be moved and resized proportionally, cannot be rotated, and stays between 420 and 900 px
-- The Get Vizor card can be moved and resized proportionally but cannot be rotated or deleted
-- Exactly one fixed, bottommost background layer fills the canvas
-- Character, logo and text layers share the stacking order with the QR and Get Vizor layers; preflight warns about overlaps but does not block them
-- Logo library: Vizor, Vizor Mark, Vizorcat Classic, Vizorcat Samurai, Zcash Coin, Zcash Mark, ZecHub, Keplr, CipherScan, and the partner marks Cypherpunk, Project Tachyon, NEAR Intents, Keystone, Ledger, Valar Group and Zakura
-- The editor UI uses Geist; card headings use the theme's face
-
-## Project layout
-
-`index.html` loads the pinned `vendor/qrcode.js` classic script and the Vite
-React entry at `src/main.jsx`; every runtime asset path is repository-relative.
-
-```
-src/App.jsx         React-owned Content / Design / Review shell
-src/main.jsx        Vite React mount boundary and editor lifecycle
-src/studio.js       Canvas engine binding, live checks, display and A4 preview
-src/event-card.js   event composition, theme preservation, character replacement, gift numbering
-src/print-sheet.js  A4 sheet placement and crop marks
-src/catalog.js      assets, palettes, fonts, card types, layouts, templates (pure data)
-src/scene.js        DOM-free scene model: layers, constraints, templates, history
-src/qr-content.js   DOM-free ZIP-321 builder, address classification, link validation, batch parsing
-src/preflight.js    DOM-free export checks
-src/design-file.js  DOM-free design-file serializer and validator
-src/zip.js          DOM-free store-only ZIP writer
-src/snapping.js     DOM-free snap computation
-src/render.js       canvas drawing, text, QR modules and emblems, PNG export, print, thumbnails, batch
-src/editor.js       canvas interaction: zoom, pointer transforms, snapping guides, shortcuts
-src/panels.js       DOM binding for the rail, drawer, properties panel, layer list, menus, dialogs
-src/components/GooeyNav.tsx  Rare UI Gooey Nav adaptation for workflow steps
-tests/              node:test suites for the DOM-free modules
-```
-
-### Asset conventions
-
-- Store generation prompts, reference files, transformation notes and hashes in the relevant asset type's `source/` directory. Keep rejected generations and intermediate corrections under `archive/qr-card-studio-rejected/`.
-- Backgrounds should leave generous paper areas unprinted, use one or two spot colours and a few distinctive objects, and avoid full-page dark fills, washes and heavy gradients. A background supports the theme without competing with the QR or the Vizorcat.
-- Fonts are bundled as woff2 and never loaded from the network; see `THIRD_PARTY_NOTICES.md`.
-
-### Third-party marks
-
-Partner logos remain the property of their owners. `assets/logos/source/partner-logos.md` records where each copy came from, which fills were changed, and a usage-terms check per mark. Before a public deployment, review that section: marks without a published usage policy should be confirmed with the brand owner or removed, and recoloured copies restored to their original colours.
-
-## Deployment
-
-Vercel is the primary deployment target. It serves the Vite editors and Node.js
-functions for card images and HTTPS wallet launch from one origin. GitHub
-Actions runs tests and builds only; it no longer publishes GitHub Pages.
-
-Import this repository in Vercel using the repository root and Node.js 22.
-`vercel.json` sets Vite, `npm ci`, the test/build command, `dist` output,
-function artwork inclusion and routes. No environment variables are required
-for a same-origin deployment; leave `VITE_CARD_SERVICE_URL` unset.
-
-See [Vercel deployment](docs/vercel-deployment.md) for setup and acceptance checks.
-For a local check:
-
-```sh
-npm test
-npm run build
-npm run preview
-```
-
-Do not publish only `dist/`: image and wallet-launch APIs also need the Vercel
-functions in `api/`. Public image and `/pay` URLs must be accessible without
-login so GitHub and supporters can open them.
-
-## Assets and privacy
-
-Original character and background assets were created with OpenAI image-generation tools, then selected, edited, composited and curated for this project. They are not represented as exclusively human-made or guaranteed unique. Third-party logos, fonts and libraries remain subject to their owners' terms; see `THIRD_PARTY_NOTICES.md` and the provenance records under each asset's `source/` directory.
-
-The print editor processes card designs in the browser. Both editors keep drafts in same-tab session storage so switching between Print and Embed preserves your work. There are no accounts or analytics. Gift links are omitted from saved design files and session drafts; exported QR artwork still contains the gift link so it can be claimed. OpenAI services are used only during asset production, never by the deployed application.
-
-Online support cards are intentionally public: image URLs contain the receiving address, name, introduction, optional amount and memo. An image request sends those details to the configured card service and may be cached by GitHub or another image proxy. The service generates SVG without accounts or a card database. Generated embeds use an HTTPS route that opens the ZIP-321 request; they never hold funds, verify identity, or report payment completion. Hosting providers may retain ordinary request logs. Do not put private information or gift links into an online card.
-
-Links encoded in QR codes are governed by the privacy practices of their destinations. A static hosting provider may process ordinary request information under its own policy; this project does not receive it.
+Embed URLs publicly include the receiving address, name and any memo; the image service and image proxies may cache them. Payments go through the recipient's wallet, without a card database or payment tracking. Both editors keep same-tab session drafts. Gift links are excluded from saved designs and drafts, but remain in exported QR artwork.
 
 ## License
 
 Source code and documentation are available under the [MIT License](LICENSE).
 
-Original character, background and decorative image assets may be used as part of cards exported from this application for lawful event, onboarding, educational and promotional use. This does not include redistributing, selling or repackaging the raw image files as a standalone collection. Third-party logos, fonts and vendored libraries remain subject to the terms in `THIRD_PARTY_NOTICES.md`.
+Character and background artwork was made with AI-assisted generation and editing. It may be used in exported cards for lawful event, onboarding, educational and promotional use, but not redistributed as a standalone asset collection. Third-party terms are listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

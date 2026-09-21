@@ -5,7 +5,7 @@
   "outputDirectory": "dist",
   "functions": {
     "api/card.js": {
-      "includeFiles": "assets/{characters,logos,fonts}/*.{png,svg,woff2}"
+      "includeFiles": "assets/{characters/*,logos/*,fonts/*,vizor-icon}.{png,svg,woff2}"
     }
   },
   "rewrites": [

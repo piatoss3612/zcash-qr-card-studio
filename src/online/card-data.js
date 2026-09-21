@@ -49,6 +49,7 @@ export const COMPANIONS = {
 };
 export const CARD_LOGOS = {
   zcash: { label: "Zcash", path: "assets/logos/zcash-coin.png" },
+  vizor: { label: "Vizor", path: "assets/vizor-icon.svg" },
   vizorcat: { label: "Vizorcat", path: "assets/logos/vizorcat-classic-head.png" },
   valar: { label: "Valar Group", path: "assets/logos/valar-group.png" },
   zakura: { label: "Zakura", path: "assets/logos/zakura.svg" },
@@ -281,7 +282,7 @@ export function cardLinks(card, pageUrl, apiBase = pageUrl) {
   const payment = paymentUri(card);
   const launch = new URL("pay", apiBase);
   launch.search = query;
-  const edit = new URL("online.html", pageUrl);
+  const edit = new URL("online", pageUrl);
   edit.hash = query;
   return {
     image: image.href,

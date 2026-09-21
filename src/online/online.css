@@ -1598,3 +1598,5 @@ summary:focus-visible {
   .oc-topbar .oc-brand > span { display: none; }
   .oc-topbar .card-type-nav { margin-inline-start: auto; }
 }
+
+.oc-logo-grid img[src$="vizor-icon.svg"] { filter: brightness(0); }

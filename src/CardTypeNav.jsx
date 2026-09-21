@@ -6,7 +6,7 @@ export function CardTypeNav({ current }) {
       <a href="./" title="Print A6 cards" aria-current={current === "print" ? "page" : undefined}>
         Print
       </a>
-      <a href="./online.html" title="Embed cards in README and websites" aria-current={current === "embed" ? "page" : undefined}>
+      <a href="./online" title="Embed cards in README and websites" aria-current={current === "embed" ? "page" : undefined}>
         Embed
       </a>
     </nav>

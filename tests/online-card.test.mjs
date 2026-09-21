@@ -147,6 +147,7 @@ test("image, direct payment and editing links preserve the same immutable detail
     "https://images.example.com/cards/",
   );
   assert.equal(new URL(links.image).pathname, "/cards/api/card.svg");
+  assert.equal(new URL(links.edit).pathname, "/studio/online");
   assert.equal(links.payment, paymentUri(card));
   assert.ok(links.markdown.endsWith(`](${links.launch})`));
   assert.ok(links.html.startsWith(`<a href="${escapeXml(links.launch)}">`));
@@ -339,7 +340,6 @@ test("corner logo survives sharing, never changes payment, and rejects arbitrary
     assert.equal(paymentUri(card), paymentUri(initial));
     const paths = [];
     await renderCard(card, async path => { paths.push(path); return loadAsset(path); });
-    assert.equal(paths.some(path => path.startsWith("assets/logos/")), logo !== "none");
     if (logo !== "none") assert.ok(paths.includes(CARD_LOGOS[logo].path));
   }
   await assert.rejects(validateCard({ ...base, logo: "https://example.com/image.svg" }));
@@ -347,9 +347,9 @@ test("corner logo survives sharing, never changes payment, and rejects arbitrary
 });
 
 
-test("corner logos expose the selected five brands, including SVG Zakura", async () => {
+test("corner logos expose the selected six brands, including SVG Zakura", async () => {
   const { CARD_LOGOS } = await import("../src/online/card-data.js");
-  assert.deepEqual(Object.keys(CARD_LOGOS), ["zcash", "vizorcat", "valar", "zakura", "tachyon"]);
+  assert.deepEqual(Object.keys(CARD_LOGOS), ["zcash", "vizor", "vizorcat", "valar", "zakura", "tachyon"]);
   const card = await validateCard({ ...base, logo: "zakura" });
   const response = await worker.fetch(new Request(`https://example.com/api/card.svg?${serializeCard(card)}`), {
     ASSETS: { async fetch(request) { return new Response(await fs.readFile(new URL(`../${new URL(request.url).pathname.slice(1)}`, import.meta.url))); } },
