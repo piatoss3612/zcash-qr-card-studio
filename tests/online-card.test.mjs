@@ -15,7 +15,7 @@ import {
   cardLinks,
   escapeXml,
 } from "../src/online/card-data.js";
-import { renderCard, qrMatrix } from "../src/online/card-render.js";
+import { renderCard, qrMatrix, companionBox } from "../src/online/card-render.js";
 import { cardApi } from "../server/card-api.js";
 import worker from "../server/worker.js";
 
@@ -411,5 +411,27 @@ test("resizing preserves the top-left position except when constrained by a card
     assert.ok(bounded.x + bounded.w <= LAYOUTS[layout].width);
     assert.ok(bounded.y + bounded.h <= LAYOUTS[layout].height);
     assert.equal(resizeCompanion(card, -50).companionScale, "50");
+  }
+});
+
+test("portrait defaults keep the companion clear of QR and text at every allowed scale", () => {
+  for (let companionScale = 50; companionScale <= 130; companionScale++) {
+    const box = companionBox({ ...base, layout: "portrait", companionScale: String(companionScale) });
+    assert.ok(box.x >= 180, "companion must remain right of the QR quiet zone");
+    assert.ok(box.y >= 220, "companion must remain below the introduction");
+    assert.ok(box.x + box.w <= 400);
+    assert.ok(box.y + box.h <= 480);
+  }
+});
+
+test("new styles and portrait round-trip without changing the payment request", async () => {
+  const original = await validateCard(base);
+  for (const style of ["editorial", "terminal"]) {
+    const card = await validateCard({ ...base, style, layout: "portrait" });
+    assert.deepEqual(await parseCard(serializeCard(card)), card);
+    assert.equal(paymentUri(card), paymentUri(original));
+    const svg = await renderCard(card, loadAsset);
+    assert.match(svg, /width="400" height="480"/);
+    if (style === "terminal") assert.match(svg, /fill="#eef5e9"/);
   }
 });

@@ -8,7 +8,7 @@ Vizorcat assets, including the documented Standard cutout.
 
 Open `online.html` or select **Online cards** in the print studio. Enter a display
 name and a mainnet receiving address. Add an optional introduction, select
-Profile (480 × 260) or QR card (560 × 320), a style, and a companion. The preview
+Signature, Compact, Portrait or Profile, a style, and a companion. The preview
 uses the same self-contained SVG renderer as the image API. PNG downloads are
 rendered at twice the card dimensions.
 
@@ -166,13 +166,16 @@ explained at the format selector, before sharing.
 - **Signature** (`qr`, 560 × 320): the approved spacious card composition.
 - **Compact** (`compact`, 640 × 208): a 160px QR at the left, identity in the
   middle, and companion at the right. Suitable for short README sections.
-- **Profile** (`profile`, 480 × 260): no QR; for hosts that allow wallet links.
+- **Portrait** (`portrait`, 400 × 480): vertical identity above a QR and companion.
+- **Profile** (`profile`, 480 × 260): no QR; opens the wallet through the HTTPS launch link.
 
-All three layouts support Paper, Midnight and Pixel. Compact shares the same
+All four layouts support Paper, Midnight, Pixel, Editorial and Terminal.
+Editorial uses a warm ivory surface and Zarathustra serif; Terminal uses
+Geist Mono on deep green with a light QR quiet zone. Compact shares the same
 ZIP-321 request and density checks as Signature, and its dimensions flow through
 preview, PNG export and HTML embeds. Layouts are saved in editing links.
 
-Companions are selected through a thumbnail gallery: Vizorcat, Guardian,
+Companions are selected through a thumbnail gallery: Vizorcat, Surprised,
 Samurai, Wayfinder, or none. Existing local assets are reused without edits.
 The existing 50–130% size control applies in every layout. Compact reserves a
 separate character region at every allowed scale.

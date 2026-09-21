@@ -276,9 +276,6 @@ button {
 .oc-style-options button[aria-pressed="true"] {
   color: #304333;
 }
-.oc-style-options button:last-child > span {
-  font-family: GeistMono, monospace;
-}
 .oc-advanced {
   border-top: 1px solid #e1e5db;
   padding-top: 17px;
@@ -1600,3 +1597,12 @@ summary:focus-visible {
 }
 
 .oc-logo-grid img[src$="vizor-icon.svg"] { filter: brightness(0); }
+
+@font-face { font-family: Editorial; src: url("../../assets/fonts/zarathustra-v01.woff2") format("woff2"); font-display: swap; }
+.oc-style-mini-editorial b { font-family: Editorial, Georgia, serif; font-size: 12px; font-weight: 400; }
+.oc-style-mini-terminal b, .oc-style-mini-terminal em { font-family: GeistMono, monospace; }
+.oc-style-mini-terminal i { border-radius: 0; }
+.oc-layout-sketch-portrait { width: 36px; height: 44px; justify-self: center; }
+.oc-layout-sketch-portrait b { width: 24px; }
+.oc-layout-sketch-portrait i { width: 13px; height: 13px; left: 3px; }
+.oc-layout-sketch-portrait em { width: 10px; height: 17px; right: 3px; }

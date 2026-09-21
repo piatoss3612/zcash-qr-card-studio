@@ -30,6 +30,16 @@ export const STYLES = {
     accent: "#565cb6",
     border: "#bfc8e2",
   },
+  editorial: {
+    label: "Editorial", description: "Warm ivory with an expressive serif.",
+    bg: "#f5eee4", ink: "#392d28", muted: "#746258",
+    accent: "#9a513a", border: "#d8c8ba",
+  },
+  terminal: {
+    label: "Terminal", description: "Monospace on deep green.",
+    bg: "#101c18", ink: "#c6efd4", muted: "#9eb8a7",
+    accent: "#9ad6b0", border: "#3c5849", qrBackground: "#eef5e9",
+  },
 };
 export const COMPANIONS = {
   classic: {
@@ -59,6 +69,7 @@ export const CARD_LOGOS = {
 export const LAYOUTS = {
   qr: { label: "Signature", description: "QR card · GitHub & web", width: 560, height: 320 },
   compact: { label: "Compact", description: "Low profile · QR included", width: 640, height: 208 },
+  portrait: { label: "Portrait", description: "Vertical card · QR included", width: 400, height: 480 },
   profile: { label: "Profile", description: "Websites with wallet links", width: 480, height: 260 },
 };
 

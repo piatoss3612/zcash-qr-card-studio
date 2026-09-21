@@ -313,7 +313,7 @@ export default function OnlineStudio() {
               ))}
             </div>
           </fieldset>
-          <p className="oc-hint">Shared cards use an HTTPS link to open the wallet. Signature and Compact also include a QR.</p>
+          <p className="oc-hint">Shared cards use an HTTPS link to open the wallet. All formats except Profile include a QR.</p>
           <fieldset className="oc-fieldset">
             <legend>Style</legend>
             <div className="oc-style-options">

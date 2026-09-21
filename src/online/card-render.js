@@ -2,6 +2,8 @@ import qrcode from "qrcode-generator";
 import { STYLES, COMPANIONS, LAYOUTS, CARD_LOGOS, escapeXml, paymentUri } from "./card-data.js";
 
 export const CARD_FONTS = {
+  editorial: "assets/fonts/zarathustra-v01.woff2",
+  terminal: "assets/fonts/geist-mono-variable.woff2",
   paper: "assets/fonts/geist-bold.woff2",
   midnight: "assets/fonts/geist-bold.woff2",
   pixel: "assets/fonts/silkscreen-regular.woff2",
@@ -79,14 +81,15 @@ function textBlock(text, x, y, size, width, count, color) {
 
 /** Geometry reserves the QR, text, logo and full character independently. */
 export function companionBox(card) {
-  const isQr = card.layout === "qr";
+  const isQr = card.layout === "qr" || card.layout === "portrait";
+  const portrait = card.layout === "portrait";
   const compact = card.layout === "compact";
   const scale = Number(card.companionScale ?? 100) / 100;
   const w = (compact ? 88 : isQr ? 130 : 108) * scale;
   const h = (compact ? 108 : isQr ? 162 : 135) * scale;
   const { width, height } = LAYOUTS[card.layout];
-  const x = card.companionX ? Number(card.companionX) / 100 * (width - w) : (compact ? 552 : isQr ? 450 : 387) - w / 2;
-  const y = card.companionY ? Number(card.companionY) / 100 * (height - h) : (compact ? 194 : isQr ? 284 : 227) - h;
+  const x = card.companionX ? Number(card.companionX) / 100 * (width - w) : (portrait ? 300 : compact ? 552 : isQr ? 450 : 387) - w / 2;
+  const y = card.companionY ? Number(card.companionY) / 100 * (height - h) : (portrait ? 448 : compact ? 194 : isQr ? 284 : 227) - h;
   return { x: Math.max(0, Math.min(width - w, x)), y: Math.max(0, Math.min(height - h, y)), w, h };
 }
 
@@ -103,15 +106,16 @@ export function resizeCompanion(card, scale) {
 /** loadAsset returns data URIs from repository assets only. */
 export async function renderCard(card, loadAsset, { demo = false } = {}) {
   const theme = STYLES[card.style];
+  const portrait = card.layout === "portrait";
   const compact = card.layout === "compact";
   const isQr = card.layout !== "profile";
   const { width, height } = LAYOUTS[card.layout];
   const textX = compact ? 192 : 28;
   const qrX = compact ? 16 : 20;
-  const qrY = compact ? 24 : 148;
+  const qrY = portrait ? 288 : compact ? 24 : 148;
   const font = await loadAsset(CARD_FONTS[card.style]);
   const bodyFont = await loadAsset("assets/fonts/geist-medium.woff2");
-  const bioFont = await loadAsset("assets/fonts/geist-regular.woff2");
+  const bioFont = await loadAsset(card.style === "terminal" ? "assets/fonts/geist-mono-variable.woff2" : "assets/fonts/geist-regular.woff2");
   const logoPath = CARD_LOGOS[card.logo ?? "zcash"].path;
   const logo = logoPath ? await loadAsset(logoPath) : null;
   const character = COMPANIONS[card.companion].path;
@@ -129,9 +133,9 @@ export async function renderCard(card, loadAsset, { demo = false } = {}) {
           : [...name].length <= 8
             ? 72
             : 48;
-  const nameY = compact ? 64 : nameRows.length > 1 ? 48 : 75;
-  const bioY = compact ? 128 : 110;
-  const textLimit = compact ? 270 : isQr ? 330 : 272;
+  const nameY = portrait ? (nameRows.length > 1 ? 80 : 100) : compact ? 64 : nameRows.length > 1 ? 48 : 75;
+  const bioY = portrait ? 160 : compact ? 128 : 110;
+  const textLimit = portrait ? 320 : compact ? 270 : isQr ? 330 : 272;
   const measureName = (row) =>
     [...row].reduce(
       (n, c) =>
@@ -140,6 +144,8 @@ export async function renderCard(card, loadAsset, { demo = false } = {}) {
           ? 1
           : card.style === "pixel"
             ? 0.85
+            : card.style === "terminal"
+              ? 0.65
             : /[MW@]/.test(c)
               ? 0.95
               : /[ilI .]/.test(c)
@@ -170,7 +176,7 @@ export async function renderCard(card, loadAsset, { demo = false } = {}) {
         );
       // Light styles share one uninterrupted surface. Dark cards retain the
       // light quiet zone required by ordinary camera scanners, without a frame.
-      qr = qrSvg(uri, card.style === "midnight" ? "#f8f6ed" : theme.bg)
+      qr = qrSvg(uri, theme.qrBackground || (card.style === "midnight" ? "#f8f6ed" : theme.bg))
         .replace("<svg ", `<svg x="${qrX}" y="${qrY}" `)
         .replace(
           /width="\d+" height="\d+"/,
@@ -178,15 +184,15 @@ export async function renderCard(card, loadAsset, { demo = false } = {}) {
         );
     }
   }
-  const actionX = compact ? textX : isQr ? 200 : 28;
-  const actionY = compact ? 213 : isQr ? 247 : 223;
+  const actionX = portrait ? 28 : compact ? textX : isQr ? 200 : 28;
+  const actionY = portrait ? 288 : compact ? 213 : isQr ? 247 : 223;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeXml(`Support ${card.name} with Zcash`)}">
 <title>${escapeXml(`${card.name} · Support with Zcash`)}</title>
 <defs><style>@font-face{font-family:Card;src:url('${font}') format('woff2')}@font-face{font-family:Body;src:url('${bodyFont}') format('woff2')}@font-face{font-family:Bio;src:url('${bioFont}') format('woff2');font-weight:400}text{font-family:Body,Arial,sans-serif;fill:${theme.ink}}text.name{font-family:Card,Arial,sans-serif}text.bio{font-family:Bio,Arial,sans-serif;font-weight:400}</style></defs>
 <rect width="${width}" height="${height}" fill="${theme.bg}"/>
 ${logo ? card.logo === "vizor" ? `<defs><mask id="vizor-logo" mask-type="alpha"><image href="${logo}" x="${width - 56}" y="20" width="30" height="30" preserveAspectRatio="xMidYMid meet"/></mask></defs><rect x="${width - 56}" y="20" width="30" height="30" fill="${theme.ink}" mask="url(#vizor-logo)"/>` : `<image href="${logo}" x="${width - 56}" y="20" width="30" height="30" preserveAspectRatio="xMidYMid meet"/>` : ""}
 ${fittedName}
-${textBlock(card.bio || (demo ? "Building tools for a more private web." : ""), textX, bioY, compact ? 17 : 20, compact ? 27 : isQr ? 29 : 24, 2, theme.ink)}
+${textBlock(card.bio || (demo ? "Building tools for a more private web." : ""), textX, bioY, compact ? 17 : 20, portrait ? 26 : compact ? 27 : isQr ? 29 : 24, 2, theme.ink)}
 ${qr}
 ${art ? `<image class="companion" href="${art}" x="${artBox.x}" y="${artBox.y}" width="${artBox.w}" height="${artBox.h}" preserveAspectRatio="xMidYMid meet"/>` : ""}
 ${card.amount ? `<text x="${actionX}" y="${actionY - 28}" font-size="13">${escapeXml(card.amount)} ZEC</text>` : ""}
