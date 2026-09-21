@@ -49,6 +49,7 @@ function Arrow() {
 
 export default function OnlineStudio() {
   const [attempted, setAttempted] = useState(false);
+  const [showAllCompanions, setShowAllCompanions] = useState(false);
   const [addressError, setAddressError] = useState("");
   const [draft, setDraft] = useState(() => {
     try {
@@ -349,14 +350,17 @@ export default function OnlineStudio() {
           </fieldset>
           <fieldset className="oc-fieldset">
             <legend>Companion</legend>
-            <div className="oc-companion-grid">
-              {Object.entries(COMPANIONS).map(([id, companion]) => (
+            <div className="oc-companion-grid" id="oc-companion-options">
+              {Object.entries(COMPANIONS).filter(([id], index) => showAllCompanions || index < 6 || id === "none" || id === draft.companion).map(([id, companion]) => (
                 <button key={id} aria-pressed={draft.companion === id} onClick={() => update("companion", id)}>
                   {companion.path ? <img src={`./${companion.path}`} alt="" loading="lazy" /> : <span className="oc-no-companion" aria-hidden="true">—</span>}
                   <span>{companion.label}</span>
                 </button>
               ))}
             </div>
+            <button type="button" className="oc-companion-more" aria-expanded={showAllCompanions} aria-controls="oc-companion-options" onClick={() => setShowAllCompanions(value => !value)}>
+              {showAllCompanions ? "Show fewer companions" : "Explore all 14 companions"}
+            </button>
           </fieldset>
           {draft.companion !== "none" && (
             <div className="oc-size-control">

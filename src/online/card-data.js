@@ -55,6 +55,16 @@ export const COMPANIONS = {
     label: "Wayfinder",
     path: "assets/characters/astral-wayfinder-v2.png",
   },
+  orbital: { label: "Orbital Ranger", path: "assets/characters/orbital-rescue-ranger.png" },
+  grove: { label: "Grove Ranger", path: "assets/characters/crimson-grove-ranger.png" },
+  oni: { label: "Oni Samurai", path: "assets/characters/oni-samurai-v2.png" },
+  commons: { label: "Commons Guide", path: "assets/characters/commons-guide.png" },
+  snow: { label: "Snow Surveyor", path: "assets/characters/siberian-snow-surveyor-v2.png" },
+  stonehold: { label: "Stonehold Warden", path: "assets/characters/stonehold-warden-v5.png" },
+  hearthlight: { label: "Hearthlight Host", path: "assets/characters/hearthlight-host-v2.png" },
+  alchemist: { label: "Alchemist", path: "assets/characters/workshop-alchemist-v1.png" },
+  swordsman: { label: "Wandering Swordsman", path: "assets/characters/wandering-swordsman-v1.png" },
+  strongman: { label: "Tal Strongman", path: "assets/characters/tal-strongman-v1.png" },
   none: { label: "No companion", path: null },
 };
 export const CARD_LOGOS = {

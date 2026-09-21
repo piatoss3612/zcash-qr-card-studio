@@ -1606,3 +1606,7 @@ summary:focus-visible {
 .oc-layout-sketch-portrait b { width: 24px; }
 .oc-layout-sketch-portrait i { width: 13px; height: 13px; left: 3px; }
 .oc-layout-sketch-portrait em { width: 10px; height: 17px; right: 3px; }
+
+.oc-companion-more { margin-top: 12px; min-height: 44px; padding: 8px 12px; border: 1px solid #b5c1aa; border-radius: 8px; background: transparent; color: #304333; font: inherit; font-size: 13px; cursor: pointer; }
+.oc-companion-more:hover { background: #e9eee2; }
+.oc-companion-more:focus-visible { outline: 2px solid #466743; outline-offset: 3px; }

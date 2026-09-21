@@ -435,3 +435,21 @@ test("new styles and portrait round-trip without changing the payment request", 
     if (style === "terminal") assert.match(svg, /fill="#eef5e9"/);
   }
 });
+
+test("every companion shares and renders using a bundled local asset without changing payment", async () => {
+  const { COMPANIONS } = await import("../src/online/card-data.js");
+  const initial = await validateCard(base);
+  for (const [companion, asset] of Object.entries(COMPANIONS)) {
+    const card = await validateCard({ ...base, companion });
+    assert.deepEqual(await parseCard(serializeCard(card)), card);
+    assert.equal(paymentUri(card), paymentUri(initial));
+    const paths = [];
+    const svg = await renderCard(card, async path => { paths.push(path); return loadAsset(path); });
+    if (asset.path) {
+      assert.ok(paths.includes(asset.path));
+      assert.match(svg, /class="companion"/);
+    } else {
+      assert.doesNotMatch(svg, /class="companion"/);
+    }
+  }
+});

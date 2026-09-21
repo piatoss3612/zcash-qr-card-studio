@@ -175,8 +175,13 @@ Geist Mono on deep green with a light QR quiet zone. Compact shares the same
 ZIP-321 request and density checks as Signature, and its dimensions flow through
 preview, PNG export and HTML embeds. Layouts are saved in editing links.
 
-Companions are selected through a thumbnail gallery: Vizorcat, Surprised,
-Samurai, Wayfinder, or none. Existing local assets are reused without edits.
+The companion gallery includes 14 characters plus No companion: Vizorcat,
+Surprised, Samurai, Wayfinder, Orbital Ranger, Grove Ranger, Oni Samurai,
+Commons Guide, Snow Surveyor, Stonehold Warden, Hearthlight Host, Alchemist,
+Wandering Swordsman and Tal Strongman. Six are shown initially; Explore all
+reveals the full collection. The selected character remains visible when the
+gallery is collapsed or a saved link is restored. Existing approved local
+assets are reused without edits.
 The existing 50–130% size control applies in every layout. Compact reserves a
 separate character region at every allowed scale.
 
