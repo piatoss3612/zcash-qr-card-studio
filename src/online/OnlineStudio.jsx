@@ -155,6 +155,7 @@ export default function OnlineStudio() {
   }, [key]);
 
   const ready = result.key === key && Boolean(result.card);
+  const bioShortened = result.svg.includes('data-truncated="true"');
   const links = ready
     ? cardLinks(result.card, location.href, serviceBase())
     : null;
@@ -268,8 +269,14 @@ export default function OnlineStudio() {
               onChange={(event) => update("bio", event.target.value)}
               maxLength={80}
               placeholder="Building tools for everyday privacy."
+              aria-describedby={bioShortened ? "oc-bio-note" : undefined}
             />
           </label>
+          {bioShortened && (
+            <p id="oc-bio-note" className="oc-hint">
+              This introduction is shortened on the card. Shorten it or choose a taller format to show every word.
+            </p>
+          )}
           <label className="oc-field">
             Zcash receiving address
             <textarea

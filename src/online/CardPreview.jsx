@@ -1,14 +1,13 @@
 import { useRef } from "react";
 import { COMPANIONS, LAYOUTS } from "./card-data.js";
-import { companionBox, resizeCompanion, positionCompanion } from "./card-render.js";
+import { cardGeometry, companionBox, resizeCompanion, positionCompanion } from "./card-render.js";
 import { svgUrl } from "./browser.js";
 
 export function companionOverlapsQr(card) {
-  if (card.companion === "none" || card.layout === "profile") return false;
+  const { qr } = cardGeometry(card.layout);
+  if (card.companion === "none" || !qr) return false;
   const b = companionBox(card);
-  const x = card.layout === "compact" ? 16 : 20;
-  const y = card.layout === "portrait" ? 288 : card.layout === "compact" ? 24 : 148;
-  return b.x < x + 160 && b.x + b.w > x && b.y < y + 160 && b.y + b.h > y;
+  return b.x < qr.x + qr.size && b.x + b.w > qr.x && b.y < qr.y + qr.size && b.y + b.h > qr.y;
 }
 
 export default function CardPreview({ card, svg, onPosition, onResize }) {

@@ -47,7 +47,7 @@ export const STYLES = {
   },
   blueprint: {
     label: "Blueprint", description: "Drafting grid with crop marks.",
-    bg: "#1b4a8a", ink: "#ffffff", muted: "#cfdcf2",
+    bg: "#1b4a8a", ink: "#ffffff", muted: "#dce6f6",
     accent: "#8fb8ff", border: "#4f78b5",
   },
   airmail: {

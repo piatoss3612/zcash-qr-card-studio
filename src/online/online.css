@@ -1615,3 +1615,6 @@ summary:focus-visible {
 .oc-companion-more:focus-visible { outline: 2px solid #466743; outline-offset: 3px; }
 
 .oc-editable-card { overflow: hidden; }
+
+/* The shortened-introduction note follows its field like the inline name error. */
+.oc-controls > #oc-bio-note { margin: -12px 0 18px; }

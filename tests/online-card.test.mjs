@@ -436,6 +436,26 @@ test("new styles and portrait round-trip without changing the payment request", 
   }
 });
 
+test("names and introductions at their length limits render in full on every card", async () => {
+  const name = "Maximilian Alexander-Worthington";
+  const bio = "Maintainer of zcash-light-client tools, docs, and a very long list of side proje";
+  assert.equal([...name].length, 32);
+  assert.equal([...bio].length, 80);
+  const rows = (svg, kind) => [...svg.matchAll(new RegExp(`<text class="${kind}"[^>]*>([^<]*)</text>`, "g"))].map((m) => m[1]);
+  for (const style of Object.keys(STYLES))
+    for (const layout of Object.keys(LAYOUTS)) {
+      const card = await validateCard({ ...base, name, bio, style, layout, amount: "0.5" });
+      const svg = await renderCard(card, loadAsset);
+      assert.doesNotMatch(svg, /data-truncated/, `${style}/${layout}`);
+      assert.equal(rows(svg, "name").join(" ").replace("- ", "-"), name, `${style}/${layout}`);
+      assert.equal(rows(svg, "bio").join(" ").replace(/-\s/g, "-"), bio, `${style}/${layout}`);
+    }
+  const wide = await validateCard({ ...base, layout: "qr", bio: "가".repeat(80) });
+  const svg = await renderCard(wide, loadAsset);
+  assert.match(svg, /data-truncated="true"/);
+  assert.match(rows(svg, "bio").at(-1), /…$/);
+});
+
 test("surface styles draw local artwork around a white QR tile without changing payment", async () => {
   const original = await validateCard(base);
   const surfaces = { aurora: /id="au-violet"/, blueprint: /id="bp-grid"/, airmail: /id="am-stripes"/ };
@@ -446,7 +466,7 @@ test("surface styles draw local artwork around a white QR tile without changing 
       assert.equal(paymentUri(card), paymentUri(original));
       const svg = await renderCard(card, loadAsset);
       assert.match(svg, marker);
-      if (layout !== "profile") assert.match(svg, /<rect x="\d+" y="\d+" width="160" height="160"( rx="\d+")? fill="#fff"\/>|<rect width="\d+" height="\d+" fill="#fff"\/>/);
+      if (layout !== "profile") assert.match(svg, /width="160" height="160" rx="\d+" fill="#fff"/);
     }
 });
 

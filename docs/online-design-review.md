@@ -46,3 +46,26 @@ Not verified: real VoiceOver/screen-reader walkthrough, native browser zoom, rea
 ## Verdict
 
 Approve within the inspected local visual and interaction scope. No known HIGH findings remain; the unverified environments above are not covered by this verdict.
+
+## 2026-09-21 card artwork review
+
+Scope: the SVG card artwork from `src/online/card-render.js` in all styles and
+layouts, reviewed with `interfaces:better-interface` and its six domain skills
+against rendered cards (long, short and CJK copy; fixed amounts). Verdict before
+fixes: Block (one HIGH). All findings below are fixed.
+
+| Severity | Domain | Finding | Fix |
+| --- | --- | --- | --- |
+| HIGH | Typography | A 32-character name and an 80-character introduction were cut mid-word with an ellipsis although both were within the input limits | Width-based wrapping and size stepping fit the full copy; word-boundary truncation only as a flagged last resort with an editor note |
+| MEDIUM | UI | Five styles were one composition recolored; Paper≈Editorial, Midnight≈Terminal | One signature surface per style (inset panel, orbits, pixel frame, masthead bar, scanlines and cursor) |
+| MEDIUM | Colors | `muted`, `accent` and `border` tokens were never rendered; the introduction used `ink` | Introduction uses `muted` (≥4.5:1 on every surface; Blueprint muted lightened to pass on grid lines) |
+| MEDIUM | UI | Sharp, edgeless cards vanished on a README of the same tone (Paper on white 1.08:1) | Rounded or notched card shape with a low-opacity edge |
+| MEDIUM | Typography | The fixed amount was 13px | 16px with tabular figures |
+| MEDIUM | Layout | The amount floated away from the QR | Grouped with the QR in each layout |
+| MEDIUM | Writing | Profile had no QR and no words naming the action | "Support with Zcash" line in Profile only |
+| LOW | Layout | Stray edges (QR 20px, text 28px, logo 26px, QR bottom 12px) | Shared 20px inset (24px Compact); QR tile outlined on light styles |
+
+Verification: `npm test` (116, including a length-limit test across every style and
+layout), `npm run build`, `npm run check:worker`, rendered sheets for all styles
+and layouts, and QR decoding of rasterized editor previews (Paper, Pixel,
+Terminal). Not verified: screen readers, physical wallet scanning.

@@ -15,8 +15,11 @@ rendered at twice the card dimensions.
 The default is an open-amount support request. An optional fixed amount is
 preserved in both the QR and clickable ZIP-321 request. Memos are limited to 80 characters and are
 allowed for Sapling and unified addresses. Name and introduction are limited to
-32 and 80 characters; long copy is wrapped and may be visually truncated to fit.
-The full name is retained in the payment request.
+32 and 80 characters. The renderer fits the full copy by wrapping and stepping
+the name and introduction sizes down; names never truncate. Only extreme
+introductions (for example 80 wide CJK characters in Signature) are shortened at
+a word boundary with an ellipsis, and the editor then shows a note under the
+introduction field. The full name is retained in the payment request.
 
 **Copy Markdown** and **Copy HTML** become available after the image service's
 health check succeeds. On a static-only host they remain unavailable; PNG
@@ -142,9 +145,22 @@ The Standard cutout and its source/provenance record live under
 
 ## Current visual refinement
 
-The card has no visible Support label or arrow. Name typography is unchanged;
-descriptions use local Geist Regular. Companion anchors are raised by 18px in QR
-format and 12px in profile format while preserving the allowed size range.
+QR cards have no Support label or arrow; the QR carries the action. Profile has
+no QR, so it ends with a short "Support with Zcash" line (with a fixed
+amount, for example "Support with 0.5 ZEC") and an accent underline. Introductions use each style's muted
+color and local Geist Regular (Geist Mono in Terminal and Blueprint). A fixed
+amount renders at 16px with tabular figures beside the QR (Signature), under the
+introduction at the QR's baseline (Compact) or directly above the QR (Portrait).
+Companion anchors are raised by 18px in QR format and 12px in profile format
+while preserving the allowed size range.
+
+The QR tile, text column and corner logo share one 20px inset (24px in
+Compact). Every style has a rounded or notched shape with a low-opacity edge so
+the card stays visible on a README of the same tone, and light styles outline
+the white QR tile. Each style carries one signature surface: Paper an inset
+print panel, Midnight quiet orbits behind the Vizorcat, Pixel a notched pixel
+frame, Editorial a terracotta masthead bar, Terminal scanlines and a cursor
+after the introduction, plus the Aurora, Blueprint and Airmail surfaces above.
 
 ## Editor navigation and drafts
 
