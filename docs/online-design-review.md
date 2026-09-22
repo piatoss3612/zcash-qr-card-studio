@@ -63,7 +63,7 @@ fixes: Block (one HIGH). All findings below are fixed.
 | MEDIUM | Typography | The fixed amount was 13px | 16px with tabular figures |
 | MEDIUM | Layout | The amount floated away from the QR | Grouped with the QR in each layout |
 | MEDIUM | Writing | Profile had no QR and no words naming the action | "Support with Zcash" line in Profile only |
-| LOW | Layout | Stray edges (QR 20px, text 28px, logo 26px, QR bottom 12px) | Shared 20px inset (24px Compact); QR tile outlined on light styles |
+| LOW | Layout | Stray edges (QR 20px, text 28px, logo 26px, QR bottom 12px) | Shared 20px inset (24px Compact, 12px under Signature's QR so the name keeps its size); QR tile outlined on light styles |
 
 Verification: `npm test` (116, including a length-limit test across every style and
 layout), `npm run build`, `npm run check:worker`, rendered sheets for all styles

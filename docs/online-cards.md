@@ -181,7 +181,8 @@ Companion anchors are raised by 18px in QR format and 12px in profile format
 while preserving the allowed size range.
 
 The QR tile, text column and corner logo share one 20px inset (24px in
-Compact). Every style has a rounded or notched shape with a low-opacity edge so
+Compact); only Signature keeps a 12px gap under its QR, so its short card has
+room for a large name above. Every style has a rounded or notched shape with a low-opacity edge so
 the card stays visible on a README of the same tone, and light styles outline
 the white QR tile. Each style carries one signature surface: Paper an inset
 print panel, Midnight quiet orbits behind the Vizorcat, Pixel a notched pixel

@@ -23,9 +23,12 @@ export function cardGeometry(layout) {
   const { width, height } = LAYOUTS[layout];
   const compact = layout === "compact";
   const inset = compact ? 24 : 20;
+  // Signature keeps a 12px gap under its QR: the card is short, and the extra
+  // room above goes to the name.
+  const bottom = layout === "qr" ? 12 : inset;
   const qr = layout === "profile"
     ? null
-    : { x: inset, y: compact ? inset : height - inset - 160, size: 160 };
+    : { x: inset, y: compact ? inset : height - bottom - 160, size: 160 };
   return {
     width,
     height,
