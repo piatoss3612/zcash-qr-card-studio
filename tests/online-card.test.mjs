@@ -450,7 +450,7 @@ test("names and introductions at their length limits render in full on every car
       assert.equal(rows(svg, "name").join(" ").replace("- ", "-"), name, `${style}/${layout}`);
       assert.equal(rows(svg, "bio").join(" ").replace(/-\s/g, "-"), bio, `${style}/${layout}`);
     }
-  const wide = await validateCard({ ...base, layout: "qr", bio: "가".repeat(80) });
+  const wide = await validateCard({ ...base, layout: "qr", name, bio: "가".repeat(80), amount: "0.5" });
   const svg = await renderCard(wide, loadAsset);
   assert.match(svg, /data-truncated="true"/);
   assert.match(rows(svg, "bio").at(-1), /…$/);

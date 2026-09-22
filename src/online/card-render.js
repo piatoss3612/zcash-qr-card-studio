@@ -250,30 +250,39 @@ function layoutText({ name, bio, style, width, top, bottom, center, nameCap, bio
   const nameRows = single >= Math.min(oneRowMax, 30) ? [name] : splitName(name, nameMeasure);
   const nameFit = Math.min(nameRows.length > 1 ? Math.min(nameCap, 34) : oneRowMax, width / Math.max(...nameRows.map(nameMeasure)));
   const avail = bottom - top;
+  // Rows without descenders need less room below the baseline, which keeps short
+  // names large when an introduction shares the box.
+  const drop = (row, size, full, flat) => (/[gjpqy]/.test(row) ? full : flat) * size;
   const measureBlock = (size, bioRows, b) => {
-    const nameHeight = 0.96 * size + (nameRows.length - 1) * 1.12 * size;
-    const gap = bioRows.length ? Math.max(10, 0.3 * size) : 0;
-    return { gap, height: nameHeight + gap + (bioRows.length ? b + (bioRows.length - 1) * 1.4 * b : 0) };
+    const nameHeight = 0.74 * size + (nameRows.length - 1) * 1.12 * size + drop(nameRows.at(-1), size, 0.22, 0.06);
+    const gap = bioRows.length ? Math.max(8, 0.2 * size) : 0;
+    const bioHeight = bioRows.length
+      ? 0.74 * b + (bioRows.length - 1) * 1.4 * b + drop(bioRows.at(-1), b, 0.26, 0.1)
+      : 0;
+    return { gap, height: nameHeight + gap + bioHeight };
   };
+  // The introduction keeps its size first and wraps; the name gives way before it.
   let best = null;
-  for (const scale of [1, 0.94, 0.88, 0.82, 0.76, 0.7]) {
-    for (const b of bioSizes) {
-      const bioRows = bio ? wrap(bio, width / b, bioMeasure) : [];
+  for (const b of bioSizes) {
+    const bioRows = bio ? wrap(bio, width / b, bioMeasure) : [];
+    for (const scale of [1, 0.94, 0.88, 0.82, 0.76, 0.7]) {
       const block = measureBlock(nameFit * scale, bioRows, b);
-      const cost = (1 - scale) + 1.5 * (bioSizes[0] - b) / bioSizes[0];
-      if (block.height <= avail && (!best || cost < best.cost))
-        best = { cost, size: nameFit * scale, bioRows, b, ...block };
+      if (block.height <= avail) {
+        best = { size: nameFit * scale, bioRows, b, ...block };
+        break;
+      }
     }
+    if (best) break;
   }
   let truncated = false;
   if (!best && !bio) {
     const size = nameFit * 0.7;
-    best = { size, bioRows: [], b: 0, gap: 0, height: 0.96 * size + (nameRows.length - 1) * 1.12 * size };
+    best = { size, bioRows: [], b: 0, gap: 0, height: 0.74 * size + (nameRows.length - 1) * 1.12 * size + drop(nameRows.at(-1), size, 0.22, 0.06) };
   } else if (!best) {
     const size = nameFit * 0.7;
     const b = bioSizes.at(-1);
-    const nameHeight = 0.96 * size + (nameRows.length - 1) * 1.12 * size;
-    const gap = Math.max(10, 0.3 * size);
+    const nameHeight = 0.74 * size + (nameRows.length - 1) * 1.12 * size + drop(nameRows.at(-1), size, 0.22, 0.06);
+    const gap = Math.max(8, 0.2 * size);
     const room = Math.max(1, Math.floor((avail - nameHeight - gap - b) / (1.4 * b)) + 1);
     const bioRows = wrap(bio, width / b, bioMeasure).slice(0, room);
     let last = bioRows.at(-1);
@@ -281,11 +290,11 @@ function layoutText({ name, bio, style, width, top, bottom, center, nameCap, bio
     while (bioMeasure(`${last}…`) > width / b) last = [...last].slice(0, -1).join("");
     bioRows[bioRows.length - 1] = `${last.replace(/[\s,.;:–-]+$/, "")}…`;
     truncated = true;
-    best = { size, bioRows, b, gap, height: nameHeight + gap + b + (bioRows.length - 1) * 1.4 * b };
+    best = { size, bioRows, b, gap, height: nameHeight + gap + 0.74 * b + (bioRows.length - 1) * 1.4 * b + drop(bioRows.at(-1), b, 0.26, 0.1) };
   }
   const y = center ? top + (avail - best.height) / 2 : top;
   const nameBaselines = nameRows.map((_, i) => y + 0.74 * best.size + i * 1.12 * best.size);
-  const bioStart = nameBaselines.at(-1) + 0.22 * best.size + best.gap + 0.74 * best.b;
+  const bioStart = nameBaselines.at(-1) + drop(nameRows.at(-1), best.size, 0.22, 0.06) + best.gap + 0.74 * best.b;
   return {
     truncated,
     name: nameRows.map((row, i) => ({ row, y: nameBaselines[i], size: best.size })),
