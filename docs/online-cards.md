@@ -47,6 +47,12 @@ share section, download the PNG and commit it next to the README as
 `Zcash address:` line served by the README host, which supporters can compare
 with the address their wallet shows. The image link still opens the launch page.
 
+The launch page also shows the receiving address for comparison: the first and
+last eight characters large, then the full address in groups of four (copying it
+yields the contiguous address). It tells supporters to compare those characters
+with the address published where they found the card and with their wallet's
+confirmation screen, because the launch page itself cannot prove ownership.
+
 The launch page sends `Content-Security-Policy` (no sources except its own
 hashed script, `frame-ancestors 'none'`) and `X-Frame-Options: DENY`. The
 repository's default branch rejects force pushes and deletion; pushes to it

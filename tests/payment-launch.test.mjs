@@ -38,3 +38,17 @@ test("launch page allows only its own script and cannot be framed", async () => 
   const scripts = [...(await response.text()).matchAll(/<script>([\s\S]*?)<\/script>/g)].map((m) => m[1]);
   assert.deepEqual(scripts, [LAUNCH_SCRIPT]);
 });
+
+test("launch page shows the receiving address for comparison without new scripts", async () => {
+  const links = cardLinks(card, "https://site.example/online.html", "https://cards.example/");
+  const html = await (await paymentLaunch(new Request(links.launch))).text();
+  const address = card.address;
+  assert.match(html, /Check the address before you confirm/);
+  assert.ok(html.includes(`<dt>Starts with</dt><dd>${address.slice(0, 8)}</dd>`));
+  assert.ok(html.includes(`<dt>Ends with</dt><dd>${address.slice(-8)}</dd>`));
+  const groups = [...html.matchAll(/<(?:b|span)>([^<]*)<\/(?:b|span)>/g)].map((m) => m[1]);
+  assert.equal(groups.join(""), address);
+  const emphasized = [...html.matchAll(/<b>([^<]*)<\/b>/g)].map((m) => m[1]).join("");
+  assert.equal(emphasized, address.slice(0, 8) + address.slice(-8));
+  assert.equal([...html.matchAll(/<script>/g)].length, 1);
+});
