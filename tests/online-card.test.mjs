@@ -506,3 +506,13 @@ test("cropped companions round-trip, resize beyond the card, and retain a visibl
     assert.match(await renderCard(moved, loadAsset), /overflow="hidden"/);
   }
 });
+
+test("static Markdown uses the committed PNG and publishes the address for comparison", async () => {
+  const { STATIC_IMAGE } = await import("../src/online/card-data.js");
+  const card = await validateCard(base);
+  const links = cardLinks(card, "https://example.com/online.html", "https://cards.example/");
+  const [image, , address] = links.static.split("\n");
+  assert.equal(image, `[![Support with Zcash](${STATIC_IMAGE})](${links.launch})`);
+  assert.equal(address, `Zcash address: \`${card.address}\``);
+  assert.doesNotMatch(links.static, /api\/card\.svg/);
+});

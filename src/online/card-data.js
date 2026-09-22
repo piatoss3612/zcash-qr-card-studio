@@ -320,6 +320,9 @@ export function escapeXml(text) {
   );
 }
 
+/** File name shared by the PNG download and the static Markdown snippet. */
+export const STATIC_IMAGE = "zcash-support-card.png";
+
 /** Both targets carry the same immutable payment details. */
 export function cardLinks(card, pageUrl, apiBase = pageUrl) {
   const query = serializeCard(card);
@@ -337,5 +340,8 @@ export function cardLinks(card, pageUrl, apiBase = pageUrl) {
     edit: edit.href,
     markdown: `[![Support with Zcash](${image.href})](${launch.href})`,
     html: `<a href="${escapeXml(launch.href)}"><img src="${escapeXml(image.href)}" alt="Support ${escapeXml(card.name)} with Zcash" width="${LAYOUTS[card.layout].width}" style="max-width:100%;height:auto" /></a>`,
+    // A committed PNG keeps the QR fixed even if the image service changes; the
+    // address line gives supporters a copy served by the README host to compare.
+    static: `[![Support with Zcash](${STATIC_IMAGE})](${launch.href})\n\nZcash address: \`${card.address}\``,
   };
 }

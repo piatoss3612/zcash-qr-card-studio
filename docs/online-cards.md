@@ -32,6 +32,26 @@ the query string. Never include gift links or confidential memos. The name is
 creator-supplied and is not a verified identity. Cards are not GitHub Sponsors
 transactions or evidence of GitHub endorsement.
 
+## Trust model and static embeds
+
+Live embeds are rendered on request by the image service, so whoever controls
+that deployment (or its GitHub and Vercel accounts) could change the QR and the
+launch page of every live card. Outsiders cannot: card settings live only in the
+URL, unknown or repeated fields are rejected, addresses are checksum-validated,
+the label and memo are encoded so they cannot add ZIP-321 parameters, and the
+launch page only emits the validated `zcash:` request.
+
+To remove the dependency on the service for the QR, choose **Static** in the
+share section, download the PNG and commit it next to the README as
+`zcash-support-card.png`. The static snippet embeds that file and adds a
+`Zcash address:` line served by the README host, which supporters can compare
+with the address their wallet shows. The image link still opens the launch page.
+
+The launch page sends `Content-Security-Policy` (no sources except its own
+hashed script, `frame-ancestors 'none'`) and `X-Frame-Options: DENY`. The
+repository's default branch rejects force pushes and deletion; pushes to it
+deploy production on Vercel.
+
 ## Supporter flow
 
 The card preview, copied Markdown/HTML, and **Copy payment request** all use

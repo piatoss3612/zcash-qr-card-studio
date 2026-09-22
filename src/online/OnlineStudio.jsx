@@ -11,6 +11,7 @@ import {
   validateCard,
   validateAddress,
   cardLinks,
+  STATIC_IMAGE,
 } from "./card-data.js";
 import { renderCard, resizeCompanion, upperBodyCompanion } from "./card-render.js";
 import { loadCardAsset, svgUrl, downloadPng, serviceBase } from "./browser.js";
@@ -192,7 +193,7 @@ export default function OnlineStudio() {
     if (!requireReady()) return;
     setExporting(true);
     try {
-      await downloadPng(result.svg, "zcash-support-card.png");
+      await downloadPng(result.svg, STATIC_IMAGE);
       setMessage(
         "PNG downloaded. Link the image to your payment request on sites that allow zcash: links.",
       );
@@ -544,10 +545,18 @@ export default function OnlineStudio() {
                 >
                   HTML
                 </button>
+                <button
+                  aria-pressed={format === "static"}
+                  onClick={() => setFormat("static")}
+                >
+                  Static
+                </button>
               </div>
             </div>
             <p className="oc-hint">
-              The card and link open a wallet launch page that attempts to open Zcash automatically. If your browser blocks it, select Open wallet.
+              {format === "static"
+                ? `Download the PNG and commit it next to your README as ${STATIC_IMAGE}. The QR then stays fixed in your repository even if this image service changes, and the address line lets supporters compare it with their wallet.`
+                : "The card and link open a wallet launch page that attempts to open Zcash automatically. If your browser blocks it, select Open wallet."}
             </p>
             <textarea
               className="oc-code"
@@ -568,11 +577,13 @@ export default function OnlineStudio() {
                   requireReady() &&
                   copy(
                     links[format],
-                    `${format === "markdown" ? "Markdown" : "HTML"} copied. Paste it into your profile or website.`,
+                    format === "static"
+                      ? `Static Markdown copied. Commit the downloaded ${STATIC_IMAGE} next to your README.`
+                      : `${format === "markdown" ? "Markdown" : "HTML"} copied. Paste it into your profile or website.`,
                   )
                 }
               >
-                Copy {format === "markdown" ? "Markdown" : "HTML"}{" "}
+                Copy {format === "html" ? "HTML" : "Markdown"}{" "}
                 <Icon kind="copy" />
               </button>
               <button

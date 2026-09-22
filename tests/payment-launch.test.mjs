@@ -23,3 +23,18 @@ test("HTTPS launch preserves exact payment intent and escapes creator text", asy
   assert.equal((await paymentLaunch(new Request(links.launch, {method:"POST"}))).status, 405);
   assert.equal(await (await paymentLaunch(new Request(links.launch, {method:"HEAD"}))).text(), "");
 });
+
+test("launch page allows only its own script and cannot be framed", async () => {
+  const { createHash } = await import("node:crypto");
+  const { LAUNCH_SCRIPT, LAUNCH_SCRIPT_HASH } = await import("../server/payment-launch.js");
+  assert.equal(`sha256-${createHash("sha256").update(LAUNCH_SCRIPT).digest("base64")}`, LAUNCH_SCRIPT_HASH);
+  const links = cardLinks(card, "https://site.example/online.html", "https://cards.example/");
+  const response = await paymentLaunch(new Request(links.launch));
+  const policy = response.headers.get("content-security-policy");
+  assert.match(policy, /default-src 'none'/);
+  assert.match(policy, /frame-ancestors 'none'/);
+  assert.ok(policy.includes(`script-src '${LAUNCH_SCRIPT_HASH}'`));
+  assert.equal(response.headers.get("x-frame-options"), "DENY");
+  const scripts = [...(await response.text()).matchAll(/<script>([\s\S]*?)<\/script>/g)].map((m) => m[1]);
+  assert.deepEqual(scripts, [LAUNCH_SCRIPT]);
+});

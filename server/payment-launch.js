@@ -1,10 +1,16 @@
 import { parseCard, paymentUri, escapeXml } from "../src/online/card-data.js";
 
+export const LAUNCH_SCRIPT = "window.addEventListener('load',()=>{try{window.location.assign(document.getElementById('wallet').href)}catch{}},{once:true});";
+// SHA-256 of LAUNCH_SCRIPT; tests recompute it so the policy cannot drift from the script.
+export const LAUNCH_SCRIPT_HASH = "sha256-l6Eqvq1gif1XYfqyKn5fLnP+aOa8bk1n9YZbRjwuZxg=";
+
 const headers = {
   "Content-Type": "text/html; charset=utf-8",
   "Cache-Control": "no-store",
   "Referrer-Policy": "no-referrer",
   "X-Content-Type-Options": "nosniff",
+  "X-Frame-Options": "DENY",
+  "Content-Security-Policy": `default-src 'none'; style-src 'unsafe-inline'; script-src '${LAUNCH_SCRIPT_HASH}'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'`,
 };
 
 export async function paymentLaunch(request) {
@@ -17,6 +23,6 @@ export async function paymentLaunch(request) {
   const html = `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Open Zcash wallet</title>
 <style>body{margin:0;background:#f8f6ed;color:#171916;font:16px/1.5 system-ui;display:grid;min-height:100svh;place-items:center}main{width:min(420px,calc(100% - 48px));padding:32px 0}h1{font-size:28px}a{display:inline-block;padding:14px 22px;background:#304b2b;color:white;border-radius:8px;text-decoration:none}textarea{box-sizing:border-box;width:100%;margin-top:20px;padding:12px;font:13px/1.5 monospace}p{color:#50574b}a:focus-visible{outline:3px solid #b27a00;outline-offset:4px}</style>
 <main><h1>Open your Zcash wallet</h1><p>Payment request for ${escapeXml(card.name)}${card.amount ? ` · ${escapeXml(card.amount)} ZEC` : ""}.</p><p>Trying to open your wallet. If nothing happens, use the button below.</p><a id="wallet" href="${uri}">Open wallet</a><label for="request"><p>Or copy the payment request into a compatible wallet.</p></label><textarea id="request" rows="4" readonly>${uri}</textarea><p>Opening a wallet does not send funds. Review the request in your wallet.</p></main>
-<script>window.addEventListener('load',()=>{try{window.location.assign(document.getElementById('wallet').href)}catch{}} ,{once:true});</script></html>`;
+<script>${LAUNCH_SCRIPT}</script></html>`;
   return new Response(request.method === "HEAD" ? null : html, { headers });
 }

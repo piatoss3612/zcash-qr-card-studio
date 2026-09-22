@@ -85,6 +85,8 @@ A smaller profile card without a QR; the image remains clickable. Shown with the
 
 Open **Customize this example**, replace the name and address, then copy Markdown or HTML. The image itself links to an HTTPS page that launches the `zcash:` request; QR layouts also support scanning. These examples pay the maintainer if copied unchanged.
 
+Live cards are drawn by this project's image service. To keep the QR fixed in your own repository instead, choose **Static**, download the PNG, commit it next to your README and paste the static snippet; it also prints your address as text so supporters can compare it with their wallet. See [trust model and static embeds](docs/online-cards.md#trust-model-and-static-embeds).
+
 ## Local development
 
 Use Node.js 22.
