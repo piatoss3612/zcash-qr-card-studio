@@ -19,46 +19,63 @@ colors:
   brick: "#9a3328"
 typography:
   display:
-    fontFamily: "Geist, Arial, sans-serif"
-    fontSize: "clamp(32px, 3.8vw, 52px)"
+    fontFamily: "Geist, \"Geist Fallback\", Arial, sans-serif"
+    fontSize: "clamp(26px, 3.8vw, 52px)"
     fontWeight: 500
     lineHeight: 1.08
-    letterSpacing: "-2px"
+    letterSpacing: "-0.035em"
   headline:
-    fontFamily: "Geist, Arial, sans-serif"
+    fontFamily: "Geist, \"Geist Fallback\", Arial, sans-serif"
     fontSize: "22px"
     fontWeight: 500
-    letterSpacing: "-0.7px"
+    lineHeight: 1.2
+    letterSpacing: "-0.03em"
   title:
-    fontFamily: "Geist, Arial, sans-serif"
+    fontFamily: "Geist, \"Geist Fallback\", Arial, sans-serif"
     fontSize: "17px"
-    fontWeight: 600
-    letterSpacing: "-0.3px"
+    fontWeight: 700
+    lineHeight: 1.3
+    letterSpacing: "-0.015em"
+  lead:
+    fontFamily: "Geist, \"Geist Fallback\", Arial, sans-serif"
+    fontSize: "16px"
+    fontWeight: 400
+    lineHeight: 1.5
+  label:
+    fontFamily: "Geist, \"Geist Fallback\", Arial, sans-serif"
+    fontSize: "14px"
+    fontWeight: 500
+    lineHeight: 1.4
   body:
-    fontFamily: "Geist, Arial, sans-serif"
+    fontFamily: "Geist, \"Geist Fallback\", Arial, sans-serif"
     fontSize: "14px"
     fontWeight: 400
     lineHeight: 1.6
   field:
-    fontFamily: "Geist, Arial, sans-serif"
+    fontFamily: "Geist, \"Geist Fallback\", Arial, sans-serif"
     fontSize: "15px"
-    fontWeight: 500
-    lineHeight: 1.5
-  hint:
-    fontFamily: "Geist, Arial, sans-serif"
-    fontSize: "12px"
     fontWeight: 400
-    lineHeight: 1.6
+    lineHeight: 1.5
+  control:
+    fontFamily: "Geist, \"Geist Fallback\", Arial, sans-serif"
+    fontSize: "13px"
+    fontWeight: 500
+    lineHeight: 1.4
+  hint:
+    fontFamily: "Geist, \"Geist Fallback\", Arial, sans-serif"
+    fontSize: "13px"
+    fontWeight: 400
+    lineHeight: 1.5
   caption:
-    fontFamily: "Geist, Arial, sans-serif"
-    fontSize: "11px"
+    fontFamily: "Geist, \"Geist Fallback\", Arial, sans-serif"
+    fontSize: "12px"
     fontWeight: 400
     lineHeight: 1.5
   mono:
     fontFamily: "GeistMono, monospace"
-    fontSize: "12px"
+    fontSize: "13px"
     fontWeight: 400
-    lineHeight: 1.7
+    lineHeight: 1.5
 rounded:
   thumb: "5px"
   control: "8px"
@@ -121,7 +138,7 @@ components:
 
 The Embed editor is a quiet desk for composing one small card. Everything around the card is cream paper, linen and dry sage, set in Geist with tight editorial headlines and Geist Mono for code. The card itself is the only object allowed real colour: its eight styles, the Vizorcat character and the QR carry the personality, while the desk stays calm enough that a creator can judge the card as it will look in a README.
 
-Density is moderate and form-led: a 340px column of three numbered steps (details, design, share) beside a preview stage that stays in view while the steps scroll, generous 44px touch targets, and hints in 12px muted text directly under the controls they explain. Depth comes from tonal layering (linen page, paper workspace, linen stage) rather than shadows. The Print studio is a secondary tool with its own photo-editor chrome (neutral greys and a crimson brand in `styles.css`); this document governs the Embed family: the Embed editor, the support cards, and the `/pay` launch page.
+Density is moderate and form-led: a 340px column of three numbered steps (details, design, share) beside a preview stage that stays in view while the steps scroll, generous 44px touch targets, and hints in 13px muted text directly under the controls they explain. Depth comes from tonal layering (linen page, paper workspace, linen stage) rather than shadows. The Print studio is a secondary tool with its own photo-editor chrome (neutral greys and a crimson brand in `styles.css`); this document governs the Embed family: the Embed editor, the support cards, and the `/pay` launch page.
 
 **Key Characteristics:**
 - Cream and linen surfaces, one deep forest accent, no decorative gradients in the chrome.
@@ -161,22 +178,25 @@ A low-chroma sage and cream palette with a single deep forest accent, so the col
 
 ## Typography
 
-**Display Font:** Geist (with Arial, sans-serif)
+**Display Font:** Geist (with a metric-matched Arial fallback)
 **Label/Mono Font:** Geist Mono (with monospace)
 
-**Character:** A single neo-grotesk carries everything, tightened at display sizes for an editorial masthead feel; Geist Mono is reserved for the literal things a creator copies: embed code and addresses.
+**Character:** A single neo-grotesk carries everything, tightened at display sizes for an editorial masthead feel; Geist Mono is reserved for the literal things a creator copies: embed code and addresses. Geist stays because the cards themselves are set in it under the immutable v=1 card contract, so the desk and the card read as one voice.
 
-Geist ships as two files: Medium serves weights 400–500 and Bold serves 600–800, so "regular" text renders from the Medium cut.
+Geist ships as three static files: Regular (400), Medium (500) and Bold (600–800), so there are three real weights and 600 renders as Bold. "Geist Fallback" is Arial scaled to Geist's width and line box, so the swap barely reflows. Every role sets an explicit line height.
 
 ### Hierarchy
-- **Display** (500, clamp(32px, 3.8vw, 52px), 1.08, −2px): the page heading, once per page.
-- **Headline** (500, 22px, −0.7px): preview-area heading ("Your card").
-- **Title** (600, 17px, −0.3px): numbered section titles in the control column.
+- **Display** (500, clamp(26px, 3.8vw, 52px), 1.08, −0.035em, balanced): the page heading, once per page.
+- **Headline** (500, 22px, 1.2, −0.03em; 17px on phones): preview-area heading ("Your card").
+- **Title** (700, 17px, 1.3, −0.015em): numbered step titles in the settings column.
+- **Lead** (400, 16px, 1.5; 14px on phones): the line under the page heading.
+- **Label** (500, 14px, 1.4): field labels, legends and summaries; buttons use the same size and weight.
 - **Body** (400, 14px, 1.6): explanations and panel copy, in Lichen when secondary.
-- **Field** (500, 15px, 1.5): text inside inputs and selects.
-- **Hint** (400, 12px, 1.6): helper text under fields; the most frequent size in the editor.
-- **Caption** (400, 11px, 1.5): option descriptions under layout tiles and the numbered step badges.
-- **Mono** (Geist Mono 400, 12px, 1.7): the embed-code block and other copyable literals.
+- **Field** (400, 15px, 1.5; 16px on phones so fields do not zoom): text inside inputs, selects and textareas.
+- **Control** (500, 13px, 1.4): small controls and text actions (segments, preview toggles, Open wallet, Reset).
+- **Hint** (400, 13px, 1.5): helper text, status, notices and errors; tone comes from colour, not from a size step.
+- **Caption** (400, 12px, 1.5): option descriptions, footer, the "Made for Zcash" note and the Match badge (at 700).
+- **Mono** (Geist Mono 400, 13px, 1.5): embed code and the receiving address; step badges use Geist Mono 12px with tabular figures.
 
 ### Named Rules
 **The One Face Rule.** Chrome is set in Geist and Geist Mono only. Card-only faces (Silkscreen, Zarathustra, Space Grotesk) never appear in editor chrome except inside style thumbnails that preview a card.
@@ -245,7 +265,7 @@ The product itself: an SVG in four layouts (Signature, Compact, Portrait, Profil
 - **Do** keep the card the most colourful element on screen; chrome stays in the neutral tokens plus Deep Forest.
 - **Do** use one Deep Forest primary button per action group; everything else is secondary or a text action.
 - **Do** make every interactive element at least 44px tall and keep the 3px Moss Focus outline visible.
-- **Do** put helper text in 12px Lichen directly under the control it explains.
+- **Do** put helper text in 13px Lichen directly under the control it explains.
 - **Do** separate surfaces by tone (linen, paper, stage) and hairlines before reaching for a shadow.
 - **Do** keep the card in view while the creator makes design choices; the preview stage is sticky beside the steps.
 

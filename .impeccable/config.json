@@ -15,6 +15,12 @@
         "value": "editorial",
         "createdAt": "2026-09-24T10:03:18.242Z",
         "reason": "Claude, from DESIGN.md One Face Rule: card-only face (Zarathustra alias) used in the Editorial style thumbnail"
+      },
+      {
+        "rule": "overused-font",
+        "value": "geist",
+        "createdAt": "2026-09-24T10:30:25.284Z",
+        "reason": "Claude, from the typeset assessment: card SVGs render in Geist under the immutable v=1 card contract, so the chrome keeps Geist to match; fixed its weights and scale instead"
       }
     ]
   }

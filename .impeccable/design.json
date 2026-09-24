@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-24T10:06:36.955350Z",
+  "generatedAt": "2026-09-24T10:31:25.316974+00:00",
   "title": "Design System: Zcash QR Card Studio",
   "extensions": {
     "colorMeta": {
@@ -226,7 +226,15 @@
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Numbered section titles in the control column."
+        "purpose": "Numbered step titles."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Line under the page heading."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Field labels, legends, summaries and buttons."
       },
       "body": {
         "displayName": "Body",
@@ -234,19 +242,23 @@
       },
       "field": {
         "displayName": "Field",
-        "purpose": "Text inside inputs and selects."
+        "purpose": "Text inside inputs, selects and textareas."
+      },
+      "control": {
+        "displayName": "Control",
+        "purpose": "Small controls and text actions."
       },
       "hint": {
         "displayName": "Hint",
-        "purpose": "Helper text under controls; the most frequent size."
-      },
-      "mono": {
-        "displayName": "Mono",
-        "purpose": "Embed code and other copyable literals."
+        "purpose": "Helper text, status, notices and errors."
       },
       "caption": {
         "displayName": "Caption",
-        "purpose": "Option descriptions and numbered step badges."
+        "purpose": "Option descriptions, footer and badges."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Embed code and the receiving address."
       }
     },
     "shadows": [
@@ -290,6 +302,13 @@
       {
         "name": "wide",
         "value": "1440px"
+      }
+    ],
+    "fonts": [
+      {
+        "name": "Geist Fallback",
+        "value": "local(Arial) size-adjust 104%, ascent 96.6%, descent 28.4%, line-gap 0%",
+        "purpose": "Metric-matched fallback to limit reflow on font swap."
       }
     ]
   },
@@ -387,7 +406,7 @@
       "Do keep the card the most colourful element on screen; chrome stays in the neutral tokens plus Deep Forest.",
       "Do use one Deep Forest primary button per action group; everything else is secondary or a text action.",
       "Do make every interactive element at least 44px tall and keep the 3px Moss Focus outline visible.",
-      "Do put helper text in 12px Lichen directly under the control it explains.",
+      "Do put helper text in 13px Lichen directly under the control it explains.",
       "Do separate surfaces by tone (linen, paper, stage) and hairlines before reaching for a shadow.",
       "Do keep the card in view while the creator makes design choices; the preview stage is sticky beside the steps."
     ],
