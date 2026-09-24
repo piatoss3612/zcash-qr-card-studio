@@ -6,7 +6,8 @@ Vizorcat assets, including the documented Standard cutout.
 
 ## Creator flow
 
-Open `online.html` or select **Online cards** in the print studio. Enter a display
+Open the home page (`/`; older `/online` links open the same editor) or select
+**Embed** in the print editor's header. Enter a display
 name and a mainnet receiving address. Add an optional introduction, select
 Signature, Compact, Portrait or Profile, a style, and a companion. The preview
 uses the same self-contained SVG renderer as the image API. PNG downloads are
@@ -42,7 +43,7 @@ URL, unknown or repeated fields are rejected, addresses are checksum-validated,
 the label and memo are encoded so they cannot add ZIP-321 parameters, and the
 launch page only emits the validated `zcash:` request.
 
-To remove the dependency on the service for the QR, choose **Static** in the
+To remove the dependency on the service for the QR, choose **Static PNG** in the
 share section, download the PNG and commit it next to the README as
 `zcash-support-card.png`. The static snippet embeds that file and adds a
 `Zcash address:` line served by the README host, which supporters can compare
@@ -108,7 +109,7 @@ npm ci
 npm run dev
 ```
 
-Open `/online.html`. Vite serves the image API through the same handler as the
+Open `/`. Vite serves the image API through the same handler as the
 Worker. All generated links point to the current local host until deployed;
 they cannot be used in a public GitHub README.
 
@@ -193,8 +194,8 @@ after the introduction, plus the Aurora, Blueprint and Airmail surfaces above.
 
 ## Editor navigation and drafts
 
-Both editors share compact `Print` / `Embed` navigation inside the existing
-header. Each keeps its own draft in same-tab session storage, including
+Both editors share compact `Embed` / `Print` navigation inside the existing
+header; Embed is the home page and Print lives at `/print`. Each keeps its own draft in same-tab session storage, including
 incomplete online-card fields. Reloading or switching editors restores the
 latest draft. Opening an editing link replaces the draft once and then removes
 the fragment from the address bar, so a later reload keeps the edits. While the
@@ -206,9 +207,13 @@ longer-term use. A6 session drafts use the existing design-file serializer,
 which omits gift links; leaving a design containing a gift link retains the
 existing unsaved-work warning.
 
-On small screens, a compact preview precedes the editable fields. Preview
-context controls follow the settings. GitHub versus website compatibility is
-explained at the format selector, before sharing.
+The steps read top to bottom in the settings column: 01 Your details, 02 Card
+design, 03 Share your card. On wider screens the preview stays in view beside
+them while the steps scroll. On small screens, a compact preview precedes the
+editable fields. GitHub versus website compatibility is explained at the layout
+selector, before sharing. The share status sits above the copy buttons; a
+Vizorcat overlapping the QR or its quiet zone turns it into a warning (sharing
+stays available, as the overlap check is conservative).
 
 ## Layout and companion choices
 

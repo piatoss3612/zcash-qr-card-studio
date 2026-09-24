@@ -1,0 +1,402 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-24T10:06:36.955350Z",
+  "title": "Design System: Zcash QR Card Studio",
+  "extensions": {
+    "colorMeta": {
+      "forest": {
+        "role": "primary",
+        "displayName": "Deep Forest",
+        "canonical": "oklch(38.4% 0.056 140.2)",
+        "tonalRamp": [
+          "oklch(15% 0.039 140.2)",
+          "oklch(26% 0.056 140.2)",
+          "oklch(37% 0.056 140.2)",
+          "oklch(48% 0.056 140.2)",
+          "oklch(59% 0.056 140.2)",
+          "oklch(70% 0.056 140.2)",
+          "oklch(82% 0.056 140.2)",
+          "oklch(95% 0.020 140.2)"
+        ]
+      },
+      "fern": {
+        "role": "primary",
+        "displayName": "Fern",
+        "canonical": "oklch(47.8% 0.068 142.5)",
+        "tonalRamp": [
+          "oklch(15% 0.048 142.5)",
+          "oklch(26% 0.068 142.5)",
+          "oklch(37% 0.068 142.5)",
+          "oklch(48% 0.068 142.5)",
+          "oklch(59% 0.068 142.5)",
+          "oklch(70% 0.068 142.5)",
+          "oklch(82% 0.068 142.5)",
+          "oklch(95% 0.024 142.5)"
+        ]
+      },
+      "moss-focus": {
+        "role": "primary",
+        "displayName": "Moss Focus",
+        "canonical": "oklch(53.3% 0.096 134.9)",
+        "tonalRamp": [
+          "oklch(15% 0.067 134.9)",
+          "oklch(26% 0.096 134.9)",
+          "oklch(37% 0.096 134.9)",
+          "oklch(48% 0.096 134.9)",
+          "oklch(59% 0.096 134.9)",
+          "oklch(70% 0.096 134.9)",
+          "oklch(82% 0.096 134.9)",
+          "oklch(95% 0.034 134.9)"
+        ]
+      },
+      "bark-ink": {
+        "role": "neutral",
+        "displayName": "Bark Ink",
+        "canonical": "oklch(27.3% 0.015 136.7)",
+        "tonalRamp": [
+          "oklch(15% 0.010 136.7)",
+          "oklch(26% 0.015 136.7)",
+          "oklch(37% 0.015 136.7)",
+          "oklch(48% 0.015 136.7)",
+          "oklch(59% 0.015 136.7)",
+          "oklch(70% 0.015 136.7)",
+          "oklch(82% 0.015 136.7)",
+          "oklch(95% 0.005 136.7)"
+        ]
+      },
+      "lichen": {
+        "role": "neutral",
+        "displayName": "Lichen",
+        "canonical": "oklch(48.2% 0.023 133.3)",
+        "tonalRamp": [
+          "oklch(15% 0.016 133.3)",
+          "oklch(26% 0.023 133.3)",
+          "oklch(37% 0.023 133.3)",
+          "oklch(48% 0.023 133.3)",
+          "oklch(59% 0.023 133.3)",
+          "oklch(70% 0.023 133.3)",
+          "oklch(82% 0.023 133.3)",
+          "oklch(95% 0.008 133.3)"
+        ]
+      },
+      "sage-stroke": {
+        "role": "neutral",
+        "displayName": "Sage Stroke",
+        "canonical": "oklch(76.8% 0.026 130.0)",
+        "tonalRamp": [
+          "oklch(15% 0.018 130.0)",
+          "oklch(26% 0.026 130.0)",
+          "oklch(37% 0.026 130.0)",
+          "oklch(48% 0.026 130.0)",
+          "oklch(59% 0.026 130.0)",
+          "oklch(70% 0.026 130.0)",
+          "oklch(82% 0.026 130.0)",
+          "oklch(95% 0.009 130.0)"
+        ]
+      },
+      "dry-sage-line": {
+        "role": "neutral",
+        "displayName": "Dry Sage Line",
+        "canonical": "oklch(84.4% 0.017 125.3)",
+        "tonalRamp": [
+          "oklch(15% 0.012 125.3)",
+          "oklch(26% 0.017 125.3)",
+          "oklch(37% 0.017 125.3)",
+          "oklch(48% 0.017 125.3)",
+          "oklch(59% 0.017 125.3)",
+          "oklch(70% 0.017 125.3)",
+          "oklch(82% 0.017 125.3)",
+          "oklch(95% 0.006 125.3)"
+        ]
+      },
+      "sprout-tint": {
+        "role": "neutral",
+        "displayName": "Sprout Tint",
+        "canonical": "oklch(94.2% 0.017 125.3)",
+        "tonalRamp": [
+          "oklch(15% 0.012 125.3)",
+          "oklch(26% 0.017 125.3)",
+          "oklch(37% 0.017 125.3)",
+          "oklch(48% 0.017 125.3)",
+          "oklch(59% 0.017 125.3)",
+          "oklch(70% 0.017 125.3)",
+          "oklch(82% 0.017 125.3)",
+          "oklch(95% 0.006 125.3)"
+        ]
+      },
+      "stage-linen": {
+        "role": "neutral",
+        "displayName": "Stage Linen",
+        "canonical": "oklch(96.4% 0.009 113.2)",
+        "tonalRamp": [
+          "oklch(15% 0.007 113.2)",
+          "oklch(26% 0.009 113.2)",
+          "oklch(37% 0.009 113.2)",
+          "oklch(48% 0.009 113.2)",
+          "oklch(59% 0.009 113.2)",
+          "oklch(70% 0.009 113.2)",
+          "oklch(82% 0.009 113.2)",
+          "oklch(95% 0.003 113.2)"
+        ]
+      },
+      "pale-linen": {
+        "role": "neutral",
+        "displayName": "Pale Linen",
+        "canonical": "oklch(94.9% 0.009 113.2)",
+        "tonalRamp": [
+          "oklch(15% 0.007 113.2)",
+          "oklch(26% 0.009 113.2)",
+          "oklch(37% 0.009 113.2)",
+          "oklch(48% 0.009 113.2)",
+          "oklch(59% 0.009 113.2)",
+          "oklch(70% 0.009 113.2)",
+          "oklch(82% 0.009 113.2)",
+          "oklch(95% 0.003 113.2)"
+        ]
+      },
+      "cream-paper": {
+        "role": "neutral",
+        "displayName": "Cream Paper",
+        "canonical": "oklch(99.6% 0.007 97.3)",
+        "tonalRamp": [
+          "oklch(15% 0.005 97.3)",
+          "oklch(26% 0.007 97.3)",
+          "oklch(37% 0.007 97.3)",
+          "oklch(48% 0.007 97.3)",
+          "oklch(59% 0.007 97.3)",
+          "oklch(70% 0.007 97.3)",
+          "oklch(82% 0.007 97.3)",
+          "oklch(95% 0.002 97.3)"
+        ]
+      },
+      "parchment": {
+        "role": "semantic",
+        "displayName": "Parchment",
+        "canonical": "oklch(95.3% 0.026 90.1)",
+        "tonalRamp": [
+          "oklch(15% 0.018 90.1)",
+          "oklch(26% 0.026 90.1)",
+          "oklch(37% 0.026 90.1)",
+          "oklch(48% 0.026 90.1)",
+          "oklch(59% 0.026 90.1)",
+          "oklch(70% 0.026 90.1)",
+          "oklch(82% 0.026 90.1)",
+          "oklch(95% 0.009 90.1)"
+        ]
+      },
+      "parchment-ink": {
+        "role": "semantic",
+        "displayName": "Parchment Ink",
+        "canonical": "oklch(36.3% 0.062 84.7)",
+        "tonalRamp": [
+          "oklch(15% 0.043 84.7)",
+          "oklch(26% 0.062 84.7)",
+          "oklch(37% 0.062 84.7)",
+          "oklch(48% 0.062 84.7)",
+          "oklch(59% 0.062 84.7)",
+          "oklch(70% 0.062 84.7)",
+          "oklch(82% 0.062 84.7)",
+          "oklch(95% 0.022 84.7)"
+        ]
+      },
+      "brick": {
+        "role": "semantic",
+        "displayName": "Brick",
+        "canonical": "oklch(47.1% 0.140 29.4)",
+        "tonalRamp": [
+          "oklch(15% 0.084 29.4)",
+          "oklch(26% 0.120 29.4)",
+          "oklch(37% 0.120 29.4)",
+          "oklch(48% 0.120 29.4)",
+          "oklch(59% 0.120 29.4)",
+          "oklch(70% 0.120 29.4)",
+          "oklch(82% 0.120 29.4)",
+          "oklch(95% 0.042 29.4)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Page heading, once per page."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Preview-area heading."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Numbered section titles in the control column."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Explanations and panel copy."
+      },
+      "field": {
+        "displayName": "Field",
+        "purpose": "Text inside inputs and selects."
+      },
+      "hint": {
+        "displayName": "Hint",
+        "purpose": "Helper text under controls; the most frequent size."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Embed code and other copyable literals."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Option descriptions and numbered step badges."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card-lift",
+        "value": "drop-shadow(0 12px 18px #26301c14)",
+        "purpose": "Under the card preview only (CSS filter)."
+      },
+      {
+        "name": "pill-lift",
+        "value": "0 1px 3px #17231f14",
+        "purpose": "Active segment of the Print/Embed switch."
+      },
+      {
+        "name": "sheet-lift",
+        "value": "0 2px 4px #24292208, 0 24px 60px #2429220c",
+        "purpose": "Support-page panel."
+      }
+    ],
+    "motion": [
+      {
+        "name": "border-quick",
+        "value": "border-color 0.15s",
+        "purpose": "Field and tile border changes."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "transition: none",
+        "purpose": "All transitions are removed under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "compact",
+        "value": "760px"
+      },
+      {
+        "name": "medium",
+        "value": "1100px"
+      },
+      {
+        "name": "wide",
+        "value": "1440px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one main action in a group, such as Copy Markdown.",
+      "html": "<button class=\"ds-btn-primary\">Copy Markdown</button>",
+      "css": ".ds-btn-primary { font-family: Geist, Arial, sans-serif; font-size: 14px; font-weight: 500; min-height: 46px; padding: 12px 16px; border: 1px solid transparent; border-radius: 8px; background: #334b2e; color: #fffef9; cursor: pointer; transition: background 0.15s; } .ds-btn-primary:hover { background: #2a3f26; } .ds-btn-primary:focus-visible { outline: 3px solid #54793e; outline-offset: 3px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Supporting actions beside the primary, such as Download PNG.",
+      "html": "<button class=\"ds-btn-secondary\">Download PNG</button>",
+      "css": ".ds-btn-secondary { font-family: Geist, Arial, sans-serif; font-size: 14px; font-weight: 500; min-height: 46px; padding: 12px 16px; border: 1px solid #aeb7a6; border-radius: 8px; background: #fffef9; color: #242922; cursor: pointer; transition: border-color 0.15s; } .ds-btn-secondary:hover { border-color: #596154; } .ds-btn-secondary:focus-visible { outline: 3px solid #54793e; outline-offset: 3px; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Labelled field with a hint underneath.",
+      "html": "<label class=\"ds-field\"><span>Display name</span><input value=\"piatoss3612\" /><small>Shown on the card. Not a verified identity.</small></label>",
+      "css": ".ds-field { font-family: Geist, Arial, sans-serif; display: grid; gap: 6px; color: #242922; font-size: 14px; max-width: 300px; } .ds-field input { font: 500 15px/1.5 Geist, Arial, sans-serif; min-height: 46px; padding: 11px 12px; border: 1px solid #aeb7a6; border-radius: 8px; background: #fff; color: #242922; } .ds-field input:focus-visible { outline: 3px solid #54793e; outline-offset: 3px; } .ds-field small { font-size: 12px; line-height: 1.6; color: #596154; }"
+    },
+    {
+      "name": "Option Tile",
+      "kind": "chip",
+      "refersTo": "option-selected",
+      "description": "Pressable choice for format, layout or style.",
+      "html": "<div class=\"ds-options\"><button class=\"ds-option\" aria-pressed=\"true\"><strong>Live</strong><small>Image service</small></button><button class=\"ds-option\" aria-pressed=\"false\"><strong>Static</strong><small>PNG in your repo</small></button></div>",
+      "css": ".ds-options { display: flex; gap: 8px; } .ds-option { font-family: Geist, Arial, sans-serif; display: grid; gap: 4px; text-align: left; padding: 14px 10px; min-width: 130px; border: 1px solid #adb7a5; border-radius: 8px; background: #fffef9; color: #242922; cursor: pointer; } .ds-option strong { font-size: 13px; font-weight: 600; } .ds-option small { font-size: 11px; color: #596154; } .ds-option[aria-pressed=\"true\"] { border-color: #334b2e; box-shadow: inset 0 0 0 1px #334b2e; background: #e9eee2; } .ds-option:focus-visible { outline: 3px solid #54793e; outline-offset: 3px; }"
+    },
+    {
+      "name": "Embed/Print Switch",
+      "kind": "nav",
+      "refersTo": "",
+      "description": "Editor switch in the topbar.",
+      "html": "<nav class=\"ds-switch\"><a href=\"#\" aria-current=\"page\">Embed</a><a href=\"#\">Print</a></nav>",
+      "css": ".ds-switch { display: inline-flex; gap: 2px; padding: 3px; border-radius: 9px; background: #edf0e7; } .ds-switch a { font-family: Geist, Arial, sans-serif; display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border-radius: 6px; color: #4e5848; font-size: 13px; font-weight: 500; text-decoration: none; } .ds-switch a[aria-current=\"page\"] { background: #fffef9; color: #263922; box-shadow: 0 1px 3px #17231f14; } .ds-switch a:hover { color: #17231f; } .ds-switch a:focus-visible { outline: 2px solid #466743; outline-offset: 2px; }"
+    },
+    {
+      "name": "Notice",
+      "kind": "custom",
+      "refersTo": "notice",
+      "description": "Informational warning with an inline action.",
+      "html": "<div class=\"ds-notice\">This address came from the link you opened. <button>It’s my address</button></div>",
+      "css": ".ds-notice { font-family: Geist, Arial, sans-serif; max-width: 300px; padding: 12px; border-radius: 8px; background: #f6efdc; color: #4d3b12; font-size: 13px; line-height: 1.5; } .ds-notice button { display: block; min-height: 44px; padding: 0; border: 0; background: none; color: inherit; font: 600 13px Geist, Arial, sans-serif; text-decoration: underline; cursor: pointer; }"
+    },
+    {
+      "name": "Share Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Cream panel on the stage holding embed code and actions.",
+      "html": "<section class=\"ds-panel\"><h3>Share</h3><p>Copy Markdown for your README.</p></section>",
+      "css": ".ds-panel { font-family: Geist, Arial, sans-serif; max-width: 360px; padding: 24px; border: 1px solid #c9cec2; border-radius: 12px; background: #fffef9; color: #242922; } .ds-panel h3 { margin: 0 0 6px; font-size: 17px; font-weight: 600; letter-spacing: -0.3px; } .ds-panel p { margin: 0; font-size: 14px; line-height: 1.6; color: #596154; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Stationer's Desk",
+    "overview": "The Embed editor is a quiet desk for composing one small card. Everything around the card is cream paper, linen and dry sage, set in Geist with tight editorial headlines and Geist Mono for code. The card itself is the only object allowed real colour: its eight styles, the Vizorcat character and the QR carry the personality, while the desk stays calm enough that a creator can judge the card as it will look in a README.",
+    "keyCharacteristics": [
+      "Cream and linen surfaces, one deep forest accent, no decorative gradients in the chrome.",
+      "The support card is the most saturated thing on screen.",
+      "Geist throughout, Geist Mono only for embed code and addresses.",
+      "Tonal layers instead of elevation; shadows only under the card and floating pills.",
+      "44px minimum interactive height, visible 3px focus outline."
+    ],
+    "rules": [
+      {
+        "name": "The Card Owns the Colour Rule",
+        "body": "Chrome stays within the sage, linen and cream neutrals plus Deep Forest. Saturated hues belong to the card styles, not to the editor around them.",
+        "section": "colors"
+      },
+      {
+        "name": "The No New Greys Rule",
+        "body": "Reuse the neutral tokens above. The incumbent CSS carries a dozen near-duplicate one-off greens and greys (for example #f1f4eb, #f0f2ed, #e1e8d5); new work must not add more, and touched code should fold them into the nearest token.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Face Rule",
+        "body": "Chrome is set in Geist and Geist Mono only. Card-only faces (Silkscreen, Zarathustra, Space Grotesk) never appear in editor chrome except inside style thumbnails that preview a card.",
+        "section": "typography"
+      },
+      {
+        "name": "The Only the Card Floats Rule",
+        "body": "Panels, fields and buttons sit flat on their surface; a shadow means \"this is the card or floats over the desk\".",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep the card the most colourful element on screen; chrome stays in the neutral tokens plus Deep Forest.",
+      "Do use one Deep Forest primary button per action group; everything else is secondary or a text action.",
+      "Do make every interactive element at least 44px tall and keep the 3px Moss Focus outline visible.",
+      "Do put helper text in 12px Lichen directly under the control it explains.",
+      "Do separate surfaces by tone (linen, paper, stage) and hairlines before reaching for a shadow.",
+      "Do keep the card in view while the creator makes design choices; the preview stage is sticky beside the steps."
+    ],
+    "donts": [
+      "Don't add new one-off greys or greens; use the neutral tokens (The No New Greys Rule).",
+      "Don't set chrome text in Arial or card-only faces.",
+      "Don't let any card layer, surface or companion cover the QR or its four-module quiet zone.",
+      "Don't add decorative shadows to panels, fields or buttons (The Only the Card Floats Rule).",
+      "Don't put a kicker or eyebrow label above a heading; the heading carries its own weight."
+    ]
+  }
+}

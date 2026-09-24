@@ -1,0 +1,21 @@
+{
+  "buildPath": "comp",
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font",
+        "value": "silkscreen",
+        "createdAt": "2026-09-24T10:03:18.183Z",
+        "reason": "Claude, from DESIGN.md One Face Rule: card-only face used in Pixel style thumbnails and the support page, not editor chrome"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "editorial",
+        "createdAt": "2026-09-24T10:03:18.242Z",
+        "reason": "Claude, from DESIGN.md One Face Rule: card-only face (Zarathustra alias) used in the Editorial style thumbnail"
+      }
+    ]
+  }
+}

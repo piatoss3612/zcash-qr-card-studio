@@ -334,7 +334,8 @@ export function cardLinks(card, pageUrl, apiBase = pageUrl) {
   // After `#`, the details stay in the browser; the server only sees that /pay opened.
   const launch = new URL("pay", apiBase);
   launch.hash = query;
-  const edit = new URL("online", pageUrl);
+  // The Embed editor is the home page; /online still opens it for older links.
+  const edit = new URL("./", pageUrl);
   edit.hash = query;
   return {
     image: image.href,

@@ -211,9 +211,11 @@ export default function OnlineStudio() {
         : missingName
           ? { tone: "neutral", text: "Add your display name." }
           : result.card
-            ? linkedAddress
-              ? { tone: "warn", text: "Check that the receiving address is yours before sharing." }
-              : { tone: "ready", text: "Ready to share." }
+            ? companionOverlapsQr(draft)
+              ? { tone: "warn", text: "The Vizorcat covers part of the QR. Move it away or select Reset under the preview." }
+              : linkedAddress
+                ? { tone: "warn", text: "Check that the receiving address is yours before sharing." }
+                : { tone: "ready", text: "Ready to share." }
             : result.error
               ? { tone: "error", text: result.error }
               : { tone: "neutral", text: "Updating preview…" };
@@ -316,7 +318,6 @@ export default function OnlineStudio() {
       </header>
       <div className="oc-page-heading">
         <div>
-          <span className="oc-kicker">A SMALL CARD. A DIRECT CONNECTION.</span>
           <h1>Create an embed card.</h1>
           <p>
             Add a Zcash payment card to your README or website.
@@ -366,7 +367,7 @@ export default function OnlineStudio() {
           </label>
           {bioShortened && (
             <p id="oc-bio-note" className="oc-hint">
-              This introduction is shortened on the card. Shorten it or choose a taller format to show every word.
+              This introduction is shortened on the card. Shorten it or choose a taller layout to show every word.
             </p>
           )}
           <label className="oc-field">
@@ -418,7 +419,7 @@ export default function OnlineStudio() {
             <h2>Card design</h2>
           </div>
           <fieldset className="oc-fieldset">
-            <legend>Card format</legend>
+            <legend>Layout</legend>
             <div className="oc-format-options oc-layout-options">
               {Object.entries(LAYOUTS).map(([id, layout]) => (
                 <button key={id} aria-pressed={draft.layout === id} onClick={() => update("layout", id)}>
@@ -429,7 +430,7 @@ export default function OnlineStudio() {
               ))}
             </div>
           </fieldset>
-          <p className="oc-hint">Shared cards use an HTTPS link to open the wallet. All formats except Profile include a QR.</p>
+          <p className="oc-hint">Every shared card links to a page that opens the wallet. All layouts except Profile also include a QR.</p>
           <fieldset className="oc-fieldset">
             <legend>Style</legend>
             <div className="oc-style-options">
@@ -529,103 +530,6 @@ export default function OnlineStudio() {
               Sapling addresses.
             </p>
           </details>
-        </section>
-        <section className="oc-preview-area" aria-label="Preview and share">
-          <div className="oc-preview-toolbar">
-            <div>
-              <span className="oc-kicker">LIVE PREVIEW</span>
-              <h2>Your card</h2>
-            </div>
-            <div className="oc-preview-options">
-              <button aria-pressed={readme} onClick={() => setReadme(!readme)}>
-                README
-              </button>
-              <button
-                className="oc-mobile-toggle"
-                aria-pressed={mobile}
-                onClick={() => setMobile(!mobile)}
-                aria-label="Mobile width"
-              >
-                <Icon kind="phone" />
-              </button>
-              <button
-                aria-pressed={context === "dark"}
-                onClick={() =>
-                  setContext(context === "light" ? "dark" : "light")
-                }
-                aria-label="Dark README background"
-              >
-                <Icon kind="moon" />
-              </button>
-            </div>
-          </div>
-          <div
-            className={`oc-readme-wrap ${mobile ? "is-mobile" : ""} ${readme ? "" : "is-canvas"}`}
-          >
-            <div className={`oc-readme ${context === "dark" ? "is-dark" : ""}`}>
-              <div className="oc-readme-bar">
-                <span>
-                  <span aria-hidden="true">▤</span> README.md
-                </span>
-                <span aria-hidden="true">···</span>
-              </div>
-              <div className="oc-readme-content">
-                <span className="oc-readme-heading">
-                  Hi, I’m {draft.name.trim() || "your name"}{" "}
-                  <span aria-hidden="true">✳</span>
-                </span>
-                <p>
-                  Open-source projects, experiments, and things I’m building.
-                </p>
-                <div className="oc-readme-lines" aria-hidden="true">
-                  <i />
-                  <i />
-                </div>
-                <div className="oc-card-slot" aria-busy={result.key !== key}>
-                  {result.svg ? (
-                    <CardPreview card={draft} svg={result.svg} onResize={changes => { setMessage(""); setDraft(previous => ({ ...previous, ...changes })); }} onPosition={position => {
-                      setMessage("");
-                      setDraft(previous => ({ ...previous, ...position }));
-                    }} />
-                  ) : (
-                    <div className="oc-card-loading">
-                      {result.key === key
-                        ? result.error || "Preparing your card…"
-                        : "Updating your card…"}
-                    </div>
-                  )}
-                </div>
-                <div className="oc-readme-bottom">
-                  <span aria-hidden="true">⌁</span> Support independent work
-                  with Zcash.
-                </div>
-              </div>
-            </div>
-          </div>
-          {draft.companion !== "none" && (
-            <div className="oc-size-control">
-              <label htmlFor="oc-companion-size">Vizorcat size</label>
-              <input
-                id="oc-companion-size"
-                type="range"
-                min="50"
-                max="400"
-                step="1"
-                value={draft.companionScale}
-                onChange={(event) =>
-                  setDraft(previous => ({ ...previous, ...resizeCompanion(previous, Number(event.target.value)) }))
-                }
-              />
-              <output htmlFor="oc-companion-size">{draft.companionScale}%</output>
-              <button type="button" onClick={() => setDraft(previous => ({ ...previous, ...upperBodyCompanion(previous) }))}>Upper body</button>
-              <button type="button" onClick={() => setDraft(previous => ({ ...previous, companionScale: "100", companionPosition: "fit", companionX: "", companionY: "" }))}>Reset</button>
-            </div>
-          )}
-          <p className="oc-preview-caption">
-            {draft.companion !== "none" && <span id="oc-position-help">Drag the Vizorcat to move or crop it, and its corner to resize. Arrow keys also work; hold Shift for larger steps.</span>}
-            <span>Use Open wallet below to test the payment link.</span>
-            {companionOverlapsQr(draft) && <span className="oc-position-warning" role="status">Vizorcat overlaps the QR or its quiet zone. Move it away before sharing.</span>}
-          </p>
           <section className="oc-share" aria-label="Share your card">
             <div className="oc-section-title">
               <span>03</span>
@@ -633,7 +537,7 @@ export default function OnlineStudio() {
             </div>
             <div className="oc-share-heading">
               <p>Paste into your README or website.</p>
-              <div className="oc-segment" aria-label="Embed format">
+              <div className="oc-segment" aria-label="Embed code">
                 <button
                   aria-pressed={format === "markdown"}
                   onClick={() => setFormat("markdown")}
@@ -650,7 +554,7 @@ export default function OnlineStudio() {
                   aria-pressed={format === "static"}
                   onClick={() => setFormat("static")}
                 >
-                  Static
+                  Static PNG
                 </button>
               </div>
             </div>
@@ -683,6 +587,10 @@ export default function OnlineStudio() {
               }
               onFocus={(event) => event.target.select()}
             />
+            {/* Read before copying: warnings about the address or QR sit above the buttons. */}
+            <p className="oc-validation" role="status" data-tone={status.tone}>
+              {status.text}
+            </p>
             {/* Static needs the PNG in the repository before its Markdown works, so it leads. */}
             <div className="oc-share-actions">
               {format === "static" ? <>{pngButton}{copyButton}</> : <>{copyButton}{pngButton}</>}
@@ -692,9 +600,6 @@ export default function OnlineStudio() {
                 </a>
               )}
             </div>
-            <p className="oc-validation" role="status" data-tone={status.tone}>
-              {status.text}
-            </p>
             <p className="oc-feedback" role="status">
               {message}
             </p>
@@ -737,6 +642,103 @@ export default function OnlineStudio() {
               wallet.
             </span>
           </footer>
+        </section>
+        <section className="oc-preview-area" aria-label="Preview">
+          {/* Stays in view while the steps on the left scroll. */}
+          <div className="oc-stage">
+            <div className="oc-preview-toolbar">
+              <h2>Your card</h2>
+              <div className="oc-preview-options">
+                <button aria-pressed={readme} onClick={() => setReadme(!readme)}>
+                  README
+                </button>
+                <button
+                  className="oc-mobile-toggle"
+                  aria-pressed={mobile}
+                  onClick={() => setMobile(!mobile)}
+                  aria-label="Mobile width"
+                >
+                  <Icon kind="phone" />
+                </button>
+                <button
+                  aria-pressed={context === "dark"}
+                  onClick={() =>
+                    setContext(context === "light" ? "dark" : "light")
+                  }
+                  aria-label="Dark README background"
+                >
+                  <Icon kind="moon" />
+                </button>
+              </div>
+            </div>
+            <div
+              className={`oc-readme-wrap ${mobile ? "is-mobile" : ""} ${readme ? "" : "is-canvas"}`}
+            >
+              <div className={`oc-readme ${context === "dark" ? "is-dark" : ""}`}>
+                <div className="oc-readme-bar">
+                  <span>
+                    <span aria-hidden="true">▤</span> README.md
+                  </span>
+                  <span aria-hidden="true">···</span>
+                </div>
+                <div className="oc-readme-content">
+                  <span className="oc-readme-heading">
+                    Hi, I’m {draft.name.trim() || "your name"}{" "}
+                    <span aria-hidden="true">✳</span>
+                  </span>
+                  <p>
+                    Open-source projects, experiments, and things I’m building.
+                  </p>
+                  <div className="oc-readme-lines" aria-hidden="true">
+                    <i />
+                    <i />
+                  </div>
+                  <div className="oc-card-slot" aria-busy={result.key !== key}>
+                    {result.svg ? (
+                      <CardPreview card={draft} svg={result.svg} onResize={changes => { setMessage(""); setDraft(previous => ({ ...previous, ...changes })); }} onPosition={position => {
+                        setMessage("");
+                        setDraft(previous => ({ ...previous, ...position }));
+                      }} />
+                    ) : (
+                      <div className="oc-card-loading">
+                        {result.key === key
+                          ? result.error || "Preparing your card…"
+                          : "Updating your card…"}
+                      </div>
+                    )}
+                  </div>
+                  <div className="oc-readme-bottom">
+                    <span aria-hidden="true">⌁</span> Support independent work
+                    with Zcash.
+                  </div>
+                </div>
+              </div>
+            </div>
+            {draft.companion !== "none" && (
+              <div className="oc-size-control">
+                <label htmlFor="oc-companion-size">Vizorcat size</label>
+                <input
+                  id="oc-companion-size"
+                  type="range"
+                  min="50"
+                  max="400"
+                  step="1"
+                  value={draft.companionScale}
+                  onChange={(event) =>
+                    setDraft(previous => ({ ...previous, ...resizeCompanion(previous, Number(event.target.value)) }))
+                  }
+                />
+                <output htmlFor="oc-companion-size">{draft.companionScale}%</output>
+                <button type="button" onClick={() => setDraft(previous => ({ ...previous, ...upperBodyCompanion(previous) }))}>Upper body</button>
+                <button type="button" onClick={() => setDraft(previous => ({ ...previous, companionScale: "100", companionPosition: "fit", companionX: "", companionY: "" }))}>Reset</button>
+              </div>
+            )}
+            <p className="oc-preview-caption">
+              {draft.companion !== "none" && <span id="oc-position-help">Drag the Vizorcat to move or crop it, and its corner to resize. Arrow keys also work; hold Shift for larger steps.</span>}
+              <span>Use Open wallet below to test the payment link.</span>
+              {companionOverlapsQr(draft) && <span className="oc-position-warning" role="status">Vizorcat overlaps the QR or its quiet zone. Move it away before sharing.</span>}
+            </p>
+          </div>
         </section>
       </main>
     </div>

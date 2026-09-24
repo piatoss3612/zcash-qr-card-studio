@@ -147,7 +147,7 @@ test("image, direct payment and editing links preserve the same immutable detail
     "https://images.example.com/cards/",
   );
   assert.equal(new URL(links.image).pathname, "/cards/api/card.svg");
-  assert.equal(new URL(links.edit).pathname, "/studio/online");
+  assert.equal(new URL(links.edit).pathname, "/studio/");
   assert.equal(links.payment, paymentUri(card));
   assert.ok(links.markdown.endsWith(`](${links.launch})`));
   assert.ok(links.html.startsWith(`<a href="${escapeXml(links.launch)}">`));
@@ -239,6 +239,14 @@ test("API serves images, rejects invalid input before loading assets, and handle
   );
 });
 
+test("Vercel serves the Embed editor at / and keeps /online links working", async () => {
+  const { rewrites } = JSON.parse(await fs.readFile(new URL("../vercel.json", import.meta.url), "utf8"));
+  const target = (source) => rewrites.find((rule) => rule.source === source)?.destination;
+  assert.equal(target("/online"), "/index.html");
+  assert.equal(target("/online.html"), "/index.html");
+  assert.equal(target("/print"), "/print.html");
+});
+
 test("Worker routes static documents to assets and generates API images without remote URLs", async () => {
   const requested = [];
   const env = {
@@ -246,19 +254,20 @@ test("Worker routes static documents to assets and generates API images without 
       async fetch(request) {
         requested.push(request.url);
         const path = new URL(request.url).pathname.slice(1);
-        if (path === "online.html") return new Response("studio");
+        if (path === "") return new Response("embed editor");
         return new Response(
           await fs.readFile(new URL(`../${path}`, import.meta.url)),
         );
       },
     },
   };
-  assert.equal(
-    await (
-      await worker.fetch(new Request("https://example.com/online.html"), env)
-    ).text(),
-    "studio",
-  );
+  // The Embed editor is the home page; links made for /online keep opening it.
+  for (const path of ["/", "/online", "/online.html"])
+    assert.equal(
+      await (await worker.fetch(new Request(`https://example.com${path}`), env)).text(),
+      "embed editor",
+      path,
+    );
   const image = await worker.fetch(
     new Request(`https://example.com/api/card.svg?${serializeCard(base)}`),
     env,

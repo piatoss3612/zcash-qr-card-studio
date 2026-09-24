@@ -11,8 +11,10 @@ function cardApiDev() {
   const cache = new Map();
   const middleware = async (req, res, next) => {
     const url = new URL(req.url, "http://localhost");
-    if (url.pathname === "/pay") {
-      req.url = `/pay.html${url.search}`;
+    // Same page aliases as vercel.json; /online predates Embed becoming the home page.
+    const page = { "/pay": "/pay.html", "/print": "/print.html", "/online": "/index.html", "/online.html": "/index.html" }[url.pathname];
+    if (page) {
+      req.url = `${page}${url.search}`;
       return next();
     }
     if (!url.pathname.startsWith("/api/")) return next();
@@ -74,6 +76,6 @@ export default defineConfig({
   build: {
     target: "es2022",
     assetsInlineLimit: 0,
-    rollupOptions: { input: { studio: path.join(projectRoot, "index.html"), online: path.join(projectRoot, "online.html"), support: path.join(projectRoot, "support.html"), pay: path.join(projectRoot, "pay.html") } },
+    rollupOptions: { input: { embed: path.join(projectRoot, "index.html"), print: path.join(projectRoot, "print.html"), support: path.join(projectRoot, "support.html"), pay: path.join(projectRoot, "pay.html") } },
   },
 });

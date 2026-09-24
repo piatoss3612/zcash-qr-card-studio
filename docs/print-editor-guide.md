@@ -1,6 +1,6 @@
 # Print editor and asset guide
 
-[Open the studio](https://zcash-qr-card-studio.vercel.app/) · [Back to README](../README.md)
+[Open the print editor](https://zcash-qr-card-studio.vercel.app/print) · [Back to README](../README.md)
 
 ## Card types
 

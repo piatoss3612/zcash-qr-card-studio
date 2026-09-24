@@ -1,0 +1,6 @@
+{
+  "files": ["index.html", "online.html", "pay.html", "support.html"],
+  "insertBefore": "</body>",
+  "commentSyntax": "html",
+  "cspChecked": true
+}

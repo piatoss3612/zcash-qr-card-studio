@@ -17,8 +17,9 @@
 
 | Public route | Implementation |
 | --- | --- |
-| `/` | A6 editor, `dist/index.html` |
-| `/online` or `/online.html` | Embed-card editor |
+| `/` | Embed-card editor, `dist/index.html` |
+| `/online` or `/online.html` | rewrite to `dist/index.html`, for links made before Embed became the home page |
+| `/print` | rewrite to `dist/print.html`, the A6 print editor |
 | `/api/health` | `api/health.js` |
 | `/api/card.svg?...` | rewrite to `api/card.js` |
 | `/pay#...` | rewrite to `dist/pay.html`, with headers from `vercel.json` |
@@ -44,7 +45,7 @@ expiring or protected preview URL.
 ## After deployment
 
 1. Open `/api/health` without signing in; expect the card-service JSON.
-2. Open `/online`, enter a public test address, and copy Markdown.
+2. Open `/`, enter a public test address, and copy Markdown.
 3. Open its image URL in a separate signed-out session; expect an SVG image,
    not a login page, HTML document or missing-font/asset error.
 4. Paste Markdown into GitHub's README preview; verify the image and HTTPS link.

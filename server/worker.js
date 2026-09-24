@@ -13,6 +13,9 @@ export default {
       for (const [key, value] of Object.entries(LAUNCH_HEADERS)) response.headers.set(key, value);
       return response;
     }
+    // /online predates Embed becoming the home page; old editing links still use it.
+    if (url.pathname === "/online" || url.pathname === "/online.html")
+      return env.ASSETS.fetch(new Request(new URL("/", url), request));
     if (!url.pathname.startsWith("/api/")) return env.ASSETS.fetch(request);
     return cardApi(request, async (path) => {
       if (assets.has(path)) return assets.get(path);

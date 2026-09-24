@@ -5,13 +5,13 @@
 <h1 align="center">Zcash QR Card Studio</h1>
 
 <p align="center">
-  Print A6 QR cards or create personal Zcash support cards for the web.<br />
-  Print designs stay in your browser. Online cards share public payment details.
+  Create personal Zcash support cards for the web, or print A6 QR cards.<br />
+  Embed cards share public payment details. Print designs stay in your browser.
 </p>
 
 <p align="center">
-  <a href="https://zcash-qr-card-studio.vercel.app/">Print A6 cards</a> ·
-  <a href="https://zcash-qr-card-studio.vercel.app/online">Create an Embed card</a> ·
+  <a href="https://zcash-qr-card-studio.vercel.app/">Create an Embed card</a> ·
+  <a href="https://zcash-qr-card-studio.vercel.app/print">Print A6 cards</a> ·
   <a href="#embed-examples">Embed examples</a> ·
   <a href="#local-development">Local development</a>
 </p>
@@ -45,7 +45,7 @@ Airmail Courier delivers the card inside a striped envelope with a perforated st
 
 </details>
 
-[Customize this example](https://zcash-qr-card-studio.vercel.app/online#v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=airmail&layout=qr&companion=courier&logo=zcash&companionScale=100&companionPosition=fit&companionX=&companionY=&amount=&memo=)
+[Customize this example](https://zcash-qr-card-studio.vercel.app/#v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=airmail&layout=qr&companion=courier&logo=zcash&companionScale=100&companionPosition=fit&companionX=&companionY=&amount=&memo=)
 
 ### Compact · Aurora
 
@@ -62,7 +62,7 @@ A low-profile QR card with northern-light glows and the Aurora Photographer.
 
 </details>
 
-[Customize this example](https://zcash-qr-card-studio.vercel.app/online#v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=aurora&layout=compact&companion=photographer&logo=zcash&companionScale=100&companionPosition=fit&companionX=&companionY=&amount=&memo=)
+[Customize this example](https://zcash-qr-card-studio.vercel.app/#v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=aurora&layout=compact&companion=photographer&logo=zcash&companionScale=100&companionPosition=fit&companionX=&companionY=&amount=&memo=)
 
 ### Profile · Blueprint
 
@@ -79,13 +79,13 @@ A smaller profile card without a QR; the image remains clickable. Shown with the
 
 </details>
 
-[Customize this example](https://zcash-qr-card-studio.vercel.app/online#v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=blueprint&layout=profile&companion=architect&logo=zcash&companionScale=100&companionPosition=fit&companionX=&companionY=&amount=&memo=)
+[Customize this example](https://zcash-qr-card-studio.vercel.app/#v=1&name=piatoss3612&bio=Building+with+Zcash&address=u183r43k5wkcarcyg6yrw05hym3slpsk8dxmvf36hcnvtudg7kn8vsxpnk7jfq7ldnw9x7cyccufg9knneh2ud4cu9cjmzftpj8v329sh2&style=blueprint&layout=profile&companion=architect&logo=zcash&companionScale=100&companionPosition=fit&companionX=&companionY=&amount=&memo=)
 
 ### Use your own address
 
 Open **Customize this example**, replace the name and address, then copy Markdown or HTML. The image itself links to an HTTPS page that launches the `zcash:` request; QR layouts also support scanning. These examples pay the maintainer if copied unchanged.
 
-Live cards are drawn by this project's image service. To keep the QR fixed in your own repository instead, choose **Static**, download the PNG, commit it next to your README and paste the static snippet; it also prints your address as text so supporters can compare it with their wallet. See [trust model and static embeds](docs/online-cards.md#trust-model-and-static-embeds).
+Live cards are drawn by this project's image service. To keep the QR fixed in your own repository instead, choose **Static PNG**, download the PNG, commit it next to your README and paste the static snippet; it also prints your address as text so supporters can compare it with their wallet. See [trust model and static embeds](docs/online-cards.md#trust-model-and-static-embeds).
 
 ## Local development
 

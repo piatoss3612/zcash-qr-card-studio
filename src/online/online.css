@@ -322,7 +322,6 @@ button {
 .oc-readme-wrap {
   max-width: 800px;
   margin: auto;
-  transition: max-width 0.2s;
 }
 .oc-readme-wrap.is-mobile {
   max-width: 375px;
@@ -960,7 +959,7 @@ button {
 .oc-page-heading {
   max-width: 1440px;
   margin: auto;
-  padding: 44px 40px 32px;
+  padding: 32px 40px 24px;
   display: flex;
   align-items: end;
   justify-content: space-between;
@@ -970,7 +969,7 @@ button {
   font-size: clamp(32px, 3.8vw, 52px);
   letter-spacing: -2px;
   line-height: 1.08;
-  margin: 12px 0 16px;
+  margin: 0 0 10px;
   font-weight: 500;
 }
 .oc-page-heading p {
@@ -994,7 +993,7 @@ button {
   grid-template-columns: 340px minmax(0, 1fr);
   border: 1px solid var(--oc-line);
   border-radius: 18px;
-  overflow: hidden;
+  overflow: clip;
   min-height: 0;
   background: var(--oc-paper);
 }
@@ -1179,7 +1178,7 @@ button {
 }
 .oc-preview-options button[aria-pressed="true"] {
   color: var(--oc-ink);
-  background: #e1e8d5;
+  background: #e9eee2;
   border-color: var(--oc-accent);
 }
 .oc-readme {
@@ -1529,14 +1528,6 @@ summary:focus-visible {
   .oc-controls {
     border-top: 1px solid var(--oc-line);
   }
-  .oc-share {
-    order: 1;
-    margin: 24px 16px;
-  }
-  .oc-footer {
-    order: 2;
-    margin: 0 16px 24px;
-  }
 }
 @media (forced-colors: active) {
   button:focus-visible,
@@ -1589,7 +1580,7 @@ summary:focus-visible {
 /* Keep the mobile draft visible without delaying the first editable field. */
 @media (max-width: 760px) {
   .oc-page-heading { padding: 18px 20px; }
-  .oc-page-heading .oc-kicker, .oc-heading-note { display: none; }
+  .oc-heading-note { display: none; }
   .oc-page-heading h1 { font-size: 26px; letter-spacing: -.6px; }
   .oc-page-heading p { margin-top: 8px; }
   .is-canvas .oc-readme-content { min-height: 0; padding: 12px; }
@@ -1661,3 +1652,42 @@ summary:focus-visible {
 
 /* The shortened-introduction note follows its field like the inline name error. */
 .oc-controls > #oc-bio-note { margin: -12px 0 18px; }
+
+/* Share is step 03 of the controls column, so the steps read top to bottom and
+   the preview can stay in view beside them. */
+.oc-controls .oc-share {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+.oc-controls .oc-share .oc-section-title {
+  margin: 30px 0 16px;
+}
+.oc-controls .oc-share-heading {
+  flex-direction: column;
+  align-items: flex-start;
+}
+.oc-controls .oc-share-actions > button {
+  flex: 1 1 100%;
+}
+.oc-controls .oc-share-actions > a {
+  margin-left: 0;
+}
+.oc-controls .oc-footer {
+  margin: 28px 0 0;
+}
+@media (min-width: 761px) and (min-height: 640px) {
+  .oc-stage {
+    position: sticky;
+    top: 24px;
+  }
+}
+@media (max-width: 760px) {
+  /* The card still leads on phones; its pieces keep their own order. */
+  .oc-stage {
+    display: contents;
+  }
+}

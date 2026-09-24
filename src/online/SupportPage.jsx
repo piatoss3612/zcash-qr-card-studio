@@ -74,7 +74,7 @@ export default function SupportPage() {
         "--support-accent": theme.accent,
       }}
     >
-      <a className="oc-support-brand" href="./online">
+      <a className="oc-support-brand" href="./">
         <img src="./assets/vizorcat-icon.png" width="28" height="28" alt="" />{" "}
         QR Card Studio
       </a>
@@ -85,7 +85,7 @@ export default function SupportPage() {
           <h1>This link needs another look.</h1>
           <p role="alert">{state.error}</p>
           <p>Ask the creator for a new support link.</p>
-          <a className="oc-primary" href="./online">
+          <a className="oc-primary" href="./">
             Create your own card
           </a>
         </section>
@@ -216,7 +216,7 @@ export default function SupportPage() {
               Or use another wallet that supports Zcash payment requests.
             </span>
           </p>
-          <a className="oc-create-own" href="./online">
+          <a className="oc-create-own" href="./">
             Make a little card of your own <span aria-hidden="true">→</span>
           </a>
         </>
