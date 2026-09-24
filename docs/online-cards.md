@@ -17,7 +17,8 @@ The default is an open-amount support request. An optional fixed amount is
 preserved in both the QR and clickable ZIP-321 request. Memos are limited to 80 characters and are
 allowed for Sapling and unified addresses. Name and introduction are limited to
 32 and 80 characters. The renderer fits the full copy by wrapping and stepping
-the name and introduction sizes down; names never truncate. Only extreme
+the name and introduction sizes down; names never truncate, and a name with no
+space or hyphen stays on one row down to 20px before it is split. Only extreme
 introductions (for example 80 wide CJK characters in Signature) are shortened at
 a word boundary with an ellipsis, and the editor then shows a note under the
 introduction field. The full name is retained in the payment request.
@@ -192,7 +193,7 @@ Compact); only Signature keeps a 12px gap under its QR, so its short card has
 room for a large name above. Every style has a rounded or notched shape with a low-opacity edge so
 the card stays visible on a README of the same tone, and light styles outline
 the white QR tile. Each style carries one signature surface: Paper an inset
-print panel, Midnight quiet orbits behind the Vizorcat, Pixel a notched pixel
+print panel, Midnight three orbits with two small lights behind the Vizorcat, Pixel a notched pixel
 frame, Editorial a terracotta masthead bar, Terminal scanlines and a cursor
 after the introduction, plus the Aurora, Blueprint and Airmail surfaces above.
 
@@ -224,7 +225,7 @@ stays available, as the overlap check is conservative).
 - **Signature** (`qr`, 560 × 320): the approved spacious card composition.
 - **Compact** (`compact`, 640 × 208): a 160px QR at the left, identity in the
   middle, and companion at the right. Suitable for short README sections.
-- **Portrait** (`portrait`, 400 × 480): vertical identity above a QR and companion.
+- **Portrait** (`portrait`, 400 × 480): vertical identity above a QR and companion; the name and introduction are centred in the space above the QR and keep 30px clear of the corner logo.
 - **Profile** (`profile`, 480 × 260): no QR; opens the wallet through the HTTPS launch link.
 
 All four layouts support Paper, Midnight, Pixel, Editorial, Terminal, Aurora,

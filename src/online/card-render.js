@@ -34,7 +34,8 @@ export function cardGeometry(layout) {
     height,
     qr,
     textX: compact ? qr.x + qr.size + 20 : inset,
-    textWidth: layout === "portrait" ? 320 : compact ? 270 : layout === "profile" ? 272 : 330,
+    // Portrait keeps 30px between the name and the corner logo.
+    textWidth: layout === "portrait" ? 300 : compact ? 270 : layout === "profile" ? 272 : 330,
     logo: { x: width - 20 - 30, y: 20, size: 30 },
   };
 }
@@ -65,7 +66,8 @@ function surface(style, theme, geo) {
       radius: 16,
       qrRadius: 6,
       defs: `<clipPath id="md-zone"><rect x="${zoneX}" y="${zoneY}" width="${W - zoneX}" height="${H - zoneY}"/></clipPath>`,
-      back: `<g clip-path="url(#md-zone)" fill="none" stroke="${theme.accent}" stroke-width="1.5"><circle cx="${W}" cy="${H}" r="${r * 0.47}" stroke-opacity=".3"/><circle cx="${W}" cy="${H}" r="${r * 0.62}" stroke-opacity=".16"/><circle cx="${W - r * 0.62 * 0.8}" cy="${H - r * 0.62 * 0.6}" r="2.5" fill="${theme.accent}" fill-opacity=".85" stroke="none"/></g>`,
+      // Three orbits and two lights read at README size; each light carries a soft halo.
+      back: `<g clip-path="url(#md-zone)" fill="none" stroke="${theme.accent}" stroke-width="1.5"><circle cx="${W}" cy="${H}" r="${r * 0.32}" stroke-opacity=".5"/><circle cx="${W}" cy="${H}" r="${r * 0.47}" stroke-opacity=".38"/><circle cx="${W}" cy="${H}" r="${r * 0.62}" stroke-opacity=".22"/><g fill="${theme.accent}" stroke="none"><circle cx="${W - r * 0.62 * 0.8}" cy="${H - r * 0.62 * 0.6}" r="9" fill-opacity=".14"/><circle cx="${W - r * 0.62 * 0.8}" cy="${H - r * 0.62 * 0.6}" r="3" fill-opacity=".95"/><circle cx="${W - r * 0.47 * 0.28}" cy="${H - r * 0.47 * 0.96}" r="6" fill-opacity=".12"/><circle cx="${W - r * 0.47 * 0.28}" cy="${H - r * 0.47 * 0.96}" r="2" fill-opacity=".8"/></g></g>`,
       edge: DARK_EDGE,
     };
   }
@@ -369,7 +371,8 @@ export async function renderCard(card, loadAsset, { demo = false, qrHint = ["Add
   const box = {
     qr: { top: 20, bottom: qr?.y - 12, nameCap: 72, bioSizes: [20, 19, 18, 17, 16, 15, 14] },
     compact: { top: 24, bottom: 184 - (amount ? 26 : 0), center: true, nameCap: 36, bioSizes: [17, 16, 15, 14, 13] },
-    portrait: { top: 20, bottom: qr?.y - 12 - (amount ? 28 : 0), nameCap: 72, bioSizes: [20, 19, 18, 17, 16, 15] },
+    // Portrait centres its copy in the tall space above the QR instead of leaving an empty band.
+    portrait: { top: 20, bottom: qr?.y - 12 - (amount ? 28 : 0), center: true, nameCap: 72, bioSizes: [20, 19, 18, 17, 16, 15] },
     profile: { top: 20, bottom: height - 50, nameCap: 72, bioSizes: [20, 19, 18, 17, 16, 15, 14] },
   }[card.layout];
   const text = layoutText({

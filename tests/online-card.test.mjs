@@ -560,3 +560,13 @@ test("Markdown and HTML embeds share one alt text, escaped for Markdown", async 
   assert.match(links.staticHtml, new RegExp(`<code>${card.address}</code>`));
   assert.doesNotMatch(links.staticHtml, /api\/card\.svg/);
 });
+
+test("Portrait copy keeps clear of the corner logo and sits centred above the QR", async () => {
+  const { cardGeometry } = await import("../src/online/card-render.js");
+  const geo = cardGeometry("portrait");
+  assert.ok(geo.textX + geo.textWidth <= geo.logo.x - 30);
+  const card = await validateCard({ ...base, name: "piatoss3612", bio: "Building with Zcash", layout: "portrait" });
+  const ys = [...(await renderCard(card, loadAsset)).matchAll(/<text class="(?:name|bio)"[^>]*y="([\d.]+)"/g)].map((m) => Number(m[1]));
+  // Centred copy leaves room above the first baseline as well as below the last.
+  assert.ok(ys[0] > 60 && ys.at(-1) < geo.qr.y - 60, ys.join(","));
+});
