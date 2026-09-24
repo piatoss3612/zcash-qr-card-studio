@@ -21,13 +21,14 @@
 | `/online` or `/online.html` | Embed-card editor |
 | `/api/health` | `api/health.js` |
 | `/api/card.svg?...` | rewrite to `api/card.js` |
-| `/pay?...` | rewrite to `api/pay.js` |
+| `/pay#...` | rewrite to `dist/pay.html`, with headers from `vercel.json` |
 
 The image function includes local PNG/SVG artwork and WOFF2 fonts explicitly.
 Asset source/license records are needed during the Vite build, so do not exclude
 those build inputs. No database, upload storage or external image service is
-required. Shared card data is public. The launch route validates its input and
-attempts to open a ZIP-321 URI once, leaving a manual Open wallet link available.
+required. Shared card data is public. The launch page is static: it reads the
+card from the link's `#` fragment in the browser, validates it and attempts to
+open a ZIP-321 URI once, leaving a manual Open wallet link available.
 
 ## Account connection
 
@@ -47,9 +48,10 @@ expiring or protected preview URL.
 3. Open its image URL in a separate signed-out session; expect an SVG image,
    not a login page, HTML document or missing-font/asset error.
 4. Paste Markdown into GitHub's README preview; verify the image and HTTPS link.
-5. Click the card: `/pay` attempts wallet launch and leaves the fallback button.
-   Verify recipient, amount and memo in the intended desktop/mobile wallets.
-   No transfer is necessary.
+5. Click the card: `/pay#…` attempts wallet launch and leaves the fallback
+   button. Verify recipient, amount and memo in the intended desktop/mobile
+   wallets. No transfer is necessary. `curl -I` on `/pay` should show the
+   `Content-Security-Policy` and `X-Frame-Options` headers from `vercel.json`.
 6. Download a PNG and independently decode its QR with
    `node scripts/verify-online-png.mjs path/to/card.png`.
 

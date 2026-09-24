@@ -331,8 +331,9 @@ export function cardLinks(card, pageUrl, apiBase = pageUrl) {
   const image = new URL("api/card.svg", apiBase);
   image.search = query;
   const payment = paymentUri(card);
+  // After `#`, the details stay in the browser; the server only sees that /pay opened.
   const launch = new URL("pay", apiBase);
-  launch.search = query;
+  launch.hash = query;
   const edit = new URL("online", pageUrl);
   edit.hash = query;
   return {

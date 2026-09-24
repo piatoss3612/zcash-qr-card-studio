@@ -1,4 +1,4 @@
-import { paymentLaunch } from "./payment-launch.js";
+import { LAUNCH_HEADERS } from "./payment-launch.js";
 import { cardApi } from "./card-api.js";
 
 const assets = new Map();
@@ -6,7 +6,13 @@ const assets = new Map();
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (url.pathname === "/pay") return paymentLaunch(request);
+    if (url.pathname === "/pay") {
+      // Assets serve pay.html for /pay; only the headers are added here.
+      const page = await env.ASSETS.fetch(request);
+      const response = new Response(page.body, page);
+      for (const [key, value] of Object.entries(LAUNCH_HEADERS)) response.headers.set(key, value);
+      return response;
+    }
     if (!url.pathname.startsWith("/api/")) return env.ASSETS.fetch(request);
     return cardApi(request, async (path) => {
       if (assets.has(path)) return assets.get(path);

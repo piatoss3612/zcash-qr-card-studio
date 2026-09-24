@@ -28,7 +28,8 @@ copied `zcash:` request on hosts that permit custom URI schemes. **Save editing 
 URL fragment so they can be reopened without an account or local storage.
 
 All card details in shared URLs are public. The image API receives them through
-the query string. Never include gift links or confidential memos. The name is
+the query string; the launch link keeps them after `#` (see
+[HTTPS wallet launch](#https-wallet-launch-current-sharing-behavior)). Never include gift links or confidential memos. The name is
 creator-supplied and is not a verified identity. Cards are not GitHub Sponsors
 transactions or evidence of GitHub endorsement.
 
@@ -53,8 +54,9 @@ yields the contiguous address). It tells supporters to compare those characters
 with the address published where they found the card and with their wallet's
 confirmation screen, because the launch page itself cannot prove ownership.
 
-The launch page sends `Content-Security-Policy` (no sources except its own
-hashed script, `frame-ancestors 'none'`) and `X-Frame-Options: DENY`. The
+The launch page is served with `Content-Security-Policy` (only its own bundled
+script and stylesheet, `frame-ancestors 'none'`) and `X-Frame-Options: DENY`,
+set in `vercel.json`. The
 repository's default branch rejects force pushes and deletion; pushes to it
 deploy production on Vercel.
 
@@ -125,8 +127,8 @@ npm run check:worker
 
 ## Hosting
 
-Vercel serves the editors, `/api/health`, `/api/card.svg`, and `/pay` from one
-origin. GitHub Actions is CI only; GitHub Pages is no longer a deployment target.
+Vercel serves the editors, the static `/pay` launch page, `/api/health` and
+`/api/card.svg` from one origin. GitHub Actions is CI only; GitHub Pages is no longer a deployment target.
 See [Vercel deployment](vercel-deployment.md).
 
 The local Worker adapter remains available for existing local checks and is not
@@ -286,18 +288,26 @@ top-left corner unless moving inward is necessary to stay inside the card.
 
 ## HTTPS wallet launch (current sharing behavior)
 
-Shared Markdown/HTML now point to `/pay?…` on the image-service origin. The
-Vercel rewrite invokes `api/pay.js`; Vite and the local Worker route to the same
-validated handler. The QR and Copy payment request still use direct ZIP-321.
+Shared Markdown/HTML point to `/pay#…` on the image-service origin. Card
+details follow `#`, which browsers never send in HTTP requests, so the server
+(and its request logs) only sees that `/pay` was opened, not which card or
+recipient. `pay.html` is a static page: its script reads the fragment, validates
+it with the same `parseCard` as the image API and renders the page in the
+browser. Links made before this change use `/pay?…`; the page reads the query
+string when there is no fragment, so they still open, but their requests carry
+the card details. Vercel rewrites `/pay` to `pay.html` and adds the security
+headers; Vite and the local Worker serve the same file. The QR and Copy payment
+request still use direct ZIP-321.
 
-The launch response is a minimal HTML document, not an HTTP 302. It attempts
+The launch page is a minimal HTML document, not an HTTP 302. It attempts
 `location.assign(zcashUri)` once on load and leaves an Open wallet anchor and
 copyable exact request available if navigation is blocked. This avoids relying
 on a rejected external-protocol redirect to display a fallback body. It does
 not detect wallet installation or payment success. Address, label, amount and
 memo are validated before rendering; arbitrary redirect targets are rejected.
 
-GitHub Markdown API verification preserves both HTTPS anchors (card and text).
+GitHub Markdown API verification preserves both HTTPS anchors (card and text),
+including the `#` fragment.
 Local browser verification confirms the launch page and exact wallet href.
 Actual wallet opening on desktop/mobile and public Vercel routing remain to be
 verified after deployment. The route must be publicly accessible without login

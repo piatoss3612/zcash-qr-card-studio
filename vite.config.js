@@ -3,7 +3,6 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { paymentLaunch } from "./server/payment-launch.js";
 import { cardApi } from "./server/card-api.js";
 
 const projectRoot = path.dirname(fileURLToPath(import.meta.url));
@@ -13,10 +12,8 @@ function cardApiDev() {
   const middleware = async (req, res, next) => {
     const url = new URL(req.url, "http://localhost");
     if (url.pathname === "/pay") {
-      const response = await paymentLaunch(new Request(url, { method: req.method }));
-      res.writeHead(response.status, Object.fromEntries(response.headers));
-      res.end(Buffer.from(await response.arrayBuffer()));
-      return;
+      req.url = `/pay.html${url.search}`;
+      return next();
     }
     if (!url.pathname.startsWith("/api/")) return next();
     try {
@@ -77,6 +74,6 @@ export default defineConfig({
   build: {
     target: "es2022",
     assetsInlineLimit: 0,
-    rollupOptions: { input: { studio: path.join(projectRoot, "index.html"), online: path.join(projectRoot, "online.html"), support: path.join(projectRoot, "support.html") } },
+    rollupOptions: { input: { studio: path.join(projectRoot, "index.html"), online: path.join(projectRoot, "online.html"), support: path.join(projectRoot, "support.html"), pay: path.join(projectRoot, "pay.html") } },
   },
 });
