@@ -194,7 +194,11 @@ after the introduction, plus the Aurora, Blueprint and Airmail surfaces above.
 Both editors share compact `Print` / `Embed` navigation inside the existing
 header. Each keeps its own draft in same-tab session storage, including
 incomplete online-card fields. Reloading or switching editors restores the
-latest draft; an explicit editing-link fragment takes precedence. This is not
+latest draft. Opening an editing link replaces the draft once and then removes
+the fragment from the address bar, so a later reload keeps the edits. While the
+receiving address still matches the opened link, the Embed editor notes that
+payments go to that address until it is replaced or confirmed with
+**It’s my address**. This is not
 cross-device or permanent storage. Save an editing link or design file for
 longer-term use. A6 session drafts use the existing design-file serializer,
 which omits gift links; leaving a design containing a gift link retains the
@@ -236,7 +240,9 @@ reveals the full collection. Airmail Courier (Standard), Blueprint Architect
 (Lithe Scout), Aurora Photographer (Fluffy Warden), Terminal Sysadmin (Round
 Guardian), Editorial Writer (Moonpoint Watcher) and Pixel Gamer (one-eyed Boss)
 are online-only Vizorcats made to pair with the
-Airmail, Blueprint, Aurora, Terminal, Editorial and Pixel styles. Online cards use embed-specific versions of Vizorcat (the
+Airmail, Blueprint, Aurora, Terminal, Editorial and Pixel styles; the gallery
+marks the selected style's pair with **Match**, and all six pairs stay in the
+collapsed gallery. Online cards use embed-specific versions of Vizorcat (the
 Classic Guardian, now waving toward the QR) and Samurai (hanbo removed, smiling,
 rim-lit for dark cards); the print editor keeps the original files. The selected character remains visible when the
 gallery is collapsed or a saved link is restored. Existing approved local
@@ -259,7 +265,8 @@ and does not change the ZIP-321 payment request.
 ## Companion positioning
 
 Drag the companion in the preview, or focus it and use arrow keys (1 card pixel;
-Shift + arrow for 10). Reset position restores the layout default. The entire
+Shift + arrow for 10). The size slider, Upper body and Reset sit under the
+preview; Reset restores 100% and the layout default position. The entire
 contain box stays inside the card. QR overlap warnings include the quiet zone;
 sharing remains available, so resolve the warning before exporting a scannable
 card. Text and logo overlap are left to the creator's placement choice.

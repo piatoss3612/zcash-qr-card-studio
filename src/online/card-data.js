@@ -2,6 +2,7 @@ import { buildZip321, describeZcashAddress } from "../qr-content.js";
 
 export const CARD_VERSION = "1";
 export const MAX_QUERY_LENGTH = 4096;
+/** A style's `companion` is the Vizorcat drawn for it; the editor suggests the pair. */
 export const STYLES = {
   paper: {
     label: "Paper",
@@ -29,31 +30,32 @@ export const STYLES = {
     muted: "#616887",
     accent: "#565cb6",
     border: "#bfc8e2",
+    companion: "gamer",
   },
   editorial: {
     label: "Editorial", description: "Warm ivory with an expressive serif.",
     bg: "#f5eee4", ink: "#392d28", muted: "#746258",
-    accent: "#9a513a", border: "#d8c8ba",
+    accent: "#9a513a", border: "#d8c8ba", companion: "writer",
   },
   terminal: {
     label: "Terminal", description: "Monospace on deep green.",
     bg: "#101c18", ink: "#c6efd4", muted: "#9eb8a7",
-    accent: "#9ad6b0", border: "#3c5849",
+    accent: "#9ad6b0", border: "#3c5849", companion: "sysadmin",
   },
   aurora: {
     label: "Aurora", description: "Soft northern lights behind your name.",
     bg: "#0f1124", ink: "#f6f4ff", muted: "#c9c6e6",
-    accent: "#f4b728", border: "#2c2d4d",
+    accent: "#f4b728", border: "#2c2d4d", companion: "photographer",
   },
   blueprint: {
     label: "Blueprint", description: "Drafting grid with crop marks.",
     bg: "#1b4a8a", ink: "#ffffff", muted: "#dce6f6",
-    accent: "#8fb8ff", border: "#4f78b5",
+    accent: "#8fb8ff", border: "#4f78b5", companion: "architect",
   },
   airmail: {
     label: "Airmail", description: "Striped envelope with a postage stamp.",
     bg: "#fbf8f1", ink: "#1d2a44", muted: "#586377",
-    accent: "#c8413a", border: "#2f5da8",
+    accent: "#c8413a", border: "#2f5da8", companion: "courier",
   },
 };
 export const COMPANIONS = {

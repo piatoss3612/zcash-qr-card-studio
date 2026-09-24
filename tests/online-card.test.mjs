@@ -516,3 +516,18 @@ test("static Markdown uses the committed PNG and publishes the address for compa
   assert.equal(address, `Zcash address: \`${card.address}\``);
   assert.doesNotMatch(links.static, /api\/card\.svg/);
 });
+
+test("every suggested style pair names a bundled Vizorcat", async () => {
+  const { COMPANIONS } = await import("../src/online/card-data.js");
+  const pairs = Object.values(STYLES).map(style => style.companion).filter(Boolean);
+  assert.ok(pairs.length > 0);
+  for (const companion of pairs) assert.ok(COMPANIONS[companion]?.path, companion);
+});
+
+test("an incomplete card explains its QR placeholder without drawing a payment code", async () => {
+  const draft = { ...DEFAULT_CARD, name: "A builder", address: "zcash:u1<bad>" };
+  const svg = await renderCard(draft, loadAsset, { demo: true, qrHint: ["Check your", "<receiving> address"] });
+  assert.match(svg, />Check your</);
+  assert.match(svg, />&lt;receiving&gt; address</);
+  assert.doesNotMatch(svg, /zcash:/);
+});

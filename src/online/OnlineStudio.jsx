@@ -44,6 +44,8 @@ function Icon({ kind = "arrow" }) {
     </svg>
   );
 }
+const PAIRED = new Set(Object.values(STYLES).map((style) => style.companion).filter(Boolean));
+
 function Arrow() {
   return <Icon />;
 }
@@ -52,6 +54,15 @@ export default function OnlineStudio() {
   const [attempted, setAttempted] = useState(false);
   const [showAllCompanions, setShowAllCompanions] = useState(false);
   const [addressError, setAddressError] = useState("");
+  const [addressTouched, setAddressTouched] = useState(false);
+  // The receiving address of a card opened from a link; it may belong to someone else.
+  const [linkAddress, setLinkAddress] = useState(() => {
+    try {
+      return sessionStorage.getItem("online-card-link-address") || "";
+    } catch {
+      return "";
+    }
+  });
   const [draft, setDraft] = useState(() => {
     try {
       const saved = JSON.parse(sessionStorage.getItem("online-card-draft") || "null");
@@ -83,6 +94,13 @@ export default function OnlineStudio() {
   }, [draft]);
 
   useEffect(() => {
+    try {
+      if (linkAddress) sessionStorage.setItem("online-card-link-address", linkAddress);
+      else sessionStorage.removeItem("online-card-link-address");
+    } catch {}
+  }, [linkAddress]);
+
+  useEffect(() => {
     let active = true;
     let generation = 0;
     async function restore() {
@@ -92,7 +110,13 @@ export default function OnlineStudio() {
         const card = await parseCard(location.hash.slice(1));
         if (active && current === generation) {
           setDraft(card);
+          setLinkAddress(card.address);
+          setAddressTouched(false);
+          setAttempted(false);
           setMessage("");
+          // The session draft now holds this card, so a reload keeps later edits
+          // instead of applying the link again.
+          history.replaceState(history.state, "", location.pathname + location.search);
         }
       } catch (error) {
         if (active && current === generation)
@@ -126,8 +150,13 @@ export default function OnlineStudio() {
   useEffect(() => {
     let active = true;
     const timer = setTimeout(async () => {
+      const address = draft.address.trim();
+      let addressValid = false;
       try {
-        await validateAddress(draft.address);
+        if (address) {
+          await validateAddress(address);
+          addressValid = true;
+        }
         if (active) setAddressError("");
       } catch (error) {
         if (active) setAddressError(error.message);
@@ -139,9 +168,18 @@ export default function OnlineStudio() {
       } catch (reason) {
         error = reason.message;
       }
+      // The placeholder names the first thing that still blocks the QR.
+      const qrHint = !address
+        ? ["Add your address", "to create a QR"]
+        : !addressValid
+          ? ["Check your", "receiving address"]
+          : !draft.name.trim()
+            ? ["Add your name", "to create a QR"]
+            : ["Check the", "payment details"];
       try {
         const svg = await renderCard(card || draft, loadCardAsset, {
           demo: !card,
+          qrHint,
         });
         if (active) setResult({ key, svg, card, error });
       } catch (reason) {
@@ -156,6 +194,29 @@ export default function OnlineStudio() {
   }, [key]);
 
   const ready = result.key === key && Boolean(result.card);
+  const missingName = !draft.name.trim();
+  const missingAddress = !draft.address.trim();
+  const linkedAddress = Boolean(linkAddress) && draft.address.trim() === linkAddress;
+  const pair = STYLES[draft.style].companion;
+  const showAddressError = attempted
+    ? missingAddress || Boolean(addressError)
+    : addressTouched && Boolean(addressError);
+  // One readiness line: missing fields first, then invalid values, then the last render.
+  const status = missingName && missingAddress
+    ? { tone: "neutral", text: "Add your name and receiving address to create your card." }
+    : missingAddress
+      ? { tone: "neutral", text: "Paste your receiving address to create the QR." }
+      : addressError
+        ? { tone: "error", text: "Check the receiving address." }
+        : missingName
+          ? { tone: "neutral", text: "Add your display name." }
+          : result.card
+            ? linkedAddress
+              ? { tone: "warn", text: "Check that the receiving address is yours before sharing." }
+              : { tone: "ready", text: "Ready to share." }
+            : result.error
+              ? { tone: "error", text: result.error }
+              : { tone: "neutral", text: "Updating preview…" };
   const bioShortened = result.svg.includes('data-truncated="true"');
   const links = ready
     ? cardLinks(result.card, location.href, serviceBase())
@@ -171,16 +232,16 @@ export default function OnlineStudio() {
       setMessage(success);
     } catch {
       setMessage(
-        "Clipboard access is unavailable. Select and copy the code below.",
+        "Clipboard access is unavailable. Select and copy the code above.",
       );
     }
   }
   function requireReady() {
     if (ready) return true;
     setAttempted(true);
-    const id = !draft.name.trim()
+    const id = missingName
       ? "oc-name"
-      : addressError
+      : missingAddress || addressError
         ? "oc-address"
         : "oc-payment-details";
     const field = document.getElementById(id);
@@ -195,7 +256,9 @@ export default function OnlineStudio() {
     try {
       await downloadPng(result.svg, STATIC_IMAGE);
       setMessage(
-        "PNG downloaded. Link the image to your payment request on sites that allow zcash: links.",
+        format === "static"
+          ? `PNG downloaded. Commit it next to your README as ${STATIC_IMAGE}, then copy the Markdown.`
+          : "PNG downloaded. Link the image to your payment request on sites that allow zcash: links.",
       );
     } catch (error) {
       setMessage(error.message);
@@ -203,6 +266,34 @@ export default function OnlineStudio() {
       setExporting(false);
     }
   }
+
+  const copyButton = (
+    <button
+      className={format === "static" ? "oc-secondary" : "oc-primary"}
+      disabled={result.key !== key || service !== "ready"}
+      onClick={() =>
+        requireReady() &&
+        copy(
+          links[format],
+          format === "static"
+            ? `Static Markdown copied. Commit the downloaded ${STATIC_IMAGE} next to your README.`
+            : `${format === "markdown" ? "Markdown" : "HTML"} copied. Paste it into your profile or website.`,
+        )
+      }
+    >
+      Copy {format === "html" ? "HTML" : "Markdown"}{" "}
+      <Icon kind="copy" />
+    </button>
+  );
+  const pngButton = (
+    <button
+      className={format === "static" ? "oc-primary" : "oc-secondary"}
+      disabled={result.key !== key || exporting}
+      onClick={exportPng}
+    >
+      {exporting ? "Exporting…" : "Download PNG"}
+    </button>
+  );
 
   return (
     <div className="oc-app">
@@ -282,30 +373,46 @@ export default function OnlineStudio() {
             Zcash receiving address
             <textarea
               id="oc-address"
-              aria-invalid={attempted && Boolean(addressError)}
+              aria-invalid={showAddressError}
               value={draft.address}
               onChange={(event) => update("address", event.target.value)}
+              onBlur={() => {
+                if (draft.address.trim()) setAddressTouched(true);
+              }}
+              onPaste={() => setAddressTouched(true)}
               rows={2}
               maxLength={1024}
               placeholder="Paste your receiving address"
               spellCheck={false}
               autoComplete="off"
-              aria-describedby={
-                attempted && addressError
-                  ? "oc-address-note oc-address-error"
-                  : "oc-address-note"
-              }
+              aria-describedby={[
+                "oc-address-note",
+                showAddressError && "oc-address-error",
+                linkedAddress && "oc-link-notice",
+              ].filter(Boolean).join(" ")}
             />
           </label>
-          {attempted && addressError && (
+          {showAddressError && (
             <p id="oc-address-error" className="oc-field-error">
-              {addressError}
+              {addressError || "Paste your Zcash receiving address."}
             </p>
           )}
           <p id="oc-address-note" className="oc-hint">
             Copy from your wallet. Your address and card details will be public
             when shared.
           </p>
+          {linkedAddress && (
+            <div className="oc-link-notice">
+              <p id="oc-link-notice">
+                This address came from the link you opened, so payments made
+                with this card go to it. Paste your own receiving address
+                unless this one is yours.
+              </p>
+              <button type="button" onClick={() => setLinkAddress("")}>
+                It’s my address
+              </button>
+            </div>
+          )}
           <div className="oc-section-title">
             <span>02</span>
             <h2>Card design</h2>
@@ -360,10 +467,16 @@ export default function OnlineStudio() {
           <fieldset className="oc-fieldset">
             <legend>Vizorcat</legend>
             <div className="oc-companion-grid" id="oc-companion-options">
-              {Object.entries(COMPANIONS).filter(([id]) => id !== "standard").filter(([id], index) => showAllCompanions || index < 6 || id === "none" || id === draft.companion).map(([id, companion]) => (
-                <button key={id} aria-pressed={draft.companion === id} onClick={() => update("companion", id)}>
+              {Object.entries(COMPANIONS).filter(([id]) => id !== "standard").filter(([id], index) => showAllCompanions || index < 6 || id === "none" || id === draft.companion || PAIRED.has(id)).map(([id, companion]) => (
+                <button
+                  key={id}
+                  aria-pressed={draft.companion === id}
+                  aria-label={id === pair ? `${companion.label}, matches ${STYLES[draft.style].label}` : undefined}
+                  onClick={() => update("companion", id)}
+                >
                   {companion.path ? <img src={`./${companion.path}`} alt="" loading="lazy" /> : <span className="oc-no-companion" aria-hidden="true">—</span>}
                   <span>{companion.label}</span>
+                  {id === pair && <span className="oc-match" aria-hidden="true">Match</span>}
                 </button>
               ))}
             </div>
@@ -371,37 +484,6 @@ export default function OnlineStudio() {
               {showAllCompanions ? "Show fewer Vizorcats" : `Explore all ${Object.keys(COMPANIONS).filter(id => !["standard", "none"].includes(id)).length} Vizorcats`}
             </button>
           </fieldset>
-          {draft.companion !== "none" && (
-            <div className="oc-size-control">
-              <label htmlFor="oc-companion-size">
-                Vizorcat size{" "}
-                <output htmlFor="oc-companion-size">
-                  {draft.companionScale}%
-                </output>
-              </label>
-              <input
-                id="oc-companion-size"
-                type="range"
-                min="50"
-                max="400"
-                step="1"
-                value={draft.companionScale}
-                onChange={(event) =>
-                  setDraft(previous => ({ ...previous, ...resizeCompanion(previous, Number(event.target.value)) }))
-                }
-                aria-describedby="oc-size-note"
-              />
-              <button type="button" className="oc-companion-more" onClick={() => setDraft(previous => ({ ...previous, ...upperBodyCompanion(previous) }))}>Upper body</button>
-              <div className="oc-size-footer">
-                <p id="oc-size-note" className="oc-hint">
-                  Drag beyond the edge to crop. Keep the QR clear.
-                </p>
-                <button onClick={() => setDraft(previous => ({ ...previous, companionScale: "100", companionPosition: "fit", companionX: "", companionY: "" }))}>
-                  Reset
-                </button>
-              </div>
-            </div>
-          )}
           <fieldset className="oc-fieldset">
             <legend>Corner logo</legend>
             <div className="oc-companion-grid oc-logo-grid">
@@ -459,6 +541,7 @@ export default function OnlineStudio() {
                 README
               </button>
               <button
+                className="oc-mobile-toggle"
                 aria-pressed={mobile}
                 onClick={() => setMobile(!mobile)}
                 aria-label="Mobile width"
@@ -519,9 +602,27 @@ export default function OnlineStudio() {
               </div>
             </div>
           </div>
+          {draft.companion !== "none" && (
+            <div className="oc-size-control">
+              <label htmlFor="oc-companion-size">Vizorcat size</label>
+              <input
+                id="oc-companion-size"
+                type="range"
+                min="50"
+                max="400"
+                step="1"
+                value={draft.companionScale}
+                onChange={(event) =>
+                  setDraft(previous => ({ ...previous, ...resizeCompanion(previous, Number(event.target.value)) }))
+                }
+              />
+              <output htmlFor="oc-companion-size">{draft.companionScale}%</output>
+              <button type="button" onClick={() => setDraft(previous => ({ ...previous, ...upperBodyCompanion(previous) }))}>Upper body</button>
+              <button type="button" onClick={() => setDraft(previous => ({ ...previous, companionScale: "100", companionPosition: "fit", companionX: "", companionY: "" }))}>Reset</button>
+            </div>
+          )}
           <p className="oc-preview-caption">
-            <span id="oc-position-help">Drag the Vizorcat to move it, or its corner handle to resize. Arrow keys adjust the focused handle; Shift makes larger steps.</span>
-            {draft.companion !== "none" && <button className="oc-position-reset" onClick={() => setDraft(previous => ({ ...previous, companionPosition: "fit", companionX: "", companionY: "" }))}>Reset position</button>}
+            {draft.companion !== "none" && <span id="oc-position-help">Drag the Vizorcat to move or crop it, and its corner to resize. Arrow keys also work; hold Shift for larger steps.</span>}
             <span>Use Open wallet below to test the payment link.</span>
             {companionOverlapsQr(draft) && <span className="oc-position-warning" role="status">Vizorcat overlaps the QR or its quiet zone. Move it away before sharing.</span>}
           </p>
@@ -553,11 +654,24 @@ export default function OnlineStudio() {
                 </button>
               </div>
             </div>
-            <p className="oc-hint">
-              {format === "static"
-                ? `Download the PNG and commit it next to your README as ${STATIC_IMAGE}. The QR then stays fixed in your repository even if this image service changes, and the address line lets supporters compare it with their wallet.`
-                : "The card and link open a wallet launch page that attempts to open Zcash automatically. If your browser blocks it, select Open wallet."}
-            </p>
+            {format === "static" ? (
+              <>
+                <p className="oc-hint">
+                  The QR stays fixed in your repository even if this image
+                  service changes.
+                </p>
+                <ol className="oc-hint oc-steps">
+                  <li>Download the PNG and commit it next to your README as {STATIC_IMAGE}.</li>
+                  <li>Copy the Markdown into your README. Its address line lets supporters compare the address with their wallet.</li>
+                </ol>
+              </>
+            ) : (
+              <p className="oc-hint">
+                The card and link open a wallet launch page that attempts to
+                open Zcash automatically. If your browser blocks it, select
+                Open wallet.
+              </p>
+            )}
             <textarea
               className="oc-code"
               readOnly
@@ -569,44 +683,20 @@ export default function OnlineStudio() {
               }
               onFocus={(event) => event.target.select()}
             />
+            {/* Static needs the PNG in the repository before its Markdown works, so it leads. */}
             <div className="oc-share-actions">
-              <button
-                className="oc-primary"
-                disabled={result.key !== key || service !== "ready"}
-                onClick={() =>
-                  requireReady() &&
-                  copy(
-                    links[format],
-                    format === "static"
-                      ? `Static Markdown copied. Commit the downloaded ${STATIC_IMAGE} next to your README.`
-                      : `${format === "markdown" ? "Markdown" : "HTML"} copied. Paste it into your profile or website.`,
-                  )
-                }
-              >
-                Copy {format === "html" ? "HTML" : "Markdown"}{" "}
-                <Icon kind="copy" />
-              </button>
-              <button
-                className="oc-secondary"
-                disabled={result.key !== key || exporting}
-                onClick={exportPng}
-              >
-                {exporting ? "Exporting…" : "Download PNG"}
-              </button>
+              {format === "static" ? <>{pngButton}{copyButton}</> : <>{copyButton}{pngButton}</>}
               {ready && (
                 <a href={links.payment}>
                   Open wallet <Arrow />
                 </a>
               )}
             </div>
-            <p className="oc-validation" role="status">
-              {result.key !== key
-                ? "Updating preview…"
-                : ready
-                  ? "Ready to share. Payment details are linked to this card."
-                  : attempted
-                    ? result.error
-                    : "Add your name and receiving address to create your card."}
+            <p className="oc-validation" role="status" data-tone={status.tone}>
+              {status.text}
+            </p>
+            <p className="oc-feedback" role="status">
+              {message}
             </p>
             {service === "unavailable" && (
               <p className="oc-notice">
@@ -620,9 +710,6 @@ export default function OnlineStudio() {
                 become available after hosting the service.
               </p>
             )}
-            <p className="oc-feedback" role="status">
-              {message}
-            </p>
             {ready && (
               <div className="oc-small-actions">
                 <button

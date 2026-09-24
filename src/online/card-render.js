@@ -347,7 +347,7 @@ export function upperBodyCompanion(card) {
 }
 
 /** loadAsset returns data URIs from repository assets only. */
-export async function renderCard(card, loadAsset, { demo = false } = {}) {
+export async function renderCard(card, loadAsset, { demo = false, qrHint = ["Add your address", "to create a QR"] } = {}) {
   const theme = STYLES[card.style];
   const geo = cardGeometry(card.layout);
   const { width, height, qr, textX, textWidth, logo: slot } = geo;
@@ -393,7 +393,7 @@ export async function renderCard(card, loadAsset, { demo = false } = {}) {
     // Keep the QR and its four-module quiet zone on white in every style; light cards outline the tile.
     const tile = `<rect x="${qr.x}" y="${qr.y}" width="${qr.size}" height="${qr.size}" rx="${decor.qrRadius ?? 0}" fill="#fff"${light ? ` stroke="${LIGHT_EDGE}"` : ""}/>`;
     if (demo) {
-      qrSvgMarkup = `${tile}<text x="${qr.x + 80}" y="${qr.y + 79}" text-anchor="middle" font-size="13" style="fill:#17231f">Add your address</text><text x="${qr.x + 80}" y="${qr.y + 100}" text-anchor="middle" font-size="13" style="fill:#17231f">to create a QR</text>`;
+      qrSvgMarkup = `${tile}<text x="${qr.x + 80}" y="${qr.y + 79}" text-anchor="middle" font-size="13" style="fill:#17231f">${escapeXml(qrHint[0])}</text><text x="${qr.x + 80}" y="${qr.y + 100}" text-anchor="middle" font-size="13" style="fill:#17231f">${escapeXml(qrHint[1])}</text>`;
     } else {
       const uri = paymentUri(card);
       if (qr.size / (qrMatrix(uri).getModuleCount() + 8) < 2)
