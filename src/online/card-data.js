@@ -337,15 +337,20 @@ export function cardLinks(card, pageUrl, apiBase = pageUrl) {
   // The Embed editor is the home page; /online still opens it for older links.
   const edit = new URL("./", pageUrl);
   edit.hash = query;
+  // Markdown and HTML share one alt text; Markdown punctuation in the name is escaped.
+  const alt = `Support ${card.name} with Zcash`;
+  const markdownAlt = alt.replace(/[\\[\]<>*_`]/g, "\\$&");
+  const htmlImage = (src) => `<img src="${escapeXml(src)}" alt="${escapeXml(alt)}" width="${LAYOUTS[card.layout].width}" style="max-width:100%;height:auto" />`;
   return {
     image: image.href,
     payment: payment,
     launch: launch.href,
     edit: edit.href,
-    markdown: `[![Support with Zcash](${image.href})](${launch.href})`,
-    html: `<a href="${escapeXml(launch.href)}"><img src="${escapeXml(image.href)}" alt="Support ${escapeXml(card.name)} with Zcash" width="${LAYOUTS[card.layout].width}" style="max-width:100%;height:auto" /></a>`,
+    markdown: `[![${markdownAlt}](${image.href})](${launch.href})`,
+    html: `<a href="${escapeXml(launch.href)}">${htmlImage(image.href)}</a>`,
     // A committed PNG keeps the QR fixed even if the image service changes; the
     // address line gives supporters a copy served by the README host to compare.
-    static: `[![Support with Zcash](${STATIC_IMAGE})](${launch.href})\n\nZcash address: \`${card.address}\``,
+    static: `[![${markdownAlt}](${STATIC_IMAGE})](${launch.href})\n\nZcash address: \`${card.address}\``,
+    staticHtml: `<a href="${escapeXml(launch.href)}">${htmlImage(STATIC_IMAGE)}</a>\n<p>Zcash address: <code>${escapeXml(card.address)}</code></p>`,
   };
 }

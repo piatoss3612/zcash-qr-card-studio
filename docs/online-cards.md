@@ -22,8 +22,12 @@ introductions (for example 80 wide CJK characters in Signature) are shortened at
 a word boundary with an ellipsis, and the editor then shows a note under the
 introduction field. The full name is retained in the payment request.
 
-**Copy Markdown** and **Copy HTML** become available after the image service's
-health check succeeds. On a static-only host they remain unavailable; PNG
+The share step asks two separate questions. **QR image** chooses who serves the
+card: **Live** (this image service draws it on each view) or **Static PNG** (a
+file committed to your repository). **Code** chooses **Markdown** or **HTML**;
+both use the same alt text, "Support {name} with Zcash", with Markdown
+punctuation escaped. **Copy Markdown** and **Copy HTML** become available after
+the image service's health check succeeds. On a static-only host they remain unavailable; PNG
 downloads and payment requests still work. Link a manually uploaded PNG to the
 copied `zcash:` request on hosts that permit custom URI schemes. **Save editing link** preserves the current settings in a
 URL fragment so they can be reopened without an account or local storage.
@@ -43,9 +47,9 @@ URL, unknown or repeated fields are rejected, addresses are checksum-validated,
 the label and memo are encoded so they cannot add ZIP-321 parameters, and the
 launch page only emits the validated `zcash:` request.
 
-To remove the dependency on the service for the QR, choose **Static PNG** in the
-share section, download the PNG and commit it next to the README as
-`zcash-support-card.png`. The static snippet embeds that file and adds a
+To remove the dependency on the service for the QR, choose **Static PNG** under
+**QR image**, download the PNG and commit it next to the README as
+`zcash-support-card.png`. The static snippet (Markdown or HTML) embeds that file and adds a
 `Zcash address:` line served by the README host, which supporters can compare
 with the address their wallet shows. The image link still opens the launch page.
 
@@ -264,7 +268,7 @@ The armored Guardian is labeled **Vizorcat** and is the default companion.
 marks extracted from the approved editorial-07 concept, replacing the temporary
 Happy portrait. Other companions remain unchanged.
 
-Corner logos are limited to **Zcash, Vizorcat, Valar Group, Zakura, Tachyon**.
+The corner-logo picker offers **Zcash, Vizor, Vizorcat, Zakura, Tachyon**. Valar Group is withdrawn from the picker; existing cards that use it still render, and the picker shows it only while such a card is open.
 These are repository-local assets; Zakura is embedded with SVG MIME type in both
 the development image API and Worker. Logo choice is serialized into card links
 and does not change the ZIP-321 payment request.
@@ -330,3 +334,14 @@ Existing links retain their fit-relative coordinates. New gestures use
 `companionPosition=canvas` and signed canvas percentages, avoiding zero or
 negative travel when the character exceeds the card size. A small visible strip
 is retained so the character can still be dragged back.
+
+## Entry shortcuts and inline checks
+
+Pasting a whole `zcash:` payment request into the address field keeps only its
+address; the request's amount and memo fill the payment fields only when those
+are empty, and a note under the field says what was taken. Amount and memo
+errors appear under their own fields (with `aria-invalid`), and the share status
+then reads "Check the payment details." In README preview mode the card is shown
+at its real embed width (560px for Signature), left-aligned as GitHub shows it.
+On phones a **Skip to sharing** button under the preview jumps to step 03 without
+changing the URL fragment that editing links use.

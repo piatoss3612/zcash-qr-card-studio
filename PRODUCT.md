@@ -40,7 +40,7 @@ Wallet-neutral ZIP-321 requests, plus the Vizorcat character library, set it apa
 - **Embed cards:**
   - Layouts: Signature, Compact, Portrait and Profile (Profile has no QR).
   - Eight styles and 19 Vizorcats.
-  - Corner logos: Zcash, Vizor, Vizorcat, Valar Group, Zakura and Tachyon.
+  - Corner logos: Zcash, Vizor, Vizorcat, Zakura and Tachyon (Valar Group is withdrawn from the picker but still renders on existing cards).
   - Output: live or static embed and PNG download. Editing links keep settings in the URL fragment.
 - **Public card contract.** Card links are versioned (`v=1`) and immutable. Changing rendered output or fields for an existing version breaks deployed cards, so it needs a new version.
 - **Validation:**

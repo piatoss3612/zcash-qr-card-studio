@@ -21,6 +21,24 @@
         "value": "geist",
         "createdAt": "2026-09-24T10:30:25.284Z",
         "reason": "Claude, from the typeset assessment: card SVGs render in Geist under the immutable v=1 card contract, so the chrome keeps Geist to match; fixed its weights and scale instead"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "card",
+        "createdAt": "2026-09-24T10:46:06.486Z",
+        "reason": "Claude: @font-face alias inside the card SVG (card-render.js); each card style embeds its own face per DESIGN.md Support Card, not editor chrome"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "body",
+        "createdAt": "2026-09-24T10:46:06.506Z",
+        "reason": "Claude: @font-face alias inside the card SVG (card-render.js); each card style embeds its own face per DESIGN.md Support Card, not editor chrome"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "bio",
+        "createdAt": "2026-09-24T10:46:06.525Z",
+        "reason": "Claude: @font-face alias inside the card SVG (card-render.js); each card style embeds its own face per DESIGN.md Support Card, not editor chrome"
       }
     ]
   }

@@ -15,6 +15,7 @@ import {
 } from "./card-data.js";
 import { renderCard, resizeCompanion, upperBodyCompanion } from "./card-render.js";
 import { loadCardAsset, svgUrl, downloadPng, serviceBase } from "./browser.js";
+import { decodeZip321ForPreview } from "../qr-content.js";
 import "./online.css";
 import CardPreview, { companionOverlapsQr } from "./CardPreview.jsx";
 import { CardTypeNav } from "../CardTypeNav.jsx";
@@ -79,7 +80,12 @@ export default function OnlineStudio() {
   const [context, setContext] = useState("light");
   const [readme, setReadme] = useState(false);
   const [mobile, setMobile] = useState(false);
-  const [format, setFormat] = useState("markdown");
+  // Who serves the QR image (a trust choice) and which code to paste are separate choices.
+  const [hosting, setHosting] = useState("live");
+  const [syntax, setSyntax] = useState("markdown");
+  const isStatic = hosting === "static";
+  const syntaxLabel = syntax === "html" ? "HTML" : "Markdown";
+  const codeKey = isStatic ? (syntax === "html" ? "staticHtml" : "static") : syntax;
   const [service, setService] = useState("checking");
   const [message, setMessage] = useState("");
   const [exporting, setExporting] = useState(false);
@@ -88,6 +94,22 @@ export default function OnlineStudio() {
     setMessage("");
     setDraft((prev) => ({ ...prev, [name]: value }));
   };
+  const [requestNote, setRequestNote] = useState("");
+  /** A pasted zcash: payment request keeps only its address; its amount and memo fill empty fields. */
+  function updateAddress(value) {
+    if (!/^\s*zcash:/i.test(value)) {
+      setRequestNote("");
+      update("address", value);
+      return;
+    }
+    const request = decodeZip321ForPreview(value);
+    const amount = !draft.amount && request.amount ? request.amount : draft.amount;
+    const memo = !draft.memo && request.memoText && request.memoText.length <= 80 ? request.memoText : draft.memo;
+    const taken = ["address", amount !== draft.amount && "amount", memo !== draft.memo && "memo"].filter(Boolean);
+    setMessage("");
+    setDraft((prev) => ({ ...prev, address: request.address, amount, memo }));
+    setRequestNote(`Took the ${taken.length === 3 ? "address, amount and memo" : taken.join(" and ")} from the payment request you pasted.`);
+  }
 
   useEffect(() => {
     try { sessionStorage.setItem("online-card-draft", JSON.stringify(draft)); } catch {}
@@ -201,6 +223,10 @@ export default function OnlineStudio() {
   const showAddressError = attempted
     ? missingAddress || Boolean(addressError)
     : addressTouched && Boolean(addressError);
+  // Amount and memo problems come back from the render as one message; show it at its field.
+  const paymentError = result.key === key && !result.card ? result.error : "";
+  const amountError = /^Amount /.test(paymentError) ? paymentError : "";
+  const memoError = /memo/i.test(paymentError) ? paymentError : "";
   // One readiness line: missing fields first, then invalid values, then the last render.
   const status = missingName && missingAddress
     ? { tone: "neutral", text: "Add your name and receiving address to create your card." }
@@ -216,8 +242,10 @@ export default function OnlineStudio() {
               : linkedAddress
                 ? { tone: "warn", text: "Check that the receiving address is yours before sharing." }
                 : { tone: "ready", text: "Ready to share." }
-            : result.error
-              ? { tone: "error", text: result.error }
+            : amountError || memoError
+              ? { tone: "error", text: "Check the payment details." }
+              : result.error
+                ? { tone: "error", text: result.error }
               : { tone: "neutral", text: "Updating preview…" };
   const bioShortened = result.svg.includes('data-truncated="true"');
   const links = ready
@@ -258,8 +286,8 @@ export default function OnlineStudio() {
     try {
       await downloadPng(result.svg, STATIC_IMAGE);
       setMessage(
-        format === "static"
-          ? `PNG downloaded. Commit it next to your README as ${STATIC_IMAGE}, then copy the Markdown.`
+        isStatic
+          ? `PNG downloaded. Commit it next to your README as ${STATIC_IMAGE}, then copy the ${syntaxLabel}.`
           : "PNG downloaded. Link the image to your payment request on sites that allow zcash: links.",
       );
     } catch (error) {
@@ -271,25 +299,25 @@ export default function OnlineStudio() {
 
   const copyButton = (
     <button
-      className={format === "static" ? "oc-secondary" : "oc-primary"}
+      className={isStatic ? "oc-secondary" : "oc-primary"}
       disabled={result.key !== key || service !== "ready"}
       onClick={() =>
         requireReady() &&
         copy(
-          links[format],
-          format === "static"
-            ? `Static Markdown copied. Commit the downloaded ${STATIC_IMAGE} next to your README.`
-            : `${format === "markdown" ? "Markdown" : "HTML"} copied. Paste it into your profile or website.`,
+          links[codeKey],
+          isStatic
+            ? `Static ${syntaxLabel} copied. Commit the downloaded ${STATIC_IMAGE} next to your README.`
+            : `${syntaxLabel} copied. Paste it into your profile or website.`,
         )
       }
     >
-      Copy {format === "html" ? "HTML" : "Markdown"}{" "}
+      Copy {syntaxLabel}{" "}
       <Icon kind="copy" />
     </button>
   );
   const pngButton = (
     <button
-      className={format === "static" ? "oc-primary" : "oc-secondary"}
+      className={isStatic ? "oc-primary" : "oc-secondary"}
       disabled={result.key !== key || exporting}
       onClick={exportPng}
     >
@@ -376,7 +404,7 @@ export default function OnlineStudio() {
               id="oc-address"
               aria-invalid={showAddressError}
               value={draft.address}
-              onChange={(event) => update("address", event.target.value)}
+              onChange={(event) => updateAddress(event.target.value)}
               onBlur={() => {
                 if (draft.address.trim()) setAddressTouched(true);
               }}
@@ -402,6 +430,7 @@ export default function OnlineStudio() {
             Copy from your wallet. Your address and card details will be public
             when shared.
           </p>
+          {requestNote && <p className="oc-hint" role="status">{requestNote}</p>}
           {linkedAddress && (
             <div className="oc-link-notice">
               <p id="oc-link-notice">
@@ -488,7 +517,8 @@ export default function OnlineStudio() {
           <fieldset className="oc-fieldset">
             <legend>Corner logo</legend>
             <div className="oc-companion-grid oc-logo-grid">
-              {Object.entries(CARD_LOGOS).map(([id, logo]) => (
+              {/* Valar Group is withdrawn from the picker; cards that already use it still render and show it here. */}
+              {Object.entries(CARD_LOGOS).filter(([id]) => id !== "valar" || draft.logo === "valar").map(([id, logo]) => (
                 <button key={id} aria-pressed={draft.logo === id} onClick={() => update("logo", id)}>
                   {logo.path ? <img src={`./${logo.path}`} alt="" loading="lazy" /> : <span aria-hidden="true">—</span>}
                   <span>{logo.label}</span>
@@ -514,8 +544,11 @@ export default function OnlineStudio() {
                 onChange={(event) => update("amount", event.target.value)}
                 inputMode="decimal"
                 placeholder="Any amount"
+                aria-invalid={Boolean(amountError)}
+                aria-describedby={amountError ? "oc-amount-error" : undefined}
               />
             </label>
+            {amountError && <p id="oc-amount-error" className="oc-field-error">{amountError}</p>}
             <label className="oc-field">
               Payment memo
               <input
@@ -523,42 +556,47 @@ export default function OnlineStudio() {
                 onChange={(event) => update("memo", event.target.value)}
                 maxLength={80}
                 placeholder="Optional message for your wallet"
+                aria-invalid={Boolean(memoError)}
+                aria-describedby={memoError ? "oc-memo-error" : undefined}
               />
             </label>
+            {memoError && <p id="oc-memo-error" className="oc-field-error">{memoError}</p>}
             <p className="oc-hint">
               Memos are public in the shared link. Supported for unified and
               Sapling addresses.
             </p>
           </details>
-          <section className="oc-share" aria-label="Share your card">
+          <section id="oc-share" className="oc-share" aria-label="Share your card">
             <div className="oc-section-title">
               <span>03</span>
               <h2>Share your card</h2>
             </div>
             <div className="oc-share-heading">
               <p>Paste into your README or website.</p>
-              <div className="oc-segment" aria-label="Embed code">
-                <button
-                  aria-pressed={format === "markdown"}
-                  onClick={() => setFormat("markdown")}
-                >
-                  Markdown
+            </div>
+            <div className="oc-share-choice">
+              <span id="oc-image-choice">QR image</span>
+              <div className="oc-segment" role="group" aria-labelledby="oc-image-choice">
+                <button aria-pressed={!isStatic} onClick={() => setHosting("live")}>
+                  Live
                 </button>
-                <button
-                  aria-pressed={format === "html"}
-                  onClick={() => setFormat("html")}
-                >
-                  HTML
-                </button>
-                <button
-                  aria-pressed={format === "static"}
-                  onClick={() => setFormat("static")}
-                >
+                <button aria-pressed={isStatic} onClick={() => setHosting("static")}>
                   Static PNG
                 </button>
               </div>
             </div>
-            {format === "static" ? (
+            <div className="oc-share-choice">
+              <span id="oc-code-choice">Code</span>
+              <div className="oc-segment" role="group" aria-labelledby="oc-code-choice">
+                <button aria-pressed={syntax === "markdown"} onClick={() => setSyntax("markdown")}>
+                  Markdown
+                </button>
+                <button aria-pressed={syntax === "html"} onClick={() => setSyntax("html")}>
+                  HTML
+                </button>
+              </div>
+            </div>
+            {isStatic ? (
               <>
                 <p className="oc-hint">
                   The QR stays fixed in your repository even if this image
@@ -566,14 +604,15 @@ export default function OnlineStudio() {
                 </p>
                 <ol className="oc-hint oc-steps">
                   <li>Download the PNG and commit it next to your README as {STATIC_IMAGE}.</li>
-                  <li>Copy the Markdown into your README. Its address line lets supporters compare the address with their wallet.</li>
+                  <li>Copy the {syntaxLabel} into your README. Its address line lets supporters compare the address with their wallet.</li>
                 </ol>
               </>
             ) : (
               <p className="oc-hint">
-                The card and link open a wallet launch page that attempts to
-                open Zcash automatically. If your browser blocks it, select
-                Open wallet.
+                This service draws the card image each time it is shown. The
+                card and link open a wallet launch page that attempts to open
+                Zcash automatically. If your browser blocks it, select Open
+                wallet.
               </p>
             )}
             <textarea
@@ -582,7 +621,7 @@ export default function OnlineStudio() {
               aria-label="Embed code"
               value={
                 links && service === "ready"
-                  ? links[format]
+                  ? links[codeKey]
                   : "Your embed code will appear here."
               }
               onFocus={(event) => event.target.select()}
@@ -593,7 +632,7 @@ export default function OnlineStudio() {
             </p>
             {/* Static needs the PNG in the repository before its Markdown works, so it leads. */}
             <div className="oc-share-actions">
-              {format === "static" ? <>{pngButton}{copyButton}</> : <>{copyButton}{pngButton}</>}
+              {isStatic ? <>{pngButton}{copyButton}</> : <>{copyButton}{pngButton}</>}
               {ready && (
                 <a href={links.payment}>
                   Open wallet <Arrow />
@@ -693,7 +732,8 @@ export default function OnlineStudio() {
                     <i />
                     <i />
                   </div>
-                  <div className="oc-card-slot" aria-busy={result.key !== key}>
+                  {/* In README mode the card keeps its real embed width, as GitHub shows it. */}
+                  <div className="oc-card-slot" aria-busy={result.key !== key} style={readme ? { maxWidth: LAYOUTS[draft.layout].width } : undefined}>
                     {result.svg ? (
                       <CardPreview card={draft} svg={result.svg} onResize={changes => { setMessage(""); setDraft(previous => ({ ...previous, ...changes })); }} onPosition={position => {
                         setMessage("");
@@ -735,9 +775,22 @@ export default function OnlineStudio() {
             )}
             <p className="oc-preview-caption">
               {draft.companion !== "none" && <span id="oc-position-help">Drag the Vizorcat to move or crop it, and its corner to resize. Arrow keys also work; hold Shift for larger steps.</span>}
-              <span>Use Open wallet below to test the payment link.</span>
+              <span>Use Open wallet in step 03 to test the payment link.</span>
               {companionOverlapsQr(draft) && <span className="oc-position-warning" role="status">Vizorcat overlaps the QR or its quiet zone. Move it away before sharing.</span>}
             </p>
+            {/* Phones stack the steps below the card; this skips straight to step 03. */}
+            <button
+              type="button"
+              className="oc-jump-share"
+              onClick={() =>
+                document.getElementById("oc-share")?.scrollIntoView({
+                  behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+                  block: "start",
+                })
+              }
+            >
+              Skip to sharing
+            </button>
           </div>
         </section>
       </main>

@@ -1,8 +1,26 @@
+import geistRegular from "../../assets/fonts/geist-regular.woff2?url";
+import geistMedium from "../../assets/fonts/geist-medium.woff2?url";
+import geistBold from "../../assets/fonts/geist-bold.woff2?url";
+import geistMono from "../../assets/fonts/geist-mono-variable.woff2?url";
+import silkscreen from "../../assets/fonts/silkscreen-regular.woff2?url";
+import zarathustra from "../../assets/fonts/zarathustra-v01.woff2?url";
+
+// The editor's stylesheet loads these fonts by their bundled URLs; the card
+// renderer fetches the same URLs so each font downloads once.
+const STYLESHEET_FONTS = {
+  "assets/fonts/geist-regular.woff2": geistRegular,
+  "assets/fonts/geist-medium.woff2": geistMedium,
+  "assets/fonts/geist-bold.woff2": geistBold,
+  "assets/fonts/geist-mono-variable.woff2": geistMono,
+  "assets/fonts/silkscreen-regular.woff2": silkscreen,
+  "assets/fonts/zarathustra-v01.woff2": zarathustra,
+};
+
 const assets = new Map();
 
 export function loadCardAsset(path) {
   if (!assets.has(path)) {
-    const promise = fetch(new URL(path, document.baseURI))
+    const promise = fetch(new URL(STYLESHEET_FONTS[path] ?? path, document.baseURI))
       .then(async (response) => {
         if (!response.ok)
           throw new Error("Could not load the card artwork. Please reload.");

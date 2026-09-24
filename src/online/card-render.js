@@ -250,7 +250,9 @@ function layoutText({ name, bio, style, width, top, bottom, center, nameCap, bio
   const count = [...name].length;
   const oneRowMax = Math.min(nameCap, style === "pixel" ? 44 : count <= 8 ? 72 : count <= 11 ? 48 : 40);
   const single = width / nameMeasure(name);
-  const nameRows = single >= Math.min(oneRowMax, 30) ? [name] : splitName(name, nameMeasure);
+  // A handle with no space or hyphen stays whole to a smaller size before it is cut mid-word.
+  const breakable = /[\s-]/.test(name.trim());
+  const nameRows = single >= Math.min(oneRowMax, breakable ? 30 : 20) ? [name] : splitName(name, nameMeasure);
   const nameFit = Math.min(nameRows.length > 1 ? Math.min(nameCap, 34) : oneRowMax, width / Math.max(...nameRows.map(nameMeasure)));
   const avail = bottom - top;
   // Rows without descenders need less room below the baseline, which keeps short

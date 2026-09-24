@@ -15,7 +15,7 @@ test("launch links keep card details after # so requests carry none of them", as
   assert.equal(launch.pathname, "/pay");
   assert.equal(launch.search, "");
   assert.ok(!launch.href.split("#")[0].includes(card.address));
-  assert.equal(links.markdown, `[![Support with Zcash](${links.image})](${links.launch})`);
+  assert.equal(links.markdown, `[![Support \\<Builder\\> with Zcash](${links.image})](${links.launch})`);
   assert.deepEqual(await parseCard(launchQuery(launch)), await parseCard(serializeCard(card)));
 });
 

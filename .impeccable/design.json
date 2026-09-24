@@ -213,6 +213,21 @@
           "oklch(82% 0.120 29.4)",
           "oklch(95% 0.042 29.4)"
         ]
+      },
+      "soft-line": {
+        "role": "neutral",
+        "displayName": "Soft Line",
+        "canonical": "oklch(91.4% 0.012 130.5)",
+        "tonalRamp": [
+          "oklch(15% 0.008 130.5)",
+          "oklch(26% 0.012 130.5)",
+          "oklch(37% 0.012 130.5)",
+          "oklch(48% 0.012 130.5)",
+          "oklch(59% 0.012 130.5)",
+          "oklch(70% 0.012 130.5)",
+          "oklch(82% 0.012 130.5)",
+          "oklch(95% 0.004 130.5)"
+        ]
       }
     },
     "typographyMeta": {

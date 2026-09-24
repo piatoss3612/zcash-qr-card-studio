@@ -521,7 +521,7 @@ test("static Markdown uses the committed PNG and publishes the address for compa
   const card = await validateCard(base);
   const links = cardLinks(card, "https://example.com/online.html", "https://cards.example/");
   const [image, , address] = links.static.split("\n");
-  assert.equal(image, `[![Support with Zcash](${STATIC_IMAGE})](${links.launch})`);
+  assert.equal(image, `[![Support ${card.name} with Zcash](${STATIC_IMAGE})](${links.launch})`);
   assert.equal(address, `Zcash address: \`${card.address}\``);
   assert.doesNotMatch(links.static, /api\/card\.svg/);
 });
@@ -539,4 +539,24 @@ test("an incomplete card explains its QR placeholder without drawing a payment c
   assert.match(svg, />Check your</);
   assert.match(svg, />&lt;receiving&gt; address</);
   assert.doesNotMatch(svg, /zcash:/);
+});
+
+test("a handle with no space stays on one row instead of breaking mid-word", async () => {
+  for (const style of Object.keys(STYLES))
+    for (const layout of ["qr", "compact", "portrait", "profile"]) {
+      const card = await validateCard({ ...base, name: "piatoss3612", bio: "Building with Zcash", style, layout });
+      const rows = [...(await renderCard(card, loadAsset)).matchAll(/<text class="name"[^>]*>([^<]*)</g)].map((m) => m[1]);
+      assert.deepEqual(rows, ["piatoss3612"], `${style}/${layout}`);
+    }
+});
+
+test("Markdown and HTML embeds share one alt text, escaped for Markdown", async () => {
+  const { STATIC_IMAGE } = await import("../src/online/card-data.js");
+  const card = await validateCard({ ...base, name: "[Ada]_*" });
+  const links = cardLinks(card, "https://example.com/", "https://cards.example/");
+  assert.ok(links.markdown.startsWith("[![Support \\[Ada\\]\\_\\* with Zcash]("));
+  assert.match(links.html, /alt="Support \[Ada\]_\* with Zcash"/);
+  assert.ok(links.staticHtml.startsWith(`<a href="${escapeXml(links.launch)}"><img src="${STATIC_IMAGE}"`));
+  assert.match(links.staticHtml, new RegExp(`<code>${card.address}</code>`));
+  assert.doesNotMatch(links.staticHtml, /api\/card\.svg/);
 });

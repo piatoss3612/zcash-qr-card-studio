@@ -9,6 +9,7 @@ colors:
   lichen: "#596154"
   sage-stroke: "#aeb7a6"
   dry-sage-line: "#c9cec2"
+  soft-line: "#e1e5db"
   sprout-tint: "#e9eee2"
   stage-linen: "#f3f4ed"
   pale-linen: "#eeefe8"
@@ -161,6 +162,7 @@ A low-chroma sage and cream palette with a single deep forest accent, so the col
 - **Lichen** (#596154): hints, captions, secondary labels, inactive options.
 - **Sage Stroke** (#aeb7a6): field and secondary-button borders, where an edge must be seen.
 - **Dry Sage Line** (#c9cec2): panel and workspace hairlines, where an edge only separates.
+- **Soft Line** (#e1e5db, `--oc-soft-line`): the faintest dividers inside panels (topbar edge, section rules, preview toggles).
 - **Sprout Tint** (#e9eee2): background of a selected option.
 - **Stage Linen** (#f3f4ed): the preview stage behind the card.
 - **Pale Linen** (#eeefe8): the page ground.

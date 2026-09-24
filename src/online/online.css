@@ -95,7 +95,7 @@ button {
   touch-action: manipulation;
 }
 .oc-topbar {
-  border-bottom: 1px solid #e1e5db;
+  border-bottom: 1px solid var(--oc-soft-line);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -119,33 +119,7 @@ button {
   font-weight: 400;
   color: #7d8578;
   margin-top: 3px;
-}
-.oc-nav {
-  display: flex;
-  gap: 6px;
-  padding: 4px;
-  background: #eff1ea;
-  border-radius: 30px;
-  font-size: 12px;
-}
-.oc-nav a {
-  padding: 10px 20px;
-  border-radius: 24px;
-}
-.oc-nav a[aria-current] {
-  background: #fffefa;
-  color: #304333;
-  box-shadow: 0 1px 5px #2330190d;
-}
-.oc-dot {
-  display: inline-block;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #799852;
-  margin-left: 7px;
-}
-.oc-source {
+}.oc-source {
   font-size: 11px;
   color: #667160;
   display: flex;
@@ -155,34 +129,20 @@ button {
   display: grid;
 }
 .oc-controls {
-  border-right: 1px solid #e1e5db;
+  border-right: 1px solid var(--oc-soft-line);
 }
 .oc-kicker {
   display: block;
   font-family: GeistMono, monospace;
   line-height: 1.8;
-}
-.oc-intro h1 {
-  font-size: 31px;
-  line-height: 1.13;
-  letter-spacing: -1.3px;
-  font-weight: 500;
-  margin: 17px 0 13px;
-}
-.oc-intro p {
-  font-size: 12px;
-  color: #7a8173;
-  line-height: 1.7;
-  max-width: 260px;
-}
-.oc-section-title {
+}.oc-section-title {
   display: flex;
   align-items: center;
   gap: 11px;
 }
 .oc-section-title > span {
   font-family: GeistMono, monospace;
-  border: 1px solid #dce1d3;
+  border: 1px solid var(--oc-soft-line);
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -209,7 +169,7 @@ button {
   display: block;
   width: 100%;
   margin-top: 8px;
-  border: 1px solid #dce1d5;
+  border: 1px solid var(--oc-soft-line);
   color: #29372e;
   line-height: 1.5;
   transition: border-color 0.15s;
@@ -252,15 +212,10 @@ button {
   grid-template-columns: 27px 1fr;
   text-align: left;
   align-items: center;
-  border: 1px solid #dce1d5;
+  border: 1px solid var(--oc-soft-line);
   border-radius: 8px;
   background: transparent;
-}
-.oc-format-icon {
-  font-size: 23px;
-  grid-row: span 2;
-}
-.oc-format-options strong {
+}.oc-format-options strong {
   font-weight: 500;
 }
 .oc-style-options {
@@ -293,7 +248,7 @@ button {
   color: #304333;
 }
 .oc-advanced {
-  border-top: 1px solid #e1e5db;
+  border-top: 1px solid var(--oc-soft-line);
   padding-top: 17px;
   margin-top: 24px;
 }
@@ -332,7 +287,7 @@ button {
 }
 .oc-preview-options button {
   background: #fffefa;
-  border: 1px solid #dce1d5;
+  border: 1px solid var(--oc-soft-line);
   border-radius: 7px;
 }
 .oc-readme-wrap {
@@ -343,7 +298,7 @@ button {
   max-width: 375px;
 }
 .oc-readme {
-  border: 1px solid #dde1d8;
+  border: 1px solid var(--oc-soft-line);
   background: #fff;
   box-shadow: 0 12px 36px #34422a06;
   overflow: hidden;
@@ -353,7 +308,7 @@ button {
   display: flex;
   justify-content: space-between;
   padding: 15px 22px;
-  border-bottom: 1px solid #e7e9e3;
+  border-bottom: 1px solid var(--oc-soft-line);
   font-family: GeistMono, monospace;
   font-size: 10px;
   color: #757e70;
@@ -453,7 +408,7 @@ button {
 .oc-share {
   max-width: 800px;
   margin: auto;
-  border: 1px solid #e0e5d8;
+  border: 1px solid var(--oc-soft-line);
 }
 .oc-share .oc-section-title {
   margin: 0 0 15px;
@@ -488,7 +443,7 @@ button {
   height: 67px;
   resize: vertical;
   background: #f6f7f2;
-  border: 1px solid #e5e9df;
+  border: 1px solid var(--oc-soft-line);
   border-radius: 7px;
   font-family: GeistMono, monospace;
   line-height: 1.7;
@@ -567,7 +522,7 @@ button {
 .oc-small-actions {
   display: flex;
   gap: 20px;
-  border-top: 1px solid #e8ebdf;
+  border-top: 1px solid var(--oc-soft-line);
   margin-top: 16px;
   padding-top: 13px;
 }
@@ -828,11 +783,7 @@ button {
   .oc-share-heading > p {
     max-width: 135px;
     line-height: 1.5;
-  }
-  .oc-intro h1 {
-    font-size: 29px;
-  }
-}
+  }}
 @media (max-width: 760px) {
   .oc-controls .oc-field input,
   .oc-controls .oc-field textarea,
@@ -856,27 +807,15 @@ button {
   }
   .oc-source {
     display: none;
-  }
-  .oc-nav a {
-    padding: 9px 11px;
-    font-size: 10px;
-  }
-  .oc-workspace {
+  }  .oc-workspace {
     display: flex;
     flex-direction: column;
   }
   .oc-controls {
     border-right: 0;
-    border-bottom: 1px solid #e1e5db;
+    border-bottom: 1px solid var(--oc-soft-line);
     padding: 28px 24px;
-  }
-  .oc-intro h1 {
-    font-size: 33px;
-  }
-  .oc-intro p {
-    max-width: 350px;
-  }
-  .oc-preview-area {
+  }  .oc-preview-area {
     padding: 30px 18px;
   }
   .oc-preview-toolbar h2 {
@@ -951,6 +890,7 @@ button {
   --oc-line: #c9cec2;
   --oc-paper: #fffef9;
   --oc-accent: #334b2e;
+  --oc-soft-line: #e1e5db;
   color: var(--oc-ink);
   background: #eeefe8;
   font-size: 16px;
@@ -961,18 +901,10 @@ button {
   padding-inline: 32px;
 }
 .oc-brand-note,
-.oc-source,
-.oc-nav {
+.oc-source {
   font-size: 12px;
   color: var(--oc-muted);
-}
-.oc-nav a {
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-  color: var(--oc-muted);
-}
-.oc-page-heading {
+}.oc-page-heading {
   max-width: 1440px;
   margin: auto;
   padding: 32px 40px 24px;
@@ -1090,11 +1022,7 @@ button {
 .oc-format-options small {
   font-size: 11px;
   color: var(--oc-muted);
-}
-.oc-format-icon {
-  color: var(--oc-accent);
-}
-.oc-format-options button[aria-pressed="true"] {
+}.oc-format-options button[aria-pressed="true"] {
   border-color: var(--oc-accent);
   box-shadow: inset 0 0 0 1px var(--oc-accent);
   background: #e9eee2;
@@ -1412,12 +1340,7 @@ summary:focus-visible {
   }
   .oc-brand-note {
     font-size: 11px;
-  }
-  .oc-nav a {
-    font-size: 12px;
-    padding: 10px 12px;
-  }
-  .oc-page-heading {
+  }  .oc-page-heading {
     padding: 30px 20px 24px;
   }
   .oc-page-heading h1 {
@@ -1821,5 +1744,41 @@ summary:focus-visible {
   .oc-app .oc-field select,
   .oc-app #oc-address {
     font-size: 16px;
+  }
+}
+
+/* The share step asks two things: who serves the QR image, then which code to paste. */
+.oc-share-choice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.oc-app .oc-share-choice > span {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.oc-jump-share {
+  display: none;
+}
+@media (max-width: 760px) {
+  .oc-app .oc-jump-share {
+    order: -1;
+    display: flex;
+    align-items: center;
+    align-self: flex-start;
+    min-height: 44px;
+    margin: 4px 16px 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--oc-accent);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 }
