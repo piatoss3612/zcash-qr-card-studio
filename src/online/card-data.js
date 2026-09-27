@@ -58,6 +58,41 @@ export const STYLES = {
     bg: "#fbf8f1", ink: "#1d2a44", muted: "#586377",
     accent: "#c8413a", border: "#2f5da8", companion: "courier",
   },
+  frost: {
+    label: "Frost", description: "Pale ice with survey contour lines.",
+    bg: "#eef3f7", ink: "#13304b", muted: "#52697f",
+    accent: "#2f78b7", border: "#c6d5e2", companion: "snow",
+  },
+  washi: {
+    label: "Washi", description: "Ivory paper with indigo waves.",
+    bg: "#f4efe4", ink: "#1c2340", muted: "#5d5e70",
+    accent: "#c23b2e", border: "#d9cfbb", companion: "oni",
+  },
+  ticket: {
+    label: "Ticket", description: "Teal ticket with a tear-off stub.",
+    bg: "#1d5b57", ink: "#fff4dc", muted: "#cfe3dc",
+    accent: "#f3b73f", border: "#3e7c77", companion: "commons",
+  },
+  receipt: {
+    label: "Receipt", description: "Thermal paper with a torn edge.",
+    bg: "#fbfaf6", ink: "#232323", muted: "#666660",
+    accent: "#232323", border: "#e2e0d6",
+  },
+  meadow: {
+    label: "Meadow", description: "Soft sage with leafy sprigs.",
+    bg: "#eef2e5", ink: "#1f3326", muted: "#56685a",
+    accent: "#4f8a46", border: "#cfd9c1", companion: "grove",
+  },
+  bigtop: {
+    label: "Big Top", description: "Cream with circus tent stripes.",
+    bg: "#fbf2e1", ink: "#3b1e18", muted: "#7a5a4d",
+    accent: "#d1452f", border: "#ecd8ba", companion: "jester",
+  },
+  velvet: {
+    label: "Velvet", description: "Deep plum with a lace hem.",
+    bg: "#2a1631", ink: "#f7e9f3", muted: "#d0b5cb",
+    accent: "#c9a0dc", border: "#4b2d54", companion: "goth",
+  },
 };
 export const COMPANIONS = {
   classic: {

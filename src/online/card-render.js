@@ -10,10 +10,17 @@ export const CARD_FONTS = {
   aurora: "assets/fonts/geist-bold.woff2",
   blueprint: "assets/fonts/space-grotesk-variable.woff2",
   airmail: "assets/fonts/geist-bold.woff2",
+  frost: "assets/fonts/space-grotesk-variable.woff2",
+  washi: "assets/fonts/geist-bold.woff2",
+  ticket: "assets/fonts/geist-bold.woff2",
+  receipt: "assets/fonts/geist-mono-variable.woff2",
+  meadow: "assets/fonts/geist-bold.woff2",
+  bigtop: "assets/fonts/space-grotesk-variable.woff2",
+  velvet: "assets/fonts/zarathustra-v01.woff2",
 };
-const MONO_BIO = new Set(["terminal", "blueprint"]);
+const MONO_BIO = new Set(["terminal", "blueprint", "receipt"]);
 /** Variable name faces declare their range so the requested weight is real, not synthesized. */
-const VARIABLE_NAME_WEIGHT = { blueprint: 700 };
+const VARIABLE_NAME_WEIGHT = { blueprint: 700, frost: 700, receipt: 700, bigtop: 700 };
 // Low-opacity outlines take their tone from the surface, never a tinted neutral.
 const LIGHT_EDGE = "rgba(0,0,0,.1)";
 const DARK_EDGE = "rgba(255,255,255,.12)";
@@ -46,14 +53,20 @@ function isLight(hex) {
 }
 
 /** Style surfaces stay clear of the QR tile, its quiet zone and the text column. */
-function surface(style, theme, geo) {
+function surface(style, theme, geo, { amount = false } = {}) {
   const { width: W, height: H, qr, textX, textWidth, logo } = geo;
   const portrait = W < H;
+  // The Vizorcat's zone: right of the text column, or right of the QR in Portrait.
+  const zx = portrait ? qr.x + qr.size + 16 : textX + textWidth + 10;
+  const zy = portrait ? qr.y - 10 : 0;
   if (style === "paper") {
+    // Fine paper grain and a dog-eared corner under the Vizorcat, inside the inset print panel.
+    const f = 34;
     return {
       radius: 16,
       qrRadius: 6,
-      back: `<rect x="8" y="8" width="${W - 16}" height="${H - 16}" rx="10" fill="none" stroke="${theme.border}"/>`,
+      defs: `<filter id="pp-grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="7"/><feColorMatrix values="0 0 0 0 .35  0 0 0 0 .3  0 0 0 0 .2  0 0 0 .09 0"/></filter>`,
+      back: `<rect width="${W}" height="${H}" filter="url(#pp-grain)"/><rect x="8" y="8" width="${W - 16}" height="${H - 16}" rx="10" fill="none" stroke="${theme.border}" stroke-width="1.5"/><path d="M${W - f},${H}L${W},${H - f}V${H}Z" fill="${theme.border}"/><path d="M${W - f},${H}L${W - f + 4},${H - f + 4}L${W},${H - f}" fill="#fffdf6" stroke="${theme.border}"/>`,
       edge: LIGHT_EDGE,
     };
   }
@@ -75,14 +88,22 @@ function surface(style, theme, geo) {
     const notched = (i, n) => `M${i + n},${i}H${W - i - n}V${i + n}H${W - i}V${H - i - n}H${W - i - n}V${H - i}H${i + n}V${H - i - n}H${i}V${i + n}H${i + n}Z`;
     return {
       clip: notched(0, 6),
-      back: `<path d="${notched(0, 6)} ${notched(4, 6)}" fill="${theme.accent}" fill-rule="evenodd"/>`,
+      // An 8-bit cloud under the corner logo and a checkered floor behind the Vizorcat's feet.
+      defs: `<pattern id="px-floor" width="16" height="16" patternUnits="userSpaceOnUse" x="${zx}" y="${H - 22}"><rect width="8" height="8" fill="${theme.accent}" fill-opacity=".4"/><rect x="8" y="8" width="8" height="8" fill="${theme.accent}" fill-opacity=".4"/><rect x="8" width="8" height="8" fill="${theme.accent}" fill-opacity=".18"/><rect y="8" width="8" height="8" fill="${theme.accent}" fill-opacity=".18"/></pattern>`,
+      back: `<path d="${notched(0, 6)} ${notched(4, 6)}" fill="${theme.accent}" fill-rule="evenodd"/><rect x="${zx + 8}" y="${H - 22}" width="${W - zx - 18}" height="16" fill="url(#px-floor)"/>${(() => {
+        const cx = Math.round((zx + W) / 2 - 40);
+        const cy = Math.max(zy + 18, logo.y + logo.size + 16);
+        const cloud = (x, y, u, o) => `<path d="M${x + 2 * u},${y}h${4 * u}v${u}h${2 * u}v${u}h${2 * u}v${2 * u}H${x}v${-2 * u}h${2 * u}Z" fill="#fff" fill-opacity="${o}" stroke="${theme.accent}" stroke-opacity=".35" stroke-width="2"/>`;
+        return cloud(cx, cy, 6, 0.95) + cloud(cx + 58, cy + 30, 4, 0.85);
+      })()}`,
     };
   }
   if (style === "editorial") {
     return {
       radius: 12,
       qrRadius: 4,
-      back: `<rect width="${W}" height="5" fill="${theme.accent}"/>`,
+      // Masthead bar with a hairline under it, and a column rule between the copy and the Vizorcat.
+      back: `<rect width="${W}" height="5" fill="${theme.accent}"/><rect y="8" width="${W}" height="1" fill="${theme.accent}" fill-opacity=".45"/>${portrait ? `<path d="M${zx - 6},${zy + 10}V${H - 20}" stroke="${theme.border}" stroke-width="1"/>` : `<path d="M${zx - 4},24V${H - 20}" stroke="${theme.border}" stroke-width="1"/>`}`,
       edge: LIGHT_EDGE,
     };
   }
@@ -91,8 +112,8 @@ function surface(style, theme, geo) {
       radius: 10,
       qrRadius: 4,
       cursor: true,
-      defs: `<pattern id="tm-scan" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="4" height="1" fill="#fff" fill-opacity=".045"/></pattern>`,
-      back: `<rect width="${W}" height="${H}" fill="url(#tm-scan)"/>`,
+      defs: `<pattern id="tm-scan" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="4" height="1" fill="#fff" fill-opacity=".075"/></pattern><radialGradient id="tm-glow" cx="${(zx + W) / 2}" cy="${(zy + H) / 2}" r="${Math.min(W - zx, H - zy) * 0.6}" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="${theme.accent}" stop-opacity=".16"/><stop offset="1" stop-color="${theme.accent}" stop-opacity="0"/></radialGradient><radialGradient id="tm-vignette" cx="50%" cy="50%" r="75%"><stop offset=".6" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".35"/></radialGradient>`,
+      back: `<rect width="${W}" height="${H}" fill="url(#tm-glow)"/><rect width="${W}" height="${H}" fill="url(#tm-scan)"/><rect width="${W}" height="${H}" fill="url(#tm-vignette)"/>`,
       edge: DARK_EDGE,
     };
   }
@@ -148,6 +169,184 @@ function surface(style, theme, geo) {
       edge: LIGHT_EDGE,
     };
   }
+  // Frost, Washi and Ticket draw behind the Vizorcat in the same zone as Midnight's orbits.
+  const zoneX = portrait ? qr.x + qr.size + 16 : textX + textWidth + 10;
+  const zoneY = portrait ? qr.y - 10 : 0;
+  if (style === "frost") {
+    // Survey contours around a low rise under the Vizorcat; they stop below the corner logo.
+    const cx = zoneX + (W - zoneX) * 0.55;
+    const cy = portrait ? H - 40 : H * 0.86;
+    const step = (cy - Math.max(zoneY, logo.y + logo.size + 10)) / 6.8;
+    const ring = (k) => {
+      const pts = Array.from({ length: 40 }, (_, i) => {
+        const t = (i / 40) * 2 * Math.PI;
+        const r = k * step * (1 + 0.08 * Math.sin(3 * t + k * 0.7) + 0.05 * Math.sin(5 * t + 1.3 + k * 0.4));
+        return [cx + 1.3 * r * Math.cos(t), cy + r * Math.sin(t)];
+      });
+      // Closed Catmull-Rom spline through the points, as cubic Béziers.
+      let d = `M${pts[0].map((v) => v.toFixed(1))}`;
+      for (let i = 0; i < pts.length; i++) {
+        const [p0, p1, p2, p3] = [-1, 0, 1, 2].map((o) => pts[(i + o + pts.length) % pts.length]);
+        const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
+        const c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+        d += `C${c1.map((v) => v.toFixed(1))} ${c2.map((v) => v.toFixed(1))} ${p2.map((v) => v.toFixed(1))}`;
+      }
+      // Every third line is an index contour, as on a survey map.
+      return `<path d="${d}Z" stroke-width="${k % 3 === 0 ? 2.4 : 1.6}" stroke-opacity="${(0.9 - k * 0.07).toFixed(2)}"/>`;
+    };
+    // The contours fade in from the zone's left and top edges instead of stopping at a hard line.
+    const ramp = (id, a, from, to) => `<linearGradient id="${id}" ${a}1="${from}" ${a}2="${to}" ${a === "x" ? 'y1="0" y2="0"' : 'x1="0" x2="0"'} gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient><mask id="${id}-m"><rect x="${zoneX}" y="${zoneY}" width="${W - zoneX}" height="${H - zoneY}" fill="url(#${id})"/></mask>`;
+    return {
+      radius: 14,
+      qrRadius: 6,
+      defs: ramp("fr-x", "x", zoneX, zoneX + 64) + ramp("fr-y", "y", zoneY, zoneY + 48) + `<radialGradient id="fr-glow" cx="${cx}" cy="${cy}" r="${step * 7}" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#cfe2f3" stop-opacity=".9"/><stop offset="1" stop-color="#cfe2f3" stop-opacity="0"/></radialGradient>`,
+      // Ice glints: small four-point sparkles scattered over the upper contours.
+      back: `<g mask="url(#fr-x-m)"><g mask="url(#fr-y-m)"><rect x="${zoneX}" y="${zoneY}" width="${W - zoneX}" height="${H - zoneY}" fill="url(#fr-glow)"/><g fill="none" stroke="${theme.accent}">${[1, 2, 3, 4, 5, 6, 7].map(ring).join("")}</g><g fill="${theme.accent}" fill-opacity=".55">${[[0.3, 0.35, 5], [0.72, 0.22, 4], [0.5, 0.55, 3.5]].map(([u, v, r]) => { const x = zoneX + (W - zoneX) * u; const y = Math.max(zoneY, logo.y + logo.size + 10) + (H - zoneY) * v * 0.6; return `<path d="M${x.toFixed(1)},${(y - r).toFixed(1)}L${(x + r * 0.28).toFixed(1)},${(y - r * 0.28).toFixed(1)}L${(x + r).toFixed(1)},${y.toFixed(1)}L${(x + r * 0.28).toFixed(1)},${(y + r * 0.28).toFixed(1)}L${x.toFixed(1)},${(y + r).toFixed(1)}L${(x - r * 0.28).toFixed(1)},${(y + r * 0.28).toFixed(1)}L${(x - r).toFixed(1)},${y.toFixed(1)}L${(x - r * 0.28).toFixed(1)},${(y - r * 0.28).toFixed(1)}Z"/>`; }).join("")}</g></g></g>`,
+      edge: LIGHT_EDGE,
+    };
+  }
+  if (style === "washi") {
+    // Seigaiha: rows of wave fans painted top to bottom so each row overlaps the one above.
+    // The field rises from the bottom-right corner and fades out before the zone's edges.
+    const R = 18;
+    const reach = Math.min(W - zoneX, H - zoneY);
+    const top = H - reach;
+    let fans = "";
+    for (let row = 0, y = top; y < H + R; row++, y += R / 2)
+      for (let x = zoneX - (row % 2 ? 0 : R); x < W + R; x += 2 * R)
+        fans += `<use href="#wa-fan" x="${x}" y="${y}"/>`;
+    return {
+      radius: 6,
+      qrRadius: 3,
+      defs: `<g id="wa-fan"><circle r="${R}" fill="${theme.bg}"/><circle r="${R * 0.75}"/><circle r="${R * 0.5}"/><circle r="${R * 0.25}"/></g><radialGradient id="wa-fade" cx="${W}" cy="${H}" r="${reach}" gradientUnits="userSpaceOnUse"><stop offset=".58" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><mask id="wa-mask"><rect x="${zoneX}" y="${top}" width="${W - zoneX}" height="${reach}" fill="url(#wa-fade)"/></mask>`,
+      back: `<g mask="url(#wa-mask)" fill="none" stroke="${theme.ink}" stroke-opacity=".46" stroke-width="1.3">${fans}</g>`,
+      edge: LIGHT_EDGE,
+    };
+  }
+  if (style === "ticket") {
+    // A tear-off stub: notches cut the card edge where a dotted perforation crosses it.
+    const r = 10;
+    const c = 12;
+    let clip;
+    let perforation;
+    let stub;
+    if (portrait) {
+      // Portrait tears off below the copy, so the stub carries the QR, its amount and the Vizorcat.
+      const y = amount ? qr.y - 38 : qr.y - 8;
+      clip = `M${c},0H${W - c}A${c},${c} 0 0 1 ${W},${c}V${y - r}A${r},${r} 0 0 0 ${W},${y + r}V${H - c}A${c},${c} 0 0 1 ${W - c},${H}H${c}A${c},${c} 0 0 1 0,${H - c}V${y + r}A${r},${r} 0 0 0 0,${y - r}V${c}A${c},${c} 0 0 1 ${c},0Z`;
+      perforation = `M${r + 8},${y}H${W - r - 8}`;
+      stub = `<rect y="${y}" width="${W}" height="${H - y}"/>`;
+    } else {
+      const x = textX + textWidth + 18;
+      clip = `M${c},0H${x - r}A${r},${r} 0 0 0 ${x + r},0H${W - c}A${c},${c} 0 0 1 ${W},${c}V${H - c}A${c},${c} 0 0 1 ${W - c},${H}H${x + r}A${r},${r} 0 0 0 ${x - r},${H}H${c}A${c},${c} 0 0 1 0,${H - c}V${c}A${c},${c} 0 0 1 ${c},0Z`;
+      perforation = `M${x},${r + 8}V${H - r - 8}`;
+      stub = `<rect x="${x}" width="${W - x}" height="${H}"/>`;
+    }
+    return {
+      clip,
+      qrRadius: 6,
+      back: `<g fill="#000" fill-opacity=".16">${stub}</g><path d="${perforation}" fill="none" stroke="${theme.accent}" stroke-opacity=".85" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="0.1 7"/>`,
+      edge: DARK_EDGE,
+    };
+  }
+  if (style === "receipt") {
+    // Torn thermal paper: teeth 5px deep stay inside the 12px margin below the QR.
+    const t = 7;
+    const d = 5;
+    let clip = `M0,${d}`;
+    for (let x = 0; x < W; x += 2 * t) clip += `L${Math.min(x + t, W)},0L${Math.min(x + 2 * t, W)},${d}`;
+    clip += `L${W},${H - d}`;
+    for (let x = W; x > 0; x -= 2 * t) clip += `L${Math.max(x - t, 0)},${H}L${Math.max(x - 2 * t, 0)},${H - d}`;
+    // Item rows with dotted leaders sit behind the Vizorcat, below the corner logo.
+    const x0 = zoneX + 12;
+    const x1 = W - 20;
+    const y0 = Math.max(zoneY + 20, logo.y + logo.size + 22);
+    const y1 = H - 24;
+    const n = Math.max(3, Math.floor((y1 - y0) / 24));
+    let rows = `<path d="M${x0},${y0 - 12}H${x1}" stroke-dasharray="5 4"/>`;
+    for (let i = 0; i < n; i++) {
+      const y = (y0 + i * ((y1 - y0) / (n - 1))).toFixed(1);
+      const w = 18 + ((i * 23) % 34);
+      rows += `<path d="M${x0},${y}h${w}M${x1 - 18},${y}h18" stroke-width="3"/><path d="M${x0 + w + 8},${y}H${x1 - 26}" stroke-dasharray="0.1 5"/>`;
+    }
+    return {
+      clip,
+      qrRadius: 2,
+      back: `<g id="rc-rows" fill="none" stroke="${theme.ink}" stroke-opacity=".3" stroke-width="1.5" stroke-linecap="round">${rows}</g>`,
+      edge: LIGHT_EDGE,
+    };
+  }
+  // Meadow, Big Top and Velvet fade out from the bottom-right corner like Washi.
+  const reach = Math.min(W - zoneX, H - zoneY);
+  const fade = (id, from = 0.45) => `<radialGradient id="${id}" cx="${W}" cy="${H}" r="${reach}" gradientUnits="userSpaceOnUse"><stop offset="${from}" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><mask id="${id}-m"><rect x="${zoneX}" y="${H - reach}" width="${W - zoneX}" height="${reach}" fill="url(#${id})"/></mask>`;
+  if (style === "meadow") {
+    // Botanical line drawing: slender olive-like sprigs lean in from the corner. Each leaf is a
+    // pointed almond with a midrib, set in pairs that shrink toward a single tip leaf.
+    const leaf = (x, y, deg, len, wid) => {
+      const a = (deg * Math.PI) / 180;
+      const [dx, dy, px, py] = [Math.cos(a), Math.sin(a), -Math.sin(a), Math.cos(a)];
+      const [tx, ty] = [x + dx * len, y + dy * len];
+      const [mx, my] = [x + (dx * len) / 2, y + (dy * len) / 2];
+      const f = (v) => v.toFixed(1);
+      return `<path d="M${f(x)},${f(y)}Q${f(mx + px * wid)},${f(my + py * wid)} ${f(tx)},${f(ty)}Q${f(mx - px * wid)},${f(my - py * wid)} ${f(x)},${f(y)}Z"/><path d="M${f(x)},${f(y)}L${f(x + dx * len * 0.85)},${f(y + dy * len * 0.85)}" fill="none"/>`;
+    };
+    const sprig = (angle, len, bend) => {
+      const a = (angle * Math.PI) / 180;
+      const [bx, by] = [W - 4, H + 2];
+      const [ex, ey] = [bx + len * Math.cos(a), by + len * Math.sin(a)];
+      const [cx, cy] = [(bx + ex) / 2 + bend * Math.sin(a), (by + ey) / 2 - bend * Math.cos(a)];
+      const at = (u) => [(1 - u) ** 2 * bx + 2 * (1 - u) * u * cx + u ** 2 * ex, (1 - u) ** 2 * by + 2 * (1 - u) * u * cy + u ** 2 * ey];
+      let leaves = "";
+      for (let k = 1; k <= 5; k++) {
+        const u = 0.18 + k * 0.14;
+        const [x, y] = at(u);
+        const [x2, y2] = at(u + 0.01);
+        const dir = (Math.atan2(y2 - y, x2 - x) * 180) / Math.PI;
+        const size = 1 - u * 0.5;
+        leaves += leaf(x, y, dir - 38, 22 * size, 5.2 * size) + leaf(x, y, dir + 38, 22 * size, 5.2 * size);
+      }
+      const [tx, ty] = at(1);
+      const [tx0, ty0] = at(0.97);
+      leaves += leaf(tx, ty, (Math.atan2(ty - ty0, tx - tx0) * 180) / Math.PI, 14, 3.6);
+      return `<path d="M${bx},${by}Q${cx.toFixed(1)},${cy.toFixed(1)} ${ex.toFixed(1)},${ey.toFixed(1)}" fill="none"/>${leaves}`;
+    };
+    return {
+      radius: 16,
+      qrRadius: 6,
+      defs: fade("mw-fade", 0.78),
+      back: `<g mask="url(#mw-fade-m)" stroke="${theme.accent}" stroke-width="1.1" stroke-opacity=".7" stroke-linejoin="round" stroke-linecap="round" fill="${theme.accent}" fill-opacity=".14">${sprig(-100, reach * 0.95, -10)}${sprig(-124, reach * 1.02, 14)}${sprig(-150, reach * 0.8, -12)}${sprig(-172, reach * 0.6, 8)}</g>`,
+      edge: LIGHT_EDGE,
+    };
+  }
+  if (style === "bigtop") {
+    // A striped tent curtain hangs below a scalloped valance behind the Vizorcat; it fades in from
+    // the zone's left edge. The stripes run straight down, never as rays from a point.
+    const vy = Math.max(zoneY + 8, logo.y + logo.size + 14);
+    const w = 12;
+    let stripes = "";
+    for (let x = W - w; x > zoneX - w; x -= 2 * w) stripes += `<rect x="${x}" y="${vy}" width="${w}" height="${H - vy}"/>`;
+    let valance = `M${zoneX},${vy}`;
+    for (let x = zoneX; x < W; x += w) valance += `A${w / 2},${w / 2} 0 0 0 ${x + w},${vy}`;
+    return {
+      radius: 14,
+      qrRadius: 6,
+      defs: `<linearGradient id="bt-fade" x1="${zoneX}" x2="${zoneX + 70}" y1="0" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient><mask id="bt-fade-m"><rect x="${zoneX}" y="${vy - 8}" width="${W - zoneX}" height="${H - vy + 8}" fill="url(#bt-fade)"/></mask>`,
+      back: `<g mask="url(#bt-fade-m)" fill="${theme.accent}"><g fill-opacity=".16">${stripes}</g><path d="${valance}V${vy - 5}H${zoneX}Z" fill-opacity=".38"/></g><rect x="8" y="8" width="${W - 16}" height="${H - 16}" rx="8" fill="none" stroke="${theme.accent}" stroke-opacity=".35" stroke-dasharray="1 6" stroke-width="3" stroke-linecap="round"/>`,
+      edge: LIGHT_EDGE,
+    };
+  }
+  if (style === "velvet") {
+    // A lace hem of scallops and eyelets runs under the Vizorcat, inside a fine frame.
+    const s = 18;
+    const hem = Math.min(32, reach * 0.22);
+    return {
+      radius: 12,
+      qrRadius: 6,
+      defs: `<pattern id="vl-lace" width="${s}" height="${hem}" patternUnits="userSpaceOnUse" x="${zoneX}" y="${H - hem}"><path d="M0,${hem}V${s / 2}A${s / 2},${s / 2} 0 0 1 ${s},${s / 2}V${hem}Z" fill="${theme.accent}" fill-opacity=".34"/><circle cx="${s / 2}" cy="${s / 2 + 1}" r="2.4" fill="${theme.bg}"/><circle cx="${s / 2}" cy="${s / 2 - 5}" r="1.2" fill="${theme.accent}" fill-opacity=".5"/></pattern><pattern id="vl-damask" width="22" height="22" patternUnits="userSpaceOnUse"><path d="M11,4l4,7-4,7-4-7ZM0,-3l3,3-3,3-3-3ZM22,-3l3,3-3,3-3-3ZM0,19l3,3-3,3-3-3ZM22,19l3,3-3,3-3-3Z" fill="${theme.accent}" fill-opacity=".13"/></pattern>` + fade("vl-fade", 0.7),
+      back: `<g mask="url(#vl-fade-m)"><rect x="${zoneX}" y="${H - reach}" width="${W - zoneX}" height="${reach - hem}" fill="url(#vl-damask)"/><rect x="${zoneX}" y="${H - hem}" width="${W - zoneX}" height="${hem}" fill="url(#vl-lace)"/></g><rect x="8" y="8" width="${W - 16}" height="${H - 16}" rx="6" fill="none" stroke="${theme.accent}" stroke-opacity=".3"/>`,
+      edge: DARK_EDGE,
+    };
+  }
   return {};
 }
 
@@ -181,7 +380,7 @@ function bioEm(text, mono) {
 function nameEm(text, style) {
   let em = 0;
   for (const char of text)
-    em += isWide(char) ? 1 : style === "pixel" ? 0.85 : style === "terminal" ? 0.65 : /[MW@]/.test(char) ? 0.95 : /[ilI .]/.test(char) ? 0.3 : 0.65;
+    em += isWide(char) ? 1 : style === "pixel" ? 0.85 : style === "terminal" || style === "receipt" ? 0.65 : /[MW@]/.test(char) ? 0.95 : /[ilI .]/.test(char) ? 0.3 : 0.65;
   return em;
 }
 
@@ -364,7 +563,7 @@ export async function renderCard(card, loadAsset, { demo = false, qrHint = ["Add
   const character = COMPANIONS[card.companion].path;
   const art = character ? await loadAsset(character) : null;
   const artBox = companionBox(card);
-  const decor = surface(card.style, theme, geo);
+  const decor = surface(card.style, theme, geo, { amount: Boolean(card.amount) });
   const amount = card.amount ? `${card.amount} ZEC` : "";
 
   // Text boxes end above the QR (Signature, Portrait), beside it (Compact) or above the call to action (Profile).
@@ -448,6 +647,6 @@ ${qrSvgMarkup}
 ${art ? `<image class="companion" href="${art}" x="${artBox.x}" y="${artBox.y}" width="${artBox.w}" height="${artBox.h}" preserveAspectRatio="xMidYMid meet"/>` : ""}
 ${action}
 </g>
-${decor.edge ? `<rect x=".5" y=".5" width="${width - 1}" height="${height - 1}"${decor.radius ? ` rx="${decor.radius - 0.5}"` : ""} fill="none" stroke="${decor.edge}"/>` : ""}
+${decor.edge && decor.clip ? `<path d="${decor.clip}" fill="none" stroke="${decor.edge}" stroke-width="2" clip-path="url(#card-shape)"/>` : ""}${decor.edge && !decor.clip ? `<rect x=".5" y=".5" width="${width - 1}" height="${height - 1}"${decor.radius ? ` rx="${decor.radius - 0.5}"` : ""} fill="none" stroke="${decor.edge}"/>` : ""}
 </svg>`;
 }

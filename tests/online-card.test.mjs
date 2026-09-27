@@ -15,7 +15,7 @@ import {
   cardLinks,
   escapeXml,
 } from "../src/online/card-data.js";
-import { renderCard, qrMatrix, companionBox } from "../src/online/card-render.js";
+import { renderCard, qrMatrix, companionBox, cardGeometry } from "../src/online/card-render.js";
 import { cardApi } from "../server/card-api.js";
 import worker from "../server/worker.js";
 
@@ -467,7 +467,7 @@ test("names and introductions at their length limits render in full on every car
 
 test("surface styles draw local artwork around a white QR tile without changing payment", async () => {
   const original = await validateCard(base);
-  const surfaces = { aurora: /id="au-violet"/, blueprint: /id="bp-grid"/, airmail: /id="am-stripes"/ };
+  const surfaces = { aurora: /id="au-violet"/, blueprint: /id="bp-grid"/, airmail: /id="am-stripes"/, frost: /id="fr-x"/, washi: /id="wa-fan"/, ticket: /stroke-dasharray="0.1 7"/, receipt: /id="rc-rows"/, meadow: /id="mw-fade"/, bigtop: /id="bt-fade"/, velvet: /id="vl-lace"/ };
   for (const [style, marker] of Object.entries(surfaces))
     for (const layout of Object.keys(LAYOUTS)) {
       const card = await validateCard({ ...base, style, layout });
@@ -477,6 +477,25 @@ test("surface styles draw local artwork around a white QR tile without changing 
       assert.match(svg, marker);
       if (layout !== "profile") assert.match(svg, /width="160" height="160" rx="\d+" fill="#fff"/);
     }
+});
+
+test("the Ticket perforation and its notches stay clear of the QR tile and the text column", async () => {
+  for (const layout of Object.keys(LAYOUTS)) for (const amount of ["", "0.5"]) {
+    const { qr, textX, textWidth } = cardGeometry(layout);
+    const svg = await renderCard(await validateCard({ ...base, style: "ticket", layout, amount }), loadAsset);
+    const [, a, b] = svg.match(/<path d="M([\d.]+),([\d.]+)[HV][\d.]+" fill="none"[^>]*stroke-dasharray/);
+    if (layout === "portrait") {
+      // A horizontal tear line below the text box and above the QR tile (and above the
+      // amount, which stays with the QR); its 10px notches cut the side edges, left of the QR tile.
+      const textBottom = qr.y - 12 - (amount ? 28 : 0);
+      assert.ok(Number(b) > textBottom && Number(b) < (amount ? qr.y - 12 - 16 : qr.y));
+      assert.ok(10 < qr.x);
+    } else {
+      // A vertical tear line right of the text column and, where present, the QR tile.
+      assert.ok(Number(a) - 10 > textX + textWidth);
+      if (qr) assert.ok(Number(a) - 10 > qr.x + qr.size);
+    }
+  }
 });
 
 test("every companion shares and renders using a bundled local asset without changing payment", async () => {
