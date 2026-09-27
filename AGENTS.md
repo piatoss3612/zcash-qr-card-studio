@@ -4,6 +4,11 @@ These rules apply to image generation, image editing, asset registration, and ed
 
 When an original Vizorcat or Theme asset is needed, use the separate local `vizorcat` project only as an authoring reference. Copy approved assets used by the card editor, along with their generation records, into this repository under `assets/`. Deployed code must never reference a sibling repository directly.
 
+## Vizorcat pipeline
+
+- New and redrawn Vizorcats go through `scripts/vizorcat/vizorcat.py` (`generate`, `crop`, `normalize`, `qa`, `review`, `register`, `verify`). The step-by-step guide, prompt and spec templates and the lessons behind them live in `.claude/skills/vizorcat/`; follow them whether you work in Claude Code or Codex.
+- Run `python3 scripts/vizorcat/vizorcat.py verify` and `npm test` before committing character changes.
+
 ## Serial visual work
 
 - Do not run image generation or editing, large image loads, and browser screenshot verification concurrently.

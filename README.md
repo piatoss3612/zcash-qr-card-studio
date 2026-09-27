@@ -116,6 +116,7 @@ Deploy the repository to Vercel; publishing only `dist/` omits the image functio
 - [Print editor](docs/print-editor-guide.md) — card types, layers, shortcuts, A6/A4 output and assets
 - [Embed cards](docs/online-cards.md) — formats, sharing and image API
 - [Vercel deployment](docs/vercel-deployment.md) — setup and route checks
+- [Making a Vizorcat](.claude/skills/vizorcat/SKILL.md) — option sheets, review, registration and the `scripts/vizorcat` tool
 
 ## Privacy
 

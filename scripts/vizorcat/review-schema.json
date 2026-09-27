@@ -1,0 +1,37 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["pass", "checks", "issues"],
+  "properties": {
+    "pass": {"type": "boolean"},
+    "checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["forepaws", "hind_legs", "ears", "eyes", "props", "facing", "extra_anatomy", "text_or_symbols", "expression"],
+      "properties": {
+        "forepaws": {"type": "string"},
+        "hind_legs": {"type": "string"},
+        "ears": {"type": "string"},
+        "eyes": {"type": "string"},
+        "props": {"type": "string"},
+        "facing": {"type": "string"},
+        "extra_anatomy": {"type": "string"},
+        "text_or_symbols": {"type": "string"},
+        "expression": {"type": "string"}
+      }
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["area", "problem", "fix"],
+        "properties": {
+          "area": {"type": "string"},
+          "problem": {"type": "string"},
+          "fix": {"type": "string"}
+        }
+      }
+    }
+  }
+}
