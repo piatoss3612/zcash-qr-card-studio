@@ -193,9 +193,13 @@ Compact); only Signature keeps a 12px gap under its QR, so its short card has
 room for a large name above. Every style has a rounded or notched shape with a low-opacity edge so
 the card stays visible on a README of the same tone, and light styles outline
 the white QR tile. Each style carries one signature surface: Paper an inset
-print panel, Midnight three orbits with two small lights behind the Vizorcat, Pixel a notched pixel
-frame, Editorial a terracotta masthead bar, Terminal scanlines and a cursor
-after the introduction, plus the Aurora, Blueprint and Airmail surfaces above.
+print panel over a fine paper grain with a dog-eared corner under the Vizorcat,
+Midnight three orbits with two small lights behind the Vizorcat, Pixel a notched
+pixel frame with 8-bit clouds under the corner logo and a checkered floor,
+Editorial a terracotta masthead bar with a hairline under it and a column rule
+beside the Vizorcat, Terminal scanlines, a phosphor glow, a CRT vignette and a
+cursor after the introduction, plus the Aurora, Blueprint, Airmail, Frost, Washi,
+Ticket, Receipt, Meadow, Big Top and Velvet surfaces described below.
 
 ## Editor navigation and drafts
 
@@ -229,13 +233,33 @@ stays available, as the overlap check is conservative).
 - **Profile** (`profile`, 480 × 260): no QR; opens the wallet through the HTTPS launch link.
 
 All four layouts support Paper, Midnight, Pixel, Editorial, Terminal, Aurora,
-Blueprint and Airmail. Editorial uses a warm ivory surface and Zarathustra
+Blueprint, Airmail, Frost, Washi, Ticket, Receipt, Meadow, Big Top and Velvet. Editorial uses a warm ivory surface and Zarathustra
 serif; Terminal uses Geist Mono on deep green. Aurora is a rounded dark card
 with violet, teal and Zcash-gold glows. Blueprint draws a drafting grid and
 corner crop marks, with a Space Grotesk name and Geist Mono introduction.
 Airmail edges the card with red and blue envelope stripes and turns the corner
 logo into a perforated stamp with a postmark (the postmark is omitted in
-Portrait, where it would meet long names). These surfaces stay outside the
+Portrait, where it would meet long names). Frost is pale ice with bold survey
+contour lines (every third one an index line) around a rise under the Vizorcat,
+with a cool glow over the rise and a few small ice glints,
+fading in from the edges of the Vizorcat zone and stopping below the corner
+logo; its name is set in Space Grotesk. Washi is ivory paper whose indigo
+seigaiha waves rise from the bottom-right corner and fade out before the zone's
+edges, with a vermilion accent. Ticket is a deep-teal ticket with a tear-off
+stub: a mustard dotted perforation with notches cut into the card edge
+separates the Vizorcat stub in Signature, Compact and Profile, and runs across
+the card under the copy in Portrait, so the stub carries the QR, a fixed
+amount and the Vizorcat. Receipt (added 2026-09-27, like the next three) is
+thermal paper torn along the top and bottom edges, with dashed item rows and
+dotted leaders behind the Vizorcat and a Geist Mono name and introduction.
+Meadow is soft sage with four slender botanical sprigs, drawn as fine line art
+(pointed leaves with midribs, in pairs that shrink toward a tip leaf), leaning
+in from the bottom-right corner. Big Top is cream with a red-striped tent
+curtain hanging straight down below a scalloped valance, inside a dotted marquee
+frame, with a Space Grotesk name; its stripes never radiate from a point, so
+the card cannot read as the Rising Sun flag. Velvet is deep plum
+with a faint diamond damask and a scalloped lace hem with eyelets under the
+Vizorcat, inside a fine frame, with a Zarathustra name. These surfaces stay outside the
 QR, its quiet zone and the text column. Every QR sits on a white square,
 including its four-module quiet zone; Aurora and Airmail round the square's
 corners inside the quiet zone. Compact shares the same
@@ -243,22 +267,80 @@ ZIP-321 request and density checks as Signature, and its dimensions flow through
 preview, PNG export and HTML embeds. Layouts are saved in editing links.
 
 The Vizorcat gallery (labeled **Vizorcat** in the editor; the serialized field
-remains `companion`) includes 19 characters plus No Vizorcat: Vizorcat,
+remains `companion`) includes 20 characters plus No Vizorcat: Vizorcat,
 Airmail Courier, Blueprint Architect, Aurora Photographer, Terminal Sysadmin,
-Editorial Writer, Pixel Gamer, Samurai, Wayfinder, Orbital Ranger, Grove Ranger, Oni Samurai,
+Pixel Gamer, Wayfinder, Orbital Ranger, Grove Ranger, Samurai,
 Commons Guide, Snow Surveyor, Stonehold Warden, Hearthlight Host, Alchemist,
-Wandering Swordsman and Tal Strongman. Six are shown initially; Explore all
+Wandering Swordsman, Bard, Arcane Scholar, Gothic Belle and Patchwork Jester. Six are shown initially; Explore all
 reveals the full collection. Airmail Courier (Standard), Blueprint Architect
 (Lithe Scout), Aurora Photographer (Fluffy Warden), Terminal Sysadmin (Round
-Guardian), Editorial Writer (Moonpoint Watcher) and Pixel Gamer (one-eyed Boss)
+Guardian) and Pixel Gamer (a ginger-and-white bicolor since 2026-09-27)
 are online-only Vizorcats made to pair with the
-Airmail, Blueprint, Aurora, Terminal, Editorial and Pixel styles; the gallery
-marks the selected style's pair with **Match**, and all six pairs stay in the
-collapsed gallery. Online cards use embed-specific versions of Vizorcat (the
-Classic Guardian, now waving toward the QR) and Samurai (hanbo removed, smiling,
-rim-lit for dark cards); the print editor keeps the original files. The selected character remains visible when the
-gallery is collapsed or a saved link is restored. Existing approved local
-assets are reused without edits.
+Airmail, Blueprint, Aurora, Terminal and Pixel styles; Bard pairs with
+Editorial, Snow
+Surveyor pairs with Frost, Samurai with Washi, Commons Guide with Ticket, Grove
+Ranger with Meadow, Patchwork Jester with Big Top, Gothic Belle with Velvet and
+Arcane Scholar with Midnight. The gallery marks the selected style's pair with
+**Match**, and all thirteen pairs stay in the collapsed gallery.
+
+Bard, Arcane Scholar and Gothic Belle (added 2026-09-25) are online-only
+Vizorcats that also introduce three new coats on the Standard geometry: a
+calico, a split-face tortoiseshell and an odd-eyed white. They take class and
+fashion archetypes (a D&D-style bard, a star-keeping scholar, goth street
+fashion) without copying any specific character, and carry no religious or
+occult symbols. On 2026-09-27 all three were redrawn on the print Vizorcats'
+chibi proportions (head about half the height, short body and legs), and the
+Arcane Scholar was redesigned from a generic Russian Blue wizard into the Night
+Academic: a split-face tortoiseshell in a flat academic cap with a star tassel
+who traces a small gold constellation. Their records (`bard-v12.md`,
+`arcane-scholar-v4.md`, `gothic-belle-v7.md`) define each coat, since the
+Vizorcat project has no model sheet for them.
+
+Patchwork Jester (added 2026-09-27) is an online-only Vizorcat grown from a
+patchwork outfit the user liked on an early Bard concept. It is a friendly
+clown, not a musician: a black-and-white bicolor (a fourth new coat on the
+Standard geometry) in big cross-stitched patches of orange, charcoal, cream and
+olive, a floppy cone hood with a tassel and long sleeves that cover its paws,
+balancing on a patchwork ball. No face paint and no playing-card suits. Its
+record is `patchwork-jester-v1.md`.
+
+Every Vizorcat that also appears in the print editor has an embed-specific
+pose; the print editor keeps the original files. The Classic Guardian waves
+toward the QR. The eleven print-derived characters were recomposed on 2026-09-25:
+Wayfinder, Orbital Ranger, Grove Ranger, Samurai (the oni-armoured one, id
+`oni`), Commons Guide, Snow
+Surveyor, Stonehold Warden, Hearthlight Host, Alchemist, Wandering Swordsman and
+Tal Strongman. Each turns three-quarters toward the QR side and gestures or
+presents its prop there, keeps props close to the body, shows the whole face
+(the Samurai's oni half-mask is held at the hip and its naginata removed), and gets a
+thin rim light where a dark coat or outfit would merge into dark cards. Source
+records are the `*-embed-v*.md` files under `assets/characters/source/`.
+On 2026-09-27 Wayfinder (v5), Orbital Ranger (v5), Commons Guide (v2),
+Wandering Swordsman (v3), Grove Ranger (v5), Snow Surveyor (v2), Stonehold
+Warden (v2) and Hearthlight Host (v2) were redrawn from poses the user chose on an option
+sheet, with no paw gripping anything: Wayfinder leans forward to scout with both
+paws behind its back, Orbital Ranger floats with the rescue cord across its body
+and waves with both paws, Commons Guide raises one paw in a follow-me gesture
+with a pennant tucked behind its satchel strap, and the Wandering Swordsman
+stands with its arms folded into its sleeves, bundle on its back and sheathed
+sword in view; the Grove Ranger leans in with both paws raised in a warm hello;
+the Snow Surveyor catches snowflakes on its tongue with its paws in its fur
+cuffs and its lantern on the backpack strap; the Stonehold Warden folds its
+arms with the hammer slung on its back; and the Hearthlight Host welcomes with
+both paws, its gift box at its feet. The Alchemist keeps its v1 pose (holding
+up the flask with its homunculus): the user preferred it to the grip-free
+redraws, although its flask paw does not meet the current paw standard.
+The Pixel Gamer was redesigned the same day with its console on a lanyard and
+both paws raised in a level-up pose. Each is a chosen sample used exactly as
+generated.
+Because the catalog ids are unchanged, cards that were already shared with
+these Vizorcats show the new poses. The earlier embed Samurai (id `samurai`:
+hanbo removed, smiling, rim-lit) left the picker on 2026-09-25 when the oni
+Samurai took its name, and Tal Strongman (id `strongman`) and Editorial Writer
+(id `writer`, whose gripping paws and Siamese coat duplicated other Vizorcats)
+left it on 2026-09-27; like Surprised, they still render on cards that were
+already shared with them. The selected character remains visible
+when the gallery is collapsed or a saved link is restored.
 The existing 50–400% size control applies in every layout. Compact reserves a
 separate character region at every allowed scale.
 

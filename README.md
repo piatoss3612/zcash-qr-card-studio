@@ -18,7 +18,7 @@
 
 ## Make a card
 
-**Embed** — Personal Zcash cards for GitHub READMEs and websites. Choose a layout, one of eight styles (including Aurora, Blueprint and Airmail) and a matching Vizorcat, then copy Markdown/HTML or download a PNG.
+**Embed** — Personal Zcash cards for GitHub READMEs and websites. Choose a layout, one of fifteen styles (including Aurora, Blueprint, Airmail, Frost, Washi, Ticket, Receipt, Meadow, Big Top and Velvet) and a matching Vizorcat, then copy Markdown/HTML or download a PNG.
 
 **Print** — A6 payment, gift and link cards. Export a print-ready PNG, print A6/A4 sheets, or batch-export a ZIP.
 

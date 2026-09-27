@@ -259,7 +259,7 @@ Parchment background, Parchment Ink text, 8px radius, 13px copy, with an underli
 The card is shown on Stage Linen, in a stage that stays in view while the steps scroll, in one of two contexts. README mode is a mock README page; canvas mode is a dotted linen or dark ground (14px dot grid) that isolates the card. The card carries Card lift, and the Vizorcat can be dragged and resized in place.
 
 ### Support Card (signature)
-The product itself: an SVG in four layouts (Signature, Compact, Portrait, Profile) and eight styles: Paper, Midnight, Pixel, Editorial, Terminal, Aurora, Blueprint and Airmail. Each style owns its palette in `STYLES` in `src/online/card-data.js` (the source of truth) and one signature surface (for example the Airmail envelope stripes and postmark stamp, or the Blueprint drafting grid). Every QR sits on a white square with its four-module quiet zone; companions, logos and surfaces never overlap the QR or its quiet zone.
+The product itself: an SVG in four layouts (Signature, Compact, Portrait, Profile) and fifteen styles: Paper, Midnight, Pixel, Editorial, Terminal, Aurora, Blueprint, Airmail, Frost, Washi, Ticket, Receipt, Meadow, Big Top and Velvet. Each style owns its palette in `STYLES` in `src/online/card-data.js` (the source of truth) and one signature surface (for example the Airmail envelope stripes and postmark stamp, or the Blueprint drafting grid). Every QR sits on a white square with its four-module quiet zone; companions, logos and surfaces never overlap the QR or its quiet zone.
 
 ## Do's and Don'ts
 
