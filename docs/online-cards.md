@@ -23,9 +23,9 @@ introductions (for example 80 wide CJK characters in Signature) are shortened at
 a word boundary with an ellipsis, and the editor then shows a note under the
 introduction field. The full name is retained in the payment request.
 
-The share step asks two separate questions. **QR image** chooses who serves the
-card: **Live** (this image service draws it on each view) or **Static PNG** (a
-file committed to your repository). **Code** chooses **Markdown** or **HTML**;
+The share step asks two separate questions. **Image** chooses who serves the
+card: **Hosted** (this image service draws it on each view) or **PNG file** (a
+file committed to your repository, so the QR never changes). **Code** chooses **Markdown** or **HTML**;
 both use the same alt text, "Support {name} with Zcash", with Markdown
 punctuation escaped. **Copy Markdown** and **Copy HTML** become available after
 the image service's health check succeeds. On a static-only host they remain unavailable; PNG
@@ -41,15 +41,15 @@ transactions or evidence of GitHub endorsement.
 
 ## Trust model and static embeds
 
-Live embeds are rendered on request by the image service, so whoever controls
+Hosted embeds are rendered on request by the image service, so whoever controls
 that deployment (or its GitHub and Vercel accounts) could change the QR and the
-launch page of every live card. Outsiders cannot: card settings live only in the
+launch page of every hosted card. Outsiders cannot: card settings live only in the
 URL, unknown or repeated fields are rejected, addresses are checksum-validated,
 the label and memo are encoded so they cannot add ZIP-321 parameters, and the
 launch page only emits the validated `zcash:` request.
 
-To remove the dependency on the service for the QR, choose **Static PNG** under
-**QR image**, download the PNG and commit it next to the README as
+To remove the dependency on the service for the QR, choose **PNG file** under
+**Image**, download the PNG and commit it next to the README as
 `zcash-support-card.png`. The static snippet (Markdown or HTML) embeds that file and adds a
 `Zcash address:` line served by the README host, which supporters can compare
 with the address their wallet shows. The image link still opens the launch page.
@@ -193,7 +193,7 @@ Compact); only Signature keeps a 12px gap under its QR, so its short card has
 room for a large name above. Every style has a rounded or notched shape with a low-opacity edge so
 the card stays visible on a README of the same tone, and light styles outline
 the white QR tile. Each style carries one signature surface: Paper an inset
-print panel over a fine paper grain with a dog-eared corner under the Vizorcat,
+print panel over a fine paper grain,
 Midnight three orbits with two small lights behind the Vizorcat, Pixel a notched
 pixel frame with 8-bit clouds under the corner logo and a checkered floor,
 Editorial a terracotta masthead bar with a hairline under it and a column rule
@@ -426,5 +426,7 @@ are empty, and a note under the field says what was taken. Amount and memo
 errors appear under their own fields (with `aria-invalid`), and the share status
 then reads "Check the payment details." In README preview mode the card is shown
 at its real embed width (560px for Signature), left-aligned as GitHub shows it.
-On phones a **Skip to sharing** button under the preview jumps to step 03 without
-changing the URL fragment that editing links use.
+Step 03 sits below every design control, so a **Share your card** button in the
+preview toolbar (which stays on screen with the card) jumps to it; on phones the
+same link sits under the preview. Neither changes the URL fragment that editing
+links use.

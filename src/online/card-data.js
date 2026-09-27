@@ -143,10 +143,10 @@ export const CARD_LOGOS = {
 };
 
 export const LAYOUTS = {
-  qr: { label: "Signature", description: "QR card · GitHub & web", width: 560, height: 320 },
-  compact: { label: "Compact", description: "Low profile · QR included", width: 640, height: 208 },
-  portrait: { label: "Portrait", description: "Vertical card · QR included", width: 400, height: 480 },
-  profile: { label: "Profile", description: "Websites with wallet links", width: 480, height: 260 },
+  qr: { label: "Signature", description: "Wide · with QR", width: 560, height: 320 },
+  compact: { label: "Compact", description: "Slim · with QR", width: 640, height: 208 },
+  portrait: { label: "Portrait", description: "Tall · with QR", width: 400, height: 480 },
+  profile: { label: "Profile", description: "No QR · click to pay", width: 480, height: 260 },
 };
 
 export const DEFAULT_CARD = Object.freeze({

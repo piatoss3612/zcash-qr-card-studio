@@ -1,6 +1,6 @@
 import { escapeXml, paymentUri } from "./card-data.js";
 
-export const INVALID_LINK = "Invalid payment link. Ask the creator for a new card link.";
+export const INVALID_LINK = "This payment link is broken. Ask the creator for a new one.";
 
 /**
  * Card details follow `#`, which browsers never send to the server. Links
@@ -23,5 +23,5 @@ function addressGroups(address) {
 /** Contents of the launch page's `<main>` for a validated card. */
 export function launchMarkup(card) {
   const uri = escapeXml(paymentUri(card));
-  return `<h1>Open your Zcash wallet</h1><p>Payment request for ${escapeXml(card.name)}${card.amount ? ` · ${escapeXml(card.amount)} ZEC` : ""}.</p><p>Trying to open your wallet. If nothing happens, use the button below.</p><a id="wallet" href="${uri}">Open wallet</a><section class="check" aria-labelledby="check-title"><h2 id="check-title">Check the address before you confirm</h2><p>Compare these characters with the address the creator published where you found this card, and with the address your wallet shows. This page alone cannot prove who owns the address.</p><dl class="ends"><div><dt>Starts with</dt><dd>${escapeXml(card.address.slice(0, 8))}</dd></div><div><dt>Ends with</dt><dd>${escapeXml(card.address.slice(-8))}</dd></div></dl><p class="addr" aria-label="Full receiving address">${addressGroups(card.address)}</p></section><label for="request"><p>Or copy the payment request into a compatible wallet.</p></label><textarea id="request" rows="4" readonly>${uri}</textarea><p>Opening a wallet does not send funds. Review the request in your wallet.</p>`;
+  return `<h1>Open your Zcash wallet</h1><p>Payment request for ${escapeXml(card.name)}${card.amount ? ` · ${escapeXml(card.amount)} ZEC` : ""}.</p><p>Opening your wallet. If nothing happens, use the button below.</p><a id="wallet" href="${uri}">Open wallet</a><section class="check" aria-labelledby="check-title"><h2 id="check-title">Check the address before you confirm</h2><p>Match it against the address your wallet shows and the one the creator published. This page can’t prove who owns it.</p><dl class="ends"><div><dt>Starts with</dt><dd>${escapeXml(card.address.slice(0, 8))}</dd></div><div><dt>Ends with</dt><dd>${escapeXml(card.address.slice(-8))}</dd></div></dl><p class="addr" aria-label="Full receiving address">${addressGroups(card.address)}</p></section><label for="request"><p>Or paste this payment request into your wallet.</p></label><textarea id="request" rows="4" readonly>${uri}</textarea><p>Nothing is sent until you confirm in your wallet.</p>`;
 }

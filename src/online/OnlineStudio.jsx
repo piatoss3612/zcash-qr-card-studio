@@ -28,6 +28,7 @@ function Icon({ kind = "arrow" }) {
     card: "M3 5h18v14H3zM6 9h6M6 13h9",
     qr: "M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3zM15 15h2v2h4v4h-6z",
     copy: "M8 8h12v13H8zM16 8V3H3v13h5",
+    down: "M12 5v14M6 13l6 6 6-6",
   };
   return (
     <svg
@@ -56,6 +57,12 @@ function Arrow() {
 export default function OnlineStudio() {
   const [attempted, setAttempted] = useState(false);
   const [showAllCompanions, setShowAllCompanions] = useState(false);
+  // Step 03 sits below every design control, so the preview links straight to it.
+  const jumpToShare = () =>
+    document.getElementById("oc-share")?.scrollIntoView({
+      behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+      block: "start",
+    });
   const [addressError, setAddressError] = useState("");
   const [addressTouched, setAddressTouched] = useState(false);
   // The receiving address of a card opened from a link; it may belong to someone else.
@@ -231,18 +238,18 @@ export default function OnlineStudio() {
   const memoError = /memo/i.test(paymentError) ? paymentError : "";
   // One readiness line: missing fields first, then invalid values, then the last render.
   const status = missingName && missingAddress
-    ? { tone: "neutral", text: "Add your name and receiving address to create your card." }
+    ? { tone: "neutral", text: "Add your name and receiving address." }
     : missingAddress
-      ? { tone: "neutral", text: "Paste your receiving address to create the QR." }
+      ? { tone: "neutral", text: "Add your receiving address." }
       : addressError
         ? { tone: "error", text: "Check the receiving address." }
         : missingName
           ? { tone: "neutral", text: "Add your display name." }
           : result.card
             ? companionOverlapsQr(draft)
-              ? { tone: "warn", text: "The Vizorcat covers part of the QR. Move it away or select Reset under the preview." }
+              ? { tone: "warn", text: "The Vizorcat covers the QR. Move it or select Reset." }
               : linkedAddress
-                ? { tone: "warn", text: "Check that the receiving address is yours before sharing." }
+                ? { tone: "warn", text: "Confirm this receiving address is yours." }
                 : { tone: "ready", text: "Ready to share." }
             : amountError || memoError
               ? { tone: "error", text: "Check the payment details." }
@@ -263,9 +270,7 @@ export default function OnlineStudio() {
       await navigator.clipboard.writeText(value);
       setMessage(success);
     } catch {
-      setMessage(
-        "Clipboard access is unavailable. Select and copy the code above.",
-      );
+      setMessage("Couldn’t copy: this browser blocks clipboard access.");
     }
   }
   function requireReady() {
@@ -289,8 +294,8 @@ export default function OnlineStudio() {
       await downloadPng(result.svg, STATIC_IMAGE);
       setMessage(
         isStatic
-          ? `PNG downloaded. Commit it next to your README as ${STATIC_IMAGE}, then copy the ${syntaxLabel}.`
-          : "PNG downloaded. Link the image to your payment request on sites that allow zcash: links.",
+          ? `PNG downloaded. Commit it next to your README as ${STATIC_IMAGE}.`
+          : "PNG downloaded.",
       );
     } catch (error) {
       setMessage(error.message);
@@ -308,8 +313,8 @@ export default function OnlineStudio() {
         copy(
           links[codeKey],
           isStatic
-            ? `Static ${syntaxLabel} copied. Commit the downloaded ${STATIC_IMAGE} next to your README.`
-            : `${syntaxLabel} copied. Paste it into your profile or website.`,
+            ? `${syntaxLabel} copied. Commit ${STATIC_IMAGE} next to your README too.`
+            : `${syntaxLabel} copied.`,
         )
       }
     >
@@ -353,11 +358,6 @@ export default function OnlineStudio() {
             Add a Zcash payment card to your README or website.
           </p>
         </div>
-        <span className="oc-heading-note">
-          Made by you.
-          <br />
-          Backed by your community.
-        </span>
       </div>
       <main className="oc-workspace">
         <section className="oc-controls" aria-label="Card settings">
@@ -397,7 +397,7 @@ export default function OnlineStudio() {
           </label>
           {bioShortened && (
             <p id="oc-bio-note" className="oc-hint">
-              This introduction is shortened on the card. Shorten it or choose a taller layout to show every word.
+              Cut short on this layout. Shorten it or pick a taller layout.
             </p>
           )}
           <label className="oc-field">
@@ -429,16 +429,14 @@ export default function OnlineStudio() {
             </p>
           )}
           <p id="oc-address-note" className="oc-hint">
-            Copy from your wallet. Your address and card details will be public
-            when shared.
+            Public once you share the card.
           </p>
           {requestNote && <p className="oc-hint" role="status">{requestNote}</p>}
           {linkedAddress && (
             <div className="oc-link-notice">
               <p id="oc-link-notice">
-                This address came from the link you opened, so payments made
-                with this card go to it. Paste your own receiving address
-                unless this one is yours.
+                This address came from the link you opened, so payments go to
+                it. Replace it unless it’s yours.
               </p>
               <button type="button" onClick={() => setLinkAddress("")}>
                 It’s my address
@@ -461,7 +459,6 @@ export default function OnlineStudio() {
               ))}
             </div>
           </fieldset>
-          <p className="oc-hint">Every shared card links to a page that opens the wallet. All layouts except Profile also include a QR.</p>
           <fieldset className="oc-fieldset">
             <legend>Style</legend>
             <div className="oc-style-options">
@@ -536,9 +533,6 @@ export default function OnlineStudio() {
             <summary>
               Payment details <span>Optional</span>
             </summary>
-            <p className="oc-hint">
-              Leave the amount empty so supporters can choose.
-            </p>
             <label className="oc-field">
               Fixed amount · ZEC
               <input
@@ -557,15 +551,14 @@ export default function OnlineStudio() {
                 value={draft.memo}
                 onChange={(event) => update("memo", event.target.value)}
                 maxLength={80}
-                placeholder="Optional message for your wallet"
+                placeholder="Arrives with each payment"
                 aria-invalid={Boolean(memoError)}
                 aria-describedby={memoError ? "oc-memo-error" : undefined}
               />
             </label>
             {memoError && <p id="oc-memo-error" className="oc-field-error">{memoError}</p>}
             <p className="oc-hint">
-              Memos are public in the shared link. Supported for unified and
-              Sapling addresses.
+              Public in the link. Needs a unified or Sapling address.
             </p>
           </details>
           <section id="oc-share" className="oc-share" aria-label="Share your card">
@@ -574,16 +567,16 @@ export default function OnlineStudio() {
               <h2>Share your card</h2>
             </div>
             <div className="oc-share-heading">
-              <p>Paste into your README or website.</p>
+              <p>Clicking the card opens the supporter’s Zcash wallet.</p>
             </div>
             <div className="oc-share-choice">
-              <span id="oc-image-choice">QR image</span>
+              <span id="oc-image-choice">Image</span>
               <div className="oc-segment" role="group" aria-labelledby="oc-image-choice">
                 <button aria-pressed={!isStatic} onClick={() => setHosting("live")}>
-                  Live
+                  Hosted
                 </button>
                 <button aria-pressed={isStatic} onClick={() => setHosting("static")}>
-                  Static PNG
+                  PNG file
                 </button>
               </div>
             </div>
@@ -598,23 +591,15 @@ export default function OnlineStudio() {
                 </button>
               </div>
             </div>
+            {/* Parallel one-liners: who serves the image, then what to do. */}
             {isStatic ? (
-              <>
-                <p className="oc-hint">
-                  The QR stays fixed in your repository even if this image
-                  service changes.
-                </p>
-                <ol className="oc-hint oc-steps">
-                  <li>Download the PNG and commit it next to your README as {STATIC_IMAGE}.</li>
-                  <li>Copy the {syntaxLabel} into your README. Its address line lets supporters compare the address with their wallet.</li>
-                </ol>
-              </>
+              <p className="oc-hint">
+                Your repo serves the image, so the QR never changes. Commit the
+                PNG next to your README as <code>{STATIC_IMAGE}</code>, then paste the code.
+              </p>
             ) : (
               <p className="oc-hint">
-                This service draws the card image each time it is shown. The
-                card and link open a wallet launch page that attempts to open
-                Zcash automatically. If your browser blocks it, select Open
-                wallet.
+                This site serves the image. Paste the code and you’re done.
               </p>
             )}
             <textarea
@@ -646,20 +631,19 @@ export default function OnlineStudio() {
             </p>
             {service === "unavailable" && (
               <p className="oc-notice">
-                Image links are not available on this host yet. You can download
-                a PNG and copy the payment request.
+                Embed code isn’t available on this host. Download the PNG or
+                copy the payment request.
               </p>
             )}
             {service === "ready" && isLocal && (
               <p className="oc-hint">
-                Local preview: these links work on this computer. Public embeds
-                become available after hosting the service.
+                Local preview: these links only work on this computer.
               </p>
             )}
             {ready && (
               <div className="oc-small-actions">
                 <button
-                  onClick={() => copy(links.payment, "ZIP-321 payment request copied.")}
+                  onClick={() => copy(links.payment, "Payment request copied.")}
                 >
                   Copy payment request
                 </button>
@@ -667,7 +651,7 @@ export default function OnlineStudio() {
                   onClick={() =>
                     copy(
                       links.edit,
-                      "Editing link copied. Save it to return to this design.",
+                      "Editing link copied. Open it to edit this card later.",
                     )
                   }
                 >
@@ -679,8 +663,7 @@ export default function OnlineStudio() {
           <footer className="oc-footer">
             Direct support. Powered by Zcash.
             <span>
-              Card details are public. Funds go directly to the receiving
-              wallet.
+              Payments go straight to your wallet.
             </span>
           </footer>
         </section>
@@ -709,6 +692,9 @@ export default function OnlineStudio() {
                   aria-label="Dark README background"
                 >
                   <Icon kind="moon" />
+                </button>
+                <button type="button" className="oc-share-cta" onClick={jumpToShare}>
+                  Share your card <Icon kind="down" />
                 </button>
               </div>
             </div>
@@ -777,21 +763,11 @@ export default function OnlineStudio() {
             )}
             <p className="oc-preview-caption">
               {draft.companion !== "none" && <span id="oc-position-help">Drag the Vizorcat to move or crop it, and its corner to resize. Arrow keys also work; hold Shift for larger steps.</span>}
-              <span>Use Open wallet in step 03 to test the payment link.</span>
-              {companionOverlapsQr(draft) && <span className="oc-position-warning" role="status">Vizorcat overlaps the QR or its quiet zone. Move it away before sharing.</span>}
+              {companionOverlapsQr(draft) && <span className="oc-position-warning" role="status">The Vizorcat covers the QR. Move it before sharing.</span>}
             </p>
             {/* Phones stack the steps below the card; this skips straight to step 03. */}
-            <button
-              type="button"
-              className="oc-jump-share"
-              onClick={() =>
-                document.getElementById("oc-share")?.scrollIntoView({
-                  behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-                  block: "start",
-                })
-              }
-            >
-              Skip to sharing
+            <button type="button" className="oc-jump-share" onClick={jumpToShare}>
+              Share your card <Icon kind="down" />
             </button>
           </div>
         </section>

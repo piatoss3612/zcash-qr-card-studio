@@ -60,13 +60,12 @@ function surface(style, theme, geo, { amount = false } = {}) {
   const zx = portrait ? qr.x + qr.size + 16 : textX + textWidth + 10;
   const zy = portrait ? qr.y - 10 : 0;
   if (style === "paper") {
-    // Fine paper grain and a dog-eared corner under the Vizorcat, inside the inset print panel.
-    const f = 34;
+    // Fine paper grain inside the inset print panel.
     return {
       radius: 16,
       qrRadius: 6,
       defs: `<filter id="pp-grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="7"/><feColorMatrix values="0 0 0 0 .35  0 0 0 0 .3  0 0 0 0 .2  0 0 0 .09 0"/></filter>`,
-      back: `<rect width="${W}" height="${H}" filter="url(#pp-grain)"/><rect x="8" y="8" width="${W - 16}" height="${H - 16}" rx="10" fill="none" stroke="${theme.border}" stroke-width="1.5"/><path d="M${W - f},${H}L${W},${H - f}V${H}Z" fill="${theme.border}"/><path d="M${W - f},${H}L${W - f + 4},${H - f + 4}L${W},${H - f}" fill="#fffdf6" stroke="${theme.border}"/>`,
+      back: `<rect width="${W}" height="${H}" filter="url(#pp-grain)"/><rect x="8" y="8" width="${W - 16}" height="${H - 16}" rx="10" fill="none" stroke="${theme.border}" stroke-width="1.5"/>`,
       edge: LIGHT_EDGE,
     };
   }

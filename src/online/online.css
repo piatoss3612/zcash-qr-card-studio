@@ -290,6 +290,27 @@ button {
   border: 1px solid var(--oc-soft-line);
   border-radius: 7px;
 }
+/* The toolbar stays on screen with the card, so step 03 is always one click away. */
+.oc-preview-options .oc-share-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 6px;
+  padding: 0 14px;
+  border-color: transparent;
+  background: var(--oc-accent);
+  color: #fffdf4;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.oc-preview-options .oc-share-cta:hover {
+  background: #30432a;
+}
+@media (max-width: 760px) {
+  .oc-preview-options .oc-share-cta {
+    display: none;
+  }
+}
 .oc-readme-wrap {
   max-width: 800px;
   margin: auto;
@@ -512,12 +533,9 @@ button {
 .oc-share > .oc-hint {
   margin-top: 8px;
 }
-.oc-steps {
-  margin: 8px 0 0;
-  padding-left: 20px;
-}
-.oc-steps li + li {
-  margin-top: 4px;
+.oc-share > .oc-hint code {
+  font-size: 1.05em;
+  color: var(--oc-ink, #26301f);
 }
 .oc-small-actions {
   display: flex;
@@ -923,12 +941,6 @@ button {
 .oc-page-heading p {
   color: var(--oc-muted);
   line-height: 1.5;
-}
-.oc-heading-note {
-  font-size: 14px;
-  color: var(--oc-muted);
-  line-height: 1.6;
-  text-align: right;
 }
 .oc-kicker {
   font-size: 11px;
@@ -1349,9 +1361,6 @@ summary:focus-visible {
   .oc-page-heading p {
     font-size: 14px;
   }
-  .oc-heading-note {
-    display: none;
-  }
   .oc-workspace {
     margin: 0 16px 24px;
     display: flex;
@@ -1519,7 +1528,6 @@ summary:focus-visible {
 /* Keep the mobile draft visible without delaying the first editable field. */
 @media (max-width: 760px) {
   .oc-page-heading { padding: 18px 20px; }
-  .oc-heading-note { display: none; }
   .oc-page-heading h1 { font-size: 26px; letter-spacing: -.6px; }
   .oc-page-heading p { margin-top: 8px; }
   .is-canvas .oc-readme-content { min-height: 0; padding: 12px; }
@@ -1682,7 +1690,6 @@ summary:focus-visible {
   font-weight: 400;
   line-height: 1.5;
 }
-.oc-app .oc-heading-note,
 .oc-app .oc-share-heading > p {
   font-size: 14px;
   font-weight: 400;
