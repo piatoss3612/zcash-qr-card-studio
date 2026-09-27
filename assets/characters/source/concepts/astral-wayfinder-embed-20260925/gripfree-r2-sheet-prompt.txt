@@ -1,0 +1,11 @@
+Use case: three clean variations of a chosen, grip-free pose for the embed version of the Vizorcat Astral Wayfinder. Draw exactly three full-body figures side by side on one landscape canvas (1536 × 1024), left to right 1–3, clearly separated with empty space between them. All three show the SAME character in the same moment: scouting toward screen-left: leaning forward from the waist on its toes with both forepaws tucked out of sight behind its back, peering eagerly toward screen-left with wide curious eyes and a small open smile, tail up in a question-mark curve, the sea-glass visor raised on the hood, the brass astrolabe swinging forward from a short chain at its chest.
+
+References (attached in this order):
+1. The pose the user chose earlier — keep its scene idea, outfit, props and personality (but not its gripping paws).
+2. The original Astral Wayfinder from the print family — character identity, coat, eyes, outfit and the finished drawing style (outline weight, stepped pixel-art-adjacent edges, cel shading, rich detail).
+3. The approved Vizorcat paw sheet.
+4. The Vizorcat proportion reference — match these print characters' proportions exactly: head (without headwear) about half of the full height, a short stocky torso, very short legs with round feet.
+
+Paws (critical): both forepaws are completely hidden behind the back — no part of either paw shows at the sides, below the coat or past the tail. No paw grips, clutches or wraps around anything. No separate fingers, thumbs, knuckle lines or human-hand shapes.
+Exactly two cat ears, each drawn once, through any headwear. Very short legs; both feet close together under the body, not a walking stride. Non-sexual chibi animal mascot. No text, letters, numbers, runes, religious or occult symbols, logos, QR codes, frames, motion lines, ground shadow or scenery.
+Background: transparent alpha if available; otherwise one perfectly flat pure #00FF00 chroma-key green. One image.

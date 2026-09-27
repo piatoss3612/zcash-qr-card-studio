@@ -21,6 +21,7 @@ export const STYLES = {
     muted: "#adbcb2",
     accent: "#d9e8a0",
     border: "#3d4b43",
+    companion: "scholar",
   },
   pixel: {
     label: "Pixel",
@@ -35,7 +36,7 @@ export const STYLES = {
   editorial: {
     label: "Editorial", description: "Warm ivory with an expressive serif.",
     bg: "#f5eee4", ink: "#392d28", muted: "#746258",
-    accent: "#9a513a", border: "#d8c8ba", companion: "writer",
+    accent: "#9a513a", border: "#d8c8ba", companion: "bard",
   },
   terminal: {
     label: "Terminal", description: "Monospace on deep green.",
@@ -71,23 +72,30 @@ export const COMPANIONS = {
   architect: { label: "Blueprint Architect", path: "assets/characters/blueprint-architect-v1.png" },
   photographer: { label: "Aurora Photographer", path: "assets/characters/aurora-photographer-v2.png" },
   sysadmin: { label: "Terminal Sysadmin", path: "assets/characters/terminal-sysadmin-v1.png" },
+  // Retired from the picker on 2026-09-27; existing shared cards still render it.
   writer: { label: "Editorial Writer", path: "assets/characters/editorial-writer-v2.png" },
-  gamer: { label: "Pixel Gamer", path: "assets/characters/pixel-gamer-v2.png" },
-  samurai: { label: "Samurai", path: "assets/characters/samurai-embed-v2.png" },
+  gamer: { label: "Pixel Gamer", path: "assets/characters/pixel-gamer-v3.png" },
+  // Retired from the picker on 2026-09-25; existing shared cards still render it.
+  samurai: { label: "Shogun Samurai", path: "assets/characters/samurai-embed-v2.png" },
   astral: {
     label: "Wayfinder",
-    path: "assets/characters/astral-wayfinder-v2.png",
+    path: "assets/characters/astral-wayfinder-embed-v5.png",
   },
-  orbital: { label: "Orbital Ranger", path: "assets/characters/orbital-rescue-ranger.png" },
-  grove: { label: "Grove Ranger", path: "assets/characters/crimson-grove-ranger.png" },
-  oni: { label: "Oni Samurai", path: "assets/characters/oni-samurai-v2.png" },
-  commons: { label: "Commons Guide", path: "assets/characters/commons-guide.png" },
-  snow: { label: "Snow Surveyor", path: "assets/characters/siberian-snow-surveyor-v2.png" },
-  stonehold: { label: "Stonehold Warden", path: "assets/characters/stonehold-warden-v5.png" },
-  hearthlight: { label: "Hearthlight Host", path: "assets/characters/hearthlight-host-v2.png" },
-  alchemist: { label: "Alchemist", path: "assets/characters/workshop-alchemist-v1.png" },
-  swordsman: { label: "Wandering Swordsman", path: "assets/characters/wandering-swordsman-v1.png" },
-  strongman: { label: "Tal Strongman", path: "assets/characters/tal-strongman-v1.png" },
+  orbital: { label: "Orbital Ranger", path: "assets/characters/orbital-ranger-embed-v5.png" },
+  grove: { label: "Grove Ranger", path: "assets/characters/grove-ranger-embed-v5.png" },
+  oni: { label: "Samurai", path: "assets/characters/oni-samurai-embed-v1.png" },
+  commons: { label: "Commons Guide", path: "assets/characters/commons-guide-embed-v2.png" },
+  snow: { label: "Snow Surveyor", path: "assets/characters/snow-surveyor-embed-v2.png" },
+  stonehold: { label: "Stonehold Warden", path: "assets/characters/stonehold-warden-embed-v2.png" },
+  hearthlight: { label: "Hearthlight Host", path: "assets/characters/hearthlight-host-embed-v2.png" },
+  alchemist: { label: "Alchemist", path: "assets/characters/workshop-alchemist-embed-v1.png" },
+  swordsman: { label: "Wandering Swordsman", path: "assets/characters/wandering-swordsman-embed-v3.png" },
+  // Retired from the picker on 2026-09-27; existing shared cards still render it.
+  strongman: { label: "Tal Strongman", path: "assets/characters/tal-strongman-embed-v1.png" },
+  bard: { label: "Bard", path: "assets/characters/bard-v12.png" },
+  scholar: { label: "Arcane Scholar", path: "assets/characters/arcane-scholar-v4.png" },
+  goth: { label: "Gothic Belle", path: "assets/characters/gothic-belle-v7.png" },
+  jester: { label: "Patchwork Jester", path: "assets/characters/patchwork-jester-v1.png" },
   none: { label: "No Vizorcat", path: null },
 };
 export const CARD_LOGOS = {

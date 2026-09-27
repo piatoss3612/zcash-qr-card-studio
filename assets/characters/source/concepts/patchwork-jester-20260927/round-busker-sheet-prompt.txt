@@ -1,0 +1,16 @@
+Use case: a character-design option sheet for a new embed Vizorcat, the Patchwork Busker — a cheerful street performer whose whole outfit is patched together from mismatched cloth squares with visible stitches. Draw exactly three full-body characters side by side on one landscape canvas (1536 × 1024), left to right 1–3, clearly separated with empty space between them, each turned three-quarters toward screen-left.
+
+Each option is a DIFFERENT cat with its own memorable identity (a natural cat coat plus one permanent feature), all wearing the same kind of patchwork street-performer outfit: a floppy patchwork cap or a patchwork hood with both ears out, a scarf, a short patchwork cape or vest with a ragged hem, patched trousers and worn little boots, in faded green, rust, mustard, cream and denim-blue patches with stitched seams (reference 1 shows the patch style only). No calico or tortoiseshell coats. Beside each cat's feet on the ground sits its own empty upturned patched felt tip hat — empty, no coins, no sign, no text.
+
+1 — Mime busker: a black-and-white "patched" bicolor cat with irregular black patches on white, a small notch in the tip of one ear (a street cat's mark) and green eyes. Both paws pressed flat against an invisible pane of glass in front of it, the pad sides facing the viewer, with a cheeky, wide-eyed "oh no, a wall!" face.
+2 — Harmonica busker: a solid cream (buff) cat with a freckled pink nose and amber eyes. A small harmonica held at its mouth by a thin wire neck rack (no paw touches it), cheeks puffed as it plays, both paws raised beside the shoulders clapping the beat, pad sides facing the viewer.
+3 — Whistling busker: a solid chocolate-brown cat with a small white star on its chest and green eyes. Both paws tucked into the front pockets of its patched trousers (both arms clearly visible, both paws inside the pockets), whistling a tune with puckered lips, leaning back in a jaunty stance.
+
+References (attached in this order):
+1. Crops of an earlier patchwork concept — use ONLY the patch style (squares, visible stitches, ragged hem). Do not copy its coat, its instrument or anything else.
+2. The Vizorcat proportion reference — match these print characters' proportions exactly: the head is about half of the full height, with big eyes; a short, stocky, rounded body; very short legs with round feet.
+3–4. The print Samurai and Classic Guardian — the finished drawing style (outline weight, stepped pixel-art-adjacent edges, cel shading, rich detail).
+5. The approved Vizorcat paw sheet.
+
+For all three: both arms clearly visible, never one-armed; both feet visible on the ground. Every visible paw has exactly four toe beans (two at the top, one lower on each side) around one palm pad, like panel A of the paw sheet, drawn large and clearly readable; no paw grips anything; no fingers, thumbs or knuckles. Exactly two cat ears, each drawn once at normal length, coming up through or in front of any headwear; nothing else looks like an ear. No stringed instruments, no lute, no coins. Non-sexual chibi animal mascot. No text, letters, numbers, runes, religious or occult symbols, logos, QR codes, frames, motion lines, music notes, ground shadow or scenery.
+Background: transparent alpha if available; otherwise one perfectly flat pure #00FF00 chroma-key green. One image.

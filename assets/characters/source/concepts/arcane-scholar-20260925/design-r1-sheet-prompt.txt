@@ -1,0 +1,18 @@
+Use case: a character-design option sheet for a new embed Vizorcat, a star-keeper scholar, so the user can choose one design. Draw exactly four full-body characters side by side on one landscape canvas (1536 × 1024), left to right 1–4, clearly separated with empty space between them, each turned toward screen-left.
+
+The previous design (a plain gray cat in a pointed wizard hat and a starry robe) was rejected as generic and mass-produced. Each option must be a DIFFERENT cat with its own memorable identity — the way the print Samurai (a solid black cat with a healed scar over one closed eye) and the Classic Guardian are instantly recognisable — built from a natural cat coat, one permanent feature, and a distinctive outfit silhouette. No pointed wizard hats.
+
+All four show the same chosen moment: tracing a constellation in the air toward screen-left with one raised open paw (pad side facing the viewer), a short trail of five tiny gold star dots joined by thin gold lines floating along the path, face full of wonder; the other paw raised open at chest height with the pad side facing the viewer, so both arms are clearly visible (never hide one arm).
+
+1 — Old Sage: a smoke-gray longhaired cat with a big white cheek-and-chin ruff that reads like a beard, bushy brow whisker tufts and copper eyes; small round brass spectacles; a deep-indigo hooded mantle with the hood down, a short star-chart shoulder cape, and a satchel of rolled charts.
+2 — Night Academic: a tortoiseshell cat whose face is split cleanly down the middle, one half black and one half ginger, with gold eyes; a flat square academic cap with a small gold star tassel; a dark high-collared cape dotted with tiny gold stars over a cream shirt, and a brass spyglass on the belt.
+3 — Sleepy Night Owl: a white van-pattern cat with a cream-orange cap of color on the head and a cream-orange tail, sleepy half-lidded blue eyes; a long floppy midnight-blue nightcap dotted with stars and ending in a small pom; an oversized soft robe with rolled cuffs; a small round star lantern hanging from the belt.
+4 — Spotted Stargazer: a silver spotted-tabby cat whose dark spots look like a scattered star map, with lynx-tip ear tufts and amber eyes; a short hooded capelet in navy with a ring of small brass dial buttons; a leather strap across the chest holding a folding brass star-dial.
+
+References (attached in this order):
+1. The Vizorcat proportion reference — match these print characters' proportions exactly: the head (without headwear) is about half of the full body height, with big eyes; a short, stocky, rounded torso; very short legs with round feet.
+2–3. The print Samurai and Classic Guardian — the finished drawing style (outline weight, stepped pixel-art-adjacent edges, cel shading, rich detail).
+4. The approved Vizorcat paw sheet.
+
+For all four: both arms clearly visible, never one-armed; exactly two cat ears, each drawn once at normal length, coming up through or in front of any headwear; nothing else looks like an ear. Every paw shows exactly four toe beans (two at the top, one lower on each side) around one palm pad, like panel A of the paw sheet, and is drawn large and clearly readable; no paw grips anything; no fingers, thumbs or knuckles. Short legs with both feet on the ground. Non-sexual chibi animal mascot. No text, letters, numbers, runes, religious or occult symbols, zodiac signs, crescent moons, logos, QR codes, frames, motion lines, ground shadow or scenery.
+Background: transparent alpha if available; otherwise one perfectly flat pure #00FF00 chroma-key green. One image.

@@ -1,0 +1,24 @@
+Use case: a character-design option sheet for a new embed Vizorcat, the Patchwork Jester — a cheeky, lovable clown whose whole outfit is sewn from big bold patches. Draw exactly three full-body variations of the SAME character side by side on one landscape canvas (1536 × 1024), left to right 1–3, clearly separated with wide empty space between them, each turned three-quarters toward screen-left with its head and gaze toward screen-left.
+
+Proportions come FIRST. The jester must be built on the same chubby chibi body as the print Vizorcats in references 2–4 (Classic Guardian, Samurai, Grove Ranger, Wandering Swordsman):
+- The head (chin to the top of the ears, without headwear) is as tall as the entire body below the chin. Head and body are each about half of the figure's height.
+- The head is as wide as, or wider than, the shoulders; big round eyes.
+- A short, round, stocky body; very short stubby legs with small round feet.
+
+The patchwork look (critical — match reference 1 exactly in style): every garment is made of BIG, bold, irregular squares and rectangles of cloth — each patch about a quarter of the hood's width — in warm orange, charcoal black, cream and faded olive green, joined by thick, clearly visible cream cross-stitches along every seam. Edges end in ragged, fringed strips that hang loose.
+
+The character: a black-and-white "patched" bicolor cat — only black and white fur, irregular black patches on white, no orange or ginger fur anywhere — with a small notch in the tip of one ear (a street cat's mark) and bright green eyes. Outfit: a floppy two-pointed patchwork jester hood with a cream pom-pom on each point and both cat ears coming out through it; a short patchwork cape whose hem hangs in ragged strips; a patchwork tunic with a small ruffled cream collar; patched puffy shorts; striped stockings and soft pointed patchwork shoes. A cheerful, cheeky clown — friendly, never scary; no face paint, no red nose.
+
+Three different moments:
+1 — Ta-da flourish: both paws raised beside the face in open "jazz hands", pad sides facing the viewer, a huge cheeky grin toward screen-left.
+2 — Balancing act: standing with both feet on top of a small patchwork ball, knees slightly bent, both paws raised beside the shoulders for balance (elbows bent, pad sides facing the viewer), tongue poking out in concentration.
+3 — Sly wink and bow: a small bow toward screen-left, one eye winking, both paws raised open at chest height with the pad sides facing the viewer, the hood's pom-poms swinging.
+
+References (attached in this order):
+1. Crops of an earlier patchwork concept (the face and instrument are erased) — the patch style to match: big patches, thick cross-stitches, ragged strip hem. Do not copy its coat colours.
+2. The Vizorcat proportion reference — the body proportions to match exactly.
+3–4. The print Samurai and Classic Guardian — the finished drawing style (outline weight, stepped pixel-art-adjacent edges, cel shading, rich detail) and body proportions.
+5. The approved Vizorcat paw sheet.
+
+For all three: both arms clearly visible, never one-armed; both feet visible. Every visible paw has exactly four toe beans (two at the top, one lower on each side) around one palm pad, like panel A of the paw sheet, drawn large and clearly readable; no paw grips anything; no fingers, thumbs or knuckles. Exactly two cat ears, each drawn once at normal length; the hood's two points are clearly cloth with pom-poms, not ears. Non-sexual chibi animal mascot. No text, letters, numbers, runes, religious or occult symbols, playing-card suits, logos, QR codes, frames, motion lines, ground shadow or scenery.
+Background: transparent alpha if available; otherwise one perfectly flat pure #00FF00 chroma-key green. One image.

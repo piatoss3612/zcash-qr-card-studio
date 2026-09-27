@@ -200,15 +200,6 @@
       "usage": "online-only Editorial Writer companion (Moonpoint Watcher) in a terracotta beret and knitted vest, raising a fountain pen toward the QR side"
     },
     {
-      "id": "pixel-gamer",
-      "file": "pixel-gamer-v2.png",
-      "sha256": "e5c471d064746ffb51443fc070de7fd0518e7ff920c53676f5be08504785816f",
-      "source": "generated for QR Card Studio with local alpha normalization",
-      "sourceRecord": "source/pixel-gamer-v2.md",
-      "variant": "one-eyed-boss",
-      "usage": "online-only Pixel Gamer companion (one-eyed Boss) with a red headband, striped shirt and a retro handheld console"
-    },
-    {
       "id": "blueprint-architect",
       "file": "blueprint-architect-v1.png",
       "sha256": "9810533a1f6c96ca81c776b9e5b0da7fa6b57f8470b45e3c9cadc5d1d2fec24b",
@@ -225,6 +216,150 @@
       "sourceRecord": "source/terminal-sysadmin-v1.md",
       "variant": "round-guardian",
       "usage": "online-only Terminal Sysadmin companion in a cream cardigan with a mint mug and a compact keyboard"
+    },
+    {
+      "id": "workshop-alchemist-embed",
+      "file": "workshop-alchemist-embed-v1.png",
+      "sha256": "a0cdea83055518022ca4d455bb0c33ec1a81eaebf18f25a38d4fa4bc6f59e3f9",
+      "source": "generated for QR Card Studio with local alpha normalization",
+      "sourceRecord": "source/workshop-alchemist-embed-v1.md",
+      "variant": "bronze-egyptian-mau-inspired-standard-geometry",
+      "usage": "online embed Workshop Alchemist: turns toward the screen-left QR and holds up the flask with its homunculus, goggles up, warm rim for dark cards"
+    },
+    {
+      "id": "tal-strongman-embed",
+      "file": "tal-strongman-embed-v1.png",
+      "sha256": "5c0638c920be38f6ff824ae8b2c600a63a5e974eee120c6aa2c79d5cf445ada6",
+      "source": "generated for QR Card Studio with local alpha normalization",
+      "sourceRecord": "source/tal-strongman-embed-v1.md",
+      "variant": "korean-domestic-shorthair-tabby-standard-geometry",
+      "usage": "online embed Tal Strongman: turns toward the screen-left QR presenting the wooden tal mask, shortened mace over the far shoulder"
+    },
+    {
+      "id": "oni-samurai-embed",
+      "file": "oni-samurai-embed-v1.png",
+      "sha256": "9473e8c4e73d3c41aef81b51ee3611fe85517b55fc8cd05e9e82d5fa97a9b93b",
+      "source": "generated for QR Card Studio with local alpha normalization",
+      "sourceRecord": "source/oni-samurai-embed-v1.md",
+      "variant": "one-eyed-boss",
+      "usage": "online embed Oni Samurai: oni half-mask taken off and held at the hip, naginata removed, inviting paw toward the screen-left QR, rim-lit for dark cards"
+    },
+    {
+      "id": "commons-guide-embed",
+      "file": "commons-guide-embed-v2.png",
+      "sha256": "49497a847b649d0731d78d6080461aa1f63a9ed641bf3c1cb0392d1e9f8de179",
+      "source": "generated for QR Card Studio with local alpha normalization",
+      "sourceRecord": "source/commons-guide-embed-v2.md",
+      "variant": "warm-tabby",
+      "usage": "online embed Commons Guide v2, chosen grip-free sample passing Codex review: one paw raised pad side out toward the screen-left QR in a follow-me gesture, blank pennant tucked behind the satchel strap, visor raised; pairs with the Ticket style"
+    },
+    {
+      "id": "astral-wayfinder-embed",
+      "file": "astral-wayfinder-embed-v5.png",
+      "sha256": "09cf09bfe2d29194d8dd80ae2275dd1232ea9e5962939bb83f3a9d52656d363a",
+      "source": "generated for QR Card Studio with local alpha normalization",
+      "sourceRecord": "source/astral-wayfinder-embed-v5.md",
+      "variant": "lithe-scout",
+      "usage": "online embed Astral Wayfinder v5, chosen grip-free sample passing Codex review: leaning forward on its toes with both paws tucked behind its back, peering toward the screen-left QR, visor raised, astrolabe swinging on a chest chain"
+    },
+    {
+      "id": "wandering-swordsman-embed",
+      "file": "wandering-swordsman-embed-v3.png",
+      "sha256": "39e220d4d80b2f1fcb972874806d38d7ac0353cfd7d12ea13b68ed190fb886dc",
+      "source": "generated for QR Card Studio with local alpha normalization",
+      "sourceRecord": "source/wandering-swordsman-embed-v3.md",
+      "variant": "brown-mackerel-tabby-inspired-standard-geometry",
+      "usage": "online embed Wandering Swordsman v3, chosen grip-free sample passing Codex review: arms folded with both paws inside the sleeves, bundle on the back, sheathed sword through the sash, head turned toward the screen-left QR"
+    },
+    {
+      "id": "orbital-ranger-embed",
+      "file": "orbital-ranger-embed-v5.png",
+      "sha256": "957b83b90e643120c042410568d31d6127911c344cad05b1bb640c1a9fd03fe0",
+      "source": "generated for QR Card Studio with local alpha normalization",
+      "sourceRecord": "source/orbital-ranger-embed-v5.md",
+      "variant": "moonpoint-watcher",
+      "usage": "online embed Orbital Rescue Ranger v5, chosen grip-free sample passing Codex review: floating with legs tucked, rescue cord coiled across the body, both paws raised beside the face pad side out in a double wave, head turned toward the screen-left QR"
+    },
+    {
+      "id": "bard",
+      "file": "bard-v12.png",
+      "sha256": "f1d9a2793da5c000a8ff80e25ba43ba9eeee9f2bbf0d558493920a9b88e36e5f",
+      "source": "generated for QR Card Studio with local alpha normalization",
+      "sourceRecord": "source/bard-v12.md",
+      "variant": "patchwork-rover",
+      "usage": "online-only Cavalier Troubadour Bard (Patchwork Rover calico) v12, proportion-corrected chosen sample passing Codex review: print-Vizorcat chibi proportions, plumed cavalier hat with two ears above it, striped doublet and cape, no instrument, both paws raised beside the shoulders pad side out in a ta-da toward the screen-left QR"
+    },
+    {
+      "id": "gothic-belle",
+      "file": "gothic-belle-v7.png",
+      "sha256": "1a53e82b285b17c15937d5c5030a2531a4883645f86b31142434b78787a001c9",
+      "source": "generated for QR Card Studio with local alpha normalization",
+      "sourceRecord": "source/gothic-belle-v7.md",
+      "variant": "pearl-dreamer",
+      "usage": "online-only Night Blossom goth-fashion companion (Pearl Dreamer odd-eyed white) v7, proportion-corrected chosen sample passing Codex review: print-Vizorcat chibi proportions, haughty chin-up pose with half-lidded odd eyes toward the screen-left QR, bat between the ears copying the pose, silver bat charm choker, capelet covering both arms, spiderweb lace hem"
+    },
+    {
+      "id": "arcane-scholar",
+      "file": "arcane-scholar-v4.png",
+      "sha256": "86ab7c9cb190dcb14571d6dce877bc17e3ae57e4de0cf1e3ec3f1f6be127f412",
+      "source": "generated for QR Card Studio with local alpha normalization",
+      "sourceRecord": "source/arcane-scholar-v4.md",
+      "variant": "split-face-tortoiseshell-standard-geometry",
+      "usage": "online-only star-keeper scholar v4 (Night Academic: split-face tortoiseshell, new coat on the Standard geometry), chosen design sample passing Codex review: flat academic cap with a gold star tassel, star-dotted high-collared cape, jabot, brass spyglass at the belt, one paw tracing a small gold constellation toward the screen-left QR and the other raised at the chest; pairs with Midnight"
+    },
+    {
+      "id": "patchwork-jester",
+      "file": "patchwork-jester-v1.png",
+      "sha256": "f6e68f2245b36474105b825568d404ba07f99d97e738218b0bcca9323e85265a",
+      "source": "generated for QR Card Studio with local alpha normalization",
+      "sourceRecord": "source/patchwork-jester-v1.md",
+      "variant": "black-and-white-bicolor-standard-geometry",
+      "usage": "online-only Patchwork Jester (black-and-white bicolor, new coat on the Standard geometry), chosen sample passing Codex review: big-patch cross-stitched outfit in orange, charcoal, cream and olive, floppy cone hood with a cream tassel, long sleeves covering both paws, balancing on a patchwork ball with the head turned toward the screen-left QR"
+    },
+    {
+      "id": "grove-ranger-embed",
+      "file": "grove-ranger-embed-v5.png",
+      "sha256": "2f3adbb407a8a58668b70000e28fa271c4cc9f49ca0198095656a675c2fcfb4f",
+      "source": "generated for QR Card Studio with local alpha normalization",
+      "sourceRecord": "source/grove-ranger-embed-v5.md",
+      "variant": "fluffy-warden",
+      "usage": "online embed Crimson Grove Ranger v5, chosen sample passing Codex review: leaning toward the screen-left QR with both paws raised open at chest height, tail up, bow and quiver on the back; pairs with Meadow"
+    },
+    {
+      "id": "pixel-gamer",
+      "file": "pixel-gamer-v3.png",
+      "sha256": "5b4709152ff691266645c47543f092a4895dedd8e703dbff13cc94b4bcfa7fe3",
+      "source": "generated for QR Card Studio with local alpha normalization",
+      "sourceRecord": "source/pixel-gamer-v3.md",
+      "variant": "ginger-and-white-bicolor-standard-geometry",
+      "usage": "online-only Pixel Gamer v3 (ginger-and-white bicolor, new coat on the Standard geometry), chosen sample passing Codex review: navy hoodie with a pixel-heart patch, round pixel glasses on the hood, handheld console on a lanyard, both paws raised in a level-up pose toward the screen-left QR; pairs with Pixel"
+    },
+    {
+      "id": "snow-surveyor-embed",
+      "file": "snow-surveyor-embed-v2.png",
+      "sha256": "45a38b286acb627a2f561d08f5ebcdc5be927f40d5eab22e3f62600f84f74137",
+      "source": "generated for QR Card Studio with local alpha normalization",
+      "sourceRecord": "source/snow-surveyor-embed-v2.md",
+      "variant": "siberian-snowfield-explorer",
+      "usage": "online embed Snow Surveyor v2, chosen sample passing Codex review: head tipped back catching snowflakes on its tongue, both paws tucked into the fur cuffs like a muff, lantern hanging from the backpack strap, facing the screen-left QR; pairs with Frost"
+    },
+    {
+      "id": "stonehold-warden-embed",
+      "file": "stonehold-warden-embed-v2.png",
+      "sha256": "c5de644dfc39224d0e703586647ced086e5bce31e2adcb1449fc2ebd6b57c317",
+      "source": "generated for QR Card Studio with local alpha normalization",
+      "sourceRecord": "source/stonehold-warden-embed-v2.md",
+      "variant": "manx-inspired-celtic-warden",
+      "usage": "online embed Stonehold Warden v2, chosen sample passing Codex review: standing proud with both arms folded across the chest, war hammer slung across the back, braided ruff, helmet and red cape, facing the screen-left QR"
+    },
+    {
+      "id": "hearthlight-host-embed",
+      "file": "hearthlight-host-embed-v2.png",
+      "sha256": "82ab493c56a431520163b05043dea7c0829e8a147edc263ec48422a1d3368abd",
+      "source": "generated for QR Card Studio with local alpha normalization",
+      "sourceRecord": "source/hearthlight-host-embed-v2.md",
+      "variant": "burmese-inspired-standard-geometry",
+      "usage": "online embed Hearthlight Host v2, chosen sample passing Codex review: both paws raised open in a warm welcome, wrapped gift box on the ground at its feet, green hood and quilted red coat, facing the screen-left QR"
     }
   ]
 }

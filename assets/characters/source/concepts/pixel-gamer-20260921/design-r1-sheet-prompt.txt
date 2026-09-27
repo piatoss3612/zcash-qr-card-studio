@@ -1,0 +1,17 @@
+Use case: a character-design option sheet for the embed Vizorcat "Pixel Gamer", which pairs with a pale lavender-blue "Pixel" card style. Draw exactly three full-body characters side by side on one landscape canvas (1536 × 1024), left to right 1–3, clearly separated with empty space between them, each turned three-quarters toward screen-left with its head and gaze toward screen-left.
+
+Drawing style: crisp pixel-art-adjacent rendering like references 1–2 (the print Classic Guardian and Samurai): chunky stepped outlines, flat cel shading, a limited palette, rich small details. Proportions come FIRST, exactly like reference 3: the head (chin to the top of the ears) is as tall as the entire body below the chin; the head is as wide as or wider than the shoulders; a short, round body and very short stubby legs with small round feet.
+
+Each option is a DIFFERENT cat with its own memorable identity (a natural coat plus one permanent feature), all dressed as a cheerful retro gamer: an oversized hoodie in navy, indigo or periwinkle with a small pixel-heart patch, a chunky gaming headset around the neck or over the ears (with both cat ears clearly free), and a small handheld game console hanging on a lanyard around its neck (no paw holds it). The mood is a proud "level up!" victory moment: both paws raised beside the shoulders, open, pad sides facing the viewer, with a big delighted grin. No black one-eyed cat, no Siamese/colorpoint coat, no calico, no tortoiseshell, no black-and-white.
+
+1 — Cream tabby with faint ginger stripes, a pink freckled nose and amber eyes; headset over the hood.
+2 — Solid lilac (soft lavender-gray) cat with gold eyes and a tiny heart-shaped white patch on its chest; headset around the neck.
+3 — Ginger-and-white bicolor with a white blaze down the nose and green eyes; round pixel glasses pushed up on its forehead.
+
+References (attached in this order):
+1–2. The print Classic Guardian and Samurai — the drawing style.
+3. The Vizorcat proportion reference — the body proportions to match exactly.
+4. The approved Vizorcat paw sheet.
+
+For all three: both arms clearly visible, never one-armed; both feet visible on the ground. Every paw has exactly four toe beans (two at the top, one lower on each side) around one palm pad, like panel A of the paw sheet, drawn large and clearly readable; no paw grips anything; no fingers, thumbs or knuckles. Exactly two cat ears, each drawn once at normal length, free of the headset; nothing else looks like an ear. Non-sexual chibi animal mascot. No text, letters, numbers, runes, religious or occult symbols, brand logos, game-controller button letters, QR codes, frames, motion lines, ground shadow or scenery. The console screen is plain green with no picture.
+Background: transparent alpha if available; otherwise one perfectly flat pure #00FF00 chroma-key green. One image.

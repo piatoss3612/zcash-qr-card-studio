@@ -1,0 +1,17 @@
+Use case: a character pose option sheet for the embed Vizorcat "Snow Surveyor", so the user can choose one. Draw exactly three full-body figures of the SAME character side by side on one landscape canvas (1536 × 1024), left to right 1–3, clearly separated with empty space between them, each turned three-quarters toward screen-left with its head and gaze toward screen-left.
+
+The character (keep exactly, from reference 1): a silver-gray tabby with amber eyes, snow goggles raised on its head, a white-and-red padded snow suit with a fluffy fur trim at the cuffs and collar, a backpack, and a small brass lantern.
+
+Three different moments:
+1 — Snowflake catcher: head tipped back, tongue out to catch a few tiny falling snowflakes, eyes squeezed happily, both paws tucked into its fluffy fur-trimmed cuffs held together in front like a muff; the lantern hangs from the backpack strap.
+2 — Lighting the way: lifting the brass lantern high toward screen-left by its thin top ring, held in one smooth mitten paw exactly like panel C, the other paw tucked into its fur cuff at its side; eyes bright, peering ahead.
+3 — Snowdrift hop: a springy little hop toward screen-left over a small snowdrift at its feet, knees tucked, arms swinging back with both paws tucked into the fur cuffs, the lantern swinging from the backpack strap, a delighted grin.
+
+References (attached in this order):
+1. The print Snow Surveyor — identity, outfit, props and the finished drawing style (outline weight, stepped pixel-art-adjacent edges, cel shading, rich detail).
+2–3. The print Samurai and Classic Guardian — drawing style. The Samurai's paw closed around its fan handle is the model for any paw holding a thin handle: one smooth rounded mitten, no fingers.
+4. The Vizorcat proportion reference — match its chubby proportions (head about half of the height, short body, very short legs).
+5. The approved Vizorcat paw sheet (panel C: a paw closed around a thin handle as one smooth mitten).
+
+Each option must show this character's own personality through a distinct body pose — NOT a generic pose with both paws raised open. Both arms are always clearly visible (never one-armed); both feet visible. Any paw that holds a thin handle, loop or ribbon is one smooth rounded mitten wrapped around it exactly like panel C, with no finger segments, no thumb and no knuckle lines. Any visible open paw has exactly four toe beans and one palm pad. Exactly two cat ears, each drawn once, through any headwear; nothing else looks like an ear. Non-sexual chibi animal mascot. No text, letters, numbers, runes, religious or occult symbols, logos, QR codes, frames, motion lines, ground shadow or scenery (small falling snowflakes are allowed where stated).
+Background: transparent alpha if available; otherwise one perfectly flat pure #00FF00 chroma-key green. One image.

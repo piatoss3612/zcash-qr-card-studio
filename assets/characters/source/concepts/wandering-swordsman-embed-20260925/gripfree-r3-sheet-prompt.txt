@@ -1,0 +1,11 @@
+Use case: three clean variations of a chosen, grip-free pose for the embed version of the Vizorcat Wandering Swordsman. Draw exactly three full-body figures side by side on one landscape canvas (1536 × 1024), left to right 1–3, clearly separated with empty space between them. All three show the SAME character in the same moment: a proud young wanderer facing screen-left, chin up with a confident little smile: both arms folded across the chest with each paw tucked out of sight inside the opposite wide robe sleeve, the round cloth travel bundle tied on its back with the knot strap crossing the chest, and the still-sheathed sword worn through the sash at the hip with its hilt and the whole scabbard clearly visible.
+
+References (attached in this order):
+1. The pose the user chose earlier — keep its scene idea, outfit, props and personality (but not its gripping paws).
+2. The original Wandering Swordsman from the print family — character identity, coat, eyes, outfit and the finished drawing style (outline weight, stepped pixel-art-adjacent edges, cel shading, rich detail).
+3. The approved Vizorcat paw sheet.
+4. The Vizorcat proportion reference — match these print characters' proportions exactly: head (without headwear) about half of the full height, a short stocky torso, very short legs with round feet.
+
+Paws (critical): both forepaws are completely hidden inside the folded sleeves — no part of either paw shows. No paw grips, clutches or wraps around anything. No separate fingers, thumbs, knuckle lines or human-hand shapes.
+Exactly two cat ears, each drawn once, through any headwear. Very short legs; both feet planted close together under the body, not a walking stride. Non-sexual chibi animal mascot. No text, letters, numbers, runes, religious or occult symbols, logos, QR codes, frames, motion lines, ground shadow or scenery.
+Background: transparent alpha if available; otherwise one perfectly flat pure #00FF00 chroma-key green. One image.

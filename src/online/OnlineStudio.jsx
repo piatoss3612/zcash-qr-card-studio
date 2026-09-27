@@ -46,6 +46,8 @@ function Icon({ kind = "arrow" }) {
   );
 }
 const PAIRED = new Set(Object.values(STYLES).map((style) => style.companion).filter(Boolean));
+/** Hidden from the picker; existing shared cards that use them still render. */
+const RETIRED = new Set(["standard", "samurai", "strongman", "writer"]);
 
 function Arrow() {
   return <Icon />;
@@ -497,7 +499,7 @@ export default function OnlineStudio() {
           <fieldset className="oc-fieldset">
             <legend>Vizorcat</legend>
             <div className="oc-companion-grid" id="oc-companion-options">
-              {Object.entries(COMPANIONS).filter(([id]) => id !== "standard").filter(([id], index) => showAllCompanions || index < 6 || id === "none" || id === draft.companion || PAIRED.has(id)).map(([id, companion]) => (
+              {Object.entries(COMPANIONS).filter(([id]) => !RETIRED.has(id)).filter(([id], index) => showAllCompanions || index < 6 || id === "none" || id === draft.companion || PAIRED.has(id)).map(([id, companion]) => (
                 <button
                   key={id}
                   aria-pressed={draft.companion === id}
@@ -511,7 +513,7 @@ export default function OnlineStudio() {
               ))}
             </div>
             <button type="button" className="oc-companion-more" aria-expanded={showAllCompanions} aria-controls="oc-companion-options" onClick={() => setShowAllCompanions(value => !value)}>
-              {showAllCompanions ? "Show fewer Vizorcats" : `Explore all ${Object.keys(COMPANIONS).filter(id => !["standard", "none"].includes(id)).length} Vizorcats`}
+              {showAllCompanions ? "Show fewer Vizorcats" : `Explore all ${Object.keys(COMPANIONS).filter(id => !RETIRED.has(id) && id !== "none").length} Vizorcats`}
             </button>
           </fieldset>
           <fieldset className="oc-fieldset">

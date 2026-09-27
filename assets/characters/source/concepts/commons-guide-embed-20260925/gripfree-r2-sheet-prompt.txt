@@ -1,0 +1,11 @@
+Use case: three clean variations of a chosen, grip-free pose for the embed version of the Vizorcat Commons Guide. Draw exactly three full-body figures side by side on one landscape canvas (1536 × 1024), left to right 1–3, clearly separated with empty space between them. All three show the SAME character in the same moment: a tour guide calling 'follow me!' toward screen-left: standing still with both feet planted close together under the body, a small blank pennant flag on a short pole tucked behind the satchel strap on its back so the flag rises above one shoulder, one paw raised open toward screen-left, the other paw hidden behind its back, big smile.
+
+References (attached in this order):
+1. The pose the user chose earlier — keep its scene idea, outfit, props and personality (but not its gripping paws).
+2. The original Commons Guide from the print family — character identity, coat, eyes, outfit and the finished drawing style (outline weight, stepped pixel-art-adjacent edges, cel shading, rich detail).
+3. The approved Vizorcat paw sheet.
+4. The Vizorcat proportion reference — match these print characters' proportions exactly: head (without headwear) about half of the full height, a short stocky torso, very short legs with round feet.
+
+Paws (critical): the raised paw is open with the pad side facing the viewer squarely, four toe beans and one palm pad; the other paw is completely hidden behind the back; no paw touches the flag pole. No paw grips, clutches or wraps around anything. No separate fingers, thumbs, knuckle lines or human-hand shapes.
+Exactly two cat ears, each drawn once, through any headwear. Very short legs; both feet planted close together under the body, not a walking stride. Non-sexual chibi animal mascot. No text, letters, numbers, runes, religious or occult symbols, logos, QR codes, frames, motion lines, ground shadow or scenery.
+Background: transparent alpha if available; otherwise one perfectly flat pure #00FF00 chroma-key green. One image.

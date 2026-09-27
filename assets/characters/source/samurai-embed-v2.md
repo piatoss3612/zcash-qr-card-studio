@@ -21,3 +21,7 @@
 - Equipment: exactly one sheathed katana, one command fan; no text or crests beyond the theme's approved gold flower studs.
 - Alpha: the same deterministic local normalization as `airmail-courier-v1.md`; the source already had real transparency. QA `qa/samurai-embed-v2-alpha-qa.jpg` over #fbf8f1, #0f1124, #ff00ff: no fringe, checkerboard or green residue; ears, crest, fan, paws, tail and scabbard inside the frame.
 - Scale: PNG 1199 × 1312, alpha bounds (24,24)–(1175,1288), silhouette 1151 × 1264. Centered 500 × 650 at `defaultScale` 1.0: `min(500/1199, 650/1312) × 1264 = 527.1px` (510–590px). Online Signature box 130 × 162 at 100%: alpha height 137.0px (print Samurai 137.2px).
+
+## Retired from the picker
+
+- 2026-09-25: at the user's request ("oni samurai를 samurai로 변경하고 기존 samurai는 제거하자") the embed picker no longer offers this Samurai; the oni-armoured `oni` companion is now labelled "Samurai". The `samurai` id, its label (now "Shogun Samurai") and this file stay in `src/online/card-data.js` so cards already shared with it keep rendering.

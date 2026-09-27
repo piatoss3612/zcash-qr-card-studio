@@ -1,0 +1,17 @@
+Use case: a grip-free pose option sheet for the embed Vizorcat "Stonehold Warden", so the user can choose one. Draw exactly three full-body figures of the SAME character side by side on one landscape canvas (1536 × 1024), left to right 1–3, clearly separated with empty space between them, each turned three-quarters toward screen-left with its head and gaze toward screen-left.
+
+The character (keep exactly, from reference 1): a brown tabby with amber eyes, a long braided beard-like ruff and a curled mustache, an iron helmet with both ears through it, scale armor with shoulder plates, a belt, a red cape; its square-headed war hammer is now slung across its back with the handle over one shoulder (no paw touches it).
+
+Three different moments:
+1 — Stalwart: standing proud facing screen-left with both arms folded across the chest, both paws tucked under the opposite arms so no paw shows, chin up with a warm smile under the mustache.
+2 — Hail, friend: both paws raised open beside the shoulders in a hearty greeting, pad sides facing the viewer, a big grin toward screen-left.
+3 — Toast of the hall: a jolly laugh with the head tipped back, both paws raised at chest height, pad sides facing the viewer.
+
+References (attached in this order):
+1. The print Stonehold Warden — identity, outfit, props and the finished drawing style (outline weight, stepped pixel-art-adjacent edges, cel shading, rich detail). Its paws grip props; do NOT copy that — no paw holds anything.
+2–3. The print Samurai and Classic Guardian — drawing style.
+4. The Vizorcat proportion reference — match its chubby proportions (head about half of the height, short body, very short legs).
+5. The approved Vizorcat paw sheet.
+
+For all three: both arms clearly visible, never one-armed; both feet visible on the ground. Every visible paw has exactly four toe beans (two at the top, one lower on each side) around one palm pad, like panel A of the paw sheet, drawn large and clearly readable; no paw grips, holds or rests on anything; no fingers, thumbs, knuckles, pointed or blob-like paws. Exactly two cat ears, each drawn once, through any headwear; nothing else looks like an ear. Non-sexual chibi animal mascot. No text, letters, numbers, runes, religious or occult symbols, logos, QR codes, frames, motion lines, ground shadow or scenery.
+Background: transparent alpha if available; otherwise one perfectly flat pure #00FF00 chroma-key green. One image.

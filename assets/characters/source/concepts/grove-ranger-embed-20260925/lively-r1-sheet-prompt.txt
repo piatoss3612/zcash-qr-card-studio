@@ -1,0 +1,18 @@
+Use case: a lively pose option sheet for the embed Vizorcat "Crimson Grove Ranger", so the user can choose one. Draw exactly three full-body figures of the SAME character side by side on one landscape canvas (1536 × 1024), left to right 1–3, clearly separated with empty space between them, each turned three-quarters toward screen-left with its head and gaze toward screen-left.
+
+The character (reference 1, the print Crimson Grove Ranger — keep it exactly): a silver-gray mackerel tabby with a white muzzle and chest and green eyes; a crimson hooded cape with both ears out through the hood and a scalloped cape edge with a gold leaf clasp; a cream tunic with small green leaf embroidery and toggle buttons; a brown belt with a pouch; a short bow and a quiver slung on the back. Same finished drawing style, outline weight, stepped pixel-art-adjacent edges and cel shading as references 1–3, and the same chubby proportions as reference 4 (head about half of the height, short body, very short legs).
+
+Keep the print Ranger's liveliness: a bouncy lean, the cape and the fluffy striped tail swinging with the motion.
+
+1 — Invitation: leaning eagerly toward screen-left on its toes, one paw holding a small blank paper invitation card out toward screen-left, the card resting flat against the rounded paw exactly like panel D ("holding a flat card") of the paw sheet; the other paw raised open beside its cheek in a cheery wave, pad side facing the viewer.
+2 — Skip: a happy little skip toward screen-left with one heel lifted and both feet close to the ground (both visible), both paws raised beside the shoulders, pad sides facing the viewer, a big open smile.
+3 — Warm hello: leaning forward toward screen-left, both paws raised open at chest height, pad sides facing the viewer, tail up high, delighted eyes.
+
+References (attached in this order):
+1. The print Crimson Grove Ranger — identity, outfit and drawing style. (In it one arm is hidden behind the cape; do NOT copy that — both arms must show.)
+2–3. The print Samurai and Classic Guardian — drawing style.
+4. The Vizorcat proportion reference.
+5. The approved Vizorcat paw sheet.
+
+For all three: both arms clearly visible, never one-armed; both feet visible. Every open paw has exactly four toe beans (two at the top, one lower on each side) around one palm pad, like panel A of the paw sheet, drawn large and clearly readable; no pointed or blob-like paw; no fingers, thumbs or knuckles. Exactly two cat ears, each drawn once, through the hood. Non-sexual chibi animal mascot. No text on the card, no letters, numbers, runes, religious or occult symbols, logos, QR codes, frames, motion lines, ground shadow or scenery.
+Background: transparent alpha if available; otherwise one perfectly flat pure #00FF00 chroma-key green. One image.

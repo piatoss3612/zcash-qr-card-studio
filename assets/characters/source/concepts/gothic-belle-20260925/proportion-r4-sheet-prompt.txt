@@ -1,0 +1,21 @@
+Use case: a proportion-corrected pose option sheet for the embed Vizorcat "Gothic Belle" (Night Blossom), so the user can choose one. Draw exactly three full-body characters side by side on one landscape canvas (1536 × 1024), left to right 1–3, clearly separated with empty space between them.
+
+Proportions come FIRST. Gothic Belle must be built on the same chubby chibi body as the print Vizorcats in references 3–5 (Classic Guardian, Samurai, Grove Ranger, Wandering Swordsman):
+- The head (chin to the top of the ears, not counting the bat) is as tall as the entire body below the chin. Head and body are each about half of the figure's height.
+- The head is as wide as, or wider than, the shoulders; big round eyes.
+- A short, round, stocky body; very short stubby legs — the skirt's lace hem sits just above small round feet in short strap shoes, with only a little leg and the lace ankle ruffles showing.
+
+References (attached in this order):
+1. A head crop of the approved Gothic Belle — use it for the face, the white coat, the odd eyes (blue on the character's right, amber on its left), the small eyelash flicks and the little black bat with a small purple bow perched between the ears.
+2. An outfit crop of the approved Gothic Belle — use it ONLY for the outfit details: the layered deep-purple bat-wing capelet with a black rose corsage, purple lacing and bows; the black choker with a small silver bat charm; the black skirt with a hem of black spiderweb lace and small bat trims. Keep all this decorative detail, but the approved figure is too slender — make the outfit short and round to fit the chibi body.
+3. The Vizorcat proportion reference — the body proportions to match exactly.
+4–5. The print Samurai and Classic Guardian — the finished drawing style (outline weight, stepped pixel-art-adjacent edges, cel shading, rich detail) and body proportions.
+6. The approved Vizorcat paw sheet.
+
+Three different moments that show a prim, aloof, secretly sweet gothic belle. In every option: both arms are folded under the capelet so it covers both of them evenly (no paw shows, as in the approved design); the head is turned three-quarters toward screen-left; the black choker with its small silver bat charm is clearly visible at the neck; both feet stand on the ground and both are visible.
+1 — Demure: standing neatly, the upper eyelids lowered over the top third of each eye (half-lidded, prim), both pupils sitting in the screen-left corners of the eyes, a tiny closed-mouth smile; the bat spreads its wings.
+2 — Haughty: chin raised high, looking down its nose toward screen-left with half-lidded eyes (upper lids covering the top third of each eye) and one eyebrow raised, a tiny "hmph" pout; the bat copies the pose.
+3 — Tiny curtsy: knees bent in a small curtsy with both feet visible side by side, the skirt hem swaying, eyes softly closed in a sweet demure smile; the bat on the head peeks forward.
+
+For all three: never hide just one arm — either both arms show or the capelet covers both evenly. No paw is visible in any option; no fingers, thumbs or knuckles anywhere. Exactly two cat ears, each drawn once at normal length; the bat's own two small ears are clearly part of the bat. Short legs with both feet on the ground. Non-sexual chibi animal mascot, cute rather than glamorous. No text, letters, numbers, religious or occult symbols (no crosses, pentagrams or skulls), logos, QR codes, frames, motion lines, ground shadow or scenery.
+Background: transparent alpha if available; otherwise one perfectly flat pure #00FF00 chroma-key green. One image.

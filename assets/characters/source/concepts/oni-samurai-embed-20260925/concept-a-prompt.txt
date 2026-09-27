@@ -1,0 +1,14 @@
+Use case: embed pose of an existing Vizorcat companion for online Zcash support cards. On these cards the QR code always sits on the screen-left side of the character, and the character is shown small (about 140 px tall), so the face must be clearly visible and the silhouette compact. It will pair with an ivory washi-paper card style (#f3eee2) with indigo wave patterns and vermilion accents, and must also read on dark cards.
+
+Reference 1 (attached, authoritative for the character and rendering): the current Oni Samurai companion, drawn for printed cards. Keep this exact individual: the charcoal-gray one-eyed Boss cat with pink inner ears, its screen-left eye permanently closed with the short scar exactly as shown, and its single open amber eye on screen-right; the navy-and-gold kabuto helmet with the gold crescent crest; navy lacquered armor with gold scrollwork, crimson cords, tassels and knots; the pink-padded round paws and long charcoal tail. Match its crisp, hard-edged pixel-art rendering, pixel density, dark outlines and flat shading exactly.
+Reference 2 (attached): the One-eyed Boss Variant model sheet — coat, closed-eye side, face and permanent identity. Do not move the closed eye to the other side and do not mirror the character.
+
+Changes for the embed version:
+- The red oni half-mask is taken off the face and held in the screen-right forepaw at hip height, turned outward so its red face with gold eyes and small white fangs is visible. The cat's own face is now fully visible: muzzle, pink nose and a small confident closed-mouth smile.
+- The naginata is removed entirely; no pole, blade or other weapon anywhere.
+- The screen-left forepaw keeps the inviting open-paw gesture from reference 1, palm up and extended toward screen-left at chest height, but held a little closer to the body.
+- Head turned slightly toward screen-left. Stable compact standing pose with both feet under the body, the tail curling up behind. The head stays about 46–50% of full-body height, with the stocky short body of reference 1. Overall silhouette compact and roughly 4:5 tall.
+- Add a thin, subtle cool-gray rim highlight along the outer edge of the charcoal fur and navy armor so the character separates from a dark background; the rest of the palette is unchanged.
+
+Strictly no text, letters, kanji, crests with glyphs, logos, QR codes, frames, blossoms, ground shadow, scenery or extra props. Exactly one mask.
+Background: transparent alpha if available; otherwise one perfectly flat pure #00FF00 chroma-key green with no gradient, texture or checkerboard. Full character, both ears, crest, tail, paws and mask entirely inside the frame with generous margin. One image.
