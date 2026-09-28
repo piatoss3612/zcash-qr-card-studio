@@ -329,10 +329,21 @@ cuffs and its lantern on the backpack strap; the Stonehold Warden folds its
 arms with the hammer slung on its back; and the Hearthlight Host welcomes with
 both paws, its gift box at its feet. The Alchemist keeps its v1 pose (holding
 up the flask with its homunculus): the user preferred it to the grip-free
-redraws, although its flask paw does not meet the current paw standard.
+redraws.
 The Pixel Gamer was redesigned the same day with its console on a lanyard and
 both paws raised in a level-up pose. Each is a chosen sample used exactly as
 generated.
+On 2026-09-28 the paw standard was relaxed: paws may hold props, curl or tuck,
+toe beans are not counted, and only a paw that reads as a human hand at card
+size fails (see `.claude/skills/vizorcat/references/lessons.md`). The grip-free
+redraws above stay. The same day the Blueprint Architect (v2) holds a
+half-unrolled blueprint up with its pencil tucked behind its ear, the Airmail
+Courier (v2) holds an envelope up beside its face to check the address, and the
+Aurora Photographer (v3) looks up at the sky with its camera lowered in both
+paws; the user chose each pose from an option sheet (records
+`blueprint-architect-v2.md`, `airmail-courier-v2.md`,
+`aurora-photographer-v3.md`). The Terminal Sysadmin keeps its v1 pose, which the
+user liked.
 Because the catalog ids are unchanged, cards that were already shared with
 these Vizorcats show the new poses. The earlier embed Samurai (id `samurai`:
 hanbo removed, smiling, rim-lit) left the picker on 2026-09-25 when the oni

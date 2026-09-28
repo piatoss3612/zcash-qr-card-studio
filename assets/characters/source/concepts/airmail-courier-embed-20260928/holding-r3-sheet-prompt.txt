@@ -1,0 +1,22 @@
+Use case: a pose option sheet for the embed Vizorcat "Airmail Courier", so the user can choose one. Draw exactly three full-body figures of the SAME character side by side on one landscape canvas (1536 × 1024), left to right 1–3, clearly separated with wide empty space between them, each turned three-quarters toward screen-left with its head and gaze toward screen-left.
+
+Proportions come FIRST. Build the character on the same chubby chibi body as the print Vizorcats in the proportion reference:
+- The head (chin to the top of the ears, without the cap) is as tall as the entire body below the chin; head and body are each about half of the figure's height.
+- The head is as wide as, or wider than, the shoulders; big round eyes.
+- A short, round, stocky body; very short stubby legs with small round feet.
+
+References (attached in this order):
+1. A crop of the current Airmail Courier's head — take the navy courier cap (brown band, one brass button) and the face from it. Its left edge is cropped on purpose; the full face and coat are the Classic Guardian's (reference 3).
+2–3. The print Samurai and Classic Guardian — the finished drawing style (outline weight, stepped pixel-art-adjacent edges, cel shading, rich detail). The Classic Guardian is also this cat's exact coat and face.
+4. The Vizorcat proportion reference — the body proportions to match exactly.
+5. The Vizorcat paw sheet — how the paws are drawn (round, thick outline, cel shading).
+
+The character (keep exactly): the gray-and-white Standard Vizorcat — gray coat with a white blaze, white muzzle, white chest, white paw tips and a white tail tip, golden-yellow eyes on both sides, pink nose. Outfit: the navy courier cap with both cat ears clearly visible beside it, a red neckerchief, a brown leather messenger satchel on a strap across the body. Envelopes are plain cream airmail envelopes with red-and-blue striped borders and a red wax seal, no writing.
+
+Three different moments that show a cheerful, dependable mail courier, each handling the mail naturally:
+1 — Special delivery: holding one sealed envelope out toward screen-left in both paws, arms extended a little, head tilted with a big smile, as if handing it over.
+2 — Checking the address: holding the envelope up beside its face in one paw and peering at it with a curious squint of both eyes (both eyes stay open and golden), the other paw on the satchel strap at its chest.
+3 — Tip of the cap: one paw tipping the cap's brim in a polite greeting toward screen-left, the other paw holding an envelope against its chest; a warm grin.
+
+For all three: both arms clearly visible, never one-armed; both feet visible on the ground. Paws are round cat paws in the style of the paw sheet; they hold the props naturally, but never become human hands (no long separated fingers, pointing finger or nails). Exactly two cat ears, each drawn once at normal length, beside the cap; nothing else looks like an ear. Non-sexual chibi animal mascot. No text, letters, numbers, runes, religious or occult symbols, logos, QR codes, frames, motion lines, ground shadow or scenery.
+Background: transparent alpha if available; otherwise one perfectly flat pure #00FF00 chroma-key green. One image.

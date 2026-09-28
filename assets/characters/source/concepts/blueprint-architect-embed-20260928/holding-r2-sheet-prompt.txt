@@ -1,0 +1,22 @@
+Use case: a pose option sheet for the embed Vizorcat "Blueprint Architect", so the user can choose one. Draw exactly three full-body figures of the SAME character side by side on one landscape canvas (1536 × 1024), left to right 1–3, clearly separated with wide empty space between them, each turned three-quarters toward screen-left with its head and gaze toward screen-left.
+
+Proportions come FIRST. Build the character on the same chubby chibi body as the print Vizorcats in the proportion reference:
+- The head (chin to the top of the ears) is as tall as the entire body below the chin; head and body are each about half of the figure's height.
+- The head is as wide as, or wider than, the shoulders; big round eyes.
+- A short, round, stocky body; very short stubby legs with small round feet.
+
+References (attached in this order):
+1. A head crop of the current Blueprint Architect — take the face, coat colour, forehead bars, ears and emerald eyes from it exactly. It has no body on purpose; build the body from the proportion reference.
+2–3. The print Samurai and Classic Guardian — the finished drawing style (outline weight, stepped pixel-art-adjacent edges, cel shading, rich detail).
+4. The Vizorcat proportion reference — the body proportions to match exactly.
+5. The Vizorcat paw sheet — how the paws are drawn (round, thick outline, cel shading).
+
+The character (keep exactly): a ruddy orange ticked tabby with dark forehead bars, a cream muzzle and chin, emerald-green eyes on both sides, a slender tail with a dark tip, no headwear. Outfit: a cream shirt with rolled sleeves, a mustard work vest with pockets and brass buttons, short baggy brown work trousers rolled up so the legs stay very short and the round feet sit right under the body, a small brass measuring tape at the hip. Props: a yellow pencil and a blue blueprint with white grid lines only.
+
+Three different moments that show a calm, clever builder, each holding its tools naturally:
+1 — Sketching: a small clipboard with a blue grid sheet held against its chest in the screen-right arm, the pencil held in the other paw sketching on it, tongue poking out a little in concentration, glancing up toward screen-left as if checking the view.
+2 — Here's the plan: the blueprint half unrolled and held up in both paws toward screen-left to show its grid, a proud smile; the pencil tucked behind one ear.
+3 — Measuring up: pulling the brass measuring tape out toward screen-left, the tape case in one paw and the tape's end tab in the other (the yellow tape shows plain tick marks, no numbers), one eyebrow raised, focused.
+
+For all three: both arms clearly visible, never one-armed; both feet visible on the ground. Paws are round cat paws in the style of the paw sheet; they hold the props naturally, but never become human hands (no long separated fingers, pointing finger or nails). Exactly two cat ears, each drawn once at normal length; nothing else looks like an ear. Non-sexual chibi animal mascot. No text, letters, numbers, runes, religious or occult symbols, logos, QR codes, frames, motion lines, ground shadow or scenery.
+Background: transparent alpha if available; otherwise one perfectly flat pure #00FF00 chroma-key green. One image.

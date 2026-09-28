@@ -16,5 +16,5 @@
 ## Gates
 
 - Identity: compared at equal height with the Moonpoint Watcher front turnaround. Ivory body, symmetric seal mask, seal ears, paws and tail, sapphire eyes and round skull match; no gray-and-white Standard coat carried over. Both ears visible beside the beret.
-- Alpha: the same deterministic local normalization as `airmail-courier-v1.md`; the source already had real transparency. QA `qa/editorial-writer-v2-alpha-qa.jpg` over #fbf8f1, #0f1124, #ff00ff: no fringe, checkerboard or green residue; pen, notebook ribbon, paws and tail inside the frame.
+- Alpha: the same deterministic local normalization as `airmail-courier-v1.md` (archived on 2026-09-28; alpha < 24 → 0, ≥ 240 → 255, RGB zeroed under transparent pixels, trimmed, 24 px padding); the source already had real transparency. QA `qa/editorial-writer-v2-alpha-qa.jpg` over #fbf8f1, #0f1124, #ff00ff: no fringe, checkerboard or green residue; pen, notebook ribbon, paws and tail inside the frame.
 - Scale: PNG 1079 × 1310, alpha bounds (24,24)–(1055,1286), silhouette 1031 × 1262. Centered 500 × 650 at `defaultScale` 1.0: `min(500/1079, 650/1310) × 1262 = 584.8px` (510–590px). Online Signature box 130 × 162 at 100%: alpha height 152.1px.

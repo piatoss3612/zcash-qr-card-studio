@@ -19,7 +19,7 @@
 - Proportion lock: compared with the print Samurai trimmed to equal height on #182322. Pose, head size, head-to-body ratio, leg length, command fan, katana and tail match.
 - Changes: the hanbo is gone from the face, neck and chest (the breastplate now starts at the neck); a small closed-mouth smile and softer brow replace the stern mask; subtle gray rim highlights outline the ears, head, paws and tail. Armor plates stay navy with crimson and gold as in the theme.
 - Equipment: exactly one sheathed katana, one command fan; no text or crests beyond the theme's approved gold flower studs.
-- Alpha: the same deterministic local normalization as `airmail-courier-v1.md`; the source already had real transparency. QA `qa/samurai-embed-v2-alpha-qa.jpg` over #fbf8f1, #0f1124, #ff00ff: no fringe, checkerboard or green residue; ears, crest, fan, paws, tail and scabbard inside the frame.
+- Alpha: the same deterministic local normalization as `airmail-courier-v1.md` (archived on 2026-09-28; alpha < 24 → 0, ≥ 240 → 255, RGB zeroed under transparent pixels, trimmed, 24 px padding); the source already had real transparency. QA `qa/samurai-embed-v2-alpha-qa.jpg` over #fbf8f1, #0f1124, #ff00ff: no fringe, checkerboard or green residue; ears, crest, fan, paws, tail and scabbard inside the frame.
 - Scale: PNG 1199 × 1312, alpha bounds (24,24)–(1175,1288), silhouette 1151 × 1264. Centered 500 × 650 at `defaultScale` 1.0: `min(500/1199, 650/1312) × 1264 = 527.1px` (510–590px). Online Signature box 130 × 162 at 100%: alpha height 137.0px (print Samurai 137.2px).
 
 ## Retired from the picker

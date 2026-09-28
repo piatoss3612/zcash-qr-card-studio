@@ -103,9 +103,9 @@ export const COMPANIONS = {
     label: "Surprised",
     path: "assets/characters/vizorcat-surprised.png",
   },
-  courier: { label: "Airmail Courier", path: "assets/characters/airmail-courier-v1.png" },
-  architect: { label: "Blueprint Architect", path: "assets/characters/blueprint-architect-v1.png" },
-  photographer: { label: "Aurora Photographer", path: "assets/characters/aurora-photographer-v2.png" },
+  courier: { label: "Airmail Courier", path: "assets/characters/airmail-courier-v2.png" },
+  architect: { label: "Blueprint Architect", path: "assets/characters/blueprint-architect-v2.png" },
+  photographer: { label: "Aurora Photographer", path: "assets/characters/aurora-photographer-v3.png" },
   sysadmin: { label: "Terminal Sysadmin", path: "assets/characters/terminal-sysadmin-v1.png" },
   // Retired from the picker on 2026-09-27; existing shared cards still render it.
   writer: { label: "Editorial Writer", path: "assets/characters/editorial-writer-v2.png" },
