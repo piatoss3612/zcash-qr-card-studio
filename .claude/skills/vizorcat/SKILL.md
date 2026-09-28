@@ -27,7 +27,7 @@ Read `AGENTS.md` first; its identity, alpha and QR gates apply. Then read `refer
    It saves the sheet, a `.meta.json`, isolated figures (`-N-fig.png`), normalized figures (`-N-norm.png`) and a `-view.jpg`. Add `--attach 40`–`90` when props float apart from the body (stars, a hat on the ground).
 3. **Pre-screen.** Look at `-view.jpg` yourself. Drop figures with closed or winking eyes that hide the eye colour when the spec needs it, one-armed poses, coats that drifted, text or symbols. Reviews take minutes each; do not spend them on obvious failures.
 4. **Review.** Write a spec per figure (template in `prompt-template.md`) and run `review <fig-norm.png> --spec spec.txt --out <name>-<N>.review.json` one at a time. A figure is a candidate only with `pass: true` and no issues. Never waive an anatomy finding; you may correct a spec that was itself wrong (see `lessons.md`) and must say so in the record.
-5. **Human check.** `check <norm.png> view.jpg` and zoom into every paw, ear and eye. Show only passing figures to the requester and let them choose. If nothing passes after two rounds, change the approach (pose, reference crop), not just the wording.
+5. **Human check.** `check <norm.png> view.jpg`: zoom into every ear and eye, and judge the paws at card size. Show only passing figures to the requester and let them choose. If nothing passes after two rounds, change the approach (pose, reference crop), not just the wording.
 6. **Register.** Follow `references/registration.md`: run `register`, fill the QA line after looking at the QA sheet, update docs, then `verify` and `npm test`.
 7. **Card check.** Render the character on its paired style and at least one dark style in all four layouts (see `registration.md`) and look at it on the real editor before calling it done.
 
@@ -36,4 +36,5 @@ Read `AGENTS.md` first; its identity, alpha and QR gates apply. Then read `refer
 - Never edit, patch or composite pixels. A chosen sample is used exactly as generated; a fix means a fresh generation.
 - Companion ids are part of the immutable `v=1` card link. Swap `path`, never rename or delete an id; retire through `RETIRED`.
 - Both arms visible, both feet visible, exactly two ears, facing screen-left (the QR side), head about half the height.
+- Paws may hold props, curl or tuck, and toe beans are not counted; only a paw that reads as a human hand at card size (separated fingers, a pointing finger, nails) fails.
 - One image job at a time; no parallel generations or reviews.

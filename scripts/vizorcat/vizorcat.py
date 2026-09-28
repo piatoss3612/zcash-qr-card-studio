@@ -9,7 +9,7 @@ Subcommands (run with -h for details):
   stats      PNG size, alpha bounds, silhouette and card render heights
   holes      count fully transparent pixels enclosed by the silhouette
   check      full view plus a zoomed head-and-paws view for a human check
-  review     structural review by a separate Codex call against the paw sheet
+  review     structural review by a separate Codex call (paw sheet attached as a style example)
   register   register a chosen figure: PNG, record, alpha QA, manifest, catalog
   verify     repository gate: manifest, records, catalog paths and style pairs
 
@@ -281,13 +281,13 @@ def generate(prompt_file, out_dir, name, refs, count, attach):
     print(f"sheet {sheet}\nview  {out_dir / f'{name}-view.jpg'}")
 
 
-REVIEW_PROMPT = """You are a strict art QA reviewer for a mascot character library. Do not generate or edit images and do not touch files. Inspect image 1 closely (zoom into every paw, foot, ear and eye) and compare it with image 2, the approved paw reference sheet: A open paw pad side, B inviting paw palm up, C mitten around a handle, D paw holding a flat card — all from the approved print characters.
+REVIEW_PROMPT = """You are a strict art QA reviewer for a mascot character library. Do not generate or edit images and do not touch files. Inspect image 1 closely (zoom into every paw, foot, ear and eye). Image 2 shows how approved Vizorcat paws are drawn — A open paw pad side, B inviting paw palm up, C mitten around a handle, D paw holding a flat card — as examples of the drawing style, not as the only allowed paw states.
 
 Character expectations:
 {spec}
 
 Checklist — fail the image if any item is violated:
-1. forepaws: every forepaw must match one of the approved paw states A–D in image 2 in construction and finish: a generous rounded feline paw (as large relative to the head as in A–D), a crisp thick dark outline, two-tone cel shading, a softly scalloped toe edge, and — where the pad side shows — exactly four toe beans and one palm pad. FAIL for separate fingers, a thumb, a pointing finger, knuckles or a glove/human-hand silhouette. ALSO FAIL for a featureless, blurry or smudged blob: a paw with no clear outline, no toe edge or no shading structure, or one clearly smaller or softer than the rest of the drawing. Check each forepaw separately and say which state it should be.
+1. forepaws: paws are round cat paws drawn in the same style as the rest of the figure. They may hold or grip props, curl, tuck into sleeves or pockets, rest on things or show the pad side, whatever the pose needs; a closed or curled paw is fine, and toe beans are not counted. FAIL only when a paw reads as a human hand at the size a card shows the figure (about 150 px tall): long separated fingers, a pointing index finger, nails, or a human-hand silhouette. A small crease or a thumb-like bump that only shows when zoomed in is not a failure. Say briefly how each forepaw is drawn.
 2. hind_legs: very short legs with round feet, both feet on the ground under the body (unless the expectations say it floats), no stride, no crossed legs, no visible foot soles, no long humanoid legs.
 3. ears: exactly two cat ears, each drawn once, normal length; nothing ear-like under a hat brim or hood.
 4. eyes: exactly two eyes matching the expectations (colors and sides), same size, no extra eyes.

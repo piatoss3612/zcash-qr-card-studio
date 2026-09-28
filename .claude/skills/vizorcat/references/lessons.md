@@ -5,10 +5,9 @@ Each point cost several rounds to learn. Apply them before the first generation.
 ## References get copied — defects included
 
 - The model copies whatever the references show, including their flaws. Inspect every reference at zoom before attaching it.
-- The print Orbital Ranger draws three toe beans per paw; every round copied that until the paws were erased from the reference (`concepts/orbital-ranger-embed-20260925/gripfree-r8-identity-reference-no-paws.png`).
 - A full-body Bard reference carried its long body into every redraw; a head-and-hat crop fixed the proportions (`concepts/bard-20260925/proportion-r3-head-reference.png`). Same for the Gothic Belle: head crop plus an outfit crop with the legs removed.
 - A patchwork style swatch that still showed the source cat's calico face turned a black-and-white cat calico. Erase faces and coats from style swatches.
-- The pose you liked on an earlier sheet is a scene idea, not a reference to attach, if its paws failed: the new figures reproduce the gripping paw.
+- A pose you liked on an earlier sheet is a scene idea, not a reference to attach, if something in it failed: the new figures reproduce the flaw.
 
 ## Proportions
 
@@ -18,13 +17,13 @@ Each point cost several rounds to learn. Apply them before the first generation.
 
 ## Paws and poses
 
-- Gripping or resting paws fail almost every time: they come out with fingers, a thumb or as featureless blobs. Lanterns, hammers, flasks, gift boxes, straps and hilts all failed.
-- What passes: open paws with the pad side toward the viewer held close to the body (shoulder or face height, elbows bent); outstretched arms tend to lose a toe bean. Symmetric hides also pass: both paws in long sleeves or fur cuffs, arms folded, both arms under a capelet, both behind a mace or behind the back.
-- Hiding only one arm reads as one-armed. Never do it.
-- A thin handle can pass as one smooth mitten (panel C, like the Samurai's fan), but expect retries; a flat card rests against a rounded paw (panel D).
-- Carry props without paws: hang a lantern from a backpack strap, sling a hammer across the back, set a gift at the feet, put a creature in an apron pocket, hang a console on a lanyard.
+- Paws may hold, grip, curl or tuck. From 2026-09-25 to 2026-09-27 the reviews failed every gripping paw and demanded four toe beans on every pad; redraws drifted to open pads facing the viewer, and on 2026-09-28 the requester dropped that rule: the holding and curled paws in the earlier art were fine ("기존 손디자인도 별 문제 없긴 하잖아. 뭔갈 쥐고 있다던가 움추리고 있다던가").
+- The only paw failure is a paw that reads as a human hand at card size (about 150 px tall): long separated fingers, a pointing index finger, nails. A crease or a thumb-like bump that shows only when zoomed in is fine; judge the paws at card size before you regenerate.
+- Do not pick poses just to show the pads. Open pads toward the viewer everywhere make the roster look the same as "both paws up" does.
+- Hiding one arm reads as one-armed. Never do it.
+- Holding the character's own prop is often the most natural pose (a pencil, a camera, a mug). Slinging, hanging or pocketing a prop is an option when the pose needs free paws, not a requirement.
 - A whole roster of "both paws up" looks generic. Give each character an action of its own (catching snowflakes, arms folded like a warden, balancing on a ball) — the requester notices sameness quickly.
-- A figure that fails the paw rule can still be the better character. The Alchemist kept its v1 flask pose because the requester preferred it; record that choice instead of hiding it.
+- The requester's preference wins over a clean review. The Alchemist kept its v1 flask pose because the requester preferred it; record that choice instead of hiding it.
 
 ## Sheets, reviews and choices
 
@@ -32,7 +31,7 @@ Each point cost several rounds to learn. Apply them before the first generation.
 - Editing a figure to fix one detail degrades the rest. Regenerate instead.
 - Pre-screen the sheet before review: closed eyes that hide an eye colour the spec requires, a wink, a gaze toward screen-right, one foot hidden behind a curtsy.
 - Review variance is real: the same pixels can pass once and fail once. Record both reviews when you accept a figure after a disputed finding.
-- Correct a spec only when the spec was wrong, and write the correction in the record. Examples: the original design already had dark trousers or an ECG chest display; a bat's feet are not cat forepaws; a partly hidden bow on the back is normal. Toe-bean counts, fingers, blobs and extra ears are never spec errors.
+- Correct a spec only when the spec was wrong, and write the correction in the record. Examples: the original design already had dark trousers or an ECG chest display; a bat's feet are not cat forepaws; a partly hidden bow on the back is normal. Human-hand paws and extra ears are never spec errors.
 - Show the requester only passing figures and let them pick. Ask before swapping a scene they chose for a different one.
 
 ## Tooling traps

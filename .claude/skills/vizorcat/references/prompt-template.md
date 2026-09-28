@@ -13,35 +13,35 @@ Proportions come FIRST. Build the character on the same chubby chibi body as the
 - A short, round, stocky body; very short stubby legs with small round feet.
 
 References (attached in this order):
-1. <An identity reference — a head crop, an outfit crop with legs removed, or a full figure whose paws and proportions you have checked. Say what to take from it and what NOT to copy.>
+1. <An identity reference — a head crop, an outfit crop with legs removed, or a full figure whose proportions you have checked. Say what to take from it and what NOT to copy.>
 2–3. The print Samurai and Classic Guardian — the finished drawing style (outline weight, stepped pixel-art-adjacent edges, cel shading, rich detail).
 4. The Vizorcat proportion reference — the body proportions to match exactly.
-5. The approved Vizorcat paw sheet.
+5. The Vizorcat paw sheet — how the paws are drawn (round, thick outline, cel shading).
 
-The character (keep exactly): <coat and markings, eye colours by side, one permanent feature, outfit pieces, props and where each prop is carried without a paw holding it>.
+The character (keep exactly): <coat and markings, eye colours by side, one permanent feature, outfit pieces, props and how each one is carried — held, slung, worn or pocketed>.
 
 Three different moments that show <personality>:
 1 — <moment with a pose only this character would strike>
 2 — <…>
 3 — <…>
 
-For all three: both arms clearly visible, never one-armed; both feet visible on the ground. Every visible paw has exactly four toe beans (two at the top, one lower on each side) around one palm pad, like panel A of the paw sheet, drawn large and clearly readable; no paw grips or rests on anything; no fingers, thumbs, knuckles, pointed or blob-like paws. Exactly two cat ears, each drawn once at normal length, through or in front of any headwear; nothing else looks like an ear. Non-sexual chibi animal mascot. No text, letters, numbers, runes, religious or occult symbols, logos, QR codes, frames, motion lines, ground shadow or scenery.
+For all three: both arms clearly visible, never one-armed; both feet visible on the ground. Paws are round cat paws in the style of the paw sheet; they may hold the props, curl or tuck wherever the moment needs, but never become human hands (no long separated fingers, pointing finger or nails). Exactly two cat ears, each drawn once at normal length, through or in front of any headwear; nothing else looks like an ear. Non-sexual chibi animal mascot. No text, letters, numbers, runes, religious or occult symbols, logos, QR codes, frames, motion lines, ground shadow or scenery.
 Background: transparent alpha if available; otherwise one perfectly flat pure #00FF00 chroma-key green. One image.
 ```
 
 Variations that worked:
 
 - Design sheets: make each of the three figures a different cat (coat plus one feature) in the same moment, to choose a design before choosing a pose.
-- A thin handle: "held in one smooth mitten paw exactly like panel C", and add to reference 2–3 that the Samurai's fan paw is the model.
+- Holding a prop: name the grip ("the pencil held in its paw", "the camera held up in both paws"). For a thin handle, "held in one smooth mitten paw like panel C" with the Samurai's fan as the model keeps the paw round.
 - Symmetric hides: "both paws tucked into the fur cuffs held together like a muff", "arms folded with both paws tucked under the opposite arms", "both arms folded under the capelet so it covers both evenly".
 
 ## Review spec (one per figure)
 
 ```text
-<Name> (<context>): <coat, eyes by side, outfit, props with "(intended prop; no paw touches it)" where true>.
+<Name> (<context>): <coat, eyes by side, outfit, props and how each is carried: "(intended prop; held in the screen-left paw)", "(intended prop; slung on the back)">.
 Pose: <the moment, including intended closed eyes or winks: "eyes closed (intended; closed eyes are correct)">.
 Both arms clearly visible (fail if the figure reads as one-armed); both feet visible.
-Every paw shown must have exactly four toe beans and one palm pad; no paw grips, holds or rests on anything; fail for finger segments, thumbs, knuckle lines, pointed paws and featureless blob paws.
+Paws may hold props, curl or tuck; fail only for a paw that reads as a human hand at card size (long separated fingers, a pointing finger, nails).
 Proportions: head about half of the full height, short stocky body, very short legs, like the print Vizorcats.
 Decorative trims are not extra props. Known false positive: in a three-quarter view the nearer eye may look slightly larger than the farther one.
 ```
