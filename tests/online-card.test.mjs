@@ -467,7 +467,7 @@ test("names and introductions at their length limits render in full on every car
 
 test("surface styles draw local artwork around a white QR tile without changing payment", async () => {
   const original = await validateCard(base);
-  const surfaces = { aurora: /id="au-violet"/, blueprint: /id="bp-grid"/, airmail: /id="am-stripes"/, frost: /id="fr-x"/, washi: /id="wa-fan"/, ticket: /stroke-dasharray="0.1 7"/, receipt: /id="rc-rows"/, meadow: /id="mw-fade"/, bigtop: /id="bt-fade"/, velvet: /id="vl-lace"/ };
+  const surfaces = { aurora: /id="au-violet"/, blueprint: /id="bp-grid"/, airmail: /id="am-stripes"/, frost: /id="fr-x"/, washi: /id="wa-fan"/, ticket: /stroke-dasharray="0.1 7"/, receipt: /id="rc-rows"/, meadow: /id="mw-fade"/, bigtop: /id="bt-fade"/, velvet: /id="vl-lace"/, notebook: /id="nb-rule"/ };
   for (const [style, marker] of Object.entries(surfaces))
     for (const layout of Object.keys(LAYOUTS)) {
       const card = await validateCard({ ...base, style, layout });

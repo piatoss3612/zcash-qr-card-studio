@@ -360,6 +360,15 @@
       "sourceRecord": "source/aurora-photographer-v3.md",
       "variant": "fluffy-warden",
       "usage": "online embed Aurora Photographer v3 (Fluffy Warden): looking up toward the QR side at the sky in wonder, vintage camera lowered and held in both paws; pairs with Aurora"
+    },
+    {
+      "id": "balloonist",
+      "file": "balloonist-v1.png",
+      "sha256": "ebb6500acb4e4610bbe3c0270bcdf40058eda2f5d2255c58cecd5ef6d803f263",
+      "source": "generated for QR Card Studio with local alpha normalization",
+      "sourceRecord": "source/balloonist-v1.md",
+      "variant": "lavender-grey-plush-button-eyed-standard-geometry",
+      "usage": "online embed Balloonist v1: a plush cat holding a cobalt balloon string in its screen-left paw, facing the screen-left QR; pairs with its own card style"
     }
   ]
 }

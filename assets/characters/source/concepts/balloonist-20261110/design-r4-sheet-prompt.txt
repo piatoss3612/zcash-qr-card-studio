@@ -1,0 +1,23 @@
+Use case: a design option sheet for the embed Vizorcat "Paper Balloonist", so the user can choose a design. Draw exactly three full-body figures in the SAME pose side by side on one landscape canvas (1536 × 1024), left to right 1–3, clearly separated with wide empty space between them, each turned three-quarters toward screen-left with its head and gaze toward screen-left. The three figures are three different designs of a hand-sewn stuffed plush cat with mismatched button eyes.
+
+Proportions come FIRST. Build every figure on the same chubby chibi body as the print Vizorcats in the proportion reference:
+- The head (chin to the top of the ears) is as tall as the entire body below the chin; head and body are each about half of the figure's height.
+- The head is as wide as, or wider than, the shoulders.
+- A short, round, stocky body; very short stubby legs with small round feet.
+
+References (attached in this order):
+1–2. The print Classic Guardian and the print Samurai — the finished drawing style (outline weight, stepped pixel-art-adjacent edges, cel shading, rich detail). Take the drawing style only; do NOT copy their coats, eyes, outfits or props.
+3. The Vizorcat proportion reference — the body proportions to match exactly.
+4. The Vizorcat paw sheet — how the paws are drawn (round, thick outline, cel shading).
+
+Shared by all three: a simple, well-loved stuffed plush cat, firmly stuffed and standing upright, charming and cosy with just a touch of handmade oddness. A plain cat face: NO hair, NO wig, NO glasses, no hat. Fine dotted seam lines only at the sides of the head, around the ear bases, down the limbs and around the tail; nothing stitched across the face. Mismatched button eyes: the screen-left eye is a medium glossy black two-hole button, the screen-right eye is a slightly larger cobalt-blue four-hole button that matches the balloon; both are level, sewn on neatly with dark thread, each with one small highlight. A small pink felt triangle nose, a short gentle closed-mouth smile embroidered in dark thread, three thin thread whiskers on each cheek, pink felt inner ears, a plush tail. One prop: a single plain cobalt-blue balloon with one soft pale highlight, a thick dark outline, a small knot and a short thin dark string, about as large as the cat's head and close to the cat.
+
+The pose (identical on all three): standing relaxed, holding the balloon's short string in its screen-left paw, the paw a smooth round mitten closed around the string at chest height; the balloon floats just above and slightly to screen-left of the head, close to it; the other arm hangs relaxed at its side, fully visible.
+
+The three designs:
+1 — Oatmeal-cream linen-plush body, wearing only a short bright red knitted scarf tied once around the neck with two short ends; no other clothing.
+2 — Soft lavender-grey plush body, wearing a plain bright red crew-neck knit sweater with a short hem that ends at the hips; bare plush legs and feet.
+3 — Warm light-grey plush body with one charcoal-black fabric patch marking that covers the screen-right ear and the top of the head beside it (a coat-colour patch, flat, part of the body fabric), wearing the same plain bright red crew-neck knit sweater with a short hem.
+
+For all three: both arms clearly visible, never one-armed; both feet visible on the ground. Paws are round plush cat paws in the style of the paw sheet; they may hold the string, but never become human hands (no long separated fingers, pointing finger or nails). Exactly two cat ears, each drawn once at normal length; nothing else looks like an ear. No stuffing coming out, no scars, no stitched mouth line across the cheeks, no safety pins. Non-sexual chibi animal mascot. No text, letters, numbers, runes, religious or occult symbols, logos, QR codes, frames, motion lines, ground shadow or scenery.
+Background: transparent alpha if available; otherwise one perfectly flat pure #00FF00 chroma-key green. One image.

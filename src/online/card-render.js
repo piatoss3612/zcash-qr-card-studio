@@ -17,6 +17,7 @@ export const CARD_FONTS = {
   meadow: "assets/fonts/geist-bold.woff2",
   bigtop: "assets/fonts/space-grotesk-variable.woff2",
   velvet: "assets/fonts/zarathustra-v01.woff2",
+  notebook: "assets/fonts/geist-bold.woff2",
 };
 const MONO_BIO = new Set(["terminal", "blueprint", "receipt"]);
 /** Variable name faces declare their range so the requested weight is real, not synthesized. */
@@ -52,8 +53,50 @@ function isLight(hex) {
   return 0.2126 * r + 0.7152 * g + 0.0722 * b > 140;
 }
 
+/**
+ * Single-stroke lowercase letters for Notebook's crayon caption, on a grid with the baseline
+ * at 0, the x-height at 6 and ascenders at 10. Each glyph is [advance, ...strokes].
+ */
+const CRAYON_GLYPHS = {
+  a: [6, "5,5 3,6 1,5 0,3 1,1 3,0 5,1", "5,6 5,0"],
+  b: [6.5, "0,10 0,0", "0,4 2,6 4,6 5.5,4 5.5,2 4,0 2,0 0,2"],
+  e: [6, "0.5,3 5.5,3 5,5 3,6 1,5 0,3 1,1 3,0 5,1"],
+  h: [6, "0,10 0,0", "0,4 2,6 4,6 5,4.5 5,0"],
+  k: [5.5, "0,10 0,0", "4.5,6 0,2.5", "1.5,3.7 5,0"],
+  l: [1.5, "0.5,10 0.5,0"],
+  m: [9.4, "0,6 0,0", "0,4.5 1.5,6 3,6 4.2,4.5 4.2,0", "4.2,4.5 5.7,6 7.2,6 8.4,4.5 8.4,0"],
+  n: [6, "0,6 0,0", "0,4.5 2,6 4,6 5,4.5 5,0"],
+  o: [6.5, "3,6 1,5 0,3 1,1 3,0 5,1 6,3 5,5 3,6"],
+  t: [5, "2,9.5 2,1 3,0 4.5,0.5", "0,6 4.2,6"],
+  u: [6, "0,6 0,1.5 1.5,0 3.5,0 5,1.5", "5,6 5,0"],
+  y: [6, "0,6 2.7,0.5", "5.4,6 2.7,0.5 1.2,-3 0,-3.5"],
+  "!": [2, "0.7,10 0.7,3.2", "0.7,0.4 0.7,0"],
+  " ": [4],
+};
+const NOTEBOOK_CAPTION = "buy me a balloon";
+
+/** Path data for the caption, centred on `cx`, scaled to fit `maxWidth`, with a hand-written wobble. */
+function crayonCaption(text, cx, baseline, maxWidth, maxUnit = 1.4) {
+  const glyphs = [...text].map((char) => CRAYON_GLYPHS[char] ?? CRAYON_GLYPHS[" "]);
+  const gap = 1.8;
+  const units = glyphs.reduce((sum, [advance]) => sum + advance + gap, -gap);
+  const unit = Math.min(maxUnit, maxWidth / units);
+  let x = cx - (units * unit) / 2;
+  let d = "";
+  glyphs.forEach(([advance, ...strokes], i) => {
+    const lift = (((i * 5) % 3) - 1) * 0.4;
+    for (const stroke of strokes)
+      d += "M" + stroke.split(" ").map((point) => {
+        const [px, py] = point.split(",").map(Number);
+        return `${(x + px * unit).toFixed(1)},${(baseline - (py + lift) * unit).toFixed(1)}`;
+      }).join("L");
+    x += (advance + gap) * unit;
+  });
+  return { d, unit };
+}
+
 /** Style surfaces stay clear of the QR tile, its quiet zone and the text column. */
-function surface(style, theme, geo, { amount = false } = {}) {
+function surface(style, theme, geo, { amount = false, layout } = {}) {
   const { width: W, height: H, qr, textX, textWidth, logo } = geo;
   const portrait = W < H;
   // The Vizorcat's zone: right of the text column, or right of the QR in Portrait.
@@ -346,6 +389,52 @@ function surface(style, theme, geo, { amount = false } = {}) {
       edge: DARK_EDGE,
     };
   }
+  if (style === "notebook") {
+    // A doodled notebook page. Faint rules sit behind the Vizorcat and a red margin line runs
+    // beside the copy; crayon doodles fill the space around the Vizorcat's default spot: a wobbly
+    // border, a cloud, stars, a heart, a purple scribble with grass and a flower under its feet,
+    // and a caption below the scribble (above the Vizorcat in Compact, which has no room below).
+    const top = Math.max(zoneY + 12, logo.y + logo.size + 16);
+    let rules = "";
+    for (let y = top; y < H - 8; y += 22) rules += `M${zoneX},${y}H${W}`;
+    const spot = companionBox({ layout });
+    const floor = spot.y + spot.h;
+    const [gx0, gx1, gy] = [zoneX + 16, W - 14, floor - 4];
+    let scribble = `M${gx0},${gy}`;
+    for (let x = gx0, i = 0; x < gx1; x += 7, i++)
+      scribble += `L${Math.min(x + 7, gx1)},${gy + (i % 2 ? 5 : -5) + ((i * 7) % 3) - 1}`;
+    const below = H - floor >= 28;
+    const caption = crayonCaption(NOTEBOOK_CAPTION, (zoneX + W) / 2, below ? floor + 21 : spot.y - 9, W - zoneX - 28);
+    const f = (v) => v.toFixed(1);
+    const star = (cx, cy, r) => `<path d="M${[0, 1, 2, 3, 4].map((k) => { const t = ((-90 + k * 144) * Math.PI) / 180; return `${f(cx + r * Math.cos(t))},${f(cy + r * Math.sin(t))}`; }).join("L")}Z" stroke="#dc9a12" stroke-width="1.8"/>`;
+    const heart = (cx, cy, k = 1) => `<path d="M${f(cx)},${f(cy + 6 * k)}C${f(cx - 10 * k)},${f(cy - 2 * k)} ${f(cx - 4 * k)},${f(cy - 9 * k)} ${f(cx)},${f(cy - 3 * k)}C${f(cx + 4 * k)},${f(cy - 9 * k)} ${f(cx + 10 * k)},${f(cy - 2 * k)} ${f(cx)},${f(cy + 6 * k)}Z" stroke="#d1452f" fill="#d1452f" fill-opacity=".28"/>`;
+    const balloon = (cx, cy) => `<ellipse cx="${f(cx)}" cy="${f(cy)}" rx="7" ry="8.5" stroke="#d1452f" fill="#d1452f" fill-opacity=".22"/><path d="M${f(cx)},${f(cy + 8.5)}q-4,7 0,12t-1,9" stroke="#d1452f" stroke-width="1.6"/>`;
+    const swirl = (cx, cy) => `<path d="M${f(cx)},${f(cy)}a2,2 0 1 1 3,2a4.5,4.5 0 1 1 -6,-5a7,7 0 1 1 9,9" stroke="#4f9a4a"/>`;
+    const cloud = (cx, cy) => `<path d="M${f(cx - 22)},${f(cy + 10)}a10,10 0 0 1 1,-19a13.5,13.5 0 0 1 24,-6a11,11 0 0 1 19,9a8.5,8.5 0 0 1 -1,16Z" stroke="#4f86d6" fill="#fff" fill-opacity=".75"/>`;
+    const grass = (x) => `<path d="M${x},${gy + 3}l-3,-10M${x + 3},${gy + 3}l0,-13M${x + 6},${gy + 3}l4,-10" stroke="#4f9a4a"/>`;
+    const flower = (x) => `<path d="M${x},${gy + 3}v-16" stroke="#4f9a4a"/><circle cx="${x}" cy="${gy - 17}" r="4.5" stroke="#d1452f" fill="#f4b728" fill-opacity=".7"/>`;
+    // Doodles keep to the strips beside the default spot and the corner next to the logo.
+    const right = Math.min(W - 15, spot.x + spot.w + 13);
+    const left = spot.x - 14;
+    const doodles = [
+      portrait ? cloud(W - 46, logo.y + logo.size + 34) : cloud(Math.min(zoneX + (W - zoneX) * 0.3, logo.x - 34), logo.y + logo.size / 2 + 4),
+      below && spot.y - logo.y - logo.size > 50 ? balloon(right, spot.y - 18) : "",
+      star(right, spot.y + spot.h * 0.24, 8.5),
+      heart(right - 1, spot.y + spot.h * 0.5, 1.3),
+      swirl(right - 2, spot.y + spot.h * 0.76),
+      left > zoneX + 9 ? star(left, spot.y + spot.h * 0.4, 6.5) + heart(left, spot.y + spot.h * 0.7, 1.1) : "",
+      grass(gx0 + 2),
+      W - zoneX > 170 ? flower(gx1 - 8) : grass(gx1 - 10),
+    ].join("");
+    const crayon = (id, seed, scale) => `<filter id="${id}" filterUnits="userSpaceOnUse" x="0" y="0" width="${W}" height="${H}"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="${seed}" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="${scale}" xChannelSelector="R" yChannelSelector="G"/></filter>`;
+    return {
+      radius: 10,
+      qrRadius: 4,
+      defs: crayon("nb-crayon", 4, 2.4) + crayon("nb-hand", 9, 1.5) + `<linearGradient id="nb-fade" x1="${zoneX}" x2="${zoneX + 56}" y1="0" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient><mask id="nb-fade-m"><rect x="${zoneX}" y="${top - 4}" width="${W - zoneX}" height="${H - top + 4}" fill="url(#nb-fade)"/></mask>`,
+      back: `<g id="nb-rule" mask="url(#nb-fade-m)"><path d="${rules}" fill="none" stroke="#6f8fc4" stroke-opacity=".34" stroke-width="1.2"/></g><path d="M${zoneX - 4},${portrait ? zoneY + 10 : 10}V${H - (portrait ? 20 : 10)}" fill="none" stroke="#c8413a" stroke-opacity=".5" stroke-width="1.5"/><g id="nb-doodles" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" filter="url(#nb-crayon)"><rect x="5.5" y="5.5" width="${W - 11}" height="${H - 11}" rx="7" stroke="#8a74c9" stroke-opacity=".6" stroke-width="2.6"/><path d="${scribble}" stroke="#8a74c9" stroke-opacity=".6" stroke-width="4"/><g stroke-opacity=".9">${doodles}</g></g><path id="nb-caption" d="${caption.d}" fill="none" stroke="${theme.accent}" stroke-opacity=".88" stroke-width="${Math.max(1.5, caption.unit * 1.35).toFixed(2)}" stroke-linecap="round" stroke-linejoin="round" filter="url(#nb-hand)"/>`,
+      edge: LIGHT_EDGE,
+    };
+  }
   return {};
 }
 
@@ -562,7 +651,7 @@ export async function renderCard(card, loadAsset, { demo = false, qrHint = ["Add
   const character = COMPANIONS[card.companion].path;
   const art = character ? await loadAsset(character) : null;
   const artBox = companionBox(card);
-  const decor = surface(card.style, theme, geo, { amount: Boolean(card.amount) });
+  const decor = surface(card.style, theme, geo, { amount: Boolean(card.amount), layout: card.layout });
   const amount = card.amount ? `${card.amount} ZEC` : "";
 
   // Text boxes end above the QR (Signature, Portrait), beside it (Compact) or above the call to action (Profile).

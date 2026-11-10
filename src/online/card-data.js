@@ -93,6 +93,11 @@ export const STYLES = {
     bg: "#2a1631", ink: "#f7e9f3", muted: "#d0b5cb",
     accent: "#c9a0dc", border: "#4b2d54", companion: "goth",
   },
+  notebook: {
+    label: "Notebook", description: "Ruled paper with crayon doodles.",
+    bg: "#f6f0e0", ink: "#1f2433", muted: "#62656f",
+    accent: "#2f49b8", border: "#dcd3bd", companion: "balloonist",
+  },
 };
 export const COMPANIONS = {
   classic: {
@@ -131,6 +136,7 @@ export const COMPANIONS = {
   scholar: { label: "Arcane Scholar", path: "assets/characters/arcane-scholar-v4.png" },
   goth: { label: "Gothic Belle", path: "assets/characters/gothic-belle-v7.png" },
   jester: { label: "Patchwork Jester", path: "assets/characters/patchwork-jester-v1.png" },
+  balloonist: { label: "Balloonist", path: "assets/characters/balloonist-v1.png" },
   none: { label: "No Vizorcat", path: null },
 };
 export const CARD_LOGOS = {

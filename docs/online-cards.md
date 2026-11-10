@@ -259,7 +259,14 @@ curtain hanging straight down below a scalloped valance, inside a dotted marquee
 frame, with a Space Grotesk name; its stripes never radiate from a point, so
 the card cannot read as the Rising Sun flag. Velvet is deep plum
 with a faint diamond damask and a scalloped lace hem with eyelets under the
-Vizorcat, inside a fine frame, with a Zarathustra name. These surfaces stay outside the
+Vizorcat, inside a fine frame, with a Zarathustra name. Notebook is a cream
+doodled notebook page: faint blue rules behind the Vizorcat, a red margin line
+beside the copy and crayon doodles around the Vizorcat's default spot (a wobbly
+purple border, a cloud by the corner logo, stars, hearts, a swirl, a small red
+balloon, and a purple scribble with grass and a flower under its feet), plus a
+cobalt crayon caption, "buy me a balloon", drawn as single-stroke paths (no
+font) under the scribble, or above the Vizorcat in Compact where there is no
+room below. These surfaces stay outside the
 QR, its quiet zone and the text column. Every QR sits on a white square,
 including its four-module quiet zone; Aurora and Airmail round the square's
 corners inside the quiet zone. Compact shares the same
@@ -267,11 +274,12 @@ ZIP-321 request and density checks as Signature, and its dimensions flow through
 preview, PNG export and HTML embeds. Layouts are saved in editing links.
 
 The Vizorcat gallery (labeled **Vizorcat** in the editor; the serialized field
-remains `companion`) includes 20 characters plus No Vizorcat: Vizorcat,
+remains `companion`) includes 21 characters plus No Vizorcat: Vizorcat,
 Airmail Courier, Blueprint Architect, Aurora Photographer, Terminal Sysadmin,
 Pixel Gamer, Wayfinder, Orbital Ranger, Grove Ranger, Samurai,
 Commons Guide, Snow Surveyor, Stonehold Warden, Hearthlight Host, Alchemist,
-Wandering Swordsman, Bard, Arcane Scholar, Gothic Belle and Patchwork Jester. Six are shown initially; Explore all
+Wandering Swordsman, Bard, Arcane Scholar, Gothic Belle, Patchwork Jester and
+Balloonist. Six are shown initially; Explore all
 reveals the full collection. Airmail Courier (Standard), Blueprint Architect
 (Lithe Scout), Aurora Photographer (Fluffy Warden), Terminal Sysadmin (Round
 Guardian) and Pixel Gamer (a ginger-and-white bicolor since 2026-09-27)
@@ -279,9 +287,9 @@ are online-only Vizorcats made to pair with the
 Airmail, Blueprint, Aurora, Terminal and Pixel styles; Bard pairs with
 Editorial, Snow
 Surveyor pairs with Frost, Samurai with Washi, Commons Guide with Ticket, Grove
-Ranger with Meadow, Patchwork Jester with Big Top, Gothic Belle with Velvet and
-Arcane Scholar with Midnight. The gallery marks the selected style's pair with
-**Match**, and all thirteen pairs stay in the collapsed gallery.
+Ranger with Meadow, Patchwork Jester with Big Top, Gothic Belle with Velvet,
+Balloonist with Notebook and Arcane Scholar with Midnight. The gallery marks the selected style's pair with
+**Match**, and all fourteen pairs stay in the collapsed gallery.
 
 Bard, Arcane Scholar and Gothic Belle (added 2026-09-25) are online-only
 Vizorcats that also introduce three new coats on the Standard geometry: a
@@ -303,6 +311,16 @@ Standard geometry) in big cross-stitched patches of orange, charcoal, cream and
 olive, a floppy cone hood with a tassel and long sleeves that cover its paws,
 balancing on a patchwork ball. No face paint and no playing-card suits. Its
 record is `patchwork-jester-v1.md`.
+
+Balloonist (added 2026-11-10) is an online-only Vizorcat made to go with
+the requester's profile drawing (a crayon figure with a blue balloon on ruled
+paper) without copying its human features. It is a hand-sewn plush cat:
+lavender-grey fabric with dotted seams, mismatched button eyes (a small black
+button and a larger cobalt one), a red knit sweater and a cobalt balloon on a
+short string. The button eyes and plush body are a requester-approved
+exception to the Standard eye construction. It pairs with the Notebook style,
+added with it, which carries the drawing's ruled paper and crayon. Its record
+is `balloonist-v1.md`.
 
 Every Vizorcat that also appears in the print editor has an embed-specific
 pose; the print editor keeps the original files. The Classic Guardian waves
