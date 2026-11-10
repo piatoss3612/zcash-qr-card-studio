@@ -266,8 +266,9 @@ purple border, a cloud by the corner logo, stars, hearts, a swirl, a small red
 balloon, and a purple scribble with grass and a flower under its feet), plus a
 cobalt crayon caption, "buy me a balloon", drawn as single-stroke paths (no
 font) under the scribble, or above the Vizorcat in Compact where there is no
-room below. When the Vizorcat is moved or resized, the scribble, grass, flower
-and caption are left out, along with any doodle it would cover. These surfaces stay outside the
+room below. The doodles stay when the Vizorcat is moved or resized; if an
+enlarged Vizorcat would cover the caption, the caption is written under the
+cloud and the corner logo instead. These surfaces stay outside the
 QR, its quiet zone and the text column. Every QR sits on a white square,
 including its four-module quiet zone; Aurora and Airmail round the square's
 corners inside the quiet zone. Compact shares the same
