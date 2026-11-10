@@ -96,7 +96,7 @@ function crayonCaption(text, cx, baseline, maxWidth, maxUnit = 1.4) {
 }
 
 /** Style surfaces stay clear of the QR tile, its quiet zone and the text column. */
-function surface(style, theme, geo, { amount = false, layout } = {}) {
+function surface(style, theme, geo, { amount = false, layout, box } = {}) {
   const { width: W, height: H, qr, textX, textWidth, logo } = geo;
   const portrait = W < H;
   // The Vizorcat's zone: right of the text column, or right of the QR in Portrait.
@@ -394,6 +394,8 @@ function surface(style, theme, geo, { amount = false, layout } = {}) {
     // beside the copy; crayon doodles fill the space around the Vizorcat's default spot: a wobbly
     // border, a cloud, stars, a heart, a purple scribble with grass and a flower under its feet,
     // and a caption below the scribble (above the Vizorcat in Compact, which has no room below).
+    // When the Vizorcat is moved or resized, the ground and caption go and so does any doodle it
+    // would cover, so an enlarged Vizorcat never sits on half a caption.
     const top = Math.max(zoneY + 12, logo.y + logo.size + 16);
     let rules = "";
     for (let y = top; y < H - 8; y += 22) rules += `M${zoneX},${y}H${W}`;
@@ -416,22 +418,25 @@ function surface(style, theme, geo, { amount = false, layout } = {}) {
     // Doodles keep to the strips beside the default spot and the corner next to the logo.
     const right = Math.min(W - 15, spot.x + spot.w + 13);
     const left = spot.x - 14;
+    const moved = box && [box.x - spot.x, box.y - spot.y, box.w - spot.w, box.h - spot.h].some((d) => Math.abs(d) > 1);
+    const covered = (x, y) => moved && x > box.x + box.w * 0.08 && x < box.x + box.w * 0.92 && y > box.y + box.h * 0.05 && y < box.y + box.h;
+    const [cloudX, cloudY] = portrait ? [W - 46, logo.y + logo.size + 34] : [Math.min(zoneX + (W - zoneX) * 0.3, logo.x - 34), logo.y + logo.size / 2 + 4];
     const doodles = [
-      portrait ? cloud(W - 46, logo.y + logo.size + 34) : cloud(Math.min(zoneX + (W - zoneX) * 0.3, logo.x - 34), logo.y + logo.size / 2 + 4),
-      below && spot.y - logo.y - logo.size > 50 ? balloon(right, spot.y - 18) : "",
-      star(right, spot.y + spot.h * 0.24, 8.5),
-      heart(right - 1, spot.y + spot.h * 0.5, 1.3),
-      swirl(right - 2, spot.y + spot.h * 0.76),
-      left > zoneX + 9 ? star(left, spot.y + spot.h * 0.4, 6.5) + heart(left, spot.y + spot.h * 0.7, 1.1) : "",
-      grass(gx0 + 2),
-      W - zoneX > 170 ? flower(gx1 - 8) : grass(gx1 - 10),
-    ].join("");
+      [cloudX, cloudY, cloud(cloudX, cloudY)],
+      below && spot.y - logo.y - logo.size > 50 ? [right, spot.y - 18, balloon(right, spot.y - 18)] : null,
+      [right, spot.y + spot.h * 0.24, star(right, spot.y + spot.h * 0.24, 8.5)],
+      [right, spot.y + spot.h * 0.5, heart(right - 1, spot.y + spot.h * 0.5, 1.3)],
+      [right, spot.y + spot.h * 0.76, swirl(right - 2, spot.y + spot.h * 0.76)],
+      left > zoneX + 9 ? [left, spot.y + spot.h * 0.4, star(left, spot.y + spot.h * 0.4, 6.5)] : null,
+      left > zoneX + 9 ? [left, spot.y + spot.h * 0.7, heart(left, spot.y + spot.h * 0.7, 1.1)] : null,
+    ].filter((doodle) => doodle && !covered(doodle[0], doodle[1])).map((doodle) => doodle[2]).join("")
+      + (moved ? "" : grass(gx0 + 2) + (W - zoneX > 170 ? flower(gx1 - 8) : grass(gx1 - 10)));
     const crayon = (id, seed, scale) => `<filter id="${id}" filterUnits="userSpaceOnUse" x="0" y="0" width="${W}" height="${H}"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="${seed}" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="${scale}" xChannelSelector="R" yChannelSelector="G"/></filter>`;
     return {
       radius: 10,
       qrRadius: 4,
       defs: crayon("nb-crayon", 4, 2.4) + crayon("nb-hand", 9, 1.5) + `<linearGradient id="nb-fade" x1="${zoneX}" x2="${zoneX + 56}" y1="0" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient><mask id="nb-fade-m"><rect x="${zoneX}" y="${top - 4}" width="${W - zoneX}" height="${H - top + 4}" fill="url(#nb-fade)"/></mask>`,
-      back: `<g id="nb-rule" mask="url(#nb-fade-m)"><path d="${rules}" fill="none" stroke="#6f8fc4" stroke-opacity=".34" stroke-width="1.2"/></g><path d="M${zoneX - 4},${portrait ? zoneY + 10 : 10}V${H - (portrait ? 20 : 10)}" fill="none" stroke="#c8413a" stroke-opacity=".5" stroke-width="1.5"/><g id="nb-doodles" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" filter="url(#nb-crayon)"><rect x="5.5" y="5.5" width="${W - 11}" height="${H - 11}" rx="7" stroke="#8a74c9" stroke-opacity=".6" stroke-width="2.6"/><path d="${scribble}" stroke="#8a74c9" stroke-opacity=".6" stroke-width="4"/><g stroke-opacity=".9">${doodles}</g></g><path id="nb-caption" d="${caption.d}" fill="none" stroke="${theme.accent}" stroke-opacity=".88" stroke-width="${Math.max(1.5, caption.unit * 1.35).toFixed(2)}" stroke-linecap="round" stroke-linejoin="round" filter="url(#nb-hand)"/>`,
+      back: `<g id="nb-rule" mask="url(#nb-fade-m)"><path d="${rules}" fill="none" stroke="#6f8fc4" stroke-opacity=".34" stroke-width="1.2"/></g><path d="M${zoneX - 4},${portrait ? zoneY + 10 : 10}V${H - (portrait ? 20 : 10)}" fill="none" stroke="#c8413a" stroke-opacity=".5" stroke-width="1.5"/><g id="nb-doodles" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" filter="url(#nb-crayon)"><rect x="5.5" y="5.5" width="${W - 11}" height="${H - 11}" rx="7" stroke="#8a74c9" stroke-opacity=".6" stroke-width="2.6"/>${moved ? "" : `<path d="${scribble}" stroke="#8a74c9" stroke-opacity=".6" stroke-width="4"/>`}<g stroke-opacity=".9">${doodles}</g></g>${moved ? "" : `<path id="nb-caption" d="${caption.d}" fill="none" stroke="${theme.accent}" stroke-opacity=".88" stroke-width="${Math.max(1.5, caption.unit * 1.35).toFixed(2)}" stroke-linecap="round" stroke-linejoin="round" filter="url(#nb-hand)"/>`}`,
       edge: LIGHT_EDGE,
     };
   }
@@ -651,7 +656,7 @@ export async function renderCard(card, loadAsset, { demo = false, qrHint = ["Add
   const character = COMPANIONS[card.companion].path;
   const art = character ? await loadAsset(character) : null;
   const artBox = companionBox(card);
-  const decor = surface(card.style, theme, geo, { amount: Boolean(card.amount), layout: card.layout });
+  const decor = surface(card.style, theme, geo, { amount: Boolean(card.amount), layout: card.layout, box: card.companion === "none" ? null : companionBox(card) });
   const amount = card.amount ? `${card.amount} ZEC` : "";
 
   // Text boxes end above the QR (Signature, Portrait), beside it (Compact) or above the call to action (Profile).
